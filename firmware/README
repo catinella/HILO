@@ -1,0 +1,47 @@
+
+
+
+
+
+
+
+	Flowchart diagram:
+
+	                START
+	                  |
+	      +---------->|
+	      |           |
+	      |   +---------------+
+	      |   | Hardware data |   Input pins status and analog ports reading
+	      |   |   reading     |
+	      |   +-------+-------+
+	      |           |
+	      |   +-------+-------+
+	      |   | Data sending  |   Data sending trough UDP/IP channel
+	      |   +-------+-------+
+	      |           |
+	      |   +-------+-------+
+	      |   | Waiting for   |
+	      |   | PC's data     |
+	      |   +-------+-------+
+	      |           |
+		|           /\
+	      |          /  \
+	      |         /    \  NO
+	      |        / New  \
+	      |        \ data /---------+
+	      |         \ ?  /          |
+	      |          \  / YES       |
+		|           \/            |
+		|           |             |
+	      |   +-------+-------+     |
+		|   |  Data reading |     |
+	      |   +-------+-------+     |
+		|           |             |
+	      |   +-------+-------+     |
+		|   | Output update |     |
+	      |   +-------+-------+     |
+		|           |             |
+		|           +-------------+
+		|           |
+		+-----------+
