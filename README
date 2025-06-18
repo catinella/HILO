@@ -20,6 +20,27 @@
 
 	But the smarter companies use advanced and complicated devices that allow them to test their electronic products remotely,
 	in deeper and easier way. These tools are very sophisticated and programmable simulator, where they can simulate the
-	external environment is realistic and releiable way. These tools class is calle HILO.
+	external environment is realistic and releiable way. These tools class is called HILOi (Hardware In the LOop).
 
-	This project want to provide an economic and very very simple HILO. 
+	This project aims to provide an economic and very very simple HILO. This one has less and more limited features,
+	obviousely.
+	
+	Test mode vs interactive mode
+	=============================
+	This HILO provides two function mode, in the first (test-mode), you can save a number of output-pins configuration steps,
+	and the frequency of the  change. When the test will start, the HILO will set the output pin following the scheduled sequence
+	and will read the status of every pin you configured as input. In this way you will be able to set the test conditions and
+	check for the DUT answers.
+	In the interactive-mode, after the HILO's pins configuration, you will be able to change the output ones and check for the
+	input ones status, in interacrive way. It is a good way to get an overview on the DUT's behavior, but, because you cannot
+	schedule the changes with a precision time, it is not adequate for real-time interaction.
+
+
+	      +-----------+            +----------+
+	      |           |            |          |              +-------+
+	      | T-console |            |          +------------->|       |
+	      |   (PC)    +----------> |   HILO   +------------->|  DUT  |
+	      |           |            | (device) |   ....       | (PCB) |
+	      +-----------+            |          +------------->|       |
+	                               |          |              +-------+
+		                         +----------+
