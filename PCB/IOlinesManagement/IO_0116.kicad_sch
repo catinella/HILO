@@ -683,6 +683,211 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Transistor_BJT:BC817"
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "Q"
+				(at 5.08 1.905 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "BC817"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+				(at 5.08 -1.905 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC818-D.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "NPN Transistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "SOT?23*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "BC817_0_1"
+				(polyline
+					(pts
+						(xy -2.54 0) (xy 0.635 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.635 1.905) (xy 0.635 -1.905)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 1.27 0)
+					(radius 2.8194)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "BC817_1_1"
+				(polyline
+					(pts
+						(xy 0.635 0.635) (xy 2.54 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.635 -0.635) (xy 2.54 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -1.778) (xy 1.778 -1.27) (xy 2.286 -2.286) (xy 1.27 -1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(pin input line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 5.08 270)
+					(length 2.54)
+					(name "C"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 -5.08 90)
+					(length 2.54)
+					(name "E"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "power:+5V"
 			(power)
 			(pin_numbers
@@ -1036,12 +1241,6 @@
 		)
 	)
 	(junction
-		(at 101.092 42.672)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "0156cf56-300d-4356-9657-6907784401b0")
-	)
-	(junction
 		(at 74.93 172.212)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1054,16 +1253,16 @@
 		(uuid "02c1a09b-4874-4013-8247-55afab659d79")
 	)
 	(junction
-		(at 102.616 124.714)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "07c5cc6f-9c93-455d-b512-0b49d2f2f6f1")
-	)
-	(junction
 		(at 213.36 82.55)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "09255f9c-1eb3-44cf-ae78-6fd4adaa02b1")
+	)
+	(junction
+		(at 49.53 124.206)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0ae2aa24-2429-4656-8b34-17178ac1c891")
 	)
 	(junction
 		(at 244.348 31.242)
@@ -1102,10 +1301,22 @@
 		(uuid "0f817f84-72fb-4b2a-ad9a-3d80b115a6bc")
 	)
 	(junction
+		(at 156.464 97.028)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "11c2d430-db73-4376-b078-f44b41087b56")
+	)
+	(junction
 		(at 263.906 21.336)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "12fbbf2b-c8c0-41d2-a3c5-f5218265aa33")
+	)
+	(junction
+		(at 101.6 70.104)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1472042e-6da5-478f-9015-e7b4fdde882e")
 	)
 	(junction
 		(at 245.11 88.138)
@@ -1118,18 +1329,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "19976bb8-8bfd-4e30-9717-d6de8893c139")
-	)
-	(junction
-		(at 48.514 69.088)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "1dc25a3a-bccb-4221-b519-661b9771f123")
-	)
-	(junction
-		(at 102.108 97.536)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "1ff9f08b-df89-4a26-b8c7-1ec0d8c643d6")
 	)
 	(junction
 		(at 113.03 136.652)
@@ -1166,6 +1365,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "256726d2-2921-41b5-9df0-bbce80407ff1")
+	)
+	(junction
+		(at 156.718 151.13)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "258d9421-2064-4a09-91dc-28d3ee9bd195")
 	)
 	(junction
 		(at 244.856 108.966)
@@ -1222,16 +1427,34 @@
 		(uuid "31930b5b-93c4-4c19-aef6-00967edb756e")
 	)
 	(junction
+		(at 101.092 42.926)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "324cb4cb-5305-41ff-90d5-4603ceac51b7")
+	)
+	(junction
 		(at 155.956 58.42)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "32c02802-f4a9-45c3-ad91-73381ee2e013")
 	)
 	(junction
+		(at 49.022 97.028)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "35476ae5-ae66-4bbb-876a-37e7b32a0e35")
+	)
+	(junction
 		(at 113.284 109.728)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "3a62285b-10f0-4ed7-bc23-0c0f54eba731")
+	)
+	(junction
+		(at 49.276 151.13)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3ea586d4-9227-482c-afff-cf2997eae9ae")
 	)
 	(junction
 		(at 244.856 110.998)
@@ -1324,6 +1547,12 @@
 		(uuid "5b82a824-18f0-4d7d-a91e-824f1aced5ab")
 	)
 	(junction
+		(at 49.784 178.308)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5b83e208-63dc-4e1f-91c5-35da440dcfd3")
+	)
+	(junction
 		(at 264.668 80.264)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1334,6 +1563,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "5cffc278-f839-446c-ad84-3d330be61be6")
+	)
+	(junction
+		(at 48.006 42.164)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5d21a784-e14e-4b2a-aa49-0cff46204fa9")
 	)
 	(junction
 		(at 59.944 135.89)
@@ -1408,6 +1643,18 @@
 		(uuid "6d2bd138-9aa0-4307-99eb-1e69a94bd380")
 	)
 	(junction
+		(at 155.956 69.342)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6fad3206-4748-405b-9b31-cf8966322c62")
+	)
+	(junction
+		(at 102.108 97.79)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "722b6caa-8ddd-4aa4-91a2-008e218a730b")
+	)
+	(junction
 		(at 144.78 85.09)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1468,12 +1715,6 @@
 		(uuid "82cc9548-2f63-4543-9dd4-0b372ed8ee0e")
 	)
 	(junction
-		(at 155.956 69.088)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "857dd810-f1c5-4951-8e2a-48d7f2c4115e")
-	)
-	(junction
 		(at 245.364 129.794)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1516,12 +1757,6 @@
 		(uuid "9104c3b2-1cef-4431-b1a9-dcd7a38812f1")
 	)
 	(junction
-		(at 49.784 178.054)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "970a1d84-4d3a-4672-ba76-ad6fb3d8ecd1")
-	)
-	(junction
 		(at 193.548 113.284)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1534,22 +1769,22 @@
 		(uuid "992d9c4e-d148-4bc8-b5db-63a2c3ccf327")
 	)
 	(junction
+		(at 156.972 124.206)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "995f8fdb-87e4-418b-8822-d9b1ebc155bf")
+	)
+	(junction
 		(at 38.1 166.37)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "9abba524-ee1b-4864-a433-138ef5f37968")
 	)
 	(junction
-		(at 155.448 41.91)
+		(at 155.448 42.164)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "9c99c990-7c18-4c03-9b5d-0d694cf9ce9d")
-	)
-	(junction
-		(at 49.022 96.774)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "9e385d37-fbe5-4c81-8c0b-f3a2016fead1")
+		(uuid "9b899fa7-b51b-450e-8e31-5c9a222ef4be")
 	)
 	(junction
 		(at 145.288 112.268)
@@ -1600,18 +1835,6 @@
 		(uuid "ade0ad24-8a00-4c29-baeb-69b784519ec1")
 	)
 	(junction
-		(at 156.464 96.774)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "adffb249-056b-4fe2-93db-3e988da5413a")
-	)
-	(junction
-		(at 48.006 41.91)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "af39fc28-ced3-4ea4-a1c6-be456bbe0493")
-	)
-	(junction
 		(at 144.272 57.404)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1630,6 +1853,12 @@
 		(uuid "b24bbfe8-009b-45b7-aadd-3b9fed90658b")
 	)
 	(junction
+		(at 102.616 124.968)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b812350a-76ba-471e-a865-9c57221c32f8")
+	)
+	(junction
 		(at 58.674 26.924)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1640,12 +1869,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "bbf54167-1ee3-4004-b86c-4fc900f2bd31")
-	)
-	(junction
-		(at 49.53 123.952)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "bcd037b1-0161-4b56-8a5f-b200180f777c")
 	)
 	(junction
 		(at 112.776 82.55)
@@ -1702,10 +1925,10 @@
 		(uuid "c7808deb-8f0d-4df8-9833-e49359acb40e")
 	)
 	(junction
-		(at 156.718 150.876)
+		(at 102.362 151.892)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "c860d146-d9aa-4bb8-b33d-23e547b09ae2")
+		(uuid "cac06e61-1759-44e2-98c0-0ea25aa97713")
 	)
 	(junction
 		(at 245.11 70.612)
@@ -1760,12 +1983,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e4a664a1-d696-41c9-bf3d-387388d3fbe1")
-	)
-	(junction
-		(at 49.276 150.876)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e4ad5695-db74-496e-9aab-c0afd31277d1")
 	)
 	(junction
 		(at 101.6 59.182)
@@ -1846,18 +2063,6 @@
 		(uuid "f468accd-9a09-49c3-8cbd-f4644ba77d12")
 	)
 	(junction
-		(at 156.972 123.952)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f55d4230-e136-4dbe-9350-826f01832d68")
-	)
-	(junction
-		(at 101.6 69.85)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f7ea9d87-7379-4f29-ba53-64a75a3fa98c")
-	)
-	(junction
 		(at 193.802 49.784)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1888,6 +2093,12 @@
 		(uuid "fd3bbaf3-6a9a-4c81-a748-e0b9eca8912b")
 	)
 	(junction
+		(at 48.514 69.342)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "fd4736d5-0c07-4fad-bf65-7dafaf71bfb0")
+	)
+	(junction
 		(at 258.572 90.17)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1902,6 +2113,26 @@
 			(type default)
 		)
 		(uuid "00251d32-2d16-4779-b155-dee6cafc9b28")
+	)
+	(wire
+		(pts
+			(xy 97.028 124.968) (xy 102.616 124.968)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "002c2532-b5c3-489a-acb0-3d345f9a4989")
+	)
+	(wire
+		(pts
+			(xy 96.012 70.104) (xy 96.012 70.358)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "00696ab0-2c46-4537-a1f8-c99d833aeb56")
 	)
 	(wire
 		(pts
@@ -1925,16 +2156,6 @@
 	)
 	(wire
 		(pts
-			(xy 97.028 124.714) (xy 102.616 124.714)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "00e630a9-7cdb-4959-b42e-acd55711a51d")
-	)
-	(wire
-		(pts
 			(xy 49.276 130.048) (xy 49.53 130.048)
 		)
 		(stroke
@@ -1942,6 +2163,16 @@
 			(type default)
 		)
 		(uuid "018fb814-8966-4226-87eb-19bf0d3e41fe")
+	)
+	(wire
+		(pts
+			(xy 150.368 69.342) (xy 155.956 69.342)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "01d0f599-7739-4f2e-acf1-a81c520691a4")
 	)
 	(wire
 		(pts
@@ -1965,7 +2196,7 @@
 	)
 	(wire
 		(pts
-			(xy 166.116 41.91) (xy 166.116 38.1)
+			(xy 166.116 42.164) (xy 166.116 38.1)
 		)
 		(stroke
 			(width 0)
@@ -2095,16 +2326,6 @@
 	)
 	(wire
 		(pts
-			(xy 102.108 97.536) (xy 102.108 97.79)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "058acaeb-3e1c-4fcf-9305-05fb0e1f0ab7")
-	)
-	(wire
-		(pts
 			(xy 258.318 114.3) (xy 258.318 110.998)
 		)
 		(stroke
@@ -2162,16 +2383,6 @@
 			(type default)
 		)
 		(uuid "07e43ce5-dc55-44b1-9339-a5c542ba56d5")
-	)
-	(wire
-		(pts
-			(xy 101.092 42.672) (xy 101.346 42.672)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "080174cf-c5c5-4acb-a2c6-2632b0fed2d4")
 	)
 	(wire
 		(pts
@@ -2245,13 +2456,13 @@
 	)
 	(wire
 		(pts
-			(xy 44.196 178.054) (xy 44.196 178.308)
+			(xy 151.13 151.13) (xy 156.718 151.13)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "09f58839-889b-482c-b744-28240b76ea24")
+		(uuid "09d83125-b8bc-4461-8e9f-c02e925b13f0")
 	)
 	(wire
 		(pts
@@ -2315,7 +2526,7 @@
 	)
 	(wire
 		(pts
-			(xy 113.03 151.638) (xy 113.03 147.828)
+			(xy 113.03 147.828) (xy 113.03 151.892)
 		)
 		(stroke
 			(width 0)
@@ -2325,7 +2536,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 113.284) (xy 54.864 113.284)
+			(xy 49.53 113.284) (xy 54.61 113.284)
 		)
 		(stroke
 			(width 0)
@@ -2335,7 +2546,7 @@
 	)
 	(wire
 		(pts
-			(xy 48.514 58.42) (xy 53.848 58.42)
+			(xy 48.514 58.42) (xy 53.594 58.42)
 		)
 		(stroke
 			(width 0)
@@ -2375,7 +2586,7 @@
 	)
 	(wire
 		(pts
-			(xy 53.848 58.42) (xy 53.848 61.468)
+			(xy 53.594 58.42) (xy 53.594 61.722)
 		)
 		(stroke
 			(width 0)
@@ -2412,16 +2623,6 @@
 			(type default)
 		)
 		(uuid "0fb8b266-7eff-470a-a160-5cc05773ac93")
-	)
-	(wire
-		(pts
-			(xy 42.418 41.91) (xy 48.006 41.91)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0feb2649-7c63-4603-9803-98d0e4dae037")
 	)
 	(wire
 		(pts
@@ -2495,7 +2696,7 @@
 	)
 	(wire
 		(pts
-			(xy 102.616 114.046) (xy 107.95 114.046)
+			(xy 102.616 114.046) (xy 107.696 114.046)
 		)
 		(stroke
 			(width 0)
@@ -2685,7 +2886,7 @@
 	)
 	(wire
 		(pts
-			(xy 166.37 69.088) (xy 166.624 69.088)
+			(xy 166.116 69.342) (xy 166.624 69.342)
 		)
 		(stroke
 			(width 0)
@@ -2745,7 +2946,7 @@
 	)
 	(wire
 		(pts
-			(xy 107.442 86.868) (xy 107.442 89.916)
+			(xy 107.188 86.868) (xy 107.188 90.17)
 		)
 		(stroke
 			(width 0)
@@ -2785,6 +2986,16 @@
 	)
 	(wire
 		(pts
+			(xy 44.196 178.308) (xy 49.784 178.308)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1a8ae904-fc25-442f-b7e6-c8e5be1be39b")
+	)
+	(wire
+		(pts
 			(xy 202.184 147.828) (xy 203.2 147.828)
 		)
 		(stroke
@@ -2795,7 +3006,7 @@
 	)
 	(wire
 		(pts
-			(xy 102.362 140.97) (xy 107.696 140.97)
+			(xy 102.362 140.97) (xy 107.442 140.97)
 		)
 		(stroke
 			(width 0)
@@ -2845,16 +3056,6 @@
 	)
 	(wire
 		(pts
-			(xy 96.012 69.85) (xy 96.012 70.104)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1d0d8387-4c3c-474a-af95-acad7462ddb4")
-	)
-	(wire
-		(pts
 			(xy 102.616 114.046) (xy 101.346 114.046)
 		)
 		(stroke
@@ -2875,16 +3076,6 @@
 	)
 	(wire
 		(pts
-			(xy 43.688 150.876) (xy 43.688 151.13)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1d59e902-eaae-401f-9ba6-f0854780adc2")
-	)
-	(wire
-		(pts
 			(xy 37.846 110.744) (xy 37.846 112.268)
 		)
 		(stroke
@@ -2895,7 +3086,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.784 167.386) (xy 55.118 167.386)
+			(xy 49.784 167.386) (xy 54.864 167.386)
 		)
 		(stroke
 			(width 0)
@@ -2925,7 +3116,7 @@
 	)
 	(wire
 		(pts
-			(xy 113.03 124.714) (xy 113.284 124.714)
+			(xy 112.776 124.968) (xy 113.284 124.968)
 		)
 		(stroke
 			(width 0)
@@ -2975,16 +3166,6 @@
 	)
 	(wire
 		(pts
-			(xy 150.876 96.774) (xy 156.464 96.774)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1f03b42a-2534-4b33-942f-638255ad1999")
-	)
-	(wire
-		(pts
 			(xy 261.874 26.67) (xy 263.652 26.67)
 		)
 		(stroke
@@ -3002,16 +3183,6 @@
 			(type default)
 		)
 		(uuid "200cfaaf-a42b-4d9c-9b5f-b6979d37c4aa")
-	)
-	(wire
-		(pts
-			(xy 102.108 97.536) (xy 102.362 97.536)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2036b34a-ed43-4566-aa99-a9f8e1189873")
 	)
 	(wire
 		(pts
@@ -3085,7 +3256,7 @@
 	)
 	(wire
 		(pts
-			(xy 54.864 113.284) (xy 54.864 116.332)
+			(xy 54.61 113.284) (xy 54.61 116.586)
 		)
 		(stroke
 			(width 0)
@@ -3215,16 +3386,6 @@
 	)
 	(wire
 		(pts
-			(xy 43.942 123.952) (xy 49.53 123.952)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2595cc27-629a-429d-91d9-ddd03cb720e0")
-	)
-	(wire
-		(pts
 			(xy 91.694 161.544) (xy 94.488 161.544)
 		)
 		(stroke
@@ -3255,16 +3416,6 @@
 	)
 	(wire
 		(pts
-			(xy 97.028 124.714) (xy 97.028 124.968)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "26f48459-7b43-45b9-879d-8acd02aa394c")
-	)
-	(wire
-		(pts
 			(xy 203.2 72.39) (xy 207.01 72.39)
 		)
 		(stroke
@@ -3275,23 +3426,13 @@
 	)
 	(wire
 		(pts
-			(xy 112.268 69.85) (xy 112.268 66.04)
+			(xy 112.268 70.104) (xy 112.268 66.04)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "286ca7ae-46b2-49cd-b918-3f6d3d0df9c9")
-	)
-	(wire
-		(pts
-			(xy 151.384 123.952) (xy 151.384 124.206)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "28a618df-84b6-4129-b852-e3afbdaa787c")
 	)
 	(wire
 		(pts
@@ -3365,7 +3506,7 @@
 	)
 	(wire
 		(pts
-			(xy 58.928 69.088) (xy 59.182 69.088)
+			(xy 58.674 69.342) (xy 59.182 69.342)
 		)
 		(stroke
 			(width 0)
@@ -3425,7 +3566,7 @@
 	)
 	(wire
 		(pts
-			(xy 48.006 41.91) (xy 48.26 41.91)
+			(xy 42.418 42.164) (xy 48.006 42.164)
 		)
 		(stroke
 			(width 0)
@@ -3482,16 +3623,6 @@
 			(type default)
 		)
 		(uuid "2fd68cd2-b65e-44c5-bd5f-e987593167b3")
-	)
-	(wire
-		(pts
-			(xy 44.196 178.054) (xy 49.784 178.054)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "30b2f96b-ef49-4836-93f8-46a38799e48d")
 	)
 	(wire
 		(pts
@@ -3595,17 +3726,7 @@
 	)
 	(wire
 		(pts
-			(xy 155.956 69.088) (xy 156.21 69.088)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "333a6df7-4453-4726-ada0-a0969288e2b9")
-	)
-	(wire
-		(pts
-			(xy 59.182 69.088) (xy 59.182 65.278)
+			(xy 59.182 69.342) (xy 59.182 65.278)
 		)
 		(stroke
 			(width 0)
@@ -3635,7 +3756,7 @@
 	)
 	(wire
 		(pts
-			(xy 111.76 42.672) (xy 111.76 38.862)
+			(xy 111.76 42.926) (xy 111.76 38.862)
 		)
 		(stroke
 			(width 0)
@@ -3755,7 +3876,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.118 167.386) (xy 55.118 170.434)
+			(xy 54.864 167.386) (xy 54.864 170.688)
 		)
 		(stroke
 			(width 0)
@@ -3925,16 +4046,6 @@
 	)
 	(wire
 		(pts
-			(xy 49.276 150.876) (xy 49.276 151.13)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3d40141e-61d7-4b7c-aac1-ce69a4905cdd")
-	)
-	(wire
-		(pts
 			(xy 201.93 65.278) (xy 202.946 65.278)
 		)
 		(stroke
@@ -3965,16 +4076,6 @@
 	)
 	(wire
 		(pts
-			(xy 49.784 178.054) (xy 49.784 178.308)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3e44f58d-7764-4763-98c8-c5562b2c0934")
-	)
-	(wire
-		(pts
 			(xy 213.36 147.574) (xy 217.932 147.574)
 		)
 		(stroke
@@ -3982,6 +4083,16 @@
 			(type default)
 		)
 		(uuid "3e802146-8fab-431b-aaf8-ac1e50df87a7")
+	)
+	(wire
+		(pts
+			(xy 112.522 151.892) (xy 113.03 151.892)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3ea18f5b-bc19-4251-86a0-67680e09e69b")
 	)
 	(wire
 		(pts
@@ -4085,6 +4196,16 @@
 	)
 	(wire
 		(pts
+			(xy 48.006 42.164) (xy 48.26 42.164)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "42f4617a-52e2-4a72-982d-949b0d635e1c")
+	)
+	(wire
+		(pts
 			(xy 252.984 124.714) (xy 253.746 124.714)
 		)
 		(stroke
@@ -4115,7 +4236,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.092 32.004) (xy 106.426 32.004)
+			(xy 101.092 32.004) (xy 106.172 32.004)
 		)
 		(stroke
 			(width 0)
@@ -4145,7 +4266,7 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 41.91) (xy 58.674 41.91)
+			(xy 58.42 42.164) (xy 58.674 42.164)
 		)
 		(stroke
 			(width 0)
@@ -4325,7 +4446,7 @@
 	)
 	(wire
 		(pts
-			(xy 102.108 86.868) (xy 107.442 86.868)
+			(xy 102.108 86.868) (xy 107.188 86.868)
 		)
 		(stroke
 			(width 0)
@@ -4455,7 +4576,7 @@
 	)
 	(wire
 		(pts
-			(xy 166.624 69.088) (xy 166.624 65.278)
+			(xy 166.624 69.342) (xy 166.624 65.278)
 		)
 		(stroke
 			(width 0)
@@ -4575,16 +4696,6 @@
 	)
 	(wire
 		(pts
-			(xy 150.368 69.088) (xy 155.956 69.088)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4ffc80ba-eb02-47f8-ad68-43e4148757ed")
-	)
-	(wire
-		(pts
 			(xy 262.128 142.748) (xy 264.668 142.748)
 		)
 		(stroke
@@ -4615,7 +4726,7 @@
 	)
 	(wire
 		(pts
-			(xy 156.464 86.106) (xy 161.798 86.106)
+			(xy 156.464 86.106) (xy 161.544 86.106)
 		)
 		(stroke
 			(width 0)
@@ -4715,16 +4826,6 @@
 	)
 	(wire
 		(pts
-			(xy 156.972 123.952) (xy 156.972 124.206)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5478c8e4-0c5f-4cab-9468-ef8218950976")
-	)
-	(wire
-		(pts
 			(xy 269.24 63.246) (xy 269.24 62.484)
 		)
 		(stroke
@@ -4765,7 +4866,7 @@
 	)
 	(wire
 		(pts
-			(xy 112.776 97.536) (xy 112.776 93.726)
+			(xy 112.776 97.79) (xy 112.776 93.726)
 		)
 		(stroke
 			(width 0)
@@ -4855,26 +4956,6 @@
 	)
 	(wire
 		(pts
-			(xy 49.022 96.774) (xy 49.022 97.028)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "57bf0430-86dd-4255-a2f3-8f3a45ccaa96")
-	)
-	(wire
-		(pts
-			(xy 102.616 124.714) (xy 102.616 124.968)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "57c9b622-9f0b-4dd3-a45d-6ec7a2b08f9b")
-	)
-	(wire
-		(pts
 			(xy 111.76 21.844) (xy 111.76 27.686)
 		)
 		(stroke
@@ -4895,7 +4976,7 @@
 	)
 	(wire
 		(pts
-			(xy 155.448 31.242) (xy 160.782 31.242)
+			(xy 155.448 31.242) (xy 160.528 31.242)
 		)
 		(stroke
 			(width 0)
@@ -4945,16 +5026,6 @@
 	)
 	(wire
 		(pts
-			(xy 96.52 97.536) (xy 96.52 97.79)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5c41ab4a-cdec-4a1f-9c31-1a5b114c1b0c")
-	)
-	(wire
-		(pts
 			(xy 156.464 86.106) (xy 155.194 86.106)
 		)
 		(stroke
@@ -4995,7 +5066,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.276 140.208) (xy 54.61 140.208)
+			(xy 49.276 140.208) (xy 54.356 140.208)
 		)
 		(stroke
 			(width 0)
@@ -5085,17 +5156,7 @@
 	)
 	(wire
 		(pts
-			(xy 102.616 124.714) (xy 102.87 124.714)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5e79a6a0-d3d2-426d-8187-5a76a3ac1a47")
-	)
-	(wire
-		(pts
-			(xy 58.674 41.91) (xy 58.674 38.1)
+			(xy 58.674 42.164) (xy 58.674 38.1)
 		)
 		(stroke
 			(width 0)
@@ -5215,16 +5276,6 @@
 	)
 	(wire
 		(pts
-			(xy 155.448 41.91) (xy 155.448 42.164)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "637db2ef-9626-4887-865f-01dd2ac8485f")
-	)
-	(wire
-		(pts
 			(xy 261.874 24.13) (xy 261.874 26.67)
 		)
 		(stroke
@@ -5335,7 +5386,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.198 178.054) (xy 60.452 178.054)
+			(xy 59.944 178.308) (xy 60.452 178.308)
 		)
 		(stroke
 			(width 0)
@@ -5385,17 +5436,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 69.85) (xy 101.6 70.104)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "68447f15-5179-402b-9554-da9b820d4324")
-	)
-	(wire
-		(pts
-			(xy 166.878 96.774) (xy 167.132 96.774)
+			(xy 166.624 97.028) (xy 167.132 97.028)
 		)
 		(stroke
 			(width 0)
@@ -5505,7 +5546,7 @@
 	)
 	(wire
 		(pts
-			(xy 156.972 113.284) (xy 162.306 113.284)
+			(xy 156.972 113.284) (xy 162.052 113.284)
 		)
 		(stroke
 			(width 0)
@@ -5545,7 +5586,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.132 150.876) (xy 167.386 150.876)
+			(xy 166.878 151.13) (xy 167.386 151.13)
 		)
 		(stroke
 			(width 0)
@@ -5595,7 +5636,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 123.952) (xy 167.64 120.142)
+			(xy 167.64 124.206) (xy 167.64 120.142)
 		)
 		(stroke
 			(width 0)
@@ -5735,16 +5776,6 @@
 	)
 	(wire
 		(pts
-			(xy 48.514 69.088) (xy 48.514 69.342)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "722004b8-d0a9-4016-a0ed-b8b64ac9bf1f")
-	)
-	(wire
-		(pts
 			(xy 210.566 103.378) (xy 213.106 103.378)
 		)
 		(stroke
@@ -5815,7 +5846,7 @@
 	)
 	(wire
 		(pts
-			(xy 155.956 58.42) (xy 161.29 58.42)
+			(xy 155.956 58.42) (xy 161.036 58.42)
 		)
 		(stroke
 			(width 0)
@@ -5855,16 +5886,6 @@
 	)
 	(wire
 		(pts
-			(xy 156.718 150.876) (xy 156.718 151.13)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "75630918-4973-4535-9901-aa88c99524a8")
-	)
-	(wire
-		(pts
 			(xy 143.764 37.846) (xy 147.828 37.846)
 		)
 		(stroke
@@ -5872,6 +5893,16 @@
 			(type default)
 		)
 		(uuid "757e314e-3bb3-4067-93b0-642215d50678")
+	)
+	(wire
+		(pts
+			(xy 43.688 151.13) (xy 49.276 151.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "75a1786a-6b00-426b-b445-eb01870a4c97")
 	)
 	(wire
 		(pts
@@ -5945,6 +5976,16 @@
 	)
 	(wire
 		(pts
+			(xy 101.6 70.104) (xy 96.012 70.104)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "76bf4196-1fc1-42a9-92d9-4ea700e87b79")
+	)
+	(wire
+		(pts
 			(xy 155.702 110.744) (xy 162.306 110.744)
 		)
 		(stroke
@@ -5952,6 +5993,16 @@
 			(type default)
 		)
 		(uuid "7705a48c-59d3-4930-ba1b-81233b2d9a86")
+	)
+	(wire
+		(pts
+			(xy 149.86 42.164) (xy 155.448 42.164)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7735c01b-5f1e-441b-a9f3-3bc40c6ead02")
 	)
 	(wire
 		(pts
@@ -6025,16 +6076,6 @@
 	)
 	(wire
 		(pts
-			(xy 42.418 41.91) (xy 42.418 42.164)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "78ea745f-be16-4507-9194-c0848ea5b76c")
-	)
-	(wire
-		(pts
 			(xy 202.184 145.034) (xy 202.184 147.828)
 		)
 		(stroke
@@ -6065,17 +6106,7 @@
 	)
 	(wire
 		(pts
-			(xy 156.718 150.876) (xy 156.972 150.876)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "79c7a902-d37f-48eb-be04-034e2a853c42")
-	)
-	(wire
-		(pts
-			(xy 162.306 113.284) (xy 162.306 116.332)
+			(xy 162.052 113.284) (xy 162.052 116.586)
 		)
 		(stroke
 			(width 0)
@@ -6205,17 +6236,7 @@
 	)
 	(wire
 		(pts
-			(xy 43.942 123.952) (xy 43.942 124.206)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7dbeb4d3-51ea-4193-8e5c-8a4457285569")
-	)
-	(wire
-		(pts
-			(xy 106.426 32.004) (xy 106.426 35.052)
+			(xy 106.172 32.004) (xy 106.172 35.306)
 		)
 		(stroke
 			(width 0)
@@ -6235,23 +6256,13 @@
 	)
 	(wire
 		(pts
-			(xy 59.944 123.952) (xy 60.198 123.952)
+			(xy 59.69 124.206) (xy 60.198 124.206)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "7e0672b6-0910-473a-8049-40a427fde54c")
-	)
-	(wire
-		(pts
-			(xy 155.956 69.088) (xy 155.956 69.342)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7e70fa39-7e19-4b62-acec-fd091e13e29b")
 	)
 	(wire
 		(pts
@@ -6282,16 +6293,6 @@
 			(type default)
 		)
 		(uuid "7eebf9c9-5801-4cb1-bd5f-98adc15116c8")
-	)
-	(wire
-		(pts
-			(xy 156.972 123.952) (xy 157.226 123.952)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7f456d19-c841-4460-b7a1-037e1e6de9a0")
 	)
 	(wire
 		(pts
@@ -6365,6 +6366,16 @@
 	)
 	(wire
 		(pts
+			(xy 151.384 124.206) (xy 156.972 124.206)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8147563f-6c65-4a29-909c-744660fcd619")
+	)
+	(wire
+		(pts
 			(xy 84.582 174.244) (xy 88.392 174.244)
 		)
 		(stroke
@@ -6385,16 +6396,6 @@
 	)
 	(wire
 		(pts
-			(xy 42.926 69.088) (xy 48.514 69.088)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8224ad05-2b1c-453d-9c20-b589d6d1214c")
-	)
-	(wire
-		(pts
 			(xy 194.31 30.226) (xy 194.31 32.258)
 		)
 		(stroke
@@ -6405,17 +6406,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 123.952) (xy 49.53 124.206)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "82c5e84c-c7bf-49a1-b06e-5d5fc4bad623")
-	)
-	(wire
-		(pts
-			(xy 161.29 58.42) (xy 161.29 61.468)
+			(xy 161.036 58.42) (xy 161.036 61.722)
 		)
 		(stroke
 			(width 0)
@@ -6425,7 +6416,7 @@
 	)
 	(wire
 		(pts
-			(xy 106.934 59.182) (xy 106.934 62.23)
+			(xy 106.68 59.182) (xy 106.68 62.484)
 		)
 		(stroke
 			(width 0)
@@ -6555,16 +6546,6 @@
 	)
 	(wire
 		(pts
-			(xy 151.384 123.952) (xy 156.972 123.952)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "88722d79-1c83-4bbd-ade4-7a286c992c1a")
-	)
-	(wire
-		(pts
 			(xy 246.38 93.472) (xy 245.11 93.472)
 		)
 		(stroke
@@ -6645,16 +6626,6 @@
 	)
 	(wire
 		(pts
-			(xy 95.504 42.672) (xy 95.504 42.926)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8aaaf117-dd70-4a4f-88f2-3b4451df51be")
-	)
-	(wire
-		(pts
 			(xy 210.566 142.24) (xy 213.36 142.24)
 		)
 		(stroke
@@ -6725,16 +6696,6 @@
 	)
 	(wire
 		(pts
-			(xy 95.504 42.672) (xy 101.092 42.672)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8c685aee-79cf-47ca-b621-740fc4dd88cb")
-	)
-	(wire
-		(pts
 			(xy 48.514 48.26) (xy 48.514 51.816)
 		)
 		(stroke
@@ -6745,7 +6706,7 @@
 	)
 	(wire
 		(pts
-			(xy 54.61 140.208) (xy 54.61 143.256)
+			(xy 54.356 140.208) (xy 54.356 143.51)
 		)
 		(stroke
 			(width 0)
@@ -6772,16 +6733,6 @@
 			(type default)
 		)
 		(uuid "8d2e702b-5b89-493f-80bc-b227488fcf71")
-	)
-	(wire
-		(pts
-			(xy 156.464 96.774) (xy 156.718 96.774)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8d31bd15-1a52-485a-ba53-2e883b10f169")
 	)
 	(wire
 		(pts
@@ -6822,16 +6773,6 @@
 			(type default)
 		)
 		(uuid "8dbbd588-b0f2-4619-adac-681abfb74b1b")
-	)
-	(wire
-		(pts
-			(xy 150.876 96.774) (xy 150.876 97.028)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8dd60a84-6cca-4ca8-8af0-160b52981f35")
 	)
 	(wire
 		(pts
@@ -6905,6 +6846,16 @@
 	)
 	(wire
 		(pts
+			(xy 150.876 97.028) (xy 156.464 97.028)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "907a9c4c-fda6-4077-85b4-71cfbd6d9bf6")
+	)
+	(wire
+		(pts
 			(xy 92.456 140.97) (xy 92.456 133.096)
 		)
 		(stroke
@@ -6925,16 +6876,6 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 123.952) (xy 49.784 123.952)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "918fe75b-7bf7-4deb-b0b2-ebd0f972c4f6")
-	)
-	(wire
-		(pts
 			(xy 264.16 152.654) (xy 264.16 154.432)
 		)
 		(stroke
@@ -6945,7 +6886,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.436 96.774) (xy 59.69 96.774)
+			(xy 59.182 97.028) (xy 59.69 97.028)
 		)
 		(stroke
 			(width 0)
@@ -7095,16 +7036,6 @@
 	)
 	(wire
 		(pts
-			(xy 151.13 150.876) (xy 156.718 150.876)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "97f35d89-7006-4a16-b98f-8d1bfab83a7e")
-	)
-	(wire
-		(pts
 			(xy 112.268 49.022) (xy 112.014 49.022)
 		)
 		(stroke
@@ -7195,7 +7126,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.452 178.054) (xy 60.452 174.244)
+			(xy 60.452 178.308) (xy 60.452 174.244)
 		)
 		(stroke
 			(width 0)
@@ -7212,16 +7143,6 @@
 			(type default)
 		)
 		(uuid "9ad082b2-98dc-4fb1-89b6-9a90e6a38d41")
-	)
-	(wire
-		(pts
-			(xy 96.52 97.536) (xy 102.108 97.536)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9b45ae03-bbe4-4088-a677-98c14dd777a5")
 	)
 	(wire
 		(pts
@@ -7245,7 +7166,7 @@
 	)
 	(wire
 		(pts
-			(xy 111.506 42.672) (xy 111.76 42.672)
+			(xy 111.252 42.926) (xy 111.76 42.926)
 		)
 		(stroke
 			(width 0)
@@ -7265,16 +7186,6 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 69.85) (xy 101.854 69.85)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9e5fb120-060e-466e-bf92-28ba64ceff19")
-	)
-	(wire
-		(pts
 			(xy 202.438 124.206) (xy 202.438 127)
 		)
 		(stroke
@@ -7285,7 +7196,7 @@
 	)
 	(wire
 		(pts
-			(xy 156.718 140.208) (xy 162.052 140.208)
+			(xy 156.718 140.208) (xy 161.798 140.208)
 		)
 		(stroke
 			(width 0)
@@ -7295,33 +7206,13 @@
 	)
 	(wire
 		(pts
-			(xy 42.926 69.088) (xy 42.926 69.342)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9f80b2ad-21be-4e2a-a539-3802e4df17bc")
-	)
-	(wire
-		(pts
-			(xy 107.95 114.046) (xy 107.95 117.094)
+			(xy 107.696 114.046) (xy 107.696 117.348)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "9f967656-8dc2-4b10-bb95-892aa9a6c88d")
-	)
-	(wire
-		(pts
-			(xy 156.464 96.774) (xy 156.464 97.028)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a004a724-bb37-4ce3-bb84-3be0470cbbf4")
 	)
 	(wire
 		(pts
@@ -7505,16 +7396,6 @@
 	)
 	(wire
 		(pts
-			(xy 43.688 150.876) (xy 49.276 150.876)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a638efc6-ca68-494b-9c46-ca6f701fb101")
-	)
-	(wire
-		(pts
 			(xy 111.76 21.844) (xy 111.506 21.844)
 		)
 		(stroke
@@ -7635,6 +7516,16 @@
 	)
 	(wire
 		(pts
+			(xy 96.52 97.79) (xy 102.108 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a98fa157-426d-4af4-a791-d200b2515268")
+	)
+	(wire
+		(pts
 			(xy 59.69 75.946) (xy 59.69 81.788)
 		)
 		(stroke
@@ -7695,7 +7586,7 @@
 	)
 	(wire
 		(pts
-			(xy 53.34 31.242) (xy 53.34 34.29)
+			(xy 53.34 31.242) (xy 53.34 34.544)
 		)
 		(stroke
 			(width 0)
@@ -7722,16 +7613,6 @@
 			(type default)
 		)
 		(uuid "ad9d0a9c-836d-4cf0-8d49-dfdd9812af31")
-	)
-	(wire
-		(pts
-			(xy 155.448 41.91) (xy 155.702 41.91)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ae05482b-5018-48ca-80f5-c6d6fe2b6843")
 	)
 	(wire
 		(pts
@@ -7855,7 +7736,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.132 96.774) (xy 167.132 92.964)
+			(xy 167.132 97.028) (xy 167.132 92.964)
 		)
 		(stroke
 			(width 0)
@@ -7875,7 +7756,7 @@
 	)
 	(wire
 		(pts
-			(xy 112.522 97.536) (xy 112.776 97.536)
+			(xy 112.268 97.79) (xy 112.776 97.79)
 		)
 		(stroke
 			(width 0)
@@ -7895,7 +7776,7 @@
 	)
 	(wire
 		(pts
-			(xy 113.284 124.714) (xy 113.284 120.904)
+			(xy 113.284 124.968) (xy 113.284 120.904)
 		)
 		(stroke
 			(width 0)
@@ -7955,16 +7836,6 @@
 	)
 	(wire
 		(pts
-			(xy 101.092 42.672) (xy 101.092 42.926)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b65adbac-d603-4067-a736-f804f754949c")
-	)
-	(wire
-		(pts
 			(xy 262.636 148.082) (xy 264.414 148.082)
 		)
 		(stroke
@@ -7982,16 +7853,6 @@
 			(type default)
 		)
 		(uuid "b6b5136b-4fed-4d1a-a744-bd6b3eb62aeb")
-	)
-	(wire
-		(pts
-			(xy 49.022 96.774) (xy 49.276 96.774)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b6d2b8b9-8ad4-44b2-bfed-41a80deabce2")
 	)
 	(wire
 		(pts
@@ -8115,7 +7976,7 @@
 	)
 	(wire
 		(pts
-			(xy 161.798 86.106) (xy 161.798 89.154)
+			(xy 161.544 86.106) (xy 161.544 89.408)
 		)
 		(stroke
 			(width 0)
@@ -8265,7 +8126,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.386 150.876) (xy 167.386 147.066)
+			(xy 167.386 151.13) (xy 167.386 147.066)
 		)
 		(stroke
 			(width 0)
@@ -8445,7 +8306,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 96.774) (xy 59.69 92.964)
+			(xy 59.69 97.028) (xy 59.69 92.964)
 		)
 		(stroke
 			(width 0)
@@ -8492,16 +8353,6 @@
 			(type default)
 		)
 		(uuid "c30ad644-4150-4820-8d56-0a897cff9a77")
-	)
-	(wire
-		(pts
-			(xy 49.276 150.876) (xy 49.53 150.876)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c35907a8-f596-4e31-b793-078c949aa7c7")
 	)
 	(wire
 		(pts
@@ -8555,7 +8406,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 150.876) (xy 59.944 150.876)
+			(xy 59.436 151.13) (xy 59.944 151.13)
 		)
 		(stroke
 			(width 0)
@@ -8605,7 +8456,7 @@
 	)
 	(wire
 		(pts
-			(xy 112.014 69.85) (xy 112.268 69.85)
+			(xy 111.76 70.104) (xy 112.268 70.104)
 		)
 		(stroke
 			(width 0)
@@ -8715,7 +8566,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.386 123.952) (xy 167.64 123.952)
+			(xy 167.132 124.206) (xy 167.64 124.206)
 		)
 		(stroke
 			(width 0)
@@ -8775,7 +8626,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.022 86.106) (xy 54.356 86.106)
+			(xy 49.022 86.106) (xy 54.102 86.106)
 		)
 		(stroke
 			(width 0)
@@ -8835,16 +8686,6 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 41.91) (xy 155.448 41.91)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ceb08758-5b18-4501-a3aa-17fcc71cf8d4")
-	)
-	(wire
-		(pts
 			(xy 33.02 133.604) (xy 33.02 132.334)
 		)
 		(stroke
@@ -8875,7 +8716,7 @@
 	)
 	(wire
 		(pts
-			(xy 107.696 140.97) (xy 107.696 144.018)
+			(xy 107.442 140.97) (xy 107.442 144.272)
 		)
 		(stroke
 			(width 0)
@@ -8932,6 +8773,16 @@
 			(type default)
 		)
 		(uuid "d1c26cc1-cb5f-4c09-9a70-0280abfcbd96")
+	)
+	(wire
+		(pts
+			(xy 95.504 42.926) (xy 101.092 42.926)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d1f5ff55-c2db-4d65-bd76-d0c27364ea9a")
 	)
 	(wire
 		(pts
@@ -9062,16 +8913,6 @@
 			(type default)
 		)
 		(uuid "d5d1b306-dc88-4834-ac41-ed515071a5bd")
-	)
-	(wire
-		(pts
-			(xy 96.012 69.85) (xy 101.6 69.85)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d62dcf63-6638-4304-add0-7584f2c4c920")
 	)
 	(wire
 		(pts
@@ -9465,7 +9306,7 @@
 	)
 	(wire
 		(pts
-			(xy 160.782 31.242) (xy 160.782 34.29)
+			(xy 160.528 31.242) (xy 160.528 34.544)
 		)
 		(stroke
 			(width 0)
@@ -9542,16 +9383,6 @@
 			(type default)
 		)
 		(uuid "e274cd15-45ce-41c1-9e81-84479e08fd8d")
-	)
-	(wire
-		(pts
-			(xy 48.514 69.088) (xy 48.768 69.088)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e2821dbd-8926-43f7-b0ad-54cfe5fd5e62")
 	)
 	(wire
 		(pts
@@ -9665,7 +9496,17 @@
 	)
 	(wire
 		(pts
-			(xy 165.862 41.91) (xy 166.116 41.91)
+			(xy 97.282 151.892) (xy 102.362 151.892)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e5427e0e-b73c-4a4b-9375-14e1f5485608")
+	)
+	(wire
+		(pts
+			(xy 165.608 42.164) (xy 166.116 42.164)
 		)
 		(stroke
 			(width 0)
@@ -9705,7 +9546,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.198 123.952) (xy 60.198 120.142)
+			(xy 60.198 124.206) (xy 60.198 120.142)
 		)
 		(stroke
 			(width 0)
@@ -9765,7 +9606,7 @@
 	)
 	(wire
 		(pts
-			(xy 54.356 86.106) (xy 54.356 89.154)
+			(xy 54.102 86.106) (xy 54.102 89.408)
 		)
 		(stroke
 			(width 0)
@@ -9845,16 +9686,6 @@
 	)
 	(wire
 		(pts
-			(xy 150.368 69.088) (xy 150.368 69.342)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ec83ab6e-7e9c-40c3-a877-9972050c157b")
-	)
-	(wire
-		(pts
 			(xy 264.414 103.632) (xy 268.986 103.632)
 		)
 		(stroke
@@ -9882,16 +9713,6 @@
 			(type default)
 		)
 		(uuid "edecb182-d596-4116-8047-6cf97cdb8981")
-	)
-	(wire
-		(pts
-			(xy 43.434 96.774) (xy 49.022 96.774)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ee29cebc-2790-43b4-ba6d-a5bfd13fc4b1")
 	)
 	(wire
 		(pts
@@ -9962,16 +9783,6 @@
 			(type default)
 		)
 		(uuid "ef9f81ac-b821-4527-8b0a-21722e649aeb")
-	)
-	(wire
-		(pts
-			(xy 149.86 41.91) (xy 149.86 42.164)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "efd9d689-8742-4215-9366-f6a9c7977dc5")
 	)
 	(wire
 		(pts
@@ -10105,16 +9916,6 @@
 	)
 	(wire
 		(pts
-			(xy 43.434 96.774) (xy 43.434 97.028)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f43f1efe-5d13-4b14-9283-0367a674ce22")
-	)
-	(wire
-		(pts
 			(xy 253.238 34.544) (xy 257.81 34.544)
 		)
 		(stroke
@@ -10125,7 +9926,7 @@
 	)
 	(wire
 		(pts
-			(xy 162.052 140.208) (xy 162.052 143.256)
+			(xy 161.798 140.208) (xy 161.798 143.51)
 		)
 		(stroke
 			(width 0)
@@ -10162,6 +9963,16 @@
 			(type default)
 		)
 		(uuid "f5fb2772-7bdc-488d-b6d0-cc53fa4fe77c")
+	)
+	(wire
+		(pts
+			(xy 43.434 97.028) (xy 49.022 97.028)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f60f795f-8821-4d9c-9ceb-5ca4428d3279")
 	)
 	(wire
 		(pts
@@ -10235,13 +10046,23 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 59.182) (xy 106.934 59.182)
+			(xy 101.6 59.182) (xy 106.68 59.182)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "f7d28081-f6bd-4ca7-8ecd-871264b15d4d")
+	)
+	(wire
+		(pts
+			(xy 42.926 69.342) (xy 48.514 69.342)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f7d3073d-92f1-4d1b-b333-a8ca39cc36de")
 	)
 	(wire
 		(pts
@@ -10292,16 +10113,6 @@
 			(type default)
 		)
 		(uuid "f8a6e8d3-0858-4d72-8ca2-2f73935510d4")
-	)
-	(wire
-		(pts
-			(xy 151.13 150.876) (xy 151.13 151.13)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f8d09fb8-41f2-4f23-b08e-02fdda2c7327")
 	)
 	(wire
 		(pts
@@ -10375,7 +10186,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.944 150.876) (xy 59.944 147.066)
+			(xy 59.944 151.13) (xy 59.944 147.066)
 		)
 		(stroke
 			(width 0)
@@ -10415,6 +10226,16 @@
 	)
 	(wire
 		(pts
+			(xy 43.942 124.206) (xy 49.53 124.206)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fd1cbf47-691f-4f86-8538-adf198cd8d50")
+	)
+	(wire
+		(pts
 			(xy 93.98 65.024) (xy 93.98 65.786)
 		)
 		(stroke
@@ -10442,16 +10263,6 @@
 			(type default)
 		)
 		(uuid "febf5a76-1171-4193-8172-17d2594fa158")
-	)
-	(wire
-		(pts
-			(xy 49.784 178.054) (xy 50.038 178.054)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ff3c260b-3afa-4549-94bf-80cd642d7ba7")
 	)
 	(wire
 		(pts
@@ -12561,7 +12372,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_BJT:BC337")
-		(at 161.798 94.234 270)
+		(at 161.544 94.488 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12569,7 +12380,7 @@
 		(dnp no)
 		(uuid "089cbc8a-19c6-40c6-8b09-e534c3a2d618")
 		(property "Reference" "Q62"
-			(at 163.0681 99.822 0)
+			(at 162.8141 100.076 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12579,7 +12390,7 @@
 			)
 		)
 		(property "Value" "BC337"
-			(at 159.766 97.028 90)
+			(at 159.512 97.282 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -12588,7 +12399,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 159.893 99.314 0)
+			(at 159.639 99.568 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12599,7 +12410,7 @@
 			)
 		)
 		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 161.798 94.234 0)
+			(at 161.544 94.488 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12609,7 +12420,7 @@
 			)
 		)
 		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 161.798 94.234 0)
+			(at 161.544 94.488 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12698,82 +12509,6 @@
 			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "R27")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Transistor_BJT:BC337")
-		(at 99.822 146.812 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "08b1c8f9-5957-4cff-9230-d8e8cb329689")
-		(property "Reference" "Q39"
-			(at 105.41 145.5419 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "BC337"
-			(at 102.616 148.59 90)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 104.902 148.717 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 99.822 146.812 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 99.822 146.812 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "9650f962-c88e-4c11-89f0-2a60f1fb3e9d")
-		)
-		(pin "1"
-			(uuid "3c333eef-3eee-413b-969e-277fa40e319d")
-		)
-		(pin "3"
-			(uuid "eeb56075-845a-400c-90f9-c944169610f1")
-		)
-		(instances
-			(project "main"
-				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
-					(reference "Q39")
 					(unit 1)
 				)
 			)
@@ -12976,6 +12711,82 @@
 			(project ""
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "#PWR058")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Transistor_BJT:BC817")
+		(at 98.552 37.846 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0b65a1dc-1496-4d97-9cf1-59a01e3994cd")
+		(property "Reference" "Q85"
+			(at 103.886 36.5759 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "BC817"
+			(at 101.346 39.624 90)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 103.632 39.751 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC818-D.pdf"
+			(at 98.552 37.846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+			(at 98.552 37.846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "36ef5b81-f037-40f8-87e4-bc4fdb5c1df4")
+		)
+		(pin "2"
+			(uuid "f560cca9-87f4-436b-a0b7-a578205e2696")
+		)
+		(pin "1"
+			(uuid "ee54c5c0-b27a-4553-bf93-5ef02e7f90fd")
+		)
+		(instances
+			(project "main"
+				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
+					(reference "Q85")
 					(unit 1)
 				)
 			)
@@ -13257,7 +13068,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_BJT:BC337")
-		(at 53.848 66.548 270)
+		(at 53.594 66.802 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13265,7 +13076,7 @@
 		(dnp no)
 		(uuid "0df27035-a15a-4432-9cb5-bc70d2c07a4f")
 		(property "Reference" "Q26"
-			(at 55.1181 72.136 0)
+			(at 54.8641 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13275,7 +13086,7 @@
 			)
 		)
 		(property "Value" "BC337"
-			(at 51.816 69.342 90)
+			(at 51.562 69.596 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -13284,7 +13095,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 51.943 71.628 0)
+			(at 51.689 71.882 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13295,7 +13106,7 @@
 			)
 		)
 		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 53.848 66.548 0)
+			(at 53.594 66.802 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13305,7 +13116,7 @@
 			)
 		)
 		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 53.848 66.548 0)
+			(at 53.594 66.802 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13602,6 +13413,158 @@
 		)
 	)
 	(symbol
+		(lib_id "Transistor_BJT:BC817")
+		(at 154.432 119.126 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0f781925-55aa-48c1-8e22-acc0b07ef954")
+		(property "Reference" "Q89"
+			(at 159.766 117.8559 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "BC817"
+			(at 157.226 120.904 90)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 159.512 121.031 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC818-D.pdf"
+			(at 154.432 119.126 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+			(at 154.432 119.126 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "438042da-2bfc-4d92-a5cf-c104b62d9929")
+		)
+		(pin "2"
+			(uuid "7866d974-cb8e-4631-80df-02e9a91a2a27")
+		)
+		(pin "1"
+			(uuid "f01650c7-fb82-4e76-a801-e7ab4ed41cdf")
+		)
+		(instances
+			(project "main"
+				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
+					(reference "Q89")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Transistor_BJT:BC817")
+		(at 99.06 65.024 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0fa5189a-0ba1-49c9-abed-d9a36975b6a0")
+		(property "Reference" "Q84"
+			(at 104.394 63.7539 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "BC817"
+			(at 101.854 66.802 90)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 104.14 66.929 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC818-D.pdf"
+			(at 99.06 65.024 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+			(at 99.06 65.024 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "8b5c836f-f7ac-4ca1-b87d-21d05a4d02f4")
+		)
+		(pin "2"
+			(uuid "3f732dbf-5d4b-4b01-86a2-08e1a0fc3287")
+		)
+		(pin "1"
+			(uuid "b7065d89-cda0-452e-93bf-cb281dfb4ff4")
+		)
+		(instances
+			(project "main"
+				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
+					(reference "Q84")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 88.138 164.338 90)
 		(unit 1)
@@ -13817,7 +13780,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_BJT:BC337")
-		(at 162.306 121.412 270)
+		(at 162.052 121.666 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13825,7 +13788,7 @@
 		(dnp no)
 		(uuid "12d73405-2fb9-4893-86af-c88523420048")
 		(property "Reference" "Q66"
-			(at 163.5761 127 0)
+			(at 163.3221 127.254 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13835,7 +13798,7 @@
 			)
 		)
 		(property "Value" "BC337"
-			(at 160.274 124.206 90)
+			(at 160.02 124.46 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -13844,7 +13807,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 160.401 126.492 0)
+			(at 160.147 126.746 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13855,7 +13818,7 @@
 			)
 		)
 		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 162.306 121.412 0)
+			(at 162.052 121.666 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13865,7 +13828,7 @@
 			)
 		)
 		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 162.306 121.412 0)
+			(at 162.052 121.666 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14030,6 +13993,82 @@
 			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "Q51")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Transistor_BJT:BC817")
+		(at 46.482 91.948 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "167022f4-57df-47e1-beb6-c4eb946109d7")
+		(property "Reference" "Q18"
+			(at 51.816 90.6779 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "BC817"
+			(at 49.276 93.726 90)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 51.562 93.853 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC818-D.pdf"
+			(at 46.482 91.948 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+			(at 46.482 91.948 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "1be2a7c9-066c-4e86-af0d-d847cc82a0cc")
+		)
+		(pin "2"
+			(uuid "b3f4250e-883e-4dba-ab02-08685c810d42")
+		)
+		(pin "1"
+			(uuid "1bf21e50-07a3-4470-8feb-bc772d69fbe6")
+		)
+		(instances
+			(project "main"
+				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
+					(reference "Q18")
 					(unit 1)
 				)
 			)
@@ -15338,6 +15377,82 @@
 		)
 	)
 	(symbol
+		(lib_id "Transistor_BJT:BC817")
+		(at 99.822 146.812 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2683121b-0af8-4a51-bc0b-562c1db20689")
+		(property "Reference" "Q20"
+			(at 105.156 145.5419 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "BC817"
+			(at 102.616 148.59 90)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 104.902 148.717 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC818-D.pdf"
+			(at 99.822 146.812 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+			(at 99.822 146.812 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "fb53a423-afa9-4808-a7ea-7d6fbd4188f7")
+		)
+		(pin "2"
+			(uuid "547e5b9a-c4f2-4ed4-a1da-f6ce5604b9cf")
+		)
+		(pin "1"
+			(uuid "ebd07ac4-65b5-4c28-b1e4-05a9d705c212")
+		)
+		(instances
+			(project "main"
+				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
+					(reference "Q20")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C_Small_US")
 		(at 251.968 110.998 90)
 		(unit 1)
@@ -15474,7 +15589,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_BJT:BC337")
-		(at 54.864 121.412 270)
+		(at 54.61 121.666 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15482,7 +15597,7 @@
 		(dnp no)
 		(uuid "289f6337-4109-455c-b045-27f0054a604c")
 		(property "Reference" "Q32"
-			(at 56.1341 127 0)
+			(at 55.8801 127.254 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15492,7 +15607,7 @@
 			)
 		)
 		(property "Value" "BC337"
-			(at 52.832 124.206 90)
+			(at 52.578 124.46 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -15501,7 +15616,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 52.959 126.492 0)
+			(at 52.705 126.746 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15512,7 +15627,7 @@
 			)
 		)
 		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 54.864 121.412 0)
+			(at 54.61 121.666 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15522,7 +15637,7 @@
 			)
 		)
 		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 54.864 121.412 0)
+			(at 54.61 121.666 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15619,8 +15734,84 @@
 		)
 	)
 	(symbol
+		(lib_id "Transistor_BJT:BC817")
+		(at 152.908 37.084 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "298fb005-0a88-4d40-80ac-6e1e4f322eca")
+		(property "Reference" "Q86"
+			(at 158.242 35.8139 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "BC817"
+			(at 155.702 38.862 90)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 157.988 38.989 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC818-D.pdf"
+			(at 152.908 37.084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+			(at 152.908 37.084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "5eb12860-8612-473e-8eee-82d8716186dc")
+		)
+		(pin "2"
+			(uuid "80030205-0a3f-4d79-9e28-ac6795e2f271")
+		)
+		(pin "1"
+			(uuid "eee999fa-44bd-4a1f-9685-c949f2f50883")
+		)
+		(instances
+			(project "main"
+				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
+					(reference "Q86")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Transistor_BJT:BC337")
-		(at 161.29 66.548 270)
+		(at 161.036 66.802 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15628,7 +15819,7 @@
 		(dnp no)
 		(uuid "29a37a7a-2994-48a5-bf63-21dc080dcac3")
 		(property "Reference" "Q60"
-			(at 162.5601 72.136 0)
+			(at 162.3061 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15638,7 +15829,7 @@
 			)
 		)
 		(property "Value" "BC337"
-			(at 159.258 69.342 90)
+			(at 159.004 69.596 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -15647,7 +15838,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 159.385 71.628 0)
+			(at 159.131 71.882 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15658,7 +15849,7 @@
 			)
 		)
 		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 161.29 66.548 0)
+			(at 161.036 66.802 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15668,7 +15859,7 @@
 			)
 		)
 		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 161.29 66.548 0)
+			(at 161.036 66.802 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16256,7 +16447,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_BJT:BC337")
-		(at 162.052 148.336 270)
+		(at 161.798 148.59 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16264,7 +16455,7 @@
 		(dnp no)
 		(uuid "2dbb63c6-6555-4bf0-a0da-5ce8222bc4f9")
 		(property "Reference" "Q64"
-			(at 163.3221 153.924 0)
+			(at 163.0681 154.178 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16274,7 +16465,7 @@
 			)
 		)
 		(property "Value" "BC337"
-			(at 160.02 151.13 90)
+			(at 159.766 151.384 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -16283,7 +16474,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 160.147 153.416 0)
+			(at 159.893 153.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16294,7 +16485,7 @@
 			)
 		)
 		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 162.052 148.336 0)
+			(at 161.798 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16304,7 +16495,7 @@
 			)
 		)
 		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 162.052 148.336 0)
+			(at 161.798 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16613,16 +16804,16 @@
 		)
 	)
 	(symbol
-		(lib_id "Transistor_BJT:BC337")
-		(at 99.06 65.024 0)
+		(lib_id "Transistor_BJT:BC817")
+		(at 46.99 119.126 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "32afb172-4b98-4a5b-be7c-835fa4c1c7a3")
-		(property "Reference" "Q37"
-			(at 104.648 63.7539 0)
+		(uuid "319a9ade-95f9-4786-8d31-452a00db9436")
+		(property "Reference" "Q19"
+			(at 52.324 117.8559 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16631,8 +16822,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "BC337"
-			(at 101.854 66.802 90)
+		(property "Value" "BC817"
+			(at 49.784 120.904 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -16640,8 +16831,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 104.14 66.929 0)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 52.07 121.031 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16651,8 +16842,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 99.06 65.024 0)
+		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC818-D.pdf"
+			(at 46.99 119.126 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16661,8 +16852,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 99.06 65.024 0)
+		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+			(at 46.99 119.126 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16670,19 +16861,19 @@
 				(hide yes)
 			)
 		)
+		(pin "3"
+			(uuid "49c6d76c-e76a-42da-988b-b4869b12c729")
+		)
 		(pin "2"
-			(uuid "431a03f5-1158-427c-88b9-8a858ecd363a")
+			(uuid "de7f935c-9182-45c5-b5ea-1fc5f0646af2")
 		)
 		(pin "1"
-			(uuid "cb4d8367-4513-4088-9eb0-f3ca5ebab730")
-		)
-		(pin "3"
-			(uuid "e67738ee-2d04-4875-b1dc-1d78557cd099")
+			(uuid "3932e44e-240b-40b2-81f4-58103ec2e475")
 		)
 		(instances
 			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
-					(reference "Q37")
+					(reference "Q19")
 					(unit 1)
 				)
 			)
@@ -16879,82 +17070,6 @@
 			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "#PWR038")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Transistor_BJT:BC337")
-		(at 152.908 37.084 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "3a3aafd5-f57d-482b-8e8e-fd4b45ba6646")
-		(property "Reference" "Q52"
-			(at 158.496 35.8139 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "BC337"
-			(at 155.702 38.862 90)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 157.988 38.989 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 152.908 37.084 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 152.908 37.084 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "3689f742-bfcd-436b-8396-0fbd6a30c71d")
-		)
-		(pin "1"
-			(uuid "437a7c0b-7096-4571-92d8-32fbc3d52ef0")
-		)
-		(pin "3"
-			(uuid "1b365eb2-6800-4879-9fa0-ce265647ad82")
-		)
-		(instances
-			(project "main"
-				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
-					(reference "Q52")
 					(unit 1)
 				)
 			)
@@ -17301,16 +17416,16 @@
 		)
 	)
 	(symbol
-		(lib_id "Transistor_BJT:BC337")
-		(at 99.568 92.71 0)
+		(lib_id "Transistor_BJT:BC817")
+		(at 100.076 119.888 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4013ecf8-4401-44ef-b479-2b578a478260")
-		(property "Reference" "Q38"
-			(at 105.156 91.4399 0)
+		(uuid "3deba35a-ffd6-48f3-ae47-69c08a63e0c9")
+		(property "Reference" "Q21"
+			(at 105.41 118.6179 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17319,8 +17434,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "BC337"
-			(at 102.362 94.488 90)
+		(property "Value" "BC817"
+			(at 102.87 121.666 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -17328,8 +17443,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 104.648 94.615 0)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 105.156 121.793 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17339,8 +17454,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 99.568 92.71 0)
+		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC818-D.pdf"
+			(at 100.076 119.888 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17349,8 +17464,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 99.568 92.71 0)
+		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+			(at 100.076 119.888 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17358,19 +17473,19 @@
 				(hide yes)
 			)
 		)
+		(pin "3"
+			(uuid "88d14f8c-1439-4972-81d3-169f9c80f66d")
+		)
 		(pin "2"
-			(uuid "0d565fce-817b-450d-afcd-37f5a6fa5fd9")
+			(uuid "7116e348-5938-4e20-988e-a165818fd005")
 		)
 		(pin "1"
-			(uuid "9c2b5506-e193-43d4-ad83-6e9042586923")
-		)
-		(pin "3"
-			(uuid "39008921-56b6-4c34-81fd-b01d13895d24")
+			(uuid "e1733f92-e60a-4e76-a023-fd8720bb300b")
 		)
 		(instances
 			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
-					(reference "Q38")
+					(reference "Q21")
 					(unit 1)
 				)
 			)
@@ -17656,7 +17771,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_BJT:BC337")
-		(at 54.61 148.336 270)
+		(at 54.356 148.59 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17664,7 +17779,7 @@
 		(dnp no)
 		(uuid "44d05ef3-be97-48ed-8f02-48dcef4ed423")
 		(property "Reference" "Q30"
-			(at 55.8801 153.924 0)
+			(at 55.6261 154.178 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17674,7 +17789,7 @@
 			)
 		)
 		(property "Value" "BC337"
-			(at 52.578 151.13 90)
+			(at 52.324 151.384 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -17683,7 +17798,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 52.705 153.416 0)
+			(at 52.451 153.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17694,7 +17809,7 @@
 			)
 		)
 		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 54.61 148.336 0)
+			(at 54.356 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17704,7 +17819,7 @@
 			)
 		)
 		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 54.61 148.336 0)
+			(at 54.356 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18149,82 +18264,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Transistor_BJT:BC337")
-		(at 98.552 37.846 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "50bec261-f24a-4dbb-b1fc-3ead8935ad7b")
-		(property "Reference" "Q36"
-			(at 104.14 36.5759 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "BC337"
-			(at 101.346 39.624 90)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 103.632 39.751 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 98.552 37.846 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 98.552 37.846 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "58e75fe6-73d4-48f5-9634-82326a77d885")
-		)
-		(pin "1"
-			(uuid "fd50687e-1e0d-483a-9c15-0c298c86b70b")
-		)
-		(pin "3"
-			(uuid "3da0a3d6-c099-42f9-8c2f-ff8175bc34eb")
-		)
-		(instances
-			(project "main"
-				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
-					(reference "Q36")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
 		(at 96.012 25.4 90)
 		(unit 1)
@@ -18359,6 +18398,82 @@
 		)
 	)
 	(symbol
+		(lib_id "Transistor_BJT:BC817")
+		(at 45.974 64.262 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "519f1540-4485-4b60-9dc9-ebf241866ea6")
+		(property "Reference" "Q81"
+			(at 51.308 62.9919 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "BC817"
+			(at 48.768 66.04 90)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 51.054 66.167 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC818-D.pdf"
+			(at 45.974 64.262 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+			(at 45.974 64.262 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "ee61b4fc-6e79-45ff-8a05-9e19f0472e8a")
+		)
+		(pin "2"
+			(uuid "a8313af1-aea5-4b0e-ab56-ab4f718635c8")
+		)
+		(pin "1"
+			(uuid "c8775539-6ba2-467b-a64d-7b64bf5fc5b1")
+		)
+		(instances
+			(project "main"
+				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
+					(reference "Q81")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Transistor_BJT:BC337")
 		(at 161.29 50.8 90)
 		(unit 1)
@@ -18429,6 +18544,82 @@
 			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "Q59")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Transistor_BJT:BC817")
+		(at 47.244 173.228 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "53be0a9e-c217-4865-be9f-650be975c017")
+		(property "Reference" "Q83"
+			(at 52.578 171.9579 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "BC817"
+			(at 50.038 175.006 90)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 52.324 175.133 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC818-D.pdf"
+			(at 47.244 173.228 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+			(at 47.244 173.228 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "4f148ecb-54b3-4b70-bd57-cd7346eaca4a")
+		)
+		(pin "2"
+			(uuid "c3823f04-8f96-41db-b531-40d24166310c")
+		)
+		(pin "1"
+			(uuid "8d6250fc-92ac-4503-a5ec-53b6195d5a12")
+		)
+		(instances
+			(project "main"
+				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
+					(reference "Q83")
 					(unit 1)
 				)
 			)
@@ -18575,7 +18766,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_BJT:BC337")
-		(at 55.118 175.514 270)
+		(at 54.864 175.768 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18583,7 +18774,7 @@
 		(dnp no)
 		(uuid "5784c83a-a093-4e03-b81f-b24e647b68c7")
 		(property "Reference" "Q34"
-			(at 56.3881 181.102 0)
+			(at 56.1341 181.356 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18593,7 +18784,7 @@
 			)
 		)
 		(property "Value" "BC337"
-			(at 53.086 178.308 90)
+			(at 52.832 178.562 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -18602,7 +18793,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 53.213 180.594 0)
+			(at 52.959 180.848 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18613,7 +18804,7 @@
 			)
 		)
 		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 55.118 175.514 0)
+			(at 54.864 175.768 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18623,7 +18814,7 @@
 			)
 		)
 		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 55.118 175.514 0)
+			(at 54.864 175.768 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18923,7 +19114,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_BJT:BC337")
-		(at 106.426 40.132 270)
+		(at 106.172 40.386 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18931,7 +19122,7 @@
 		(dnp no)
 		(uuid "5a793a47-42c1-4d81-be7b-d765b17c3ef5")
 		(property "Reference" "Q42"
-			(at 107.6961 45.72 0)
+			(at 107.4421 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18941,7 +19132,7 @@
 			)
 		)
 		(property "Value" "BC337"
-			(at 104.394 42.926 90)
+			(at 104.14 43.18 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -18950,7 +19141,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 104.521 45.212 0)
+			(at 104.267 45.466 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18961,7 +19152,7 @@
 			)
 		)
 		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 106.426 40.132 0)
+			(at 106.172 40.386 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18971,7 +19162,7 @@
 			)
 		)
 		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 106.426 40.132 0)
+			(at 106.172 40.386 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19196,82 +19387,6 @@
 			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "R157")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Transistor_BJT:BC337")
-		(at 154.178 146.05 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "5d1722bc-776c-4ec0-9cd6-3a8a019504dd")
-		(property "Reference" "Q55"
-			(at 159.766 144.7799 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "BC337"
-			(at 156.972 147.828 90)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 159.258 147.955 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 154.178 146.05 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 154.178 146.05 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "f8d44304-236c-4847-b5e4-e4b1a31a5427")
-		)
-		(pin "1"
-			(uuid "acb1d0e0-29dd-4b36-9dd3-c5573ac95125")
-		)
-		(pin "3"
-			(uuid "11ac328a-88ec-44c7-a645-7c219be294ec")
-		)
-		(instances
-			(project "main"
-				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
-					(reference "Q55")
 					(unit 1)
 				)
 			)
@@ -20104,7 +20219,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_BJT:BC337")
-		(at 107.696 149.098 270)
+		(at 107.442 149.352 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -20112,7 +20227,7 @@
 		(dnp no)
 		(uuid "66c2d342-e42f-4c35-8f36-3cd8aecfaf76")
 		(property "Reference" "Q48"
-			(at 108.9661 154.686 0)
+			(at 108.7121 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20122,7 +20237,7 @@
 			)
 		)
 		(property "Value" "BC337"
-			(at 105.664 151.892 90)
+			(at 105.41 152.146 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -20131,7 +20246,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 105.791 154.178 0)
+			(at 105.537 154.432 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20142,7 +20257,7 @@
 			)
 		)
 		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 107.696 149.098 0)
+			(at 107.442 149.352 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20152,7 +20267,7 @@
 			)
 		)
 		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 107.696 149.098 0)
+			(at 107.442 149.352 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20383,82 +20498,6 @@
 			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "Q31")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Transistor_BJT:BC337")
-		(at 46.482 91.948 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "69e62bea-88a0-425b-8551-dea41ad8a5ab")
-		(property "Reference" "Q19"
-			(at 52.07 90.6779 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "BC337"
-			(at 49.276 93.726 90)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 51.562 93.853 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 46.482 91.948 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 46.482 91.948 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "98581283-014c-44f5-9c29-975b85f87fbf")
-		)
-		(pin "1"
-			(uuid "25b25e7e-fa8a-47b5-b4a2-74ae22ae5325")
-		)
-		(pin "3"
-			(uuid "54c815ef-1988-4e96-89d6-1e5d5c3bd69d")
-		)
-		(instances
-			(project "main"
-				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
-					(reference "Q19")
 					(unit 1)
 				)
 			)
@@ -20934,82 +20973,6 @@
 			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "Q79")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Transistor_BJT:BC337")
-		(at 47.244 173.228 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "6ffa08e2-d13a-4832-a75a-4f9a96c2b2d9")
-		(property "Reference" "Q22"
-			(at 52.832 171.9579 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "BC337"
-			(at 50.038 175.006 90)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 52.324 175.133 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 47.244 173.228 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 47.244 173.228 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "1070114d-93ec-413a-a1f5-3c7655eb0ad7")
-		)
-		(pin "1"
-			(uuid "7aef454d-43a5-4398-b519-c763df4f5cb8")
-		)
-		(pin "3"
-			(uuid "5fe2b862-55df-43c5-9dca-1850e8dcf27e")
-		)
-		(instances
-			(project "main"
-				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
-					(reference "Q22")
 					(unit 1)
 				)
 			)
@@ -21637,6 +21600,82 @@
 		)
 	)
 	(symbol
+		(lib_id "Transistor_BJT:BC817")
+		(at 154.178 146.05 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "78fe40b1-80de-40c0-839b-40e2d084bf5f")
+		(property "Reference" "Q90"
+			(at 159.512 144.7799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "BC817"
+			(at 156.972 147.828 90)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 159.258 147.955 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC818-D.pdf"
+			(at 154.178 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+			(at 154.178 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "70442389-713a-4c02-a6f7-64b4afdb5319")
+		)
+		(pin "2"
+			(uuid "62b1d646-6ab9-4702-9fcd-719af2048ea1")
+		)
+		(pin "1"
+			(uuid "8c66d5c1-b105-40fe-9892-a73a8ddce75d")
+		)
+		(instances
+			(project "main"
+				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
+					(reference "Q90")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 96.52 56.642 270)
 		(unit 1)
@@ -21905,7 +21944,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_BJT:BC337")
-		(at 160.782 39.37 270)
+		(at 160.528 39.624 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -21913,7 +21952,7 @@
 		(dnp no)
 		(uuid "7dd2c797-1a53-4a74-8abd-6f44d3524463")
 		(property "Reference" "Q58"
-			(at 162.0521 44.958 0)
+			(at 161.7981 45.212 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21923,7 +21962,7 @@
 			)
 		)
 		(property "Value" "BC337"
-			(at 158.75 42.164 90)
+			(at 158.496 42.418 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -21932,7 +21971,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 158.877 44.45 0)
+			(at 158.623 44.704 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21943,7 +21982,7 @@
 			)
 		)
 		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 160.782 39.37 0)
+			(at 160.528 39.624 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21953,7 +21992,7 @@
 			)
 		)
 		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 160.782 39.37 0)
+			(at 160.528 39.624 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22793,82 +22832,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Transistor_BJT:BC337")
-		(at 100.076 119.888 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "8973ccbe-1edc-4522-b783-7730c4b6cf5a")
-		(property "Reference" "Q40"
-			(at 105.664 118.6179 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "BC337"
-			(at 102.87 121.666 90)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 105.156 121.793 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 100.076 119.888 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 100.076 119.888 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "59c5f924-b1e9-419e-ba9b-f689b93229a7")
-		)
-		(pin "1"
-			(uuid "daa16b74-14e4-4fcd-8b99-467274e0ab8a")
-		)
-		(pin "3"
-			(uuid "19c5e8ae-fafb-49fd-b5e9-75fd55ba4be7")
-		)
-		(instances
-			(project "main"
-				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
-					(reference "Q40")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
 		(at 166.624 61.468 0)
 		(unit 1)
@@ -23225,6 +23188,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 97.282 151.892 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8dc0fe61-b8b1-4528-811a-1a65ae0e3b3d")
+		(property "Reference" "#PWR0104"
+			(at 97.282 158.242 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 97.282 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 97.282 151.892 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 97.282 151.892 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 97.282 151.892 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d58f0853-540e-4350-89b9-1e951b452301")
+		)
+		(instances
+			(project "main"
+				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
+					(reference "#PWR0104")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C_Small_US")
 		(at 252.222 152.654 90)
 		(unit 1)
@@ -23296,7 +23325,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_BJT:BC337")
-		(at 107.442 94.996 270)
+		(at 107.188 95.25 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -23304,7 +23333,7 @@
 		(dnp no)
 		(uuid "8e660ab9-a2e0-4716-a859-eb541cbca3ee")
 		(property "Reference" "Q46"
-			(at 108.7121 100.584 0)
+			(at 108.4581 100.838 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23314,7 +23343,7 @@
 			)
 		)
 		(property "Value" "BC337"
-			(at 105.41 97.79 90)
+			(at 105.156 98.044 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -23323,7 +23352,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 105.537 100.076 0)
+			(at 105.283 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23334,7 +23363,7 @@
 			)
 		)
 		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 107.442 94.996 0)
+			(at 107.188 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23344,7 +23373,7 @@
 			)
 		)
 		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 107.442 94.996 0)
+			(at 107.188 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23803,82 +23832,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Transistor_BJT:BC337")
-		(at 153.416 64.262 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "94849ac5-1a1e-418b-a5fa-f020e73383ca")
-		(property "Reference" "Q53"
-			(at 159.004 62.9919 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "BC337"
-			(at 156.21 66.04 90)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 158.496 66.167 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 153.416 64.262 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 153.416 64.262 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "6146e3f1-1387-4f44-bd5a-1bbde32650a3")
-		)
-		(pin "1"
-			(uuid "3e78076a-53f5-408d-940a-2e289b980bcf")
-		)
-		(pin "3"
-			(uuid "cb73f193-fc98-4d55-9625-d20d08875d44")
-		)
-		(instances
-			(project "main"
-				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
-					(reference "Q53")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
 		(at 38.1 170.18 0)
 		(unit 1)
@@ -23941,6 +23894,82 @@
 			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "R22")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Transistor_BJT:BC817")
+		(at 153.924 91.948 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "99c4e55b-3614-450c-91fc-966f38acf015")
+		(property "Reference" "Q88"
+			(at 159.258 90.6779 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "BC817"
+			(at 156.718 93.726 90)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 159.004 93.853 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC818-D.pdf"
+			(at 153.924 91.948 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+			(at 153.924 91.948 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "3ff53c5f-c6d0-4962-b5db-e35e82563ca2")
+		)
+		(pin "2"
+			(uuid "55fbb527-558a-4952-a462-89e80fb7d464")
+		)
+		(pin "1"
+			(uuid "b1d93c8c-5270-47e6-8bf1-16050cc8ea4a")
+		)
+		(instances
+			(project "main"
+				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
+					(reference "Q88")
 					(unit 1)
 				)
 			)
@@ -24017,6 +24046,82 @@
 			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "Q75")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Transistor_BJT:BC817")
+		(at 46.736 146.05 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9b81e165-891b-4fd0-b79d-c40350c9bc5d")
+		(property "Reference" "Q82"
+			(at 52.07 144.7799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "BC817"
+			(at 49.53 147.828 90)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 51.816 147.955 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC818-D.pdf"
+			(at 46.736 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+			(at 46.736 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "11c15d0e-72d4-47b5-b811-f9f44658eff0")
+		)
+		(pin "2"
+			(uuid "374f90aa-a511-4674-aeac-0c199b625eef")
+		)
+		(pin "1"
+			(uuid "66b4ebfc-8b83-415c-9d45-b60b0bc4bd34")
+		)
+		(instances
+			(project "main"
+				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
+					(reference "Q82")
 					(unit 1)
 				)
 			)
@@ -24294,8 +24399,84 @@
 		)
 	)
 	(symbol
+		(lib_id "Transistor_BJT:BC817")
+		(at 99.568 92.71 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9e6f92da-feae-4da2-9de2-ef20a733033d")
+		(property "Reference" "Q22"
+			(at 104.902 91.4399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "BC817"
+			(at 102.362 94.488 90)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 104.648 94.615 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC818-D.pdf"
+			(at 99.568 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+			(at 99.568 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "f2c26b4d-2275-4e99-ac4e-ec49080b0a14")
+		)
+		(pin "2"
+			(uuid "742e3b5d-57a9-44ca-b0ea-aa038d607755")
+		)
+		(pin "1"
+			(uuid "efc8c8a7-e914-4d46-a996-6ad9bdbeac35")
+		)
+		(instances
+			(project "main"
+				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
+					(reference "Q22")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Transistor_BJT:BC337")
-		(at 107.95 122.174 270)
+		(at 107.696 122.428 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -24303,7 +24484,7 @@
 		(dnp no)
 		(uuid "9f536e0b-03fa-4850-89f1-98b040c6fa58")
 		(property "Reference" "Q50"
-			(at 109.2201 127.762 0)
+			(at 108.9661 128.016 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24313,7 +24494,7 @@
 			)
 		)
 		(property "Value" "BC337"
-			(at 105.918 124.968 90)
+			(at 105.664 125.222 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -24322,7 +24503,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 106.045 127.254 0)
+			(at 105.791 127.508 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24333,7 +24514,7 @@
 			)
 		)
 		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 107.95 122.174 0)
+			(at 107.696 122.428 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24343,7 +24524,7 @@
 			)
 		)
 		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 107.95 122.174 0)
+			(at 107.696 122.428 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -25731,6 +25912,82 @@
 		)
 	)
 	(symbol
+		(lib_id "Transistor_BJT:BC817")
+		(at 45.466 37.084 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ac6f6541-13b8-41ab-998c-f0097e58057b")
+		(property "Reference" "Q17"
+			(at 50.8 35.8139 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "BC817"
+			(at 48.26 38.862 90)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 50.546 38.989 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC818-D.pdf"
+			(at 45.466 37.084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+			(at 45.466 37.084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "565d46fc-46fb-419b-a819-c48fdcf40eef")
+		)
+		(pin "2"
+			(uuid "8934f50b-e34d-412e-b375-04df234181cf")
+		)
+		(pin "1"
+			(uuid "5bb2b12e-7fa3-4bc0-9b0a-6146c58b187e")
+		)
+		(instances
+			(project ""
+				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
+					(reference "Q17")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Transistor_BJT:BC327")
 		(at 196.088 106.172 180)
 		(unit 1)
@@ -26000,82 +26257,6 @@
 			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "#PWR091")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Transistor_BJT:BC337")
-		(at 46.736 146.05 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "b1e105f6-a0f9-428a-bb08-43923c4dbe95")
-		(property "Reference" "Q20"
-			(at 52.324 144.7799 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "BC337"
-			(at 49.53 147.828 90)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 51.816 147.955 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 46.736 146.05 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 46.736 146.05 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "15163bac-a186-403c-99ca-7afbf4a261c6")
-		)
-		(pin "1"
-			(uuid "0a03791c-1edd-4902-ba97-a60f41a85416")
-		)
-		(pin "3"
-			(uuid "b4626224-e342-4004-95a4-35ef952ddec8")
-		)
-		(instances
-			(project "main"
-				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
-					(reference "Q20")
 					(unit 1)
 				)
 			)
@@ -26638,7 +26819,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 96.012 70.104 0)
+		(at 96.012 70.358 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -26646,7 +26827,7 @@
 		(dnp no)
 		(uuid "bb12e7e5-22bc-4666-a440-8468cb502f30")
 		(property "Reference" "#PWR055"
-			(at 96.012 76.454 0)
+			(at 96.012 76.708 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -26655,7 +26836,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 95.758 68.58 0)
+			(at 95.758 68.834 0)
 			(effects
 				(font
 					(size 1 1)
@@ -26663,7 +26844,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 96.012 70.104 0)
+			(at 96.012 70.358 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -26672,7 +26853,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 96.012 70.104 0)
+			(at 96.012 70.358 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -26681,7 +26862,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 96.012 70.104 0)
+			(at 96.012 70.358 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27441,7 +27622,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_BJT:BC337")
-		(at 106.934 67.31 270)
+		(at 106.68 67.564 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -27449,7 +27630,7 @@
 		(dnp no)
 		(uuid "bf597593-32ae-49d1-b000-11dffe19c501")
 		(property "Reference" "Q44"
-			(at 108.2041 72.898 0)
+			(at 107.9501 73.152 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27459,7 +27640,7 @@
 			)
 		)
 		(property "Value" "BC337"
-			(at 104.902 70.104 90)
+			(at 104.648 70.358 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -27468,7 +27649,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 105.029 72.39 0)
+			(at 104.775 72.644 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27479,7 +27660,7 @@
 			)
 		)
 		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 106.934 67.31 0)
+			(at 106.68 67.564 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27489,7 +27670,7 @@
 			)
 		)
 		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 106.934 67.31 0)
+			(at 106.68 67.564 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27778,88 +27959,6 @@
 			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "#PWR093")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Transistor_BJT:BC337")
-		(at 45.466 37.084 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "c3f143fb-270d-4c3b-bffa-994a63321046")
-		(property "Reference" "Q17"
-			(at 51.054 35.8139 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "BC337"
-			(at 48.26 38.862 90)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 50.546 38.989 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 45.466 37.084 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 45.466 37.084 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "e04b60c9-8c62-4251-890e-4fec6864412e")
-		)
-		(pin "1"
-			(uuid "4b53bcc5-771c-48a0-9dd0-c20a66b9a2a0")
-		)
-		(pin "3"
-			(uuid "1e6b4d9c-6190-466f-82e1-4259a4b94e8d")
-		)
-		(instances
-			(project "HILO"
-				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
-					(reference "Q17")
-					(unit 1)
-				)
-			)
-			(project "HILO"
-				(path "/ec3aa47a-1a4b-429b-8616-a014c71c7eeb"
-					(reference "Q8")
 					(unit 1)
 				)
 			)
@@ -28335,6 +28434,82 @@
 		)
 	)
 	(symbol
+		(lib_id "Transistor_BJT:BC817")
+		(at 153.416 64.262 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c83b8ffe-7845-4298-87e7-42f4bee577c0")
+		(property "Reference" "Q87"
+			(at 158.75 62.9919 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "BC817"
+			(at 156.21 66.04 90)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 158.496 66.167 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC818-D.pdf"
+			(at 153.416 64.262 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+			(at 153.416 64.262 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "7a11ce02-d2f7-420f-bd4a-d2c9f0609549")
+		)
+		(pin "2"
+			(uuid "305065ba-392a-4718-a8fa-68d0779bf3b4")
+		)
+		(pin "1"
+			(uuid "18b97dfb-0db4-44f7-b7d8-105a90bfbc2a")
+		)
+		(instances
+			(project "main"
+				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
+					(reference "Q87")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 250.19 155.956 90)
 		(unit 1)
@@ -28613,7 +28788,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_BJT:BC337")
-		(at 53.34 39.37 270)
+		(at 53.34 39.624 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -28621,7 +28796,7 @@
 		(dnp no)
 		(uuid "cb0943ab-cd9f-485e-bfca-885b8f563534")
 		(property "Reference" "Q24"
-			(at 54.6101 44.958 0)
+			(at 54.6101 45.212 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -28631,7 +28806,7 @@
 			)
 		)
 		(property "Value" "BC337"
-			(at 51.308 42.164 90)
+			(at 51.308 42.418 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -28640,7 +28815,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 51.435 44.45 0)
+			(at 51.435 44.704 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -28651,7 +28826,7 @@
 			)
 		)
 		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 53.34 39.37 0)
+			(at 53.34 39.624 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -28661,7 +28836,7 @@
 			)
 		)
 		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 53.34 39.37 0)
+			(at 53.34 39.624 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -28956,82 +29131,6 @@
 			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "R99")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Transistor_BJT:BC337")
-		(at 153.924 91.948 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "d03fa9bf-0b1d-4a04-b9e9-2f45e2b52bc7")
-		(property "Reference" "Q54"
-			(at 159.512 90.6779 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "BC337"
-			(at 156.718 93.726 90)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 159.004 93.853 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 153.924 91.948 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 153.924 91.948 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "9c1837dc-0c11-4874-ad6e-987e09dd3de4")
-		)
-		(pin "1"
-			(uuid "3b168e30-88ec-4e18-872d-3e98e8bdfcbd")
-		)
-		(pin "3"
-			(uuid "11732b62-aca5-4da9-8bb3-4235b6ed9c42")
-		)
-		(instances
-			(project "main"
-				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
-					(reference "Q54")
 					(unit 1)
 				)
 			)
@@ -30865,82 +30964,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Transistor_BJT:BC337")
-		(at 46.99 119.126 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "e69ea653-fea5-4dee-8338-327b39ff67a9")
-		(property "Reference" "Q21"
-			(at 52.578 117.8559 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "BC337"
-			(at 49.784 120.904 90)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 52.07 121.031 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 46.99 119.126 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 46.99 119.126 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "58050c6d-22ef-4667-974c-4ec0a0d2f268")
-		)
-		(pin "1"
-			(uuid "251eedd3-1dba-4b48-b4e4-2033b9b829b3")
-		)
-		(pin "3"
-			(uuid "ac16a6ff-3866-480d-ad87-79dc8e50f5b8")
-		)
-		(instances
-			(project "main"
-				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
-					(reference "Q21")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
 		(at 257.81 40.894 90)
 		(unit 1)
@@ -31146,7 +31169,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_BJT:BC337")
-		(at 54.356 94.234 270)
+		(at 54.102 94.488 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -31154,7 +31177,7 @@
 		(dnp no)
 		(uuid "ea58cde3-bad8-4e91-a7b4-318938ec5ef3")
 		(property "Reference" "Q28"
-			(at 55.6261 99.822 0)
+			(at 55.3721 100.076 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31164,7 +31187,7 @@
 			)
 		)
 		(property "Value" "BC337"
-			(at 52.324 97.028 90)
+			(at 52.07 97.282 90)
 			(effects
 				(font
 					(size 0.8 0.8)
@@ -31173,7 +31196,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 52.451 99.314 0)
+			(at 52.197 99.568 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31184,7 +31207,7 @@
 			)
 		)
 		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 54.356 94.234 0)
+			(at 54.102 94.488 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31194,7 +31217,7 @@
 			)
 		)
 		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 54.356 94.234 0)
+			(at 54.102 94.488 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31962,82 +31985,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Transistor_BJT:BC337")
-		(at 154.432 119.126 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "f2fceeaf-3a63-4f25-866c-44d53535479f")
-		(property "Reference" "Q56"
-			(at 160.02 117.8559 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "BC337"
-			(at 157.226 120.904 90)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 159.512 121.031 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 154.432 119.126 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 154.432 119.126 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "ff4fab38-a3bf-4c8a-81dc-c5d26655504e")
-		)
-		(pin "1"
-			(uuid "a43b3698-82cc-4fed-8cbc-3622c594c381")
-		)
-		(pin "3"
-			(uuid "4875ad3d-65fd-4f18-b190-aa35407dc594")
-		)
-		(instances
-			(project "main"
-				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
-					(reference "Q56")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
 		(at 134.366 161.036 90)
 		(unit 1)
@@ -32711,82 +32658,6 @@
 			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "R105")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Transistor_BJT:BC337")
-		(at 45.974 64.262 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "fecbded8-c24a-42b2-8c30-e9862d7e41c7")
-		(property "Reference" "Q18"
-			(at 51.562 62.9919 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "BC337"
-			(at 48.768 66.04 90)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide"
-			(at 51.054 66.167 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf"
-			(at 45.974 64.262 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "0.8A Ic, 45V Vce, NPN Transistor, TO-92"
-			(at 45.974 64.262 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "29a08637-ff1a-492d-ace5-2d4ae158e11a")
-		)
-		(pin "1"
-			(uuid "4931f61b-1351-491d-9a40-7f7bb9ea2470")
-		)
-		(pin "3"
-			(uuid "ab9863e0-9547-4a86-9487-89899f20eb99")
-		)
-		(instances
-			(project "main"
-				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
-					(reference "Q18")
 					(unit 1)
 				)
 			)
