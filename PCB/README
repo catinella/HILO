@@ -1,0 +1,22 @@
+#-------------------------------------------------------------------------------------------------------------------------------
+#                                                     _   _ ___ _     ___  
+#                                                    | | | |_ _| |   / _ \ 
+#                                                    | |_| || || |  | | | |
+#                                                    |  _  || || |__| |_| |
+#                                                    |_| |_|___|_____\___/ 
+#                                                     Hardware in the loop
+#-------------------------------------------------------------------------------------------------------------------------------
+
+1.0 Files
+	IOlinesManagement      The digital I/O lines interface
+	kicadCustomComponents  The KiCAD libraries for the customized symbols/footprints
+	MasterControlUnit      The HILO's brain
+
+2.0 Decription
+	By the hardware points of view, this HILO is composed by the following separated modules. Everyone of them is connected to
+	the master one using pin-headers connectors and flat-cables.
+	- The Master Conroller unit interface the I/O lines with the PC and perform the configured tests
+	- One PCB hosts the digital I/O lines interface
+	- Another (optional) PCB is dedicated to the Analog lines
+
+	
