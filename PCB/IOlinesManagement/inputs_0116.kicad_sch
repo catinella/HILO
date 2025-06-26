@@ -6669,7 +6669,7 @@
 			(uuid "8400f75c-87e7-45de-b56c-5bdbd22abb45")
 		)
 		(instances
-			(project ""
+			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "#PWR042")
 					(unit 1)
@@ -7307,7 +7307,7 @@
 			(uuid "febcc825-1fa1-4025-b85e-b959d7e69e16")
 		)
 		(instances
-			(project "HILO"
+			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "C1")
 					(unit 1)
@@ -9021,7 +9021,7 @@
 			(uuid "d8c56cb8-da53-43d7-8c2a-71cc6f3cc4e4")
 		)
 		(instances
-			(project "HILO"
+			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "R54")
 					(unit 1)
@@ -9997,7 +9997,7 @@
 			(uuid "bb1c864d-2bb6-4f07-b147-02c148e2c06f")
 		)
 		(instances
-			(project "HILO"
+			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "Q25")
 					(unit 1)
@@ -11949,7 +11949,7 @@
 			(uuid "06728992-3a9b-455a-840c-2f8349c8d31b")
 		)
 		(instances
-			(project "HILO"
+			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "R56")
 					(unit 1)
@@ -13395,7 +13395,7 @@
 			(uuid "433e3aea-68a9-4436-83ee-74cf858fee52")
 		)
 		(instances
-			(project ""
+			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "#PWR041")
 					(unit 1)

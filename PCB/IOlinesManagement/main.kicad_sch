@@ -3913,6 +3913,48 @@
 		)
 	)
 	(sheet
+		(at 145.796 20.574)
+		(size 40.386 11.938)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "8998d3fd-5041-4adb-a71a-54aa0c585421")
+		(property "Sheetname" "OutputLines Interface"
+			(at 145.796 19.8624 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "outputs_0116.kicad_sch"
+			(at 145.796 33.0966 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "main"
+				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 91.948 20.574)
 		(size 38.354 11.938)
 		(exclude_from_sim no)
@@ -3928,7 +3970,7 @@
 			(color 0 0 0 0.0000)
 		)
 		(uuid "af0c9688-8424-44b6-99df-696fe62a0ea5")
-		(property "Sheetname" "InputOutput interface"
+		(property "Sheetname" "InputLines interface"
 			(at 91.948 19.8624 0)
 			(effects
 				(font
@@ -3937,7 +3979,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Sheetfile" "IO_0116.kicad_sch"
+		(property "Sheetfile" "inputs_0116.kicad_sch"
 			(at 91.948 33.0966 0)
 			(effects
 				(font
