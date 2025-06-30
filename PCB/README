@@ -8,8 +8,9 @@
 #-------------------------------------------------------------------------------------------------------------------------------
 
 1.0 Files
-	IOlinesManagement      The digital I/O lines interface
 	kicadCustomComponents  The KiCAD libraries for the customized symbols/footprints
+	IOlinesManagement      The digital I/O lines interface
+	ElectricProtections    I/O Interface electric protection devices
 	MasterControlUnit      The HILO's brain
 
 2.0 Decription
