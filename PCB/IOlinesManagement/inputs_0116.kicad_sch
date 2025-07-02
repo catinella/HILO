@@ -14299,7 +14299,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+		(property "Footprint" ""
 			(at 170.434 60.452 90)
 			(effects
 				(font
@@ -14884,6 +14884,74 @@
 			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
 					(reference "#PWR066")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 114.554 66.802 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "fd962e04-5374-45f0-856e-22694cfe5d03")
+		(property "Reference" "R17"
+			(at 114.554 73.406 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "1K"
+			(at 114.554 66.802 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+			(at 114.554 68.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 114.554 66.802 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 114.554 66.802 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d811dfeb-471c-40fb-9019-1fb04fb14e6f")
+		)
+		(pin "2"
+			(uuid "65aa158c-1de9-4abf-bc31-f34e8a6402d6")
+		)
+		(instances
+			(project "main"
+				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28/af0c9688-8424-44b6-99df-696fe62a0ea5"
+					(reference "R17")
 					(unit 1)
 				)
 			)
