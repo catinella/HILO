@@ -30948,7 +30948,7 @@
 	(footprint "Resistor_SMD:R_1206_3216Metric"
 		(layer "F.Cu")
 		(uuid "bfd9c731-1d7f-491f-bb22-b97ed56811a2")
-		(at 84.234123 95.416987 90)
+		(at 84.2264 95.0214 90)
 		(descr "Resistor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "R1"
@@ -37867,7 +37867,7 @@
 			(extension_offset 0.5)
 			(keep_text_aligned yes)
 		)
-		(gr_text "139,777"
+		(gr_text "139.777"
 			(at 141.379003 148.717 0)
 			(layer "Eco1.User")
 			(uuid "466d24b4-cc86-45e2-bfad-274be528e71c")
@@ -45133,15 +45133,15 @@
 		(width 0.4)
 		(layer "F.Cu")
 		(net 111)
-		(uuid "6d5be227-f71f-4887-a830-fa7f0b767068")
+		(uuid "0509aa10-9bc8-482d-9627-7721915f6653")
 	)
 	(segment
 		(start 84.2772 96.922564)
-		(end 84.234123 96.879487)
+		(end 84.2264 96.871764)
 		(width 0.4)
 		(layer "F.Cu")
 		(net 111)
-		(uuid "7108574e-1664-4297-af0e-013839fe7088")
+		(uuid "0cf59b40-67e4-4354-9b26-3e2d48c48ac6")
 	)
 	(segment
 		(start 84.3178 100.4801)
@@ -45149,10 +45149,18 @@
 		(width 0.4)
 		(layer "F.Cu")
 		(net 111)
-		(uuid "8b06e1b0-df0e-4866-b299-9266cbd3905a")
+		(uuid "475f53ef-e7a3-482f-be51-04b52b46b469")
+	)
+	(segment
+		(start 84.2264 96.871764)
+		(end 84.2264 96.4839)
+		(width 0.4)
+		(layer "F.Cu")
+		(net 111)
+		(uuid "dfe69ac2-3f45-4106-8ec1-4e19c4f8ffee")
 	)
 	(via
-		(at 84.234123 93.954487)
+		(at 84.2264 93.5589)
 		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
@@ -45160,12 +45168,12 @@
 		(uuid "4a420bf6-4276-4ba5-bf9d-a58667a1448a")
 	)
 	(segment
-		(start 84.234123 93.954487)
-		(end 76.047487 93.954487)
+		(start 84.2264 93.5589)
+		(end 83.830813 93.954487)
 		(width 0.4)
 		(layer "In1.Cu")
 		(net 112)
-		(uuid "17a05b52-f428-4e68-b1e2-52a1b6f69999")
+		(uuid "064ef2e4-db5d-41ee-89b3-57edb934eafa")
 	)
 	(segment
 		(start 76.047487 93.954487)
@@ -45173,7 +45181,15 @@
 		(width 0.4)
 		(layer "In1.Cu")
 		(net 112)
-		(uuid "6f47ee98-26b0-4638-aa80-6eb33871f089")
+		(uuid "1fc7bf39-8cc6-4581-b799-d644298c86eb")
+	)
+	(segment
+		(start 83.830813 93.954487)
+		(end 76.047487 93.954487)
+		(width 0.4)
+		(layer "In1.Cu")
+		(net 112)
+		(uuid "4ad48f73-b3e6-49ed-ad67-fdf8de0f536a")
 	)
 	(via
 		(at 84.074 130.8207)
