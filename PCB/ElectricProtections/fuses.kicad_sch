@@ -6270,7 +6270,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 182.118 123.444 90)
 			(effects
 				(font
@@ -6332,7 +6332,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 189.23 33.2741 90)
 			(effects
 				(font
@@ -6342,7 +6342,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 191.262 34.544 0)
 			(effects
 				(font
@@ -6540,7 +6540,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 82.296 36.5761 90)
 			(effects
 				(font
@@ -6550,7 +6550,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 84.328 37.846 0)
 			(effects
 				(font
@@ -6618,7 +6618,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 98.298 57.15 90)
 			(effects
 				(font
@@ -6680,7 +6680,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 75.184 136.9059 90)
 			(effects
 				(font
@@ -6690,7 +6690,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 73.152 135.636 0)
 			(effects
 				(font
@@ -6758,7 +6758,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 183.134 62.484 90)
 			(effects
 				(font
@@ -6894,7 +6894,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 183.134 67.564 90)
 			(effects
 				(font
@@ -6956,7 +6956,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 90.424 136.9059 90)
 			(effects
 				(font
@@ -6966,7 +6966,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 88.392 135.636 0)
 			(effects
 				(font
@@ -7100,7 +7100,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 182.118 120.904 90)
 			(effects
 				(font
@@ -7230,7 +7230,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 73.152 36.5761 90)
 			(effects
 				(font
@@ -7240,7 +7240,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 75.184 37.846 0)
 			(effects
 				(font
@@ -7308,7 +7308,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 98.552 52.07 90)
 			(effects
 				(font
@@ -7376,7 +7376,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 98.298 56.134 90)
 			(effects
 				(font
@@ -7444,7 +7444,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 182.118 110.744 90)
 			(effects
 				(font
@@ -7506,7 +7506,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 195.834 134.6199 90)
 			(effects
 				(font
@@ -7516,7 +7516,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 193.802 133.35 0)
 			(effects
 				(font
@@ -7584,7 +7584,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 183.134 57.404 90)
 			(effects
 				(font
@@ -7711,7 +7711,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 192.786 134.6199 90)
 			(effects
 				(font
@@ -7721,7 +7721,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 190.754 133.35 0)
 			(effects
 				(font
@@ -7789,7 +7789,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 98.298 66.294 90)
 			(effects
 				(font
@@ -7857,7 +7857,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 99.822 112.776 90)
 			(effects
 				(font
@@ -7987,7 +7987,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 96.774 136.9059 90)
 			(effects
 				(font
@@ -7997,7 +7997,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 94.742 135.636 0)
 			(effects
 				(font
@@ -8059,7 +8059,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 208.026 134.6199 90)
 			(effects
 				(font
@@ -8069,7 +8069,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 205.994 133.35 0)
 			(effects
 				(font
@@ -8131,7 +8131,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 192.278 33.2741 90)
 			(effects
 				(font
@@ -8141,7 +8141,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 194.31 34.544 0)
 			(effects
 				(font
@@ -8203,7 +8203,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 211.328 134.6199 90)
 			(effects
 				(font
@@ -8213,7 +8213,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 209.296 133.35 0)
 			(effects
 				(font
@@ -8275,7 +8275,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 69.85 36.5761 90)
 			(effects
 				(font
@@ -8285,7 +8285,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 71.882 37.846 0)
 			(effects
 				(font
@@ -8353,7 +8353,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 98.298 63.754 90)
 			(effects
 				(font
@@ -8421,7 +8421,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 99.822 131.572 90)
 			(effects
 				(font
@@ -8557,7 +8557,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 183.134 49.784 90)
 			(effects
 				(font
@@ -8619,7 +8619,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 85.344 36.5761 90)
 			(effects
 				(font
@@ -8629,7 +8629,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 87.376 37.846 0)
 			(effects
 				(font
@@ -8697,7 +8697,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 183.134 59.944 90)
 			(effects
 				(font
@@ -8766,7 +8766,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CD4030BE:DIP794W45P254L1969H508Q14"
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_LongPads"
 			(at 53.34 60.452 0)
 			(effects
 				(font
@@ -8951,7 +8951,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 182.118 115.824 90)
 			(effects
 				(font
@@ -9013,7 +9013,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 87.376 136.9059 90)
 			(effects
 				(font
@@ -9023,7 +9023,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 85.344 135.636 0)
 			(effects
 				(font
@@ -9150,7 +9150,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 207.518 33.2741 90)
 			(effects
 				(font
@@ -9160,7 +9160,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 209.55 34.544 0)
 			(effects
 				(font
@@ -9228,7 +9228,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 99.822 125.476 90)
 			(effects
 				(font
@@ -9290,7 +9290,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 201.422 33.2741 90)
 			(effects
 				(font
@@ -9300,7 +9300,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 203.454 34.544 0)
 			(effects
 				(font
@@ -9362,7 +9362,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 201.93 134.6199 90)
 			(effects
 				(font
@@ -9372,7 +9372,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 199.898 133.35 0)
 			(effects
 				(font
@@ -9500,7 +9500,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 198.374 33.2741 90)
 			(effects
 				(font
@@ -9510,7 +9510,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 200.406 34.544 0)
 			(effects
 				(font
@@ -9578,7 +9578,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CD4030BE:DIP794W45P254L1969H508Q14"
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_LongPads"
 			(at 228.6 120.142 0)
 			(effects
 				(font
@@ -9890,7 +9890,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 78.232 136.9059 90)
 			(effects
 				(font
@@ -9900,7 +9900,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 76.2 135.636 0)
 			(effects
 				(font
@@ -9968,7 +9968,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 182.118 113.284 90)
 			(effects
 				(font
@@ -10030,7 +10030,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 93.472 136.9059 90)
 			(effects
 				(font
@@ -10040,7 +10040,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 91.44 135.636 0)
 			(effects
 				(font
@@ -10102,7 +10102,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 204.978 134.6199 90)
 			(effects
 				(font
@@ -10112,7 +10112,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 202.946 133.35 0)
 			(effects
 				(font
@@ -10242,7 +10242,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 198.882 134.6199 90)
 			(effects
 				(font
@@ -10252,7 +10252,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 196.85 133.35 0)
 			(effects
 				(font
@@ -10386,7 +10386,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 183.134 52.324 90)
 			(effects
 				(font
@@ -10522,7 +10522,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 182.118 108.204 90)
 			(effects
 				(font
@@ -10590,7 +10590,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 99.822 120.396 90)
 			(effects
 				(font
@@ -10658,7 +10658,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 98.298 58.674 90)
 			(effects
 				(font
@@ -10856,7 +10856,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 204.47 33.2741 90)
 			(effects
 				(font
@@ -10866,7 +10866,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 206.502 34.544 0)
 			(effects
 				(font
@@ -11070,7 +11070,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 99.822 122.936 90)
 			(effects
 				(font
@@ -11132,7 +11132,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 88.392 36.5761 90)
 			(effects
 				(font
@@ -11142,7 +11142,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 90.424 37.846 0)
 			(effects
 				(font
@@ -11211,7 +11211,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CD4030BE:DIP794W45P254L1969H508Q14"
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_LongPads"
 			(at 54.61 122.174 0)
 			(effects
 				(font
@@ -11390,7 +11390,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 81.28 136.9059 90)
 			(effects
 				(font
@@ -11400,7 +11400,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 79.248 135.636 0)
 			(effects
 				(font
@@ -11468,7 +11468,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 183.134 54.864 90)
 			(effects
 				(font
@@ -11602,7 +11602,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 99.822 115.316 90)
 			(effects
 				(font
@@ -11670,7 +11670,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 99.822 117.856 90)
 			(effects
 				(font
@@ -11732,7 +11732,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 189.738 134.6199 90)
 			(effects
 				(font
@@ -11742,7 +11742,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 187.706 133.35 0)
 			(effects
 				(font
@@ -11810,7 +11810,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CD4030BE:DIP794W45P254L1969H508Q14"
+		(property "Footprint" "Package_DIP:DIP-14_W7.62mm_LongPads"
 			(at 227.838 61.722 0)
 			(effects
 				(font
@@ -12125,7 +12125,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 84.328 136.9059 90)
 			(effects
 				(font
@@ -12135,7 +12135,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 82.296 135.636 0)
 			(effects
 				(font
@@ -12197,7 +12197,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 195.326 33.2741 90)
 			(effects
 				(font
@@ -12207,7 +12207,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 197.358 34.544 0)
 			(effects
 				(font
@@ -12269,7 +12269,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 185.928 33.2741 90)
 			(effects
 				(font
@@ -12279,7 +12279,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 187.96 34.544 0)
 			(effects
 				(font
@@ -12347,7 +12347,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 182.118 118.364 90)
 			(effects
 				(font
@@ -12415,7 +12415,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 182.118 129.54 90)
 			(effects
 				(font
@@ -12483,7 +12483,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 99.822 110.236 90)
 			(effects
 				(font
@@ -12619,7 +12619,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 98.298 54.61 90)
 			(effects
 				(font
@@ -12681,7 +12681,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 79.248 36.5761 90)
 			(effects
 				(font
@@ -12691,7 +12691,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 81.28 37.846 0)
 			(effects
 				(font
@@ -12818,7 +12818,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 76.2 36.5761 90)
 			(effects
 				(font
@@ -12828,7 +12828,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 78.232 37.846 0)
 			(effects
 				(font
@@ -12896,7 +12896,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 98.298 61.214 90)
 			(effects
 				(font
@@ -12958,7 +12958,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "D_Zener"
+		(property "Value" "5V"
 			(at 91.44 36.5761 90)
 			(effects
 				(font
@@ -12968,7 +12968,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_1206_3216Metric"
 			(at 93.472 37.846 0)
 			(effects
 				(font
@@ -13036,7 +13036,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 183.134 65.024 90)
 			(effects
 				(font
