@@ -17,7 +17,27 @@
 	By the hardware points of view, this HILO is composed by the following separated modules. Everyone of them is connected to
 	the master one using pin-headers connectors and flat-cables.
 	- The Master Conroller unit interface the I/O lines with the PC and perform the configured tests
-	- One PCB hosts the digital I/O lines interface
-	- Another (optional) PCB is dedicated to the Analog lines
+	- Digital I/O lines interface
+	- Output lines electrical protection
+	- (optional) Dedicated to the Analog lines PCB
 
 	
+
+	
+	                                               +------------+
+	                                               |            | 
+	                                               |   SRAM     +<-------+
+	                                               |            |        |
+	                                               +------------+        |
+	+-------+                                                            |
+	|       |            +--------------+            +------------+      |
+	|       |  GPIO      |              |       GPIO |            | SPI  |              
+	|       +<---------->+              +----------->+            +<-----+     +-------------+              +------------+
+	|       +<...DATA...>+  I/O lines   +<...DATA...>+  STM32 M4  |            |             |              |            |
+	|  DUT  +<---------->+  interfaces  +<---------->+            | SPI        |             | BlueTooth    |    Test    |
+	|       |            |     and      |            |            +<---------->|    ESP32    +<~~~~~~~~~~~~>| controller |
+	|       |            |  protections +----------->|            |            |             |              |    (PC)    |
+	|       |            |              +...FUSES...>|            |            |             |              |            |
+	|       |            |              +----------->|            |            +-------------+              +------------+
+	+-------+            |              |       GPIO |            |
+	                     +--------------+            +------------+
