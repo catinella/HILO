@@ -1,47 +1,41 @@
+#-------------------------------------------------------------------------------------------------------------------------------
+#                                                     _   _ ___ _     ___  
+#                                                    | | | |_ _| |   / _ \ 
+#                                                    | |_| || || |  | | | |
+#                                                    |  _  || || |__| |_| |
+#                                                    |_| |_|___|_____\___/ 
+#                                                     Hardware in the loop
+#-------------------------------------------------------------------------------------------------------------------------------
 
+1.0 Files
+	HILO_engine      The real-time component that performs the scheduled test
+	HILO_interface   The component that interface the HILO's engine with the test client system
 
-
-
-
-
-
-	Flowchart diagram:
-
-	                START
-	                  |
-	      +---------->|
-	      |           |
-	      |   +---------------+
-	      |   | Hardware data |   Input pins status and analog ports reading
-	      |   |   reading     |
-	      |   +-------+-------+
-	      |           |
-	      |   +-------+-------+
-	      |   | Data sending  |   Data sending trough UDP/IP channel
-	      |   +-------+-------+
-	      |           |
-	      |   +-------+-------+
-	      |   | Waiting for   |
-	      |   | PC's data     |
-	      |   +-------+-------+
-	      |           |
-		|           /\
-	      |          /  \
-	      |         /    \  NO
-	      |        / New  \
-	      |        \ data /---------+
-	      |         \ ?  /          |
-	      |          \  / YES       |
-		|           \/            |
-		|           |             |
-	      |   +-------+-------+     |
-		|   |  Data reading |     |
-	      |   +-------+-------+     |
-		|           |             |
-	      |   +-------+-------+     |
-		|   | Output update |     |
-	      |   +-------+-------+     |
-		|           |             |
-		|           +-------------+
-		|           |
-		+-----------+
+2.0 Description
+	This folder contains the firmware needed by the all HILO's components
+	
+	Dataflow description:
+	=====================
+	Please, consider the logic scheme stored in the ../PCB/README file.
+	As you can read in the main README file, this HILO provides two different functional modes: in the first the user can 
+	change the output channels values and check for the input channel status, dinamically; in the second the user can
+	compose a test-recepit that contains all test steps to follow and sends it to the HILO using the the wireless connection.
+	In this second mode the ESP32 checks for the authorization's request and, if it has success then it performs the followinhg
+	steps:
+		1) it resets the whole SRAM memories
+		2) it configures the test parameters sending the proper commands to the (STM32M4) realtime micro
+		3) it close the SPI link to the SRAMs
+		4) it sends the test start message to the micro
+		5) it waits for one of the following events:
+			5.1) a test step log from the micro
+			5.2) a critical test-end message from the micro
+			5.3) a test-stop message from the user
+	
+	When the RealTime driver (STM32) get the test-procedure start message, it starts to execute the following steps in loop,
+	until the test has terminated
+		1) it reads the test's step
+		2) it sets the output pin and reads the input ones
+		3) it sends the test-step log to the HILO's interface manager (ESP32)
+		4) if the step was the last one it sends also a test-end message to the interface manager
+		5) if it receive a test-stop message from the interface then the test will be stopped (no other steps)
+		6) if a (configured) critical error has been detected then a test-end message will be returned to the interface
