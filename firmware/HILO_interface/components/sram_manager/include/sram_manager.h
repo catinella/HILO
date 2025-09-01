@@ -1,0 +1,72 @@
+//------------------------------------------------------------------------------------------------------------------------------
+//                                                    _   _ ___ _     ___  
+//                                                   | | | |_ _| |   / _ \
+//                                                   | |_| || || |  | | | |
+//                                                   |  _  || || |__| |_| |
+//                                                   |_| |_|___|_____\___/ 
+//                                                    Hardware in the loop
+//
+//
+// File:   sram_manager.h
+//
+// Author: Silvano Catinella <catinella@yahoo.com>
+//
+// Description:
+//	This library provides useful features for the APS6404L-3SQR-SN 8Mbytes SRAM management
+//
+//	SRAMMAN_MAXSIZE        the max number of records you can store in the SRAM. (*1)
+//	SRAMMAN_ESP32PIN_MISO  ESP32's SPI pin 
+//	SRAMMAN_ESP32PIN_MOSI  ""
+//	SRAMMAN_ESP32PIN_CLK   ""
+//	SRAMMAN_ESP32PIN_CS<n> ESP32's SPI CS pin connected to the proper SRAM chip
+//	SRAMMAN_ESP32SPI_CLK   ESP32's SPI clock (*2)
+//
+//	(*1) At the moment, the allocated SRAM size is 64MB (8 chips of 8MB), and because every item's size is 8B, it means
+//	     the max number you can set is 67108864/8 - 1 = 8388607
+//
+//	(*2) At the moment, the max sampling rate should be 100KHz, it means the SRAMs would require 800KB/s (less then
+//	     10Mbit/sec) so 20Mhx (20000000 Hz) could be enough
+//
+//
+//                                                                                                               cols=128 tab=6
+//------------------------------------------------------------------------------------------------------------------------------
+#ifndef __SRAMMAN__
+#define __SRAMMAN__
+
+#include <wError.h>
+
+typedef ssRecord uint64_t;
+
+#define SRAMMAN_MAXSIZE      8388607
+
+#define SRAMMAN_ESP32PIN_MISO  19
+#define SRAMMAN_ESP32PIN_MOSI  23
+#define SRAMMAN_ESP32PIN_CLK   18
+#define SRAMMAN_ESP32PIN_CS0   5
+#define SRAMMAN_ESP32PIN_CS1   12
+#define SRAMMAN_ESP32PIN_CS2   13
+#define SRAMMAN_ESP32PIN_CS3   14
+#define SRAMMAN_ESP32PIN_CS4   15
+#define SRAMMAN_ESP32PIN_CS5   16
+#define SRAMMAN_ESP32PIN_CS6   17
+#define SRAMMAN_ESP32PIN_CS7   21
+#define SRAMMAN_ESP32SPI_CLK   20000000
+
+#define SRAMMAN_NUMOFBANKS     8
+#define SRAMMAN_CSPINSLIST { \
+	SRAMMAN_ESP32PIN_CS0,  \
+	SRAMMAN_ESP32PIN_CS1,  \
+	SRAMMAN_ESP32PIN_CS2,  \
+	SRAMMAN_ESP32PIN_CS3,  \
+	SRAMMAN_ESP32PIN_CS4,  \
+	SRAMMAN_ESP32PIN_CS5,  \
+	SRAMMAN_ESP32PIN_CS6,  \
+	SRAMMAN_ESP32PIN_CS7   \
+}
+
+
+wError sramManager_deleteAll ();
+wError sramManager_write     (ssRecord rec);
+wError sramManager_read      (ssRecord *rec);
+
+#endif
