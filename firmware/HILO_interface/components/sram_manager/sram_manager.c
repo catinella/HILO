@@ -12,24 +12,41 @@
 // Author: Silvano Catinella <catinella@yahoo.com>
 //
 // Description:
-//	This library provides useful features for the APS6404L-3SQR-SN 8Mbytes SRAM management
-//	In order to minimize the used time, the read/write operations are always implemented sequentially, except of the first
-//	record. In fact that record is used to keep track of the stored-items number and it will be updated just at the end.
-//	Every record has 64bit size
+//		This library provides useful features for the APS6404L-3SQR-SN 8Mbytes SRAM management
+//		In order to minimize the used time, the read/write operations are always implemented sequentially, except of the
+//		first	record. In fact that record is used to keep track of the stored-items number and it will be updated just at
+//		the end.
 //
-//	Internal data reppresentation:
-//	0                                              64MB
-//	+---------------+------------------------------+
-//	| Num. of items | item1 | item2 |//////////////| 
-//	+---------------+-------+-------+--------------+
+//		Internal data reppresentation:
+//		==============================
+//		Every record has 64bit size
+//		0                                              64MB
+//		+---------------+------------------------------+
+//		| Num. of items | item1 | item2 |//////////////| 
+//		+---------------+-------+-------+--------------+
 //
-//	Multiple SRAMs access
-//	=====================
-//	In order to get the advantages of the SRAM solution, it has been needed to use more devices to achieve 64MB size. In fact
-//	the APS6404L-3SQR-SN maximum size is just 8MB and bigger SRAM devices cannot be welded by humans!! :-O
-//	64MB looks like a huge quantity of memory, but considering every round HILO would save 8 bytes and it would be do it
-//	100 000 times per second (at maximum speed). It means the test must be shorter then (64MB/800KB) 80 seconds.
-//	Anyways to store and read data in the SRAMs you have to use a roud-robin access for the chip0 to the chip7
+//		Multiple SRAMs access
+//		=====================
+//		In order to get the advantages of the SRAM solution, it has been needed to use more devices to achieve 64MB size.
+//		In fact the APS6404L-3SQR-SN maximum size is just 8MB and bigger SRAM devices cannot be welded by humans!! :-O
+//		64MB looks like a huge quantity of memory, but considering every round HILO would save 8 bytes and it would be do
+//		it 100 000 times per second (at maximum speed). It means the test must be shorter then (64MB/800KB) 80 seconds.
+//		Anyways to store and read data in the SRAMs you have to use a roud-robin access for the chip0 to the chip7
+//
+// License:  LGPL ver 3.0
+//
+// 		This script is a wfree software; you can redistribute it and/or modify it under the terms	of the GNU
+// 		Lesser General Public License as published by the Free Software Foundation; either version 3.0 of the License,
+// 		or (at your option) any later version. 
+//
+//		For further details please read the full LGPL text file  "Linuxwoodo/trunk/templates/lgpl-3.0.txt".
+// 		You should have received a copy of the GNU General Public License along with this file; 
+// 		if not, write to the 
+//
+//			Free Software Foundation, Inc.,
+//			59 Temple Place, Suite 330,
+//			Boston, MA  02111-1307  USA
+//
 //
 //------------------------------------------------------------------------------------------------------------------------------
 #include <stdio.h>

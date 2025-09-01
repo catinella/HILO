@@ -5,6 +5,8 @@
 //                                                   |  _  || || |__| |_| |
 //                                                   |_| |_|___|_____\___/ 
 //                                                    Hardware in the loop
+//                                              (https://github.com/catinella/HILO)
+//
 //
 //
 // File:   sram_manager.h
@@ -12,21 +14,35 @@
 // Author: Silvano Catinella <catinella@yahoo.com>
 //
 // Description:
-//	This library provides useful features for the APS6404L-3SQR-SN 8Mbytes SRAM management
+//		This library provides useful features for the APS6404L-3SQR-SN 8Mbytes SRAM management
 //
-//	SRAMMAN_MAXSIZE        the max number of records you can store in the SRAM. (*1)
-//	SRAMMAN_ESP32PIN_MISO  ESP32's SPI pin 
-//	SRAMMAN_ESP32PIN_MOSI  ""
-//	SRAMMAN_ESP32PIN_CLK   ""
-//	SRAMMAN_ESP32PIN_CS<n> ESP32's SPI CS pin connected to the proper SRAM chip
-//	SRAMMAN_ESP32SPI_CLK   ESP32's SPI clock (*2)
+//		SRAMMAN_MAXSIZE        the max number of records you can store in the SRAM. (*1)
+//		SRAMMAN_ESP32PIN_MISO  ESP32's SPI pin 
+//		SRAMMAN_ESP32PIN_MOSI  ""
+//		SRAMMAN_ESP32PIN_CLK   ""
+//		SRAMMAN_ESP32PIN_CS<n> ESP32's SPI CS pin connected to the proper SRAM chip
+//		SRAMMAN_ESP32SPI_CLK   ESP32's SPI clock (*2)
 //
-//	(*1) At the moment, the allocated SRAM size is 64MB (8 chips of 8MB), and because every item's size is 8B, it means
-//	     the max number you can set is 67108864/8 - 1 = 8388607
+//		(*1) At the moment, the allocated SRAM size is 64MB (8 chips of 8MB), and because every item's size is 8B, it means
+//		     the max number you can set is 67108864/8 - 1 = 8388607
 //
-//	(*2) At the moment, the max sampling rate should be 100KHz, it means the SRAMs would require 800KB/s (less then
-//	     10Mbit/sec) so 20Mhx (20000000 Hz) could be enough
+//		(*2) At the moment, the max sampling rate should be 100KHz, it means the SRAMs would require 800KB/s (less then
+//		     10Mbit/sec) so 20Mhx (20000000 Hz) could be enough
 //
+//
+// License:  LGPL ver 3.0
+//
+// 		This script is a wfree software; you can redistribute it and/or modify it under the terms	of the GNU
+// 		Lesser General Public License as published by the Free Software Foundation; either version 3.0 of the License,
+// 		or (at your option) any later version. 
+//
+//		For further details please read the full LGPL text file  "Linuxwoodo/trunk/templates/lgpl-3.0.txt".
+// 		You should have received a copy of the GNU General Public License along with this file; 
+// 		if not, write to the 
+//
+//			Free Software Foundation, Inc.,
+//			59 Temple Place, Suite 330,
+//			Boston, MA  02111-1307  USA
 //
 //                                                                                                               cols=128 tab=6
 //------------------------------------------------------------------------------------------------------------------------------
@@ -65,6 +81,9 @@ typedef ssRecord uint64_t;
 }
 
 
+//------------------------------------------------------------------------------------------------------------------------------
+//                                        F U N C T I O N S   P R O T O T Y P E S
+//------------------------------------------------------------------------------------------------------------------------------
 wError sramManager_deleteAll ();
 wError sramManager_write     (ssRecord rec);
 wError sramManager_read      (ssRecord *rec);
