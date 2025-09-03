@@ -51,10 +51,14 @@
 
 #include <wError.h>
 
-typedef ssRecord uint64_t;
+typedef uint64_t ssRecord;
 
-#define SRAMMAN_MAXSIZE      8388607
+#define SRAMMAN_MAXSIZE        8388607
+#define SRAMMAN_NUMOFBANKS     8
 
+//
+// ESP32's SPI configuration
+//
 #define SRAMMAN_ESP32PIN_MISO  19
 #define SRAMMAN_ESP32PIN_MOSI  23
 #define SRAMMAN_ESP32PIN_CLK   18
@@ -68,7 +72,16 @@ typedef ssRecord uint64_t;
 #define SRAMMAN_ESP32PIN_CS7   21
 #define SRAMMAN_ESP32SPI_CLK   20000000
 
-#define SRAMMAN_NUMOFBANKS     8
+//
+// APS6404L-3SQR-SN SRAM's commands and attributes
+//
+#define SRAM_CMD_READ       0x03
+#define SRAM_CMD_WRITE      0x02
+#define SRAM_CMD_FASTREAD   0x0b
+#define SRAM_CMD_GETDEVID   0x9f
+#define SRAM_ATTR_ADDRSIZE  24
+
+
 #define SRAMMAN_CSPINSLIST { \
 	SRAMMAN_ESP32PIN_CS0,  \
 	SRAMMAN_ESP32PIN_CS1,  \
@@ -79,7 +92,6 @@ typedef ssRecord uint64_t;
 	SRAMMAN_ESP32PIN_CS6,  \
 	SRAMMAN_ESP32PIN_CS7   \
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------
 //                                        F U N C T I O N S   P R O T O T Y P E S
