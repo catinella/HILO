@@ -63,6 +63,8 @@ typedef uint8_t wError;
 #define WERROR_ERROR_INITFAILED      128
 #define WERROR_ERROR_DATAOVERFLOW    130
 #define WERROR_ERROR_SPIBUSERROR     132
-
+#define WERROR_ERROR_ILLEGALOP       134
+#define WERROR_ERROR_ILLEGALARG      136
 
 #endif
+     
