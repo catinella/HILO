@@ -3,7 +3,7 @@
 // Authour:   Silvano Catinella
 //
 // Description
-//	This file contains useful macro to be used in coide debug session
+//	This file contains useful macro to be used in X86-code debug session
 //
 //	Macro:
 //		DBGTRACE
