@@ -21,6 +21,11 @@
 	- Output lines electrical protection
 	- (optional) Dedicated to the Analog lines PCB
 
+	Documentation:
+	==============
+	APS6404L-3SQR-SN:  https://eu.mouser.com/datasheet/3/4815/1/APM_PSRAM_E3_QSPI%20(APS6404L-SQH%20KGD_PKG)%20v4.1.pdf
+
+
 
 	Logic scheme
 	============
