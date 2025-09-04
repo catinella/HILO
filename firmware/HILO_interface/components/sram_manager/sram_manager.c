@@ -74,14 +74,6 @@
 #endif
 
 typedef enum {
-	SRAMMAN_DIRTY,
-	SRAMMAN_EMPTY,
-	SRAMMAN_WRSTARTED,
-	SRAMMAN_RDAVAILAB,
-	SRAMMAN_RDSTARTED
-} sramFsmType;
-
-typedef enum {
 	SRAMMAN_OP_RESET,
 	SRAMMAN_OP_READ,
 	SRAMMAN_OP_WRITE
@@ -95,7 +87,6 @@ typedef enum {
 // Module's variables
 //
 static spi_device_handle_t sram_devsHandles[SRAMMAN_NUMOFBANKS]; // Handle of every SRAM chip
-static sramFsmType         sram_fsm        = false;              // Finite State Machine
 static uint32_t            sram_noi        = 0;                  // Number Of (written) Items
 static uint8_t             sram_rrIndex    = 0;                  // SRAM chips Round Robin index
 static bool_t              sram_spiCfgFlag = false;
@@ -243,6 +234,10 @@ wError _sram_seqOP (spi_device_handle_t dev, uint32_t addr, ssRecord *data, bool
 	//
 	//	[!] This can be used with DMA. It could be useful for bigger ssRecord blobs
 	//
+	//	Function's commans:
+	//		SRAMMAN_OP_READ   Data reading
+	//		SRAMMAN_OP_WRITE  Data wtiting
+	//		SRAMMAN_OP_RESET  Data stream stopping! (CS = High)
 	//
 	//	Generated data on the SPI bus:
 	//		+---------------------+-----------+----------+  +----------+  +----------+  .... +----------+ 
@@ -261,9 +256,25 @@ wError _sram_seqOP (spi_device_handle_t dev, uint32_t addr, ssRecord *data, bool
 	static bool_t              activeChFlag = false;
 	static spi_device_handle_t activeDev = NULL;
 
-	if (data == NULL) {
+	if (opt == SRAMMAN_OP_RESET) {
+		//
+		// Stop the data streaming!
+		//
+		spi_transaction_t t = {0};
+		t.length = 0;              // NO DATA!
+
+		if (spi_device_polling_transmit(dev, &t) != ESP_OK)
+			// ERROR
+			err = WERROR_ERROR_SPIBUSERROR;
+		
+		activeChFlag == false;
+		activeDev = NULL;
+
+		
+	} else if (data == NULL) {
 		// ERROR!
 		err = WERROR_ERROR_ILLEGALARG;
+
 		
 	} else {
 		spi_transaction_ext_t cfg = {0};
@@ -373,26 +384,29 @@ wError _sram_mcSeqOP (uint64_t *record, sramRwOpsType opt) {
 	//	WERROR_ERROR_DATAOVERFLOW
 	//
 	static uint32_t      totalRWBS = 0;
-	static sramRwOpsType lastOp = SRAMMAN_OP_RESET;
+	static sramRwOpsType lastOp    = SRAMMAN_OP_RESET;
 	uint8_t              chipID    = (uint32_t)((totalWBS + 8) / (uint32_t)SRAM_CHIPSIZE);
 
 	// SRAMMAN_OP_RESET option
 	if (lastOp != opt) {
 		// RESET
+		err = _sram_seqOP (sram_devsHandles[chipID], 0, NULL, false, SRAMMAN_OP_RESET);
+		
 		totalRWBS = 0;
 		lastOp == opt;
 	}
-	
-	if (totalRWBS >= SRAMMAN_MAXSIZE)
-		// ERROR!
-		err = WERROR_ERROR_DATAOVERFLOW;
+
+	if (WERROR_ISERROR(err) == false) {
+		if (totalRWBS >= SRAMMAN_MAXSIZE)
+			// ERROR!
+			err = WERROR_ERROR_DATAOVERFLOW;
 		
-	else {
-		err = _sram_seqOP (sram_devsHandles[chipID], 0, record, false, opt);
-		if (WERROR_ISERROR(err) == false)
-			totalWBS = totalWBS + sizeof(sRecord);
+		else {
+			err = _sram_seqOP (sram_devsHandles[chipID], 0, record, false, opt);
+			if (WERROR_ISERROR(err) == false)
+				totalWBS = totalWBS + sizeof(sRecord);
+		}
 	}
-		
 	return(err);
 }
 //------------------------------------------------------------------------------------------------------------------------------
@@ -422,19 +436,54 @@ wError sramManager_write (ssRecord rec) {
 	}
 
 	if (sram_spiCfgFlag) {
-		if (sram_fsm != SRAMMAN_WRSTARTED) {
-			uint64_t tRec = 0;
-
-			_sram_seqRWops(NULL, SRAMMAN_OP_RESET);   // For errors on write op
-
-			// NOI record resetting...
-			err = _sram_mcSeqOP(&tRec, SRAMMAN_OP_WRITE);
-
-			if (!WERROR_ISERROR(err))
-				sram_fsm = SRAMMAN_WRSTARTED;
-		}
+		err = _sram_mcSeqOP(&rec, SRAMMAN_OP_WRITE);
+	
+		if (WERROR_ISERROR(err) == false)
+			sram_noi++;
 	}
 	
+	return(err);
+}
+
+
+wError sramManager_resetNOIfiled (ssRecord *oldNOI) {
+	//
+	// Description:
+	//	This function saves ad cleans the first 8 bytes in the first SRAM chip. This memory area will besed to store
+	//	the number of written records. This data is very important and it is needed my the HILO-engine (STM32)
+	//
+	//	[!] After this call, all data previousely recorded will be lost and rewritten
+	//
+	ssRecord rec = 0;
+	wError   err = WERROR_SUCCESS;
+	
+	err = _sram_seqRWops(NULL, SRAMMAN_OP_RESET);
+	if (oldNOI != NULL)
+		err = _sram_rndOp (sram_devsHandles[0], 0, &rec, SRAMMAN_OP_READ);
+	if (WERROR_ISERROR(err) == false)
+		_sram_mcSeqOP(&rec, SRAMMAN_OP_WRITE));
+
+	return(err);
+}
+
+wError sramManager_updateNOIfiled () {
+	//
+	// Description:
+	//	It stops the data-stream, and stores the number of records belong to that stream, into the proper memory area
+	//
+	//	[!] After this call, YOU SHOULD NOT USE the write function or all data previousely recorded will be lost and
+	//	    rewritten
+	//
+	wError   err = WERROR_SUCCESS;
+	ssRecord rec = sram_noi;
+	
+	err = _sram_seqRWops(NULL, SRAMMAN_OP_RESET);
+
+	if (WERROR_ISERROR(err) == false)
+		err = _sram_rndOp (sram_devsHandles[0], 0, &rec, SRAMMAN_OP_WRITE);
+		
+	sram_noi = 0;
+
 	return(err);
 }
 
@@ -447,21 +496,11 @@ wError sramManager_read  (ssRecord *rec) {
 	// Returned value
 	//	WERROR_SUCCESS
 	//
-	uint64_t item = 0;
+	ssRecord rec  = 0;
 	wError   err  = WERROR_SUCCESS;
 
-	if (sram_fsm == SRAMMAN_RDAVAILAB) {
-		// TODO: NOI record reading....
+	err = _sram_rndOp (sram_devsHandles[0], 0, &rec, SRAMMAN_OP_READ);
 
-		if (WERROR_ISERROR(err) == false) {
-			sram_fsm = SRAMMAN_RDSTARTED;
-
-			if (sram_noi > 0) {
-				// TODO: record reading
-				sram_noi--;
-			}
-		}
-	}	
 		
 	return(err);
 }

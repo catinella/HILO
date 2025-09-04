@@ -14,8 +14,11 @@
 // Author: Silvano Catinella <catinella@yahoo.com>
 //
 // Description:
-//		This library provides useful features for the APS6404L-3SQR-SN 8Mbytes SRAM management
+//		This library provides useful functions for the APS6404L-3SQR-SN 8Mbytes SRAM management
+//		Using them you will be able to use all SRAM chips ad a single dueue (eg. fifo)
 //
+//		Symbols:
+//		========
 //		SRAMMAN_MAXSIZE        the max number of records you can store in the SRAM. (*1)
 //		SRAMMAN_ESP32PIN_MISO  ESP32's SPI pin 
 //		SRAMMAN_ESP32PIN_MOSI  ""
@@ -96,8 +99,9 @@ typedef uint64_t ssRecord;
 //------------------------------------------------------------------------------------------------------------------------------
 //                                        F U N C T I O N S   P R O T O T Y P E S
 //------------------------------------------------------------------------------------------------------------------------------
-wError sramManager_deleteAll ();
-wError sramManager_write     (ssRecord rec);
-wError sramManager_read      (ssRecord *rec);
+wError sramManager_write          (ssRecord rec);
+wError sramManager_read           (ssRecord *rec);
+wError sramManager_resetNOIfiled  (ssRecord *oldNOI);
+wError sramManager_updateNOIfiled (); 
 
 #endif
