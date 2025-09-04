@@ -158,6 +158,7 @@ void _recordToArray (ssRecord src, uint8_t *arr) {
 	//
 	// Description:
 	//	In order to send/receive data to/from the SRAM using DMA the ssRecord data must be splitted in bytes array
+	//	[!] Most of CPUs and MCUs use little endian convention
 	//
 	for (uint8_t t = 0; t < sizeof(ssRecord); t++)
 #ifdef LITTLE_ENDIAN
@@ -169,7 +170,7 @@ void _recordToArray (ssRecord src, uint8_t *arr) {
 }
 
 
-wError _sram_rndOp (spi_device_handle_t dev, uint32_t addr, uint64_t *data, sramRwOpsType opt) {
+wError _sram_rndOp (spi_device_handle_t dev, uint32_t addr, ssRecord *data, sramRwOpsType opt) {
 	//
 	// Description:
 	//	this function allows you to write/read a single ssRecord data-packet into/from the specified chip, at the
@@ -197,31 +198,31 @@ wError _sram_rndOp (spi_device_handle_t dev, uint32_t addr, uint64_t *data, sram
 		err = WERROR_ERROR_ILLEGALARG;
 
 	else {	
-		spi_transaction_ext_t t = {0};
+		spi_transaction_ext_t cfg = {0};
 		uint8_t               arrData[8];
 		
-		t.base.flags   = SPI_TRANS_VARIABLE_CMD | SPI_TRANS_VARIABLE_ADDR;
-		t.base.addr    = addr;               // 24 bit
-		t.command_bits = 8;
-		t.address_bits = SRAM_ATTR_ADDRSIZE;
+		cfg.base.flags   = SPI_TRANS_VARIABLE_CMD | SPI_TRANS_VARIABLE_ADDR;
+		cfg.base.addr    = addr;               // 24 bit
+		cfg.command_bits = 8;
+		cfg.address_bits = SRAM_ATTR_ADDRSIZE;
 	
 		if (opt == SRAMMAN_OP_WRITE) {
 			_recordToArray(*data, arrData);
-			t.base.cmd = SRAM_CMD_WRITE;
-			t.base.tx_buffer = arrData;
-			t.base.length = 8 * sizeof(ssRecord);    // Expressed in bits
+			cfg.base.cmd = SRAM_CMD_WRITE;
+			cfg.base.tx_buffer = arrData;
+			cfg.base.length = 8 * sizeof(ssRecord);    // Expressed in bits
 			
 		} else if (opt == SRAMMAN_OP_READ) {
-			t.base.cmd = SRAM_CMD_READ;
-			t.base.rx_buffer = data;                 // Possible compatibility problem {little|big}-endian
-			t.base.rxlength = 8 * sizeof(ssRecord);  // Expressed in bits
+			cfg.base.cmd = SRAM_CMD_READ;
+			cfg.base.rx_buffer = data;                 // Possible compatibility problem {little|big}-endian
+			cfg.base.rxlength = 8 * sizeof(ssRecord);  // Expressed in bits
 
 		} else
 			// ERROR!
 			err = WERROR_ERROR_ILLEGALARG;
 			
 		// The following call sends a polling transaction and wait for it to complete
-		if (err == WERROR_SUCCESS && spi_device_polling_transmit(dev, (spi_transaction_t*)&t) != ESP_OK)
+		if (err == WERROR_SUCCESS && spi_device_polling_transmit(dev, (spi_transaction_t*)&cfg) != ESP_OK)
 			// ERROR!
 			err = WERROR_ERROR_SPIBUSERROR;
 	}
@@ -229,13 +230,19 @@ wError _sram_rndOp (spi_device_handle_t dev, uint32_t addr, uint64_t *data, sram
 }
 
 
-wError _sram_seqWrite (spi_device_handle_t dev, uint32_t addr, uint8_t data, bool_t chClosingFlag) {
+wError _sram_seqOP (spi_device_handle_t dev, uint32_t addr, ssRecord *data, bool_t chClosingFlag, sramRwOpsType opt) {
 	//
 	// Description:
-	//	If you don't set true the chClosingFlag argument, this function will write one byte in the argument defined
-	//	address of a SRAM chip, and will not close che channel. In this way you will be able to write the next bytes
-	//	sequentially. When you will have to store the last data, setting chClosingFlag argument to true, the function
-	//	will close the channel.
+	//	This function allows you to write/read data to/from SRAM sequentially. In this meaning it transforms the argument
+	//	defined SRAM in a big queue (eg. fifo). To close the data-stream set the chClosingFlag argument to true.
+	//	The address will be considered just in the data packet that opens the data stream session
+	//	Everytime you change SRAM device the stram will be closed and the new one will be open
+	//
+	//	[!] If you have open a stream in writing mode you cannot change to read mode (and vice versa) before to have
+	//	    closed the stram.
+	//
+	//	[!] This can be used with DMA. It could be useful for bigger ssRecord blobs
+	//
 	//
 	//	Generated data on the SPI bus:
 	//		+---------------------+-----------+----------+  +----------+  +----------+  .... +----------+ 
@@ -248,60 +255,105 @@ wError _sram_seqWrite (spi_device_handle_t dev, uint32_t addr, uint8_t data, boo
 	// Returned value
 	//	WERROR_SUCCESS
 	//	WERROR_ERROR_SPIBUSERROR
+	//	WERROR_ERROR_ILLEGALARG
 	//
 	wError                     err = WERROR_SUCCESS;
 	static bool_t              activeChFlag = false;
 	static spi_device_handle_t activeDev = NULL;
-	spi_transaction_ext_t      t0 = {0};
 
-	t0.base.length    = 8;
-	t0.base.tx_buffer = &data;
-
-	if (
-		activeChFlag == false  ||
-		(activeDev != NULL && activeDev != dev)
-	) {
-		//
-		// Stream head
-		//
-		t0.command_bits   = 8;
-		t0.address_bits   = SRAM_ATTR_ADDRSIZE;
-		t0.base.cmd       = PSRAM_CMD_WRITE;
-		t0.base.addr      = addr & 0xFFFFFF;
-		t0.base.flags     = SPI_TRANS_VARIABLE_CMD  |
-		                    SPI_TRANS_VARIABLE_ADDR |
-		                    (chClosingFlag ? 0 : SPI_TRANS_CS_KEEP_ACTIVE);
-
-		if (spi_device_polling_transmit(dev, (spi_transaction_t*)&t0) != ESP_OK) {
-			// ERROR!
-			err = WERROR_ERROR_SPIBUSERROR;
-		
-			activeChFlag = false;
-			activeDev = NULL;
-		
-		} else if (chClosingFlag == false) {
-			// Channel flags updating....
-			activeChFlag = true;
-			activeDev    = dev;
-		}
+	if (data == NULL) {
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALARG;
 		
 	} else {
-		//
-		// Stream body
-		//
-		t0.command_bits   = 0;
-		t0.address_bits   = 0;
-		t0.base.flags     = chClosingFlag ? 0 : SPI_TRANS_CS_KEEP_ACTIVE;
-		
-		if (spi_device_polling_transmit(dev, (spi_transaction_t*)&t0) != ESP_OK) {
-			// ERROR!
-			err = WERROR_ERROR_SPIBUSERROR;
-			activeChFlag = false;
+		spi_transaction_ext_t cfg = {0};
 
-		} else if (chClosingFlag) {
-			// Channel closing...
-			activeChFlag = false;
-			activeDev    = NULL;
+		//
+		// Common fields for read/write operations
+		//
+		cfg.base.length    = 8 * sizeof(ssRecord);    // Expressed in bits
+		cfg.base.addr      = addr & 0xFFFFFF;         // 24bits address
+
+		if (
+			activeChFlag == false  ||
+			(activeDev != NULL && activeDev != dev)
+		) {
+			//
+			// Stream head
+			//
+
+			cfg.command_bits = 8;
+			cfg.address_bits = SRAM_ATTR_ADDRSIZE;
+			cfg.base.flags   = SPI_TRANS_VARIABLE_CMD | SPI_TRANS_VARIABLE_ADDR |
+				             (chClosingFlag ? 0 : SPI_TRANS_CS_KEEP_ACTIVE);
+			
+			if (opt == SRAMMAN_OP_WRITE) {
+				uint8_t arrData[8];
+		
+				_recordToArray(*data, arrData);
+				cfg.base.cmd       = SRAM_CMD_WRITE;
+				cfg.base.txlength  = 8 * sizeof(ssRecord);  // Expressed in bits
+				cfg.base.tx_buffer = arrData;
+
+			} else if (opt == SRAMMAN_OP_READ) {
+				cfg.base.cmd       = SRAM_CMD_READ;
+				cfg.base.rxlength  = 8 * sizeof(ssRecord);  // Expressed in bits
+				cfg.base.rx_buffer = data;
+
+			} else
+				// ERROR!
+				err = WERROR_ERROR_ILLEGALARG;
+				
+			if (err == WERROR_SUCCESS) {
+				if (spi_device_polling_transmit(dev, (spi_transaction_t*)&cfg) != ESP_OK) {
+					// ERROR!
+					err = WERROR_ERROR_SPIBUSERROR;
+			
+					// Stop the stream!
+					activeChFlag = false;
+					activeDev = NULL;
+		
+				} else if (chClosingFlag == false) {
+					// Channel flags updating....
+					activeChFlag = true;
+					activeDev    = dev;
+				}
+			}
+
+		} else {
+			//
+			// Stream body
+			//
+			cfg.command_bits   = 0;
+			cfg.address_bits   = 0;
+			cfg.base.flags     = chClosingFlag ? 0 : SPI_TRANS_CS_KEEP_ACTIVE;
+		
+			if (opt == SRAMMAN_OP_WRITE) {
+				uint8_t arrData[8];
+		
+				_recordToArray(*data, arrData);
+				cfg.base.txlength  = 8 * sizeof(ssRecord);
+				cfg.base.tx_buffer = arrData;
+				
+			} else if (opt == SRAMMAN_OP_READ) {
+				cfg.base.rxlength  = 8 * sizeof(ssRecord);
+				cfg.base.rx_buffer = data;
+			} else
+				// ERROR!
+				err = WERROR_ERROR_ILLEGALARG;
+				
+			if (err == WERROR_SUCCESS) {
+				if (spi_device_polling_transmit(dev, (spi_transaction_t*)&cfg) != ESP_OK) {
+					// ERROR!
+					err = WERROR_ERROR_SPIBUSERROR;
+					activeChFlag = false;
+	
+				} else if (chClosingFlag) {
+					// Channel closing...
+					activeChFlag = false;
+					activeDev    = NULL;
+				}	
+			}
 		}
 	}
 
@@ -309,47 +361,37 @@ wError _sram_seqWrite (spi_device_handle_t dev, uint32_t addr, uint8_t data, boo
 }
 
 
-wError _sram_seqRWops (uint64_t *record, sramRwOpsType opt) {
+wError _sram_mcSeqOP (uint64_t *record, sramRwOpsType opt) {
 	//
 	// Description:
 	//	This function allows you to perform sequentially operations (rw) in the whole memory area composed by all SRAM chips,
 	//    in transparent way.
-	//	As a fifo queue, you can just drop your 8 bytes records and they will be added respecting the items received order,
-	//	or you can read them sequentially
 	//
 	// Returned value
 	//	WERROR_SUCCESS
-	//	WERROR_ERROR_SPIBUSERROR  // From _sram_seqWrite()
-	//
+	//	WERROR_ERROR_SPIBUSERROR 
+	//	WERROR_ERROR_DATAOVERFLOW
 	//
 	static uint32_t      totalRWBS = 0;
 	static sramRwOpsType lastOp = SRAMMAN_OP_RESET;
+	uint8_t              chipID    = (uint32_t)((totalWBS + 8) / (uint32_t)SRAM_CHIPSIZE);
 
+	// SRAMMAN_OP_RESET option
 	if (lastOp != opt) {
 		// RESET
 		totalRWBS = 0;
 		lastOp == opt;
 	}
 	
-	if (opt == SRAMMAN_OP_WRITE) {
-		uint8_t  chipID    = (uint32_t)((totalWBS + 8) / (uint32_t)SRAM_CHIPSIZE);
-		uint8_t  tData     = 0;
-
-		for (uint8_t t = 0; t < sizeof(ssRecord); t++) {
-			tData = (uint8_t)((*record >> (t*8)) & 0xFF);
-			err = _sram_seqWrite (sram_devsHandles[chipID], 0, tData, false);
-			if (WERROR_ISERROR(err))
-				break;
-			else
-				totalWBS = totalWBS + sizeof(sRecord);
-		}
-		
-	} else if (opt == SRAMMAN_OP_READ) {
-		// TODO: Reading procedure
-
-	} else
+	if (totalRWBS >= SRAMMAN_MAXSIZE)
 		// ERROR!
-		err = WERROR_ERROR_ILLEGALOP;
+		err = WERROR_ERROR_DATAOVERFLOW;
+		
+	else {
+		err = _sram_seqOP (sram_devsHandles[chipID], 0, record, false, opt);
+		if (WERROR_ISERROR(err) == false)
+			totalWBS = totalWBS + sizeof(sRecord);
+	}
 		
 	return(err);
 }
@@ -368,9 +410,8 @@ wError sramManager_write (ssRecord rec) {
 	//	WERROR_ERROR_SPIBUSERROR
 	//	WERROR_ERROR_DATAOVERFLOW
 	//
-	static bool_t   sram_spiCfgFlag = false;
-	static uint32_t noi = 0;
-	wError          err = WERROR_SUCCESS;
+	static bool_t sram_spiCfgFlag = false;
+	wError        err = WERROR_SUCCESS;
 	
 	//
 	// Checking for the SPI port configuration
@@ -387,31 +428,14 @@ wError sramManager_write (ssRecord rec) {
 			_sram_seqRWops(NULL, SRAMMAN_OP_RESET);   // For errors on write op
 
 			// NOI record resetting...
-			err = _sram_seqRWops(&tRec, SRAMMAN_OP_WRITE);
+			err = _sram_mcSeqOP(&tRec, SRAMMAN_OP_WRITE);
 
 			if (!WERROR_ISERROR(err))
 				sram_fsm = SRAMMAN_WRSTARTED;
 		}
-
-		if (sram_fsm == SRAMMAN_WRSTARTED) {
-			if (sram_noi < (SRAMMAN_MAXSIZE / sizeof(ssRecord)) {
-				err = _sram_seqRWops(&record, SRAMMAN_OP_WRITE);
-
-				if (WERROR_ISERROR(err) == false)
-					sram_noi++;
-				else
-					sram_fsm = SRAMMAN_DIRTY;
-				
-		} else
-			// ERROR!
-			err = WERROR_ERROR_DATAOVERFLOW;
 	}
 	
 	return(err);
-}
-
-
-wError sramManager_stream() {
 }
 
 
