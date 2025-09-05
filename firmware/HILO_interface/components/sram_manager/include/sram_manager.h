@@ -1,4 +1,4 @@
-//------------------------------------------------------------------------------------------------------------------------------
+/*------------------------------------------------------------------------------------------------------------------------------
 //                                                    _   _ ___ _     ___  
 //                                                   | | | |_ _| |   / _ \
 //                                                   | |_| || || |  | | | |
@@ -32,6 +32,11 @@
 //		(*2) At the moment, the max sampling rate should be 100KHz, it means the SRAMs would require 800KB/s (less then
 //		     10Mbit/sec) so 20Mhx (20000000 Hz) could be enough
 //
+//		Unit tests
+//		==========
+//		In ordet to build this code for unit testing activities, you have to define the "MOCK" symbol. In this way
+//		the code will be compatible with x86 CPU architectures and Linux OS, and you will be able to run the unit tests
+//
 //
 // License:  LGPL ver 3.0
 //
@@ -48,7 +53,7 @@
 //			Boston, MA  02111-1307  USA
 //
 //                                                                                                               cols=128 tab=6
-//------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------*/
 #ifndef __SRAMMAN__
 #define __SRAMMAN__
 
@@ -96,6 +101,13 @@ typedef uint64_t ssRecord;
 	SRAMMAN_ESP32PIN_CS7   \
 }
 
+#ifdef MOCK
+#define SRAM_VCHIP_TEMPLATE  "/tmp/SRAM-%d.bin"
+typedef FILE*                sram_handleType;
+#else
+typedef spi_device_handle_t  sram_handleType;
+#endif
+
 //------------------------------------------------------------------------------------------------------------------------------
 //                                        F U N C T I O N S   P R O T O T Y P E S
 //------------------------------------------------------------------------------------------------------------------------------
@@ -103,5 +115,9 @@ wError sramManager_write          (ssRecord rec);
 wError sramManager_read           (ssRecord *rec);
 wError sramManager_resetNOIfiled  (ssRecord *oldNOI);
 wError sramManager_updateNOIfiled (); 
+
+#ifdef MOCK
+void testEnd();
+#endif
 
 #endif
