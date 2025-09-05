@@ -1,4 +1,4 @@
-//------------------------------------------------------------------------------------------------------------------------------
+/*------------------------------------------------------------------------------------------------------------------------------
 //                                                    _   _ ___ _     ___  
 //                                                   | | | |_ _| |   / _ \
 //                                                   | |_| || || |  | | | |
@@ -54,15 +54,33 @@
 //			Boston, MA  02111-1307  USA
 //
 //
-//------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------*/
+//
+// Common C libraries
+//
 #include <stdio.h>
 #include <stdbool.h>
+
+#ifdef MOCK
+//
+// Libraries used for testing purpose
+//
+#include <errno.h>
+#include <limits.h>
+#include <fcntl.h>
+#include <string.h>
+#include <debugTools.h>
+
+#else
+//
+// ESP32 platform dependent libraries
+//
 #include "driver/spi_master.h"
+#endif
+
+// Other libraries
 #include <sram_manager.h>
 
-#ifndef UTEST
-#define UTEST 1
-#endif
 
 #if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
 #define LITTLE_ENDIAN
@@ -86,13 +104,22 @@ typedef enum {
 //
 // Module's variables
 //
-static spi_device_handle_t sram_devsHandles[SRAMMAN_NUMOFBANKS]; // Handle of every SRAM chip
-static uint32_t            sram_noi        = 0;                  // Number Of (written) Items
-static uint8_t             sram_rrIndex    = 0;                  // SRAM chips Round Robin index
-static bool_t              sram_spiCfgFlag = false;
+static sram_handleType sram_devsHandles[SRAMMAN_NUMOFBANKS]; // Handle of every SRAM chip
+static uint32_t        sram_noi        = 0;                  // Number Of (written) Items
+static uint8_t         sram_rrIndex    = 0;                  // SRAM chips Round Robin index
+static bool            sram_spiCfgFlag = false;
 
 
-static wError _spi_initialization() {
+//------------------------------------------------------------------------------------------------------------------------------
+//                                       P R I V A T E   F U N C T I O N S
+//------------------------------------------------------------------------------------------------------------------------------
+static wError _spi_initialization();
+static void   _recordToArray     (ssRecord src, uint8_t *arr);
+static wError _sram_seqOP        (sram_handleType dev, uint32_t addr, ssRecord *data, bool chClosingFlag, sramRwOpsType opt);
+static wError _sram_mcSeqOP      (uint64_t *record, sramRwOpsType opt);
+
+
+wError _spi_initialization() {
 	//
 	// Description:
 	//	It initializes the SPI port used by the SRAM devices to communicate to the ESP32
@@ -102,6 +129,19 @@ static wError _spi_initialization() {
 	//	WERROR_ERROR_SPIBUSERROR
 	//
 	wError                        err = WERROR_SUCCESS;
+#ifdef MOCK
+	char filename[PATH_MAX];
+	for (uint8_t t = 0; t < SRAMMAN_NUMOFBANKS; t++) {
+		sprintf(filename, SRAM_VCHIP_TEMPLATE, t);
+		sram_devsHandles[t] = fopen(filename, "rw");
+		if (sram_devsHandles[t] == NULL) {
+			// ERROR
+			err = WERROR_ERRUTEST_IOERROR;
+			ERRORBANNER(err);
+			printf("I Cannot open the \"%s\" filename: %s\n", filename, strerror(errno));
+		}
+	}
+#else
 	spi_bus_config_t              buscfg = {};
 	spi_device_interface_config_t devcfg = {};
 	esp_err_t                     espErr;
@@ -142,6 +182,8 @@ static wError _spi_initialization() {
 		// TODO: errorlog
 		err = WERROR_ERROR_SPIBUSERROR;
 	}
+#endif
+	return(err);
 }
 
 
@@ -161,67 +203,7 @@ void _recordToArray (ssRecord src, uint8_t *arr) {
 }
 
 
-wError _sram_rndOp (spi_device_handle_t dev, uint32_t addr, ssRecord *data, sramRwOpsType opt) {
-	//
-	// Description:
-	//	this function allows you to write/read a single ssRecord data-packet into/from the specified chip, at the
-	//	specidied address
-	//	[!] SPI flags:
-	//		SPI_TRANS_VARIABLE_CMD    it enables the cmd_bits field
-	//		SPI_TRANS_VARIABLE_ADDR   it enables the addr_bits field
-	//
-	//	Generated data on the SPI bus:
-	//		+---------------------+-----------+----------+
-	//		| cmd=PSRAM_CMD_WRITE | ADDR=addr | DATA=0x0 |
-	//		+---------------------+-----------+----------+
-	//		|         8bit        |   24bit   |    8bit  |
-	//		+---------------------+-----------+----------+
-	//
-	// Returned value
-	//	WERROR_SUCCESS
-	//	WERROR_ERROR_ILLEGALARG
-	//	WERROR_ERROR_SPIBUSERROR
-	//
-	wError                err = WERROR_SUCCESS;
-
-	if (data == NULL)
-		// ERROR!
-		err = WERROR_ERROR_ILLEGALARG;
-
-	else {	
-		spi_transaction_ext_t cfg = {0};
-		uint8_t               arrData[8];
-		
-		cfg.base.flags   = SPI_TRANS_VARIABLE_CMD | SPI_TRANS_VARIABLE_ADDR;
-		cfg.base.addr    = addr;               // 24 bit
-		cfg.command_bits = 8;
-		cfg.address_bits = SRAM_ATTR_ADDRSIZE;
-	
-		if (opt == SRAMMAN_OP_WRITE) {
-			_recordToArray(*data, arrData);
-			cfg.base.cmd = SRAM_CMD_WRITE;
-			cfg.base.tx_buffer = arrData;
-			cfg.base.length = 8 * sizeof(ssRecord);    // Expressed in bits
-			
-		} else if (opt == SRAMMAN_OP_READ) {
-			cfg.base.cmd = SRAM_CMD_READ;
-			cfg.base.rx_buffer = data;                 // Possible compatibility problem {little|big}-endian
-			cfg.base.rxlength = 8 * sizeof(ssRecord);  // Expressed in bits
-
-		} else
-			// ERROR!
-			err = WERROR_ERROR_ILLEGALARG;
-			
-		// The following call sends a polling transaction and wait for it to complete
-		if (err == WERROR_SUCCESS && spi_device_polling_transmit(dev, (spi_transaction_t*)&cfg) != ESP_OK)
-			// ERROR!
-			err = WERROR_ERROR_SPIBUSERROR;
-	}
-	return(err);
-}
-
-
-wError _sram_seqOP (spi_device_handle_t dev, uint32_t addr, ssRecord *data, bool_t chClosingFlag, sramRwOpsType opt) {
+wError _sram_seqOP (sram_handleType dev, uint32_t addr, ssRecord *data, bool chClosingFlag, sramRwOpsType opt) {
 	//
 	// Description:
 	//	This function allows you to write/read data to/from SRAM sequentially. In this meaning it transforms the argument
@@ -252,22 +234,39 @@ wError _sram_seqOP (spi_device_handle_t dev, uint32_t addr, ssRecord *data, bool
 	//	WERROR_ERROR_SPIBUSERROR
 	//	WERROR_ERROR_ILLEGALARG
 	//
-	wError                     err = WERROR_SUCCESS;
-	static bool_t              activeChFlag = false;
-	static spi_device_handle_t activeDev = NULL;
+	wError                 err = WERROR_SUCCESS;
+	static bool            activeChFlag = false;
+	static sram_handleType activeDev = NULL;
 
 	if (opt == SRAMMAN_OP_RESET) {
 		//
 		// Stop the data streaming!
 		//
+#ifdef MOCK
+		//
+		// The following lines of code simulate the CS-HIGH event
+		//	[!] using the global var here is a dirty trick, but CS event has consequence on all memory chips, so I cannot
+		//	    better solutions
+		//
+		for (uint8_t t = 0; t < SRAMMAN_NUMOFBANKS; t++) {
+			if (fseek(sram_devsHandles[t], 0, 0) != 0) {
+				// ERROR!
+				err = WERROR_ERRUTEST_IOERROR;
+				ERRORBANNER(err);
+				printf("fseek(addr=0) failed: %s\n", strerror(errno));
+			}
+		}
+#else
 		spi_transaction_t t = {0};
 		t.length = 0;              // NO DATA!
-
-		if (spi_device_polling_transmit(dev, &t) != ESP_OK)
+		
+		// It forces CS to HIGH
+		else if (spi_device_polling_transmit((dev != NULL ? dev : sram_devsHandles[0]), &t) != ESP_OK)
 			// ERROR
 			err = WERROR_ERROR_SPIBUSERROR;
+#endif
 		
-		activeChFlag == false;
+		activeChFlag = false;
 		activeDev = NULL;
 
 		
@@ -277,13 +276,13 @@ wError _sram_seqOP (spi_device_handle_t dev, uint32_t addr, ssRecord *data, bool
 
 		
 	} else {
-		spi_transaction_ext_t cfg = {0};
-
+#ifndef MOCK
 		//
 		// Common fields for read/write operations
 		//
 		cfg.base.length    = 8 * sizeof(ssRecord);    // Expressed in bits
 		cfg.base.addr      = addr & 0xFFFFFF;         // 24bits address
+#endif
 
 		if (
 			activeChFlag == false  ||
@@ -293,30 +292,43 @@ wError _sram_seqOP (spi_device_handle_t dev, uint32_t addr, ssRecord *data, bool
 			// Stream head
 			//
 
+			uint8_t arrData[8];
+#ifndef MOCK
 			cfg.command_bits = 8;
 			cfg.address_bits = SRAM_ATTR_ADDRSIZE;
 			cfg.base.flags   = SPI_TRANS_VARIABLE_CMD | SPI_TRANS_VARIABLE_ADDR |
 				             (chClosingFlag ? 0 : SPI_TRANS_CS_KEEP_ACTIVE);
-			
+#endif
+
 			if (opt == SRAMMAN_OP_WRITE) {
-				uint8_t arrData[8];
-		
 				_recordToArray(*data, arrData);
+#ifndef MOCK
 				cfg.base.cmd       = SRAM_CMD_WRITE;
 				cfg.base.txlength  = 8 * sizeof(ssRecord);  // Expressed in bits
 				cfg.base.tx_buffer = arrData;
+#endif
 
 			} else if (opt == SRAMMAN_OP_READ) {
+#ifndef MOCK
 				cfg.base.cmd       = SRAM_CMD_READ;
 				cfg.base.rxlength  = 8 * sizeof(ssRecord);  // Expressed in bits
 				cfg.base.rx_buffer = data;
-
+#endif
 			} else
 				// ERROR!
 				err = WERROR_ERROR_ILLEGALARG;
 				
 			if (err == WERROR_SUCCESS) {
-				if (spi_device_polling_transmit(dev, (spi_transaction_t*)&cfg) != ESP_OK) {
+#ifdef MOCK
+				if (
+					(fseek(dev, addr, 0)                                                         != 0) ||
+					(opt == SRAMMAN_OP_WRITE && fwrite((void*)arrData, 1, sizeof(ssRecord), dev) != 0) ||
+					(opt == SRAMMAN_OP_READ  && fread( (void*)data,    1, sizeof(ssRecord), dev) != 0)
+				)
+#else				
+				if (spi_device_polling_transmit(dev, (spi_transaction_t*)&cfg) != ESP_OK)
+#endif
+				{
 					// ERROR!
 					err = WERROR_ERROR_SPIBUSERROR;
 			
@@ -335,26 +347,39 @@ wError _sram_seqOP (spi_device_handle_t dev, uint32_t addr, ssRecord *data, bool
 			//
 			// Stream body
 			//
+
+			uint8_t arrData[8];
+#ifndef MOCK
 			cfg.command_bits   = 0;
 			cfg.address_bits   = 0;
 			cfg.base.flags     = chClosingFlag ? 0 : SPI_TRANS_CS_KEEP_ACTIVE;
-		
+#endif		
 			if (opt == SRAMMAN_OP_WRITE) {
-				uint8_t arrData[8];
-		
 				_recordToArray(*data, arrData);
+#ifndef MOCK
 				cfg.base.txlength  = 8 * sizeof(ssRecord);
 				cfg.base.tx_buffer = arrData;
+#endif		
 				
 			} else if (opt == SRAMMAN_OP_READ) {
+#ifndef MOCK
 				cfg.base.rxlength  = 8 * sizeof(ssRecord);
 				cfg.base.rx_buffer = data;
+#endif		
 			} else
 				// ERROR!
 				err = WERROR_ERROR_ILLEGALARG;
 				
 			if (err == WERROR_SUCCESS) {
-				if (spi_device_polling_transmit(dev, (spi_transaction_t*)&cfg) != ESP_OK) {
+#ifdef MOCK
+				if (
+					(opt == SRAMMAN_OP_WRITE && fwrite((void*)arrData, 1, sizeof(ssRecord), dev) != 0) ||
+					(opt == SRAMMAN_OP_READ  && fread( (void*)data,    1, sizeof(ssRecord), dev) != 0)
+				)
+#else
+				if (spi_device_polling_transmit(dev, (spi_transaction_t*)&cfg) != ESP_OK)
+#endif
+				{
 					// ERROR!
 					err = WERROR_ERROR_SPIBUSERROR;
 					activeChFlag = false;
@@ -383,9 +408,10 @@ wError _sram_mcSeqOP (uint64_t *record, sramRwOpsType opt) {
 	//	WERROR_ERROR_SPIBUSERROR 
 	//	WERROR_ERROR_DATAOVERFLOW
 	//
+	wError               err       = WERROR_SUCCESS;
 	static uint32_t      totalRWBS = 0;
 	static sramRwOpsType lastOp    = SRAMMAN_OP_RESET;
-	uint8_t              chipID    = (uint32_t)((totalWBS + 8) / (uint32_t)SRAM_CHIPSIZE);
+	uint8_t              chipID    = (uint32_t)((totalRWBS + 8) / (uint32_t)SRAM_CHIPSIZE);
 
 	// SRAMMAN_OP_RESET option
 	if (lastOp != opt) {
@@ -393,7 +419,7 @@ wError _sram_mcSeqOP (uint64_t *record, sramRwOpsType opt) {
 		err = _sram_seqOP (sram_devsHandles[chipID], 0, NULL, false, SRAMMAN_OP_RESET);
 		
 		totalRWBS = 0;
-		lastOp == opt;
+		lastOp = opt;
 	}
 
 	if (WERROR_ISERROR(err) == false) {
@@ -404,7 +430,7 @@ wError _sram_mcSeqOP (uint64_t *record, sramRwOpsType opt) {
 		else {
 			err = _sram_seqOP (sram_devsHandles[chipID], 0, record, false, opt);
 			if (WERROR_ISERROR(err) == false)
-				totalWBS = totalWBS + sizeof(sRecord);
+				totalRWBS = totalRWBS + sizeof(ssRecord);
 		}
 	}
 	return(err);
@@ -424,8 +450,8 @@ wError sramManager_write (ssRecord rec) {
 	//	WERROR_ERROR_SPIBUSERROR
 	//	WERROR_ERROR_DATAOVERFLOW
 	//
-	static bool_t sram_spiCfgFlag = false;
-	wError        err = WERROR_SUCCESS;
+	static bool sram_spiCfgFlag = false;
+	wError      err = WERROR_SUCCESS;
 	
 	//
 	// Checking for the SPI port configuration
@@ -457,9 +483,10 @@ wError sramManager_resetNOIfiled (ssRecord *oldNOI) {
 	ssRecord rec = 0;
 	wError   err = WERROR_SUCCESS;
 	
-	err = _sram_seqRWops(NULL, SRAMMAN_OP_RESET);
+	err = _sram_seqOP(NULL, SRAMMAN_OP_RESET);
 	if (oldNOI != NULL)
-		err = _sram_rndOp (sram_devsHandles[0], 0, &rec, SRAMMAN_OP_READ);
+		err = _sram_rndOp (sram_devsHandles[0], 0, &rec, true, SRAMMAN_OP_READ);
+
 	if (WERROR_ISERROR(err) == false)
 		_sram_mcSeqOP(&rec, SRAMMAN_OP_WRITE));
 
@@ -476,11 +503,12 @@ wError sramManager_updateNOIfiled () {
 	//
 	wError   err = WERROR_SUCCESS;
 	ssRecord rec = sram_noi;
-	
-	err = _sram_seqRWops(NULL, SRAMMAN_OP_RESET);
+
+	// It forces CH = 1
+	err = _sram_seqOP (NULL, 0, NULL, true, SRAMMAN_OP_RESET);
 
 	if (WERROR_ISERROR(err) == false)
-		err = _sram_rndOp (sram_devsHandles[0], 0, &rec, SRAMMAN_OP_WRITE);
+		err = _sram_seqOP (sram_devsHandles[0], 0, &rec, true, SRAMMAN_OP_WRITE);
 		
 	sram_noi = 0;
 
@@ -495,13 +523,33 @@ wError sramManager_read  (ssRecord *rec) {
 	//
 	// Returned value
 	//	WERROR_SUCCESS
+	//	(read _sram_seqOP() for more info)
 	//
 	ssRecord rec  = 0;
-	wError   err  = WERROR_SUCCESS;
 
-	err = _sram_rndOp (sram_devsHandles[0], 0, &rec, SRAMMAN_OP_READ);
-
+	// It forces CH = 1
+	err = _sram_seqOP (NULL, 0, NULL, true, SRAMMAN_OP_RESET);
+	
+	if (rec != NULL)
+		err = _sram_seqOP(sram_devsHandles[0], 0, &rec, true, SRAMMAN_OP_READ);
+	else
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALARG;
 		
 	return(err);
 }
 
+
+#ifdef MOCK
+void testEnd() {
+	//
+	// Description:
+	//	Because in test mode the SRAM chips are simulated with files, at the end of the test you need to close them
+	//	explicity
+	//
+	for (uint8_t t = 0; t < SRAMMAN_NUMOFBANKS; t++)
+		fclose(sram_devsHandles[t]);
+
+	return;
+}
+#endif
