@@ -38,7 +38,7 @@ all:			$(BIN)
 
 $(BIN):		$(OBJs) $(MODULE).o
 			@echo "[LD] $@"
-			@$(CC) $(CCOPTS) $^ -o $@ $<
+			@$(CC) $(CCOPTS) -o $@ $^
 		
 %.o:			%.c
 			@echo "[CC] $@"
@@ -52,5 +52,8 @@ clean:
 			@rm -rf $(OBJs)
 
 cleanall:		clean
-			@rm -fv $(BIN)
+			@rm -fv $(BIN) $(MODULE).o
 
+debug:
+			@echo "SRCs = \"$(SRCs)\""
+			@echo "OBJs = \"$(OBJs)\""
