@@ -33,7 +33,8 @@ wError sramManager_updateNOIfiled ();
 #define FOODATAOFFSET 0x0f1e2d3c4b5a6978
 #define FOODATASTEP   3
 
-TEST(sram_manage, sramManager_write_1) {
+
+TEST(sram_manage, sramManager_write__T1) {
 	//
 	// Description:
 	//	The target of this test is to write 128 progressive numbers into the first virtual chip and verify the file content
@@ -50,8 +51,7 @@ TEST(sram_manage, sramManager_write_1) {
 	return;
 }
 
-
 int main() {
-	sramManager_write_1();
+	sramManager_write__T1();
 	return(0);
 }
