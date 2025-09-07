@@ -101,12 +101,6 @@ typedef uint64_t ssRecord;
 	SRAMMAN_ESP32PIN_CS7   \
 }
 
-#ifdef MOCK
-#define SRAM_VCHIP_TEMPLATE  "/tmp/SRAM-%d.bin"
-typedef FILE*                sram_handleType;
-#else
-typedef spi_device_handle_t  sram_handleType;
-#endif
 
 //------------------------------------------------------------------------------------------------------------------------------
 //                                        F U N C T I O N S   P R O T O T Y P E S
@@ -116,8 +110,5 @@ wError sramManager_read           (ssRecord *rec);
 wError sramManager_resetNOIfiled  (ssRecord *oldNOI);
 wError sramManager_updateNOIfiled (); 
 
-#ifdef MOCK
-void testEnd();
-#endif
 
 #endif
