@@ -66,4 +66,6 @@ wError test_initialization(FILE **pool);
 //------------------------------------------------------------------------------------------------------------------------------
 esp_err_t spi_device_polling_transmit(spi_device_handle_t handle, spi_transaction_t *tDesc);
 
+void      testEnd();
+
 #endif
