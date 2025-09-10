@@ -20,7 +20,7 @@
 #------------------------------------------------------------------------------------------------------------------------------
 SRCs  := $(shell ls *.c)
 OBJs  := $(SRCs:.c=.o)
-BIN    = sram_manager__utitTests
+BIN    = unitTests
 MODULE = sram_manager
 GDB   ?= 0
 

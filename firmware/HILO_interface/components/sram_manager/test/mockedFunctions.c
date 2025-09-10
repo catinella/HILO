@@ -29,7 +29,7 @@
 #include <debugTools.h>
 #include <wError.h>
 #include <sram_manager.h>
-#include <sram_manager__mockedFunctions.h>
+#include <mockedFunctions.h>
 
 static FILE *tPool[SRAMMAN_NUMOFBANKS];
 static bool CS = 0;

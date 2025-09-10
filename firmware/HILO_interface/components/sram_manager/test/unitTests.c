@@ -22,7 +22,7 @@
 #include <debugTools.h>
 #include <wError.h>
 #include <sram_manager.h>
-#include <sram_manager__mockedFunctions.h>
+#include <mockedFunctions.h>
 
 /*
  wError sramManager_write          (ssRecord rec);
