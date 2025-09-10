@@ -15,12 +15,14 @@
 #
 # Description:
 #	This file allows you to build all unit tests stored in this folder.
+#	use:  make [GDB=1]
 #
 #------------------------------------------------------------------------------------------------------------------------------
-SRCs := $(shell ls *.c)
-OBJs := $(SRCs:.c=.o)
-BIN   = sram_manager__utitTests
+SRCs  := $(shell ls *.c)
+OBJs  := $(SRCs:.c=.o)
+BIN    = sram_manager__utitTests
 MODULE = sram_manager
+GDB   ?= 0
 
 ifeq ($(GDB), 1)
 	CCOPTS = -g -o0 -Wall -Wconversion 
@@ -28,7 +30,7 @@ else
 	CCOPTS =    -o2 -Wall -Wconversion 
 endif
 
-INCOPTS = -I../include -I../../crossPlatform_code
+INCOPTS = -I. -I../include -I../../crossPlatform_code
 SYMBOLS = -DMOCK=1
 
 
@@ -49,7 +51,7 @@ $(MODULE).o:	../$(MODULE).c ../include/$(MODULE).h
 			@$(CC) $(CCOPTS) -c $(SYMBOLS) $(INCOPTS) -o $@ $<
 
 clean:
-			@rm -rf $(OBJs)
+			@rm -rvf $(OBJs)
 
 cleanall:		clean
 			@rm -fv $(BIN) $(MODULE).o
