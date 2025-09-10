@@ -65,7 +65,7 @@
 //
 // Libraries used for testing purpose
 //
-#include "./test/sram_manager__mockedFunctions.h"
+#include "./test/mockedFunctions.h"
 
 #else
 //
