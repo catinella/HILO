@@ -29,7 +29,7 @@
 #include <debugTools.h>
 #include <wError.h>
 #include <sram_manager.h>
-#include "./sram_manager__mockedFunctions.h"
+#include <sram_manager__mockedFunctions.h>
 
 static FILE *tPool[SRAMMAN_NUMOFBANKS];
 static bool CS = 0;
@@ -79,7 +79,7 @@ wError test_initialization(FILE **pool) {
 	
 	for (uint8_t t = 0; t < SRAMMAN_NUMOFBANKS; t++) {
 		sprintf(filename, SRAM_VCHIP_TEMPLATE, t);
-		pool[t]  = fopen(filename, "rw");
+		pool[t]  = fopen(filename, "w+");
 		tPool[t] = pool[t];
 		
 		if (pool[t] == NULL) {
@@ -174,7 +174,7 @@ esp_err_t spi_device_polling_transmit(spi_device_handle_t handle, spi_transactio
 			CS = 1;
 	}
 	
-	return(WERROR_ISERROR(err) ? ESP_OK : ESP_FAIL);
+	return(WERROR_ISERROR(err) ? ESP_FAIL : ESP_OK);
 }
 
 
