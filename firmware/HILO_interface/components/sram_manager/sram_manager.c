@@ -315,10 +315,12 @@ wError _sram_seqOP (spi_device_handle_t dev, uint32_t addr, ssRecord *data, bool
 
 			if (opt == SRAMMAN_OP_WRITE) {
 				_recordToArray(*data, arrData);
+				cfg.base.cmd       = SRAM_CMD_WRITE;
 				cfg.base.length    = 8 * sizeof(ssRecord);
 				cfg.base.tx_buffer = arrData;
 				
 			} else if (opt == SRAMMAN_OP_READ) {
+				cfg.base.cmd       = SRAM_CMD_READ;
 				cfg.base.rxlength  = 8 * sizeof(ssRecord);
 				cfg.base.rx_buffer = data;
 			} else
