@@ -111,7 +111,7 @@ static uint32_t            sram_noi        = 0;                  // Number Of (w
 static wError _spi_initialization();
 #endif
 static void   _recordToArray     (ssRecord src, uint8_t *arr);
-static wError _sram_seqOP        (spi_device_handle_t dev, uint32_t addr, ssRecord *data, bool flag, sramRwOpsType opt);
+static wError _sram_seqOP        (spi_device_handle_t dev, uint16_t addr, ssRecord *data, bool flag, sramRwOpsType opt);
 static wError _sram_mcSeqOP      (uint64_t *record, sramRwOpsType opt);
 
 
@@ -187,7 +187,7 @@ void _recordToArray (ssRecord src, uint8_t *arr) {
 }
 
 
-wError _sram_seqOP (spi_device_handle_t dev, uint32_t addr, ssRecord *data, bool chClosingFlag, sramRwOpsType opt) {
+wError _sram_seqOP (spi_device_handle_t dev, uint16_t addr, ssRecord *data, bool chClosingFlag, sramRwOpsType opt) {
 	//
 	// Description:
 	//	This function allows you to write/read data to/from SRAM sequentially. In this meaning it transforms the argument
@@ -211,7 +211,13 @@ wError _sram_seqOP (spi_device_handle_t dev, uint32_t addr, ssRecord *data, bool
 	//		+---------------------+-----------+----------+  +----------+  +----------+  .... +----------+ 
 	//		|         8bit        |   24bit   |   8bit   |  |   8bit   |  |   8bit   |       |   8bit   |
 	//		+---------------------+-----------+----------+  +----------+  +----------+  .... +----------+ 
-	//	
+	//
+	// Function's arguments:
+	//	dev             SRAM device handle
+	//	addr            The searched item position
+	//	data            Data to write on the device or data read from it
+	//	chClosingFlag   If it is set to false the next data will be sequentially read/write
+	//	opt             Function's command
 	//
 	// Returned value
 	//	WERROR_SUCCESS
@@ -248,8 +254,8 @@ wError _sram_seqOP (spi_device_handle_t dev, uint32_t addr, ssRecord *data, bool
 		// Common fields for read/write operations
 		//
 		spi_transaction_ext_t cfg = {0};
-		cfg.base.length    = 8 * sizeof(ssRecord);    // Expressed in bits
-		cfg.base.addr      = addr & 0xFFFFFF;         // 24bits address
+		cfg.base.length    = 8 * sizeof(ssRecord);                  // Expressed in bits
+		cfg.base.addr      = (addr * sizeof(ssRecord) & 0xFFFFFF);  // 24bits address
 
 		if (
 			activeChFlag == false  ||
@@ -323,13 +329,13 @@ wError _sram_seqOP (spi_device_handle_t dev, uint32_t addr, ssRecord *data, bool
 				cfg.base.cmd       = SRAM_CMD_READ;
 				cfg.base.rxlength  = 8 * sizeof(ssRecord);
 				cfg.base.rx_buffer = data;
-			} else
+			} else {
 				// ERROR!
 				err = WERROR_ERROR_ILLEGALARG;
-				
+			}
+			
 			if (err == WERROR_SUCCESS) {
-				if (spi_device_polling_transmit(dev, (spi_transaction_t*)&cfg) != ESP_OK)
-				{
+				if (spi_device_polling_transmit(dev, (spi_transaction_t*)&cfg) != ESP_OK) {
 					// ERROR!
 					err = WERROR_ERROR_SPIBUSERROR;
 					activeChFlag = false;
@@ -345,7 +351,6 @@ wError _sram_seqOP (spi_device_handle_t dev, uint32_t addr, ssRecord *data, bool
 
 	return(err);
 }
-
 
 wError _sram_mcSeqOP (uint64_t *record, sramRwOpsType opt) {
 	//
@@ -373,15 +378,22 @@ wError _sram_mcSeqOP (uint64_t *record, sramRwOpsType opt) {
 	}
 
 	if (WERROR_ISERROR(err) == false) {
+		uint8_t addr = chipID == 0 ? 1 : 0;  // Mind the NOI field
+		
 		if (totalRWBS >= SRAMMAN_MAXSIZE)
 			// ERROR!
 			err = WERROR_ERROR_DATAOVERFLOW;
 		
-		else {
-			err = _sram_seqOP (sram_devsHandles[chipID], 0, record, false, opt);
-			if (WERROR_ISERROR(err) == false)
-				totalRWBS = totalRWBS + sizeof(ssRecord);
-		}
+		else if (
+			(err = _sram_seqOP (sram_devsHandles[chipID], addr, record, false, opt)) &&
+			WERROR_ISERROR(err)
+		) {
+			// Error!
+			
+		} else
+			// SUCCESS
+			totalRWBS = totalRWBS + sizeof(ssRecord);
+		
 	}
 	return(err);
 }
@@ -407,18 +419,21 @@ wError sramManager_write (ssRecord rec) {
 	// Checking for the SPI port configuration
 	//
 	if (sram_spiCfgFlag == false) {
-#ifdef MOCK
-		err = test_initialization(sram_devsHandles);
-#else
-		err = _spi_initialization();
-#endif
-		sram_spiCfgFlag = WERROR_ISERROR(err) ? false : true;
+		if ((err = _spi_initialization(sram_devsHandles)) && WERROR_ISERROR(err)) {
+			// Error!
+			sram_spiCfgFlag = false;
+
+		} else if ((err = sramManager_resetNOIfield(NULL)) && WERROR_ISERROR(err)) {
+			// Error!
+			sram_spiCfgFlag = false;
+
+		} else
+			// SUCCESS
+			sram_spiCfgFlag = true;
 	}
 
 	if (sram_spiCfgFlag) {
-		err = _sram_mcSeqOP(&rec, SRAMMAN_OP_WRITE);
-	
-		if (WERROR_ISERROR(err) == false)
+		if ((err = _sram_mcSeqOP(&rec, SRAMMAN_OP_WRITE)) && WERROR_ISERROR(err) == false)
 			sram_noi++;
 	}
 	
@@ -426,29 +441,27 @@ wError sramManager_write (ssRecord rec) {
 }
 
 
-wError sramManager_resetNOIfiled (ssRecord *oldNOI) {
+wError sramManager_resetNOIfield (ssRecord *oldNOI) {
 	//
 	// Description:
 	//	This function saves ad cleans the first 8 bytes in the first SRAM chip. This memory area will besed to store
 	//	the number of written records. This data is very important and it is needed my the HILO-engine (STM32)
 	//
-	//	[!] After this call, all data previousely recorded will be lost and rewritten
+	//	[!] After this call, all previousely recorded data will be lost and rewritten
 	//
 	ssRecord rec = 0;
 	wError   err = WERROR_SUCCESS;
 	
-	err = _sram_seqOP(NULL, 0, NULL, true, SRAMMAN_OP_RESET);
-
-	if (oldNOI != NULL)
-		err = _sram_seqOP (sram_devsHandles[0], 0, oldNOI, true, SRAMMAN_OP_READ);
-
-	if (WERROR_ISERROR(err) == false)
-		err = _sram_seqOP (sram_devsHandles[0], 0, &rec, true, SRAMMAN_OP_WRITE);
-
+	if ((err = _sram_seqOP(NULL, 0, NULL, true, SRAMMAN_OP_RESET)) && WERROR_ISERROR(err) == false) {
+		if (oldNOI != NULL)
+			err = _sram_seqOP (sram_devsHandles[0], 0, oldNOI, false, SRAMMAN_OP_READ);
+		else
+			err = _sram_seqOP (sram_devsHandles[0], 0, &rec, false, SRAMMAN_OP_WRITE);
+	}
 	return(err);
 }
 
-wError sramManager_updateNOIfiled () {
+wError sramManager_updateNOIfield () {
 	//
 	// Description:
 	//	It stops the data-stream, and stores the number of records belong to that stream, into the proper memory area
@@ -483,10 +496,12 @@ wError sramManager_read  (ssRecord *rec) {
 	wError   err = WERROR_SUCCESS;
 	
 	if (rec != NULL) {
+		/*
 		// It forces CH = 1
 		err = _sram_seqOP (NULL, 0, NULL, true, SRAMMAN_OP_RESET);
-	
-		err = _sram_seqOP(sram_devsHandles[0], 0, rec, true, SRAMMAN_OP_READ);
+		*/
+		
+		err = _sram_mcSeqOP (rec, SRAMMAN_OP_READ);
 	} else
 		// ERROR!
 		err = WERROR_ERROR_ILLEGALARG;
