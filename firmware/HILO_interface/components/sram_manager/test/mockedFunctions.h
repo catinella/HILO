@@ -64,6 +64,7 @@ wError test_initialization(FILE **pool);
 //------------------------------------------------------------------------------------------------------------------------------
 //                                          M O C K E D   F U N C T I O N S
 //------------------------------------------------------------------------------------------------------------------------------
+wError    _spi_initialization (FILE **pool);
 esp_err_t spi_device_polling_transmit(spi_device_handle_t handle, spi_transaction_t *tDesc);
 
 void      testEnd();

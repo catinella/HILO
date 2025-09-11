@@ -69,7 +69,7 @@ wError _csHig(spi_device_handle_t dev) {
 //                                            P U B L I C   F U N C T I O N S
 //------------------------------------------------------------------------------------------------------------------------------
 
-wError test_initialization(FILE **pool) {
+wError _spi_initialization (FILE **pool) {
 	//
 	// Description
 	//	It initializes the virtual SRAM chips and save their file-handles in the argument defined array
