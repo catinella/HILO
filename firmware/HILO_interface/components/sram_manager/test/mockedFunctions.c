@@ -48,19 +48,20 @@ wError _csHig(spi_device_handle_t dev) {
 	if (dev != NULL && fseek(dev, 0, 0) != 0) {
 		// ERROR!
 		err = WERROR_ERRUTEST_IOERROR;
+		ERRORBANNER(err);
+		printf("fseek(addr=0) failed: %s\n", strerror(errno));
 
 	} else {
 		for (uint8_t t = 0; t < SRAMMAN_NUMOFBANKS; t++) {
-			if (fseek(tPool[t], 0, 0) != 0)
+			if (fseek(tPool[t], 0, 0) != 0) {
 				// ERROR!
 				err = WERROR_ERRUTEST_IOERROR;
+				ERRORBANNER(err);
+				printf("fseek(addr=0) failed: %s\n", strerror(errno));
+			}
 		}
 	}
 
-	if (WERROR_ISERROR(err)) {
-		ERRORBANNER(err);
-		printf("fseek(addr=0) failed: %s\n", strerror(errno));
-	}
 	
 	return(err);
 }
