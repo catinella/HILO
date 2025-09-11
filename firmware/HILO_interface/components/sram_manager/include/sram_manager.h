@@ -107,8 +107,8 @@ typedef uint64_t ssRecord;
 //------------------------------------------------------------------------------------------------------------------------------
 wError sramManager_write          (ssRecord rec);
 wError sramManager_read           (ssRecord *rec);
-wError sramManager_resetNOIfiled  (ssRecord *oldNOI);
-wError sramManager_updateNOIfiled (); 
+wError sramManager_resetNOIfield  (ssRecord *oldNOI);
+wError sramManager_updateNOIfield (); 
 
 
 #endif
