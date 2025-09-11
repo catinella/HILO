@@ -15,15 +15,19 @@
 #
 # Description:
 #	This file allows you to build all unit tests stored in this folder.
-#	use:  make [GDB=1] [VERBOSE=1]
+#	use:  make [options]
+#		GDB={0|1}         It disable/enables the debug support
+#		VERBOSE={0-2}     It sets the test output verbosity
+#		T1_NUMOFITEMS=<n> It sets the number of foo-data items the test T1 will use
 #
 #------------------------------------------------------------------------------------------------------------------------------
-SRCs    := $(shell ls *.c)
-OBJs    := $(SRCs:.c=.o)
-BIN      = unitTests
-MODULE   = sram_manager
-GDB     ?= 0
-VERBOSE ?= 0
+SRCs          := $(shell ls *.c)
+OBJs          := $(SRCs:.c=.o)
+BIN            = unitTests
+MODULE         = sram_manager
+GDB           ?= 0
+VERBOSE       ?= 0
+T1_NUMOFITEMS ?= 1048568
 
 ifeq ($(GDB), 1)
 	CCOPTS = -g -o0 -Wall -Wconversion 
@@ -32,7 +36,11 @@ else
 endif
 
 INCOPTS = -I. -I../include -I../../crossPlatform_code
-SYMBOLS = -DMOCK=1 -DVERBOSE_UNITTEST=$(VERBOSE)
+SYMBOLS =                               \
+	"-DMOCK=1"                        \
+	"-DVERBOSE_UNITTEST=$(VERBOSE)"   \
+	"-DFOODATA_T1NOI=$(T1_NUMOFITEMS)"
+
 
 
 .PHONY: all clean
@@ -58,5 +66,6 @@ cleanall:		clean
 			@rm -fv $(BIN) $(MODULE).o
 
 debug:
-			@echo "SRCs = \"$(SRCs)\""
-			@echo "OBJs = \"$(OBJs)\""
+			@echo "SRCs = \"$(SRCs)\"";                   \
+			echo "OBJs = \"$(OBJs)\"";                    \
+			echo "T1_NUMOFITEMS = \"$(T1_NUMOFITEMS)\"";
