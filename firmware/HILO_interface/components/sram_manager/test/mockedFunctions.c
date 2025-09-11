@@ -150,17 +150,15 @@ esp_err_t spi_device_polling_transmit(spi_device_handle_t handle, spi_transactio
 			}
 		}
 
-		if (CS == 1) {
-			if (fseek(handle, (long int)addr, 1) != 0) {
-				// ERROR!
-				err = WERROR_ERRUTEST_IOERROR;
-				ERRORBANNER(err);
-				printf("seek() failed: %s\n", strerror(errno));
-			}
+		if (CS == 1 && fseek(handle, (long int)addr, 1) != 0) {
+			// ERROR!
+			err = WERROR_ERRUTEST_IOERROR;
+			ERRORBANNER(err);
+			printf("seek() failed: %s\n", strerror(errno));
 
 		} else if (
-			(cmd == SRAM_CMD_WRITE && fwrite(buffer, 1, dataSize, handle) != 0) ||
-			(cmd == SRAM_CMD_READ  && fread( buffer, 1, dataSize, handle) != 0)
+			(cmd == SRAM_CMD_WRITE && fwrite(buffer, 1, (dataSize/8), handle) != (dataSize/8)) ||
+			(cmd == SRAM_CMD_READ  && fread( buffer, 1, (dataSize/8), handle) != (dataSize/8))
 		) {
 			// ERROR!
 			err = WERROR_ERRUTEST_IOERROR;
@@ -168,10 +166,14 @@ esp_err_t spi_device_polling_transmit(spi_device_handle_t handle, spi_transactio
 			printf("Reading/writing operation failed: %s\n", strerror(errno));
 
 		} else if (tDesc->flags & SPI_TRANS_CS_KEEP_ACTIVE) {
+			// The SRAM has been enabled for data stream recording/reading
 			CS = 0;
 
 		} else
+			// NO data streaming
 			CS = 1;
+
+		fflush(handle);
 	}
 	
 	return(WERROR_ISERROR(err) ? ESP_FAIL : ESP_OK);
