@@ -370,11 +370,12 @@ wError _sram_mcSeqOP (uint64_t *record, sramRwOpsType opt) {
 
 	// SRAMMAN_OP_RESET option
 	if (lastOp != opt) {
-		// RESET
-		err = _sram_seqOP (sram_devsHandles[chipID], 0, NULL, false, SRAMMAN_OP_RESET);
-		
 		totalRWBS = 0;
 		lastOp = opt;
+		chipID = 0;
+
+		// RESET
+		err = _sram_seqOP (sram_devsHandles[chipID], 0, NULL, false, SRAMMAN_OP_RESET);
 	}
 
 	if (WERROR_ISERROR(err) == false) {
@@ -495,14 +496,10 @@ wError sramManager_read  (ssRecord *rec) {
 	//
 	wError   err = WERROR_SUCCESS;
 	
-	if (rec != NULL) {
-		/*
-		// It forces CH = 1
-		err = _sram_seqOP (NULL, 0, NULL, true, SRAMMAN_OP_RESET);
-		*/
-		
+	if (rec != NULL)
 		err = _sram_mcSeqOP (rec, SRAMMAN_OP_READ);
-	} else
+		
+	else
 		// ERROR!
 		err = WERROR_ERROR_ILLEGALARG;
 		
