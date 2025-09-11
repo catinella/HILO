@@ -16,12 +16,17 @@
 // Description:
 //	Unit tests for the sram_manager module
 //
+//	Externally defined symbols:
+//	===========================
+//		FOODATA_T1NOI
+//		VERBOSE_UNITTEST
 //
 ------------------------------------------------------------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdlib.h>
 #include <debugTools.h>
 #include <wError.h>
 #include <sram_manager.h>
@@ -38,11 +43,9 @@ wError sramManager_updateNOIfiled ();
 //#define FOODATA_OFFSET 0x0f1e2d3c4b5a6978
 #define FOODATA_OFFSET 0xff
 #define FOODATA_STEP   3
-#define FOODATA_T1NOI  128
 
-#ifndef VERBOSE_UNITTEST
-#define VERBOSE_UNITTEST 1
-#endif
+#define CURSOR_ON      printf("\e[?25h");
+#define CURSOR_OFF     printf("\e[?25l");
 
 void fooDataGenerating (ssRecord *ds, uint32_t noi) {
 	//
@@ -71,7 +74,9 @@ wError dataWriting (const ssRecord *ds, uint32_t noi) {
 			break;
 		else {
 #if VERBOSE_UNITTEST == 1
+			CURSOR_OFF
 			printf("\rWriting: %d/%d", (t+1), noi);
+			CURSOR_ON
 #elif VERBOSE_UNITTEST == 2
 			printf("%d: %ld\n", t, ds[t]);
 #endif
@@ -97,7 +102,11 @@ wError dataReading (ssRecord *ds, uint32_t noi) {
 			break;
 		else {
 #if VERBOSE_UNITTEST == 1
+			CURSOR_OFF
 			printf("\rReading: %d/%d", (t+1), noi);
+			CURSOR_ON
+#elif VERBOSE_UNITTEST == 2
+			printf("%d) %ld\n", (t+1), ds[t]);
 #endif
 		}
 	}
@@ -119,11 +128,15 @@ TEST(sram_manage, sramManager_write__T1) {
 	//	The target of this test is to write 128 progressive numbers into the first virtual chip and verify the file content
 	//
 	wError   err  = WERROR_SUCCESS;
-	ssRecord srcData[FOODATA_T1NOI];
-	ssRecord retData[FOODATA_T1NOI];
-
-	memset(srcData, 0, (FOODATA_T1NOI * sizeof(ssRecord)));
-	memset(retData, 0, (FOODATA_T1NOI * sizeof(ssRecord)));
+	ssRecord *srcData = NULL;
+	ssRecord *retData = NULL;
+	uint32_t memSize = FOODATA_T1NOI * sizeof(ssRecord);
+	
+	srcData = (ssRecord*)malloc(memSize);
+	retData = (ssRecord*)malloc(memSize);
+	
+	memset(srcData, 0, memSize);
+	memset(retData, 0, memSize);
 
 	// Foo-data generating...
 	fooDataGenerating(srcData, FOODATA_T1NOI);
@@ -150,7 +163,9 @@ TEST(sram_manage, sramManager_write__T1) {
 			} else {
 				// SUCCESS
 #if VERBOSE_UNITTEST == 1
+				CURSOR_OFF
 				printf("\r%d: [%ld] ok", t, retData[t]);
+				CURSOR_ON
 #endif
 			}
 				
@@ -161,6 +176,10 @@ TEST(sram_manage, sramManager_write__T1) {
 #endif
 		ASSERT_EQ (err, WERROR_SUCCESS);
 	}
+
+	free(srcData);
+	free(retData);
+	
 	return;
 }
 
