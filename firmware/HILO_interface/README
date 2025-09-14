@@ -16,7 +16,14 @@
 2.0 Description
 	This component provides the HILO's interface feature.
 
-	The MCU used to implement the HILO's interface is the ESP32 WROOM-32-UE.
+	The MCU used to implement the HILO's interface is the ESP32 WROOM-32-UE. It is a cheap device but its characteristics allows
+	it to perform all the required features, easily. The followings are the main ones:
+	- 448 KB ROM
+	- 520 KB SRAM
+	- WiFI support (802.11 b/g/n (802.11n up to 150 Mbps))
+	- Integrated crystal (40MHz)
+	- External antennna
+	- SPI and I2c BUS support
 
 	You can find the MCU's full documentation using the following link:
 	https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf
