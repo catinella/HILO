@@ -130,20 +130,16 @@ wError _spi_initialization() {
 	spi_device_interface_config_t devcfg = {};
 	esp_err_t                     espErr;
 	
-	buscfg = {
-		.mosi_io_num     = SRAMMAN_ESP32PIN_MOSI,
-		.miso_io_num     = SRAMMAN_ESP32PIN_MISO,
-		.sclk_io_num     = SRAMMAN_ESP32PIN_CLK,
-		.quadwp_io_num   = -1,
-		.quadhd_io_num   = -1,
-		.max_transfer_sz = 4096
-	};
+	buscfg.mosi_io_num     = SRAMMAN_ESP32PIN_MOSI;
+	buscfg.miso_io_num     = SRAMMAN_ESP32PIN_MISO;
+	buscfg.sclk_io_num     = SRAMMAN_ESP32PIN_CLK;
+	buscfg.quadwp_io_num   = -1;
+	buscfg.quadhd_io_num   = -1;
+	buscfg.max_transfer_sz = 4096;
 
-	devcfg = {
-		.clock_speed_hz = SRAMMAN_ESP32SPI_CLK,
-		.mode           = 0,                           // CPOL=0, CPHA=0
-		.queue_size     = 4,
-	};
+	devcfg.clock_speed_hz  = SRAMMAN_ESP32SPI_CLK;
+	devcfg.mode            = 0;                           // CPOL=0, CPHA=0
+	devcfg.queue_size      = 4;
 
 	// SPI BUS initialization
 	if (spi_bus_initialize(SPI1_HOST, &buscfg, SPI_DMA_CH_AUTO) == ESP_OK) {
