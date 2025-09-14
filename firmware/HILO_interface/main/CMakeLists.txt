@@ -1,2 +1,4 @@
-idf_component_register(SRCS "HILO_interface.c"
-                    INCLUDE_DIRS ".")
+idf_component_register(
+	SRCS "prod.c"
+	INCLUDE_DIRS "." "../components/crossPlatform_code"
+)
