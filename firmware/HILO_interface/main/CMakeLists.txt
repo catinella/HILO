@@ -51,10 +51,26 @@ else()
 endif()
 
 
+if(DEFINED HILO_SSIDNAME)
+	message(STATUS "Ext. network SSID: ${HILO_SSIDNAME}")
+else()
+	message(FATAL_ERROR "You have to define HILO_MYSSIDNAME symbol")
+endif()
+
+
+if(DEFINED HILO_PASSWORD)
+	message(STATUS "Ext. network Password: ${HILO_PASSWORD}")
+else()
+	message(FATAL_ERROR "You have to define HILO_MYPASSWORD symbol")
+endif()
+
+
 target_compile_definitions(
 	${COMPONENT_LIB}
 	PRIVATE
 	HILO_MYSSIDNAME="\"${HILO_MYSSIDNAME}\""
 	HILO_MYPASSWORD="\"${HILO_MYPASSWORD}\""
+	HILO_SSIDNAME="\"${HILO_SSIDNAME}\""
+	HILO_PASSWORD="\"${HILO_PASSWORD}\""
 )
 
