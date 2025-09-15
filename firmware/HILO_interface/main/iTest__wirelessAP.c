@@ -32,8 +32,7 @@
 //
 //                                                                                                               cols=128 tab=6
 ------------------------------------------------------------------------------------------------------------------------------*/
-#include <stdio.h>
-#include <string.h>
+#include <wifiNetwork.h>
 #include "esp_wifi.h"
 #include "esp_event.h"
 #include "esp_netif.h"
@@ -74,93 +73,8 @@ void app_main() {
 	if (nvs_flash_init() != ESP_OK)
 		// ERROR!
 		ESP_LOGE(__FILE__, "NVS initialization failed");
-
-	// Network module initialization
-	else if (esp_netif_init() != ESP_OK)
-		// ERROR!
-		ESP_LOGE(__FILE__, "Network module initialization failed");
-
-	// Event handlers manager initialization
-	if (esp_event_loop_create_default() != ESP_OK)
-		// ERROR!
-		ESP_LOGE(__FILE__, "Event handlers manager initialization failed");
-
-	else {
-		esp_netif_t        *ap_netif = NULL;
-		wifi_init_config_t cfg       = WIFI_INIT_CONFIG_DEFAULT();
-
-		/*
-		esp_netif_ip_info_t ip;
-		IP4_ADDR(&ip.ip, 192,168,10,1);
-		IP4_ADDR(&ip.gw, 192,168,10,1);
-		IP4_ADDR(&ip.netmask, 255,255,255,0);
-		ESP_ERROR_CHECK(esp_netif_dhcps_stop(ap_netif));
-		ESP_ERROR_CHECK(esp_netif_set_ip_info(ap_netif, &ip));
-		ESP_ERROR_CHECK(esp_netif_dhcps_start(ap_netif));
-		*/
-
-		// AP interface creation (192.168.4.1/24 and DHCP)
-		ap_netif = esp_netif_create_default_wifi_ap();
-
-		if (ap_netif == NULL)
-			// ERROR!
-			ESP_LOGE(__FILE__, "AP creation failed");
+	else
+		wifi_intAPstart(HILO_MYSSIDNAME, HILO_MYPASSWORD, wifi_event_handler);
 		
-		// Wi-Fi initialization
-		else if (esp_wifi_init(&cfg) != ESP_OK)
-			// ERROR!
-			ESP_LOGE(__FILE__, "Wi-Fi initialization failed");
-
-		// Wi-Fi events registering
-		else if (esp_event_handler_instance_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL, NULL) != ESP_OK)
-			// ERROR!
-			ESP_LOGE(__FILE__, "Wi-Fi events handlers registering failed");
-
-		// Checking for the SSID name and the PASSWORD string
-		else if (strlen(HILO_MYSSIDNAME) < 8 || strlen(HILO_MYPASSWORD) < 8)
-			// ERROR!
-			ESP_LOGE(__FILE__, "The SSID name or the PASSWORD string don't respect the WPA2 requirements");
-
-		else {
-			wifi_config_t wifi_config = { 0 };
-
-			// AP configuration (SSID must be minimum 8 chars in WPA2)
-			snprintf((char*)wifi_config.ap.ssid, sizeof(wifi_config.ap.ssid), HILO_MYSSIDNAME);
-			wifi_config.ap.ssid_len    = 0;             // Self calculated
-
-			// AP configuration (PASSWORD must be minimum 8 chars in WPA2)
-			snprintf((char*)wifi_config.ap.password, sizeof(wifi_config.ap.password), HILO_MYPASSWORD);
-	
-			wifi_config.ap.channel        = 6;
-			wifi_config.ap.max_connection = 4;
-			wifi_config.ap.ssid_hidden    = 0;
-			wifi_config.ap.authmode       = WIFI_AUTH_WPA2_PSK;
-			wifi_config.ap.pmf_cfg        = (wifi_pmf_config_t){ .required = false };
-
-			// Just for debug purpose!!!!
-			// wifi_config.ap.password[0] = '\0';
-			// wifi_config.ap.authmode = WIFI_AUTH_OPEN;
-
-			// Setting AP mode
-			if (esp_wifi_set_mode(WIFI_MODE_AP) != ESP_OK)
-				// ERROR!
-				ESP_LOGE(__FILE__, "Setting AP mode failed");
-
-			// AP configuring
-			else if (esp_wifi_set_config(WIFI_IF_AP, &wifi_config) != ESP_OK)
-				// ERROR!
-				ESP_LOGE(__FILE__, "AP configuration process failed");
-	
-			// AP starting...
-			else if (esp_wifi_start() != ESP_OK)
-				// ERROR!
-				ESP_LOGE(__FILE__, "WI-Fi cannot be started");
-
-			else 
-				ESP_LOGI(__FILE__, "  **** AP started. SSID:%s  pass:%s  ch:%d ****",
-					wifi_config.ap.ssid, wifi_config.ap.password, wifi_config.ap.channel
-				);
-		}
-	}
 	return;
 }
