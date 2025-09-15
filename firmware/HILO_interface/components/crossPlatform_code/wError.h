@@ -15,6 +15,25 @@
 // Description:
 //
 //
+//		//
+//		// Success codes
+//		//
+//		WERROR_SUCCESS                Everything has beed completed correctly
+//
+//		//
+//		// Warning codes
+//		//
+//		WERROR_WARNING_ALREADYOPEN    Op. completed correctly, but the resource was already open
+//
+//		//
+//		// Error codes
+//		//
+//		WERROR_ERROR_INITFAILED       Some internal component's initialization failed
+//		WERROR_ERROR_DATAOVERFLOW     Data overflow occurred
+//		WERROR_ERROR_SPIBUSERROR      Some erro occurred on SPI bus using
+//		WERROR_ERROR_ILLEGALOP        Operation was not permitted
+//		WERROR_ERROR_ILLEGALARG       Argument malformed or not permitted
+ //
 //
 // License:  LGPL ver 3.0
 //
@@ -65,6 +84,8 @@ typedef uint8_t wError;
 #define WERROR_ERROR_SPIBUSERROR     132
 #define WERROR_ERROR_ILLEGALOP       134
 #define WERROR_ERROR_ILLEGALARG      136
+#define WERROR_ERROR_CONFFAILED      138
+#define WERROR_ERROR_INTFAILURE      140
 
 
 
