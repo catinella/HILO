@@ -120,3 +120,116 @@ wError wifi_connToExtNet (const char *ssidStr, const char *pwdStr, esp_event_han
 	return(err);
 }
 
+
+wError wifi_intAPstart (const char *ssidStr, const char *pwdStr, esp_event_handler_t evh) {
+	//
+	// Description:
+	//
+	//
+	//
+	// Returned value:
+	//	WERROR_SUCCESS
+	//	WERROR_ERROR_INITFAILED
+	//	WERROR_ERROR_ILLEGALARG
+	//	WERROR_ERROR_INTFAILURE
+	//
+	wError err = WERROR_SUCCESS;
+	
+	// Network module initialization
+	if (esp_netif_init() != ESP_OK) {
+		// ERROR!
+		ESP_LOGE(__FILE__, "Network module initialization failed");
+		err = WERROR_ERROR_INITFAILED;
+		
+	// Event handlers manager initialization
+	} else if (esp_event_loop_create_default() != ESP_OK) {
+		// ERROR!
+		ESP_LOGE(__FILE__, "Event handlers manager initialization failed");
+		err = WERROR_ERROR_INITFAILED;
+
+	} else {
+		esp_netif_t        *ap_netif = NULL;
+		wifi_init_config_t cfg       = WIFI_INIT_CONFIG_DEFAULT();
+
+		/*
+		esp_netif_ip_info_t ip;
+		IP4_ADDR(&ip.ip, 192,168,10,1);
+		IP4_ADDR(&ip.gw, 192,168,10,1);
+		IP4_ADDR(&ip.netmask, 255,255,255,0);
+		ESP_ERROR_CHECK(esp_netif_dhcps_stop(ap_netif));
+		ESP_ERROR_CHECK(esp_netif_set_ip_info(ap_netif, &ip));
+		ESP_ERROR_CHECK(esp_netif_dhcps_start(ap_netif));
+		*/
+
+		// AP interface creation (192.168.4.1/24 and DHCP)
+		ap_netif = esp_netif_create_default_wifi_ap();
+
+		if (ap_netif == NULL) {
+			// ERROR!
+			ESP_LOGE(__FILE__, "AP creation failed");
+			err = WERROR_ERROR_INTFAILURE;
+		
+		// Wi-Fi initialization
+		} else if (esp_wifi_init(&cfg) != ESP_OK) {
+			// ERROR!
+			ESP_LOGE(__FILE__, "Wi-Fi initialization failed");
+			err = WERROR_ERROR_INTFAILURE;
+
+		// Wi-Fi events registering
+		} else if (esp_event_handler_instance_register(WIFI_EVENT, ESP_EVENT_ANY_ID, evh, NULL, NULL) != ESP_OK) {
+			// ERROR!
+			ESP_LOGE(__FILE__, "Wi-Fi events handlers registering failed");
+
+		// Checking for the SSID name and the PASSWORD string
+		} else if (strlen(ssidStr) < 8 || strlen(pwdStr) < 8) {
+			// ERROR!
+			ESP_LOGE(__FILE__, "The SSID name or the PASSWORD string don't respect the WPA2 requirements");
+			err = WERROR_ERROR_ILLEGALARG;
+			
+		} else {
+			wifi_config_t wifi_config = {0};
+
+			// AP configuration (SSID must be minimum 8 chars in WPA2)
+			strcpy((char*)wifi_config.ap.ssid, ssidStr);
+			wifi_config.ap.ssid_len    = 0;             // Self calculated
+
+			// AP configuration (PASSWORD must be minimum 8 chars in WPA2)
+			strcpy((char*)wifi_config.ap.password, pwdStr);
+	
+			wifi_config.ap.channel        = 6;
+			wifi_config.ap.max_connection = 4;
+			wifi_config.ap.ssid_hidden    = 0;
+			wifi_config.ap.authmode       = WIFI_AUTH_WPA2_PSK;
+			wifi_config.ap.pmf_cfg        = (wifi_pmf_config_t){ .required = false };
+
+			// Just for debug purpose!!!!
+			// wifi_config.ap.password[0] = '\0';
+			// wifi_config.ap.authmode = WIFI_AUTH_OPEN;
+
+			// Setting AP mode
+			if (esp_wifi_set_mode(WIFI_MODE_AP) != ESP_OK) {
+				// ERROR!
+				ESP_LOGE(__FILE__, "Setting AP mode failed");
+				err = WERROR_ERROR_CONFFAILED;
+				
+			// AP configuring
+			} else if (esp_wifi_set_config(WIFI_IF_AP, &wifi_config) != ESP_OK) {
+				// ERROR!
+				ESP_LOGE(__FILE__, "AP configuration process failed");
+				err = WERROR_ERROR_CONFFAILED;
+				
+			// AP starting...
+			} else if (esp_wifi_start() != ESP_OK) {
+				// ERROR!
+				ESP_LOGE(__FILE__, "WI-Fi cannot be started");
+				err = WERROR_ERROR_INTFAILURE;
+
+			} else 
+				ESP_LOGI(__FILE__, "  **** AP started. SSID:%s  pass:%s  ch:%d ****",
+					wifi_config.ap.ssid, wifi_config.ap.password, wifi_config.ap.channel
+				);
+		}
+	}
+
+	return(err);
+}
