@@ -1,7 +1,7 @@
 include(${CMAKE_CURRENT_LIST_DIR}/../configUtils.cmake)
 
 idf_component_register(
-	SRCS "prod.c"
+	SRCS         "firmware-esp32.c"
 	INCLUDE_DIRS "." "../components/crossPlatform_code"
 )
 
@@ -37,4 +37,24 @@ else()
 endif()
 
 
+if(DEFINED HILO_MYSSIDNAME)
+	message(STATUS "AP SSID: ${HILO_MYSSIDNAME}")
+else()
+	message(FATAL_ERROR "You have to define HILO_MYSSIDNAME symbol")
+endif()
+
+
+if(DEFINED HILO_MYPASSWORD)
+	message(STATUS "AP Password: ${HILO_MYPASSWORD}")
+else()
+	message(FATAL_ERROR "You have to define HILO_MYPASSWORD symbol")
+endif()
+
+
+target_compile_definitions(
+	${COMPONENT_LIB}
+	PRIVATE
+	HILO_MYSSIDNAME="\"${HILO_MYSSIDNAME}\""
+	HILO_MYPASSWORD="\"${HILO_MYPASSWORD}\""
+)
 
