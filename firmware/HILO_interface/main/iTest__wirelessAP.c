@@ -49,7 +49,6 @@
 #error "You have to define HILO_MYPASSWORD symbol in the configuration file (read CMakeLists.txt file for further details)"
 #endif
 
-static const char *TAG = "ap";
 
 static void wifi_event_handler (void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data) {
 	//
@@ -58,11 +57,11 @@ static void wifi_event_handler (void *arg, esp_event_base_t event_base, int32_t 
 	//
 	if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_AP_STACONNECTED) {
 		wifi_event_ap_staconnected_t *e = (wifi_event_ap_staconnected_t *)event_data;
-		ESP_LOGI(TAG, "STA is connected: " MACSTR ", AID=%d", MAC2STR(e->mac), e->aid);
+		ESP_LOGI(__FILE__, "STA is connected: " MACSTR ", AID=%d", MAC2STR(e->mac), e->aid);
 
 	} else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_AP_STADISCONNECTED) {
 		wifi_event_ap_stadisconnected_t *e = (wifi_event_ap_stadisconnected_t *)event_data;
-		ESP_LOGI(TAG, "STA is disconnected: " MACSTR ", AID=%d", MAC2STR(e->mac), e->aid);
+		ESP_LOGI(__FILE__, "STA is disconnected: " MACSTR ", AID=%d", MAC2STR(e->mac), e->aid);
 	}
 }
 
@@ -158,7 +157,7 @@ void app_main() {
 				ESP_LOGE(__FILE__, "WI-Fi cannot be started");
 
 			else 
-				ESP_LOGI(__FILE__, "AP started. SSID:%s  pass:%s  ch:%d",
+				ESP_LOGI(__FILE__, "  **** AP started. SSID:%s  pass:%s  ch:%d ****",
 					wifi_config.ap.ssid, wifi_config.ap.password, wifi_config.ap.channel
 				);
 		}
