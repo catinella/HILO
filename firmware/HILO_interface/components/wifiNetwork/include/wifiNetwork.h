@@ -41,5 +41,6 @@
 #include "esp_wifi.h"
 
 wError wifi_connToExtNet (const char *ssidStr, const char *pwdStr, esp_event_handler_t evh);
+wError wifi_intAPstart   (const char *ssidStr, const char *pwdStr, esp_event_handler_t evh);
 
 #endif
