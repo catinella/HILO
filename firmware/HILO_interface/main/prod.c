@@ -10,6 +10,10 @@
 //
 //
 //
+// Filename: prod.c
+//
+// Author:   Silvano Catinella <catinella@yahoo.com>
+//
 // Description:
 //		This firmware allows the HILO's interface subsystem to orchestrate the test procedure. This HILO device can work
 //		in two different ways: sccheduled-mode abd realtime-mode.
