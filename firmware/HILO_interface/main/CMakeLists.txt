@@ -2,7 +2,7 @@ include(${CMAKE_CURRENT_LIST_DIR}/../configUtils.cmake)
 
 idf_component_register(
 	SRCS         "firmware-esp32.c"
-	INCLUDE_DIRS "." "../components/crossPlatform_code"
+	INCLUDE_DIRS "." "../components/crossPlatform_code" "../components/wifiNetwork/include"
 )
 
 # Configuration file reading...
