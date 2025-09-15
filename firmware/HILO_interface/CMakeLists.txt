@@ -12,24 +12,16 @@
 # Author:   Silvano Catinella <catinella@yahoo.com>
 #
 # Description:
-#		This file is a set of cmake rules to build the firmware
+#		This file is a set of cmake rules to build the firmware using idf.py Espressif official tool.
 #
-# License:  LGPL ver 3.0
+#		Configuration process:
+#		======================
+#		To configure the cource code, set the following values in the configuration file (CMakeLists.conf).
+#			FIRMWARETEST=<source file> It allows you to build an integration test instead the prod-firmware.
+#			DEBUG=<n>                  It sets the debug messages verbosity
 #
-# 		This script is a wfree software; you can redistribute it and/or modify it under the terms	of the GNU
-# 		Lesser General Public License as published by the Free Software Foundation; either version 3.0 of the License,
-# 		or (at your option) any later version. 
-#
-#		For further details please read the full LGPL text file  "Linuxwoodo/trunk/templates/lgpl-3.0.txt".
-# 		You should have received a copy of the GNU General Public License along with this file; 
-# 		if not, write to the 
-#
-#			Free Software Foundation, Inc.,
-#			59 Temple Place, Suite 330,
-#			Boston, MA  02111-1307  USA
-#
-#
-#
+#		[!] In order to get the list of the available integration tests take a look into the "main" folder
+#			ls -l <project home>/main/iTest__*.c
 #                                                                                                               cols=128 tab=6
 #------------------------------------------------------------------------------------------------------------------------------
 
