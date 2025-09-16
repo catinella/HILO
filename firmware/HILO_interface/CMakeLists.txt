@@ -13,6 +13,7 @@
 #
 # Description:
 #		This file is a set of cmake rules to build the firmware using idf.py Espressif official tool.
+#		The code has been developed using the ESP-IDF ver. 5.4.2
 #
 #		Configuration process:
 #		======================
