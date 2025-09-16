@@ -13,53 +13,18 @@
 // Author:   Silvano Catinella <catinella@yahoo.com>
 //
 // Description:
-//	
-//	        [Client Browser / curl]
-//	                  |
-//	                  |
-//	                  v
-//	           TCP/IP Request
-//	                  |
-//	                  |
-//	        +---------------------+
-//	        |        LwIP         |      (TCP/IP stack)
-//	        +---------------------+
-//	                  |
-//	                  |
-//	             Socket API
-//	         (accept/recv/send)
-//	                  |
-//	                  |
-//	        +---------------------+
-//	        |     HTTPD Task      |      crated by httpd_start()
-//	        |    (http daemon)    |
-//	        +---------------------+
-//	                  |
-//	                  |
-//	            URI matching
-//	     (httpd_register_uri_handler)
-//	                  |
-//	                  |
-//	        +--------------------+
-//	        |      Handler       |
-//	        +--------------------+
-//	                  |
-//	                  |
-//	      httpd_resp_send(req, ...)
-//	                  |
-//	                  |
-//	             Socket API
-//	                  |
-//	        +---------------------+
-//	        |        LwIP         |
-//	        +---------------------+
-//	                  |
-//	                  |
-//	           TCP/IP Response
-//	                  |
-//	                  |
-//	        [Client Browser / curl]
-//	
+//		This test aim to set the ESP32 in a webserver ables to provides two REST APIs:
+//			- http://<ESP32 IP>/status (accessible by GET method)
+//			- http://<ESP32 IP>/echo   (accessible by POST method)
+//
+//		[!] You can test the APIs using CURL tool as in the following examples:
+//			curl --verboose http://<ESP32 IP>/status \
+//				--request GET
+//
+//			curl --verbose http://<ESP32 IP>/echo \
+//				--request POST  \
+//				--heder "Content-Type: application/json" \
+//				--data '{"led":1, "time":500}'
 //
 //
 // License:  LGPL ver 3.0
@@ -95,6 +60,8 @@
 
 #include <wError.h>
 #include <wifiNetwork.h>
+#include <restApiServer.h>
+
 
 #ifndef HILO_SSIDNAME
 #error "You have to define HILO_SSIDNAME symbol in the configuration file (read CMakeLists.txt file for further details)"
@@ -104,13 +71,6 @@
 #error "You have to define HILO_PASSWORD symbol in the configuration file (read CMakeLists.txt file for further details)"
 #endif
 
-#define RESTAPIS_MAX 4
-
-static httpd_handle_t s_server = NULL;
-static httpd_uri_t    restApis[RESTAPIS_MAX];
-
-static void    stop_webserver  (httpd_handle_t server);
-httpd_handle_t start_webserver (httpd_uri_t *restApiConf);
 
 //------------------------------------------------------------------------------------------------------------------------------
 //                                               H A N D L E R S
@@ -122,6 +82,8 @@ static esp_err_t status_get_handler(httpd_req_t *req) {
 	//
 	bool have_ip = false;
 	esp_netif_ip_info_t ip;
+
+	ESP_LOGW(__FILE__, "GET /status request detected");
 
 	// Imposta Content-Type JSON
 	httpd_resp_set_type(req, "application/json");
@@ -161,10 +123,17 @@ static esp_err_t status_get_handler(httpd_req_t *req) {
 	return ESP_OK;
 }
 
+
 static esp_err_t echo_post_handler(httpd_req_t *req) {
+	//
+	// Description:
+	//	The handler associated to the POST method calls
+	//
 	int       total_len = req->content_len;
 	int       max       = 1024;              // Max body size setting to avoid security risks
 	esp_err_t err       = ESP_OK;
+	
+	ESP_LOGW(__FILE__, "POST /echo request detected");
 	
 	if (total_len <= 0) {
 		// 400 = Bad request
@@ -189,6 +158,7 @@ static esp_err_t echo_post_handler(httpd_req_t *req) {
 			received += r;
 		}
 		buf[received] = '\0';
+		ESP_LOGI(__FILE__, "POST request's data: \"%s\"", buf != NULL ? buf : "(empty)");
 
 		// Rispondi eco
 		httpd_resp_set_type(req, "text/plain");
@@ -200,74 +170,26 @@ static esp_err_t echo_post_handler(httpd_req_t *req) {
 
 
 static void wifi_event_handler(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data) {
+	//
+	// Dewscription:
+	//	This is the WiFi events handler
+	//	In order to get the complete WiFi events list, look for the "wifi_event_t" enum definition in the
+	//	"esp_wifi_types.h" header file
+	//
 	if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
+		// [!] WIFI_EVENT_STA_START means STA is ready to be connected
 		esp_wifi_connect();
 		
 	} else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
 		ESP_LOGW(__FILE__, "Wi-Fi disconnesso, ritento...");
 		esp_wifi_connect();
-		stop_webserver(s_server);
-		s_server = NULL;
+		restApiServer_stop();
 		
 	} else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
 		ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
 		ESP_LOGI(__FILE__, "IP ottenuto: " IPSTR, IP2STR(&event->ip_info.ip));
-		if (!s_server) s_server = start_webserver(restApis);
+		restApiServer_start();
 	}
-	return;
-}
-
-//------------------------------------------------------------------------------------------------------------------------------
-//                                                 H T T P   S E R V E R
-//------------------------------------------------------------------------------------------------------------------------------
-
-httpd_handle_t start_webserver (httpd_uri_t *restApiConf) {
-	//
-	// Description:
-	//	This function starts the webserver and configures it to manage the incoming requests by REST-APIs
-	//
-	// Returned value:
-	//	NULL    It means failure
-	//	<n>     Server instance's address
-	//
-	httpd_handle_t server = NULL;
-	httpd_config_t config = HTTPD_DEFAULT_CONFIG();
-	
-	if (restApiConf == NULL) {
-		// ERROR!
-		ESP_LOGE(__FILE__, "Illegal argumengt");
-	
-	} else if (httpd_start(&server, &config) != ESP_OK) {
-		// ERROR!
-		ESP_LOGE(__FILE__, "HTTP server starting failed");
-
-	} else {
-		uint8_t x = 0;
-
-		while (*(restApiConf[x].uri) != '\0') {
-			if (httpd_register_uri_handler(server, &(restApiConf[x])) == ESP_OK) {
-				// SUCCESS
-				ESP_LOGI(__FILE__, "\"%s\" REST-API successfully registered", restApiConf[x].uri);
-				x++;
-			} else {
-				// ERROR!
-				ESP_LOGE(__FILE__, "Handler registration failed");
-				break;
-			}
-		}
-	
-		ESP_LOGI(__FILE__, "HTTP server is running. %d rest-apis", x);
-	}
-	
-	return(server);
-}
-
-static void stop_webserver(httpd_handle_t server) {
-	if (server) {
-		httpd_stop(server);
-		ESP_LOGI(__FILE__, "HTTP server fermato");
-	}
-
 	return;
 }
 
@@ -275,7 +197,10 @@ static void stop_webserver(httpd_handle_t server) {
 //                                                         M A I N
 //------------------------------------------------------------------------------------------------------------------------------
 void app_main() {
-	static httpd_handle_t server = NULL;
+	//static httpd_handle_t server = NULL;
+	httpd_uri_t restApis[RESTAPIS_MAX];
+
+	restApiServer_poolInit(restApis);
 	
 	restApis[0].uri = "/status";
 	restApis[0].method = HTTP_GET;
@@ -286,8 +211,8 @@ void app_main() {
 	restApis[1].method = HTTP_POST;
 	restApis[1].handler = echo_post_handler;
 	restApis[1].user_ctx = NULL;
-	
-	restApis[2].uri = "";
+
+	restApiServer_configure(restApis);
 	
 	if (nvs_flash_init() != ESP_OK)
 		// ERROR!
