@@ -73,12 +73,22 @@ typedef uint8_t wError;
 #define WERROR_ISSUCCESS(x) (x > 0               && x <= WERROR_LASTINFO)
 
 
+
+// Success codes
+#define WERROR_SUCCESS               1
+
+
 //
-// Generic error codes
+// Warning codes
+//
+#define WERROR_WARNING_RESBUSY       16
+
+
+//
+// Error codes
 //
 #define WERROR_ERROR_GENERIC         0
-#define WERROR_SUCCESS               1
-//#define WERROR_WARNING_ALREADYOPEN   16
+
 #define WERROR_ERROR_INITFAILED      128
 #define WERROR_ERROR_DATAOVERFLOW    130
 #define WERROR_ERROR_SPIBUSERROR     132
@@ -86,11 +96,12 @@ typedef uint8_t wError;
 #define WERROR_ERROR_ILLEGALARG      136
 #define WERROR_ERROR_CONFFAILED      138
 #define WERROR_ERROR_INTFAILURE      140
+#define WERROR_ERROR_REGPROCFAILED   142
 
 
-
-
-
+//
+// Error codes for tests
+//
 #define WERROR_ERRUTEST_IOERROR      201
 #define WERROR_ERRUTEST_ILLEGALARG   203
 #define WERROR_ERRUTEST_NOTYETIMPL   205
