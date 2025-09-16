@@ -8,10 +8,13 @@
 #-------------------------------------------------------------------------------------------------------------------------------
 
 1.0 Files
-	CMakeLists.txt   It contains the rules you need to build the firmware or the integration tests
-	components       All used by firmware libraries are stored in a sub-folder of this one
-	main             It contains the firmware and integration tests
-	[build]          Temporary folder used to buid the code
+	CMakeLists.txt     It contains the rules you need to build the firmware or the integration tests
+	components         All used by firmware libraries are stored in a sub-folder of this one
+	main               It contains the firmware and integration tests
+	[build]            Temporary folder used to buid the code
+	[CMakeLists.conf]  Building process' configuration file
+	configUtils.cmake  CMake functions library
+	sdkconfig          The ESP-IDF's configuration file
 
 2.0 Description
 	This component provides the HILO's interface feature.
@@ -32,5 +35,5 @@
 3.0 Buiding procedure
 	In order to build the code for ESP32 that belongs to this module, you need the ESP-IDS (5.4.x) software framework. You can 
 	find the official documentation here: https://docs.espressif.com/projects/esp-idf/en/v5.4.2/esp32/get-started/index.html.
-
+	For specific information, please, read the documentation section in the CMakeLists.txt file.
 
