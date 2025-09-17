@@ -181,13 +181,13 @@ static void wifi_event_handler(void* arg, esp_event_base_t event_base, int32_t e
 		esp_wifi_connect();
 		
 	} else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
-		ESP_LOGW(__FILE__, "Wi-Fi disconnesso, ritento...");
+		ESP_LOGW(__FILE__, "Wi-Fi link has been broken, I will retry to connect to...");
 		esp_wifi_connect();
 		restApiServer_stop();
 		
 	} else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
 		ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
-		ESP_LOGI(__FILE__, "IP ottenuto: " IPSTR, IP2STR(&event->ip_info.ip));
+		ESP_LOGI(__FILE__, "I got the IP address: " IPSTR, IP2STR(&event->ip_info.ip));
 		restApiServer_start();
 	}
 	return;
@@ -200,6 +200,7 @@ void app_main() {
 	//static httpd_handle_t server = NULL;
 	httpd_uri_t restApis[RESTAPIS_MAX];
 
+	// [!] YOU HAVE TO INITIALIZE THE DATA STRUCT ALWAYS
 	restApiServer_poolInit(restApis);
 	
 	restApis[0].uri = "/status";
@@ -212,14 +213,16 @@ void app_main() {
 	restApis[1].handler = echo_post_handler;
 	restApis[1].user_ctx = NULL;
 
+	// REST APIs definitions acnowledge
 	restApiServer_configure(restApis);
 	
+
 	if (nvs_flash_init() != ESP_OK)
 		// ERROR!
 		ESP_LOGE(__FILE__, "(%d) I cannot allocate NVS memory for the driver", __LINE__);
 
 	else if (wifi_connToExtNet(HILO_SSIDNAME, HILO_PASSWORD, wifi_event_handler) == WERROR_SUCCESS)
 		ESP_LOGI(__FILE__, "*** WiFi connected! (SSID:%s password:%s) ***", HILO_SSIDNAME, HILO_PASSWORD);
-
+	
 	return;
 }
