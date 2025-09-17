@@ -82,6 +82,7 @@ typedef uint8_t wError;
 // Warning codes
 //
 #define WERROR_WARNING_RESBUSY       16
+#define WERROR_WARNING_EMPTYLIST     18
 
 
 //
