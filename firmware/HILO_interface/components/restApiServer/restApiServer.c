@@ -103,6 +103,19 @@ static httpd_handle_t server = NULL;
 static httpd_uri_t    restApisPool[RESTAPIS_MAX];
 static bool           initFlag = false;
 
+/*
+static void restApiServer_printApisList() {
+	//
+	// Description:
+	//	It print the REST APIs list in the debug console. It has been developed just FOR DEBUG PURPOSE!
+	//
+	for (uint8_t x = 0; restApisPool[x].uri != NULL; x++) {
+		ESP_LOGW(__FILE__, "%d) %s", x, restApisPool[x].uri);
+	}
+	return;
+}
+*/
+
 void restApiServer_poolInit (httpd_uri_t *restApis) {
 	//
 	// Description:
@@ -113,19 +126,38 @@ void restApiServer_poolInit (httpd_uri_t *restApis) {
 	return;
 }
 	
-void restApiServer_configure (const httpd_uri_t *restApis) {
+wError restApiServer_configure (const httpd_uri_t *restApis) {
 	//
 	// Description:
 	//	It copies the argument defined APIs definitions in the module's internal memory
 	//
+	// Returned value:
+	//	WERROR_SUCCESS
+	//	WERROR_ERROR_DATAOVERFLOW
+	//
 	uint8_t x = 0;
-	while (restApis[x].uri != NULL) {
-		restApisPool[x] = restApis[x];
-		x++;
+	wError  err = WERROR_SUCCESS;
+	
+	if (initFlag == false) {
+		restApiServer_poolInit(restApisPool);
+		initFlag = true;
 	}
-	return;
+	
+	while (restApis[x].uri != NULL) {
+		if (x < RESTAPIS_MAX) {
+			ESP_LOGI(__FILE__, "%s definition recording...", restApis[x].uri);
+			restApisPool[x] = restApis[x];
+			x++;
+		} else {
+			// ERROR!
+			ESP_LOGE(__FILE__, "Too many APIs definitions!!");
+			err = WERROR_ERROR_DATAOVERFLOW;
+		}
+	}
+	return(err);
 }
 
+	
 wError restApiServer_start() {
 	//
 	// Description:
@@ -134,17 +166,13 @@ wError restApiServer_start() {
 	// Returned value:
 	//	WERROR_SUCCESS
 	//	WERROR_WARNING_RESBUSY
+	//	WERROR_WARNING_EMPTYLIST
 	//	WERROR_ERROR_INTFAILURE
 	//	WERROR_ERROR_REGPROCFAILED
 	//
 	wError         err    = WERROR_SUCCESS;
 	httpd_config_t config = HTTPD_DEFAULT_CONFIG();
 
-	if (initFlag == false) {
-		restApiServer_poolInit(restApisPool);
-		initFlag = true;
-	}
-	
 	if (server != NULL) {
 		// WARNING!
 		ESP_LOGW(__FILE__, "The webserver is already running");
@@ -170,8 +198,13 @@ wError restApiServer_start() {
 				break;
 			}
 		}
-	
-		ESP_LOGI(__FILE__, "HTTP server is running. %d rest-apis", x);
+
+		if (x == 0) {
+			// WARNING!
+			ESP_LOGW(__FILE__, "HTTP server is running without REST APIs definitions");
+			err = WERROR_WARNING_EMPTYLIST;
+		} else
+			ESP_LOGI(__FILE__, "HTTP server is running and accepts %d rest-apis", x);
 	}
 	
 	return(err);

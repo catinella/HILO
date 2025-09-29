@@ -41,7 +41,7 @@
 #define RESTAPIS_MAX 4
 
 void   restApiServer_poolInit  (httpd_uri_t *restApis);
-void   restApiServer_configure (const httpd_uri_t *restApiConf);
+wError restApiServer_configure (const httpd_uri_t *restApiConf);
 wError restApiServer_start     ();
 void   restApiServer_stop      ();
 
