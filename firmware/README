@@ -17,18 +17,14 @@
 	Dataflow description:
 	=====================
 	Please, consider the logic scheme stored in the ../PCB/README file.
-	As you can read in the main README file, this HILO provides two different functional modes: in the first the user can 
-	change the output channels values and check for the input channel status, dinamically; in the second the user can
-	compose a test-recepit that contains all test steps to follow and sends it to the HILO using the the wireless connection.
-	In this second mode the ESP32 checks for the authorization's request and, if it has success then it will drive the engine
-	to perform the configured test.
+	The HILO can function in two different ways: scheduled-mode and realtime-mode.
 
+	In the first one, the user have to prepare a test's recipit and send it via REST API to the HILO_interface component.
+	Then it will instructs the HILO_engine on the step iw will have to follow to perform the test correctly. At the end of
+	the test, the software-client will retrive all resulted data via REST API, and the user will be able to evaluate
+	the the DUT behaviohr.
 	
-	When the RealTime driver (STM32) get the test-procedure start message, it starts to execute the following steps in loop,
-	until the test has terminated
-		1) it reads the test's step
-		2) it sets the output pin and reads the input ones
-		3) it sends the test-step log to the HILO's interface manager (ESP32)
-		4) if the step was the last one it sends also a test-end message to the interface manager
-		5) if it receive a test-stop message from the interface then the test will be stopped (no other steps)
-		6) if a (configured) critical error has been detected then a test-end message will be returned to the interface
+	In the realtime-mode, the user can change the output-pins value via REST API, dinamically. All data on the monitored
+	input pins will be continuously reported via UDP stream. So, the user will be able to evaluate the DUT behavior
+	modifying the DUT's input and checking for the DUT's output, dinamically.
+
