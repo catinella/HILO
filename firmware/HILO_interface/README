@@ -17,8 +17,17 @@
 	sdkconfig          The ESP-IDF's configuration file
 
 2.0 Description
-	This component provides the HILO's interface feature.
+	This component provides the HILO's interface feature. The user can use the HILO in two different ways:
+	scheduled-mode and realtime-mode. In the first one, the user have to prepare a test's recipit where he defines every
+	output pins change and when the change will be performed. The recipit will be sent using the proper REST API. At the
+	end of the test, the software-client will retrive all data on the moitored pins, and the user will be able to evaluate
+	the the DUT behaviohr.
+	In the realtime-mode, the user can change the output-pins value using REST API, dinamically. All data on the monitored
+	input pins will be continuously reported via UDP stream.
 
+
+	2.1 Hardware considerations
+	===========================
 	The MCU used to implement the HILO's interface is the ESP32 WROOM-32-UE. It is a cheap device but its characteristics allows
 	it to perform all the required features, easily. The followings are the main ones:
 	- 448 KB ROM
@@ -31,6 +40,124 @@
 	You can find the MCU's full documentation using the following link:
 	https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf
 	
+
+	2.2 Scheduled test mode:
+	========================
+	Firmware's main steps:
+		0) It receives a set_recepit message by the test-client
+		   This is the event that starts all process
+
+		1) A stop-message is sent to the (STM32M4 realtime micro) engine
+		   The engine will close its SPI-1 port and it will returns a system status message. (*)
+
+		2) Waiting for the engine availability.
+		   If the engine will reports an error the interface will stop the test and it will send back an error code
+
+		3) Configuring the test parameters (eg. the I/O frequency) sending the proper commands to the engine (SPI-2).
+		
+		4) Resetting the whole SRAM memories.
+		   All previous test data will be lost
+
+		5) Writing the I/O directions settings in the SRAM (SPI-1).
+		
+		6) Closing the SPI-1 link to the SRAMs. (*)
+		
+		7) it sends the test start message to the micro
+		
+		8) it waits for one of the following events:
+			8.1) a test step log from the micro
+			7.2) a critical test-end message from the micro
+			7.3) a test-stop message from the user
+
+	(*) Please read the the HILO's whole sheme in the PCB/README file
+
+	The communications between the test-client software and the HILO's interface, flows over WiFi link. In order to
+	provide a more standard interface the HILO's interface uses the following REST API protocol.
+
+	REST APIs for scheduled-test mode:
+		POST <HILO>/test/set_recepit       // the test's recipit will be accepted, converted, and stored in the main memory
+		POST <HILO>/test/start             // if a recepit has been configured then the test will be waked up
+		POST <HILO>/test/stop              // If a test is running then test procedyre will be stopped
+		GET  <HILO>/test/get_status        // It returns the test status
+		GET  <HILO>/test/get_resuts        // It returns all data produced by the executed test
+
+	JSON messages:
+		<HILO>/test/set_recepit = {
+			configuration = {
+				//
+				// I/O direction configuration
+				//
+				pin0 = {IN|OUT}, 
+				pin1 = {IN|OUT},
+				...
+				pin15 = {IN|OUT},
+
+				// Frequency in Khz
+				freq=<n>
+			},
+			test_steps = [
+				{io_conf = <16bit hex>, test_step = <n>},
+				[{io_conf = <16bit hex>, test_step = <n>},]
+				...
+			]
+		}
+
+	2.2.1 SRAM content
+	==================
+	The SRAMs are used just in scheduled-test-mode. This modality is based on a test-pecipit composed by all the I/O changes and
+	the time of their performing, mainly. This data is translated by the HILO-interface into an IO-pins configurations sequence,
+	one for every time time period. Then the sequence is written into the SRAM.
+
+
+	2.3 Realtime test mode:
+	========================
+	Firmware's main steps:
+
+	REST APIs
+		POST <HILO>/realtime/configure_iopins   // It configures the bits direction
+		POST <HILO>/realtime/configure_stream   // It configures the network stream
+		POST <HILO>/realtime/send_data          // It force the HILO's output pins to change their status
+		GET  <HILO>/realtime/get_fuses          // It returns the status of the fuses
+
+	JSON messages:
+		/realtime/configure_iopins = <16bit hex-number>
+		/realtime/configure_stream = <test-client IP>
+		<HILO>/realtime/send_data = <16bit hex-number>
+
+	
+	2.4 Communication with HILO-engine
+	==================================
+	In order to exchange adata between the interface and the engine, they uses two different communication data buses. The first one
+	is used by the interface to send commands, and because it does not need to be very fast, the 12C bus has been selected for this
+	purpose. The second bus is used by the engine's MCU to send the input-pins data to the interface, and to allow fast data
+	transmission rating, the SPI bus has been selected.
+
+
+	Available commands:
+		+-----------------+
+		| HENG_TEST_START |
+		|    (8 bit)      |
+		+-----------------+
+
+		+----------------+
+		| HENG_TEST_STOP |
+		|    (8 bit      |
+		+----------------+
+		
+		+---------------------+
+		| HENG_TEST_GETSTATUS |
+		|       (8 bit)       |
+		+---------------------+
+		 
+		+--------------------+------------------+
+		| HENG_RT_SETPINSDIR |      data        |
+		|       (8 bit)      |    (16 bit)      |
+		+--------------------+------------------+
+		
+		+--------------------+------------------+
+		| HENG_RT_SETPINSVAL |      data        |
+		|       (8 bit)      |    (16 bit)      |
+		+--------------------+------------------+
 
 3.0 Buiding procedure
 	In order to build the code for ESP32 that belongs to this module, you need the ESP-IDS (5.4.x) software framework. You can 
