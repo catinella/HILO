@@ -10,28 +10,52 @@
 #
 #-------------------------------------------------------------------------------------------------------------------------------
 
+define _lc
+$(shell echo $(1) |tr '[A-Z]' '[a-z]')
+endef
+define _uc
+$(shell echo $(1) |tr '[a-z]' '[A-Z]')
+endef
+
+#
+# Configuration loading...
+#
 -include conf.mk
 
+# Defaults
+GDB              ?= 0
+OCD_PROGRAMMER   ?= 0
+
+# Check for the configuration
 ifndef GNUTOOLS_PATH
 $(error GNUTOOLS_PATH is not defined into the conf.mk file!)
 endif
 
-#
-# MCU & Toolchain
-#
-MCU_FAMILY       := STM32F0xx
-PART             := STM32F031x6
-CPU              := -mcpu=cortex-m0
-FPU              :=
-FLOAT_ABI        :=
-MCUFLAGS         := $(CPU) -mthumb $(FPU) $(FLOAT_ABI)
 
 #
-# Process' configuration
+# MCU's data loading...
 #
-GDB              ?= 0
-OCD_PROGRAMMER   ?= 0
-TARGET           ?= firmware
+PART ?= STM32F031x6
+ifeq ($(findstring F0, $(PART)), F0)
+MCU_TYPE = F0
+endif
+
+ifeq ($(findstring F3, $(PART)), F3)
+MCU_TYPE = F3
+endif
+
+ifeq ($(findstring F4, $(PART)), F4)
+MCU_TYPE = F4
+endif
+porcodio := $(findstring F0, $(PART))
+
+ifndef MCU_TYPE
+$(error $(PART) has not a previousely defined STM chips family!)
+else
+$(info Platform dependent data loading for $(MCU_TYPE) architecture)
+include mcu/$(MCU_TYPE).mk
+endif
+
 
 #
 # Executable files
@@ -45,36 +69,41 @@ OBJCOPY          := $(TOOLCHAIN_PREFIX)-objcopy
 SIZE             := $(TOOLCHAIN_PREFIX)-size
 
 
-# --- Sorgenti ---
+#
+# Source code
+#
 SRC_DIRS := \
   ../Core/Src \
-  ../Drivers/STM32F0xx_HAL_Driver/Src
+  ../Drivers/STM32$(MCU_TYPE)xx_HAL_Driver/Src
 
-STARTUP  := ../Core/Startup/startup_stm32f031k6tx.s
-SYSTEM   := ../Core/Src/system_stm32f0xx.c
+STARTUP  := ../Core/Startup/startup_$(call _lc,$(PART)).s
+SYSTEM   := ../Core/Src/system_stm32$(call _lc,$(MCU_FAMILY)).c
+LDSCRIPT := $(abspath ../$(call _uc,$(PART))_FLASH.ld)
 
-# Linker script
-LDSCRIPT := $(abspath ../STM32F031K6TX_FLASH.ld)
 
-# --- Include ---
 INCLUDES := \
   -I../Core/Inc \
   -I../Drivers/CMSIS/Include \
   -I../Drivers/CMSIS/Device/ST/$(MCU_FAMILY)/Include \
   -I../Drivers/$(MCU_FAMILY)_HAL_Driver/Inc
 
-# --- Defines ---
-DEFS := -DUSE_HAL_DRIVER -D$(MCU_FAMILY) -D$(PART)
 
-# --- Flags ---
-CSTD   := -std=c11
-OPT    := -O2
-WARN   := -Wall -Wextra -Wshadow -Wlogical-op -Wpointer-arith -Wstrict-prototypes
-CFLAGS := $(CSTD) $(OPT) $(WARN) $(DEFS) $(INCLUDES) $(MCUFLAGS) -ffunction-sections -fdata-sections -fno-common
-ASFLAGS:= $(MCUFLAGS) -x assembler-with-cpp
-LDFLAGS:= $(MCUFLAGS) -Wl,--gc-sections -Wl,-Map,$(TARGET).map -T$(LDSCRIPT)
+DEFS := \
+	-DUSE_HAL_DRIVER \
+	-D$(MCU_FAMILY) \
+	-D$(PART)
 
-# Rimuovi eventuali sorgenti HAL che non usi (es. LL) se vuoi snellire
+
+MCUFLAGS := $(CPU) -mthumb $(FPU) $(FLOAT_ABI)
+TARGET   := firmware_$(PART)
+CSTD     := -std=c11
+OPT      := -O2
+WARN     := -Wall -Wextra -Wshadow -Wlogical-op -Wpointer-arith -Wstrict-prototypes
+CFLAGS   := $(CSTD) $(OPT) $(WARN) $(DEFS) $(INCLUDES) $(MCUFLAGS) -ffunction-sections -fdata-sections -fno-common
+ASFLAGS  := $(MCUFLAGS) -x assembler-with-cpp
+LDFLAGS  := $(MCUFLAGS) -Wl,--gc-sections -Wl,-Map,$(TARGET).map -T$(LDSCRIPT)
+
+
 DRVR_SRCS := $(shell find ../Drivers -name '*.c' -not -path '*/Templates/*')
 CORE_SRCS := $(shell find ../Core/Src -name '*.c')
 ASMS := $(STARTUP)
@@ -89,7 +118,7 @@ DEPS  := $(TCOBJS:.o=.d)
 
 VPATH := ..
 
-.PHONY: all clean flash size
+.PHONY: all clean flash size debug
 
 #-------------------------------------------------------------------------------------------------------------------------------
 #                               C O M P I L I N G   A N D   B U I L D I N G   R U L E S
@@ -131,8 +160,8 @@ cleanall:		clean
 			@for ext in elf bin hex map; do \
 				rm -fv $(TARGET).$$ext;   \
 			done
-			@for dir in $$(find . -type d -printf '%P\n'); do \
-				rmdir -pv $$dir 2>/dev/null; \
+			@for dir in $$(find . -type d -printf '%P\n' 2>/dev/null); do \
+				if [ "$$dir" != "mcu" ]; then  rmdir -pv $$dir 2>/dev/null; fi; \
 			done
 
 clean:
@@ -146,12 +175,15 @@ flash:		$(TARGET).bin
 			st-flash write $< 0x08000000
 endif
 
-help:
+debug:
 			@echo "------------ C objects ------------"
 			@for file in "$(COBJS)"; do echo "$$file"; done
 			@echo "-------- Assembly objects ---------"
 			@for file in "$(AOBJS)"; do echo "$$file"; done
-
+			@echo "-------- Internal variables ---------"
+			@echo "STARTUP=$(STARTUP)"
+			@echo "SYSTEM=$(SYSTEM)"
+			@echo "LDSCRIPT=$(LDSCRIPT)"
 
 #
 # Self generating compiling rules inclusion
