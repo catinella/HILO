@@ -95,11 +95,20 @@
 				// Frequency in Khz
 				freq=<n>
 			},
-			test_steps = [
-				{io_conf = <16bit hex>, test_step = <n>},
-				[{io_conf = <16bit hex>, test_step = <n>},]
-				...
-			]
+			test_outputData[] = {
+				type = fixedTimePeriod,
+				pin = <0-15>,
+				value = {high|low|swap}
+			}, {
+				type = squareWave,
+				pin = <0-15>,
+				period = <n>,         # milli seconds
+				dutyCycle = <0 - 100> # percent
+			}, {
+				type = number,
+				pins[] = <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>  # 8bits MSB --> LSB
+				period = <n>,         # milli seconds
+			}, ...
 		}
 
 	2.2.1 SRAM content
