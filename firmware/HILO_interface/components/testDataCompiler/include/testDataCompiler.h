@@ -7,14 +7,15 @@
 //                                                    Hardware in the loop
 //
 //
-// File:   testData_compiler.c
+// File:   testDataCompiler.h
 //
 // Author: Silvano Catinella <catinella@yahoo.com>
 //
 // Description:
-//		This module is a fabric where its sub-modules tale a particular JSON message and write the rendered data into the
-//		sram.
-//
+//		This module accepts a particular JSON message as input and write the rendered data into the sram.
+//		
+//		
+//		
 // License:  LGPL ver 3.0
 //
 // 		This script is a wfree software; you can redistribute it and/or modify it under the terms	of the GNU
@@ -31,4 +32,15 @@
 //
 //
 ------------------------------------------------------------------------------------------------------------------------------*/
-//
+
+#ifndef __TESTDATACOMPILER__
+#define __TESTDATACOMPILER__
+#include <wError.h>
+
+typedef (testDataCompiler_check*)(JSON);
+
+wError testDataCompiler_init     ();
+wError testDataCompiler_generate (JSON message);
+wError testDataCompiler_register (testDataCompiler_check* f);
+
+#endif
