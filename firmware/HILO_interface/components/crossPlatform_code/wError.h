@@ -98,6 +98,7 @@ typedef uint8_t wError;
 #define WERROR_ERROR_CONFFAILED      138
 #define WERROR_ERROR_INTFAILURE      140
 #define WERROR_ERROR_REGPROCFAILED   142
+#define WERROR_ERROR_ITEMNOTFOUND    144
 
 
 //
