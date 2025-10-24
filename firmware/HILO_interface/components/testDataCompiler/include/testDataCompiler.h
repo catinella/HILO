@@ -13,6 +13,60 @@
 //
 // Description:
 //		This module accepts a particular JSON message as input and write the rendered data into the sram.
+//		In order to obtain a software module opens to extensions and close to changes, the module's architecture is based
+//		on the Fabric DP. It means you can develop new sub-modules without to change one line of this software. The new
+//		sub-modules will allows you to manage new test-data definitions
+//
+//		UML scheme:
+//		===========
+//		                       +----------------------------+
+//		                       |      testDataCompiler      |
+//		                       +----------------------------+
+//		                       |                            |
+//		                       |                            |
+//                                 | testDataCompiler_init()    |
+//		                       | testDataCompiler_generate()|
+//		                       | testDataCompiler_register()|
+//		                       +----------------------------+
+//		                          ^           ^         ^
+//		                          |           |         |
+//		         +----------------+           +---+     +------------------+
+//		         |                                |                        |
+//		+--------------------------+      +----------------------+      +-------------------+
+//		|      fixedTimePeriod     |      |      squareWave      |      |       number      |
+//		+--------------------------+      +----------------------+      +-------------------+
+//		|                          |      |                      |      |                   |
+//		|fixedTimePeriod_init()    |      | squareWave_init()    |      | number_init()     |    ....
+//		|fixedTimePeriod_check()   |      | squareWave_check()   |      | number_check()    |
+//		|fixedTimePeriod_generate()+--+   | squareWave_generate()|  +---+number_generate()  |
+//		+--------------------------+  |   +------+---------------+  |   +-------------------+
+//		                              |          |                  |
+//		                              +-----+    |     +------------+
+//		                                    |    |     |
+//		                                 +-------------------------++
+//		                                 |           SRAM           |
+//		                                 +-------------------------++
+//		
+//		How to write sub-modules:
+//		=========================
+//		In order to allow the fabric to manage your custom module in a correct way. The module must have the following 
+//		functions:
+//			1) <module-name>_init()
+//			2) <module-name>_check()
+//			3) <module-name>_generate
+//
+//		The first one initialize itself and it is used by the Fabric to register the other two methods in its own db
+//		The second is used by the Fabric to understand if the JSON message is compatible with that sub-module.
+//		It this function will return a success code, then the last one will be used by the Fabric to generate the test-data
+//		in the SRAM.
+//
+//		All sub-module file-names must respect the following syntax: testData_<module-name>.[ch]
+//
+//		Configurable symbols:
+//		=====================
+//		TDC_MAXSUBMODS   Maximum number of sub-modules
+//		
+//		
 //		
 //		
 //		
@@ -37,10 +91,13 @@
 #define __TESTDATACOMPILER__
 #include <wError.h>
 
-typedef (testDataCompiler_check*)(JSON);
+#define TDC_MAXSUBMODS 8
+
+typedef (tdc_check*)   (JSON);
+typedef (tdc_generate*)(JSON);
 
 wError testDataCompiler_init     ();
 wError testDataCompiler_generate (JSON message);
-wError testDataCompiler_register (testDataCompiler_check* f);
+wError testDataCompiler_register (tdc_check* f, tdc_generate* g);
 
 #endif
