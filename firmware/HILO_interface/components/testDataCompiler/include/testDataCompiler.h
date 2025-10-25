@@ -15,7 +15,10 @@
 //		This module accepts a particular JSON message as input and write the rendered data into the sram.
 //		In order to obtain a software module opens to extensions and close to changes, the module's architecture is based
 //		on the Fabric DP. It means you can develop new sub-modules without to change one line of this software. The new
-//		sub-modules will allows you to manage new test-data definitions
+//		sub-modules will allows you to manage new test-data definitions.
+//
+//		Usually, every test-client software output-generator tools (eg. keypad, clock...) has its own manager that is
+//		implemented by a testDataCompiler sub-module
 //
 //		UML scheme:
 //		===========
@@ -38,7 +41,7 @@
 //		|                          |      |                      |      |                   |
 //		|fixedTimePeriod_init()    |      | squareWave_init()    |      | number_init()     |    ....
 //		|fixedTimePeriod_check()   |      | squareWave_check()   |      | number_check()    |
-//		|fixedTimePeriod_generate()+--+   | squareWave_generate()|  +---+number_generate()  |
+//		|fixedTimePeriod_generate()+--+   | squareWave_generate()|  +---+ number_generate() |
 //		+--------------------------+  |   +------+---------------+  |   +-------------------+
 //		                              |          |                  |
 //		                              +-----+    |     +------------+
