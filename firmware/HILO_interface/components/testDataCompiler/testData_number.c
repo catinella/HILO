@@ -12,14 +12,21 @@
 // Author: Silvano Catinella <catinella@yahoo.com>
 //
 // Description:
-//		
+//		This module convert the test-data definition in a stream of bits.
+//		In this definition type, user can modify 8 bits at the time. In fact, in order to correctly use this module,
+//		he has to define a (0-355) number and the bits used to reppresent that number. Those bits will keep that
+//		configuration for the period defined by the JASON.
+//
+//		The key to select this module is "type = number"
+//
 //		JSON message = {
 //			type = number,
 //			pins[] = <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>  # 8bits MSB --> LSB
-//			period = <n>,         # milli seconds
+//			period = <n>         # milli seconds
 //		}
 //
-//		
+//		Usually this method is used by the test-client software numeric-keypad, digital-counter...
+//
 //		
 // License:  LGPL ver 3.0
 //
@@ -39,3 +46,41 @@
 ------------------------------------------------------------------------------------------------------------------------------*/
 
 #include <testDataCompiler.h>
+
+wError number_init() {
+	//
+	// Description:
+	//	This function registers the _check() and _generate() methods in the parent class testDataCompiler
+	//
+	wError err = WERROR_SUCCESS;
+
+
+	return(err);
+}
+
+wError number_check() {
+	//
+	// Description:
+	//	This function accepts a JSON message as arguments and returns a success value only if the message can be handled
+	//	by this module
+	//
+	// Returned value:
+	//	WERROR_SUCCESS
+	//	WERROR_WARNING_MISSMATCHTYPE
+	//
+	wError err = WERROR_SUCCESS;
+
+
+	return(err);
+}
+
+wError number_generate() {
+	//
+	// Description:
+	//	This generates the test data stream
+	//
+	wError err = WERROR_SUCCESS;
+
+
+	return(err);
+}

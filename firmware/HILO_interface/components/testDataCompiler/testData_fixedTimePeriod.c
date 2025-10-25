@@ -12,8 +12,13 @@
 // Author: Silvano Catinella <catinella@yahoo.com>
 //
 // Description:
-//		
-//		  JSON message = { 
+//		This module convert the test-data definition in a stream of bits.
+//		In this definition type, user can select a fixed period where the defined bit must have the selected value. 
+//		This value can also be set as "swap", in this case the new value will be the inverted old one 
+//
+//		The key to select this module is "type = fixedTimePeriod"
+//
+//		JSON message = { 
 // 			type = fixedTimePeriod,
 //			pin = <0-15>,
 //			value = {high|low|swap}
@@ -39,3 +44,41 @@
 ------------------------------------------------------------------------------------------------------------------------------*/
 
 #include <testDataCompiler.h>
+
+wError fixedTimePeriod_init() {
+	//
+	// Description:
+	//	This function registers the _check() and _generate() methods in the parent class testDataCompiler
+	//
+	wError err = WERROR_SUCCESS;
+
+
+	return(err);
+}
+
+wError fixedTimePeriod_check() {
+	//
+	// Description:
+	//	This function accepts a JSON message as arguments and returns a success value only if the message can be handled
+	//	by this module
+	//
+	// Returned value:
+	//	WERROR_SUCCESS
+	//	WERROR_WARNING_MISSMATCHTYPE
+	//
+	wError err = WERROR_SUCCESS;
+
+
+	return(err);
+}
+
+wError fixedTimePeriod_generate() {
+	//
+	// Description:
+	//	This generates the test data stream
+	//
+	wError err = WERROR_SUCCESS;
+
+
+	return(err);
+}
