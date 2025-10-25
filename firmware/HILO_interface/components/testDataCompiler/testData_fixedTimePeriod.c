@@ -13,8 +13,8 @@
 //
 // Description:
 //		This module convert the test-data definition in a stream of bits.
-//		In this definition type, user can select a fixed period where the defined bit must have the selected value. 
-//		This value can also be set as "swap", in this case the new value will be the inverted old one 
+//		In this definition type, user can set a fixed period where a defined bit must have a constant value.
+//		This value can be set as "swap", in this case the new value will be the inverted old one 
 //
 //		The key to select this module is "type = fixedTimePeriod"
 //
