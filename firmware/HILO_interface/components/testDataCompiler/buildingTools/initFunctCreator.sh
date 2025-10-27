@@ -97,7 +97,7 @@ echo "if (" >> $tgtFile
 
 for sm in $subModulesList
 do
-	echo -e "\t${sm}_init() == WERRROR_SUCCESS &&" >> $tgtFile
+	echo -e "\t${sm}_init() == WERROR_SUCCESS &&" >> $tgtFile
 done
-echo -e "\ttrue\n)\n\t err = WERRROR_SUCCESS;" >> $tgtFile
+echo -e "\ttrue\n)\n\t err = WERROR_SUCCESS;" >> $tgtFile
 echo -e "// ---------------------- END ----------------------\n" >> $tgtFile
