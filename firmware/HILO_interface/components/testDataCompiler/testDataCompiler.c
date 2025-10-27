@@ -48,7 +48,7 @@
 #include <testDataCompiler.h>
 #include <testDataCompiler_subModsHeaders.h>
 #include <stdbool.h>
-
+#include <stddef.h>
 
 typedef struct {
 	tdc_check*    check,
