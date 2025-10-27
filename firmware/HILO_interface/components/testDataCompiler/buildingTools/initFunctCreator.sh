@@ -26,7 +26,7 @@
 
 
 function usage() {
-	echo "use $0 --targetName=<file-name> --prefix=<string>" >&2
+	echo "use $0 --targetName=<file-name> --prefix=<string> [--path=<header-files path>]" >&2
 }
 
 function usageError() {
