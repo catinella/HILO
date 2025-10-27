@@ -38,8 +38,8 @@
 
 #include <wError.h>
 
-wError fixedTimePeriod_init();
-wError fixedTimePeriod_check();
-wError fixedTimePeriod_generate();
+wError testData_fixedTimePeriod_init();
+wError testData_fixedTimePeriod_check();
+wError testData_fixedTimePeriod_generate();
 
 #endif

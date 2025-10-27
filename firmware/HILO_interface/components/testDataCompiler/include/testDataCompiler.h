@@ -96,11 +96,13 @@
 
 #define TDC_MAXSUBMODS 8
 
-typedef (tdc_check*)   (JSON);
-typedef (tdc_generate*)(JSON);
+#define JSON char*
 
-wError testDataCompiler_init     ();
-wError testDataCompiler_generate (JSON message);
-wError testDataCompiler_register (tdc_check* f, tdc_generate* g);
+typedef wError (*tdc_check)   (JSON message);
+typedef wError (*tdc_generate)(JSON message);
+
+wError testData_init     ();
+wError testData_generate (JSON message);
+wError testData_register (tdc_check* f, tdc_generate* g);
 
 #endif

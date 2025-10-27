@@ -37,8 +37,8 @@
 
 #include <wError.h>
 
-wError number_init();
-wError number_check();
-wError number_generate();
+wError testData_number_init();
+wError testData_number_check();
+wError testData_number_generate();
 
 #endif

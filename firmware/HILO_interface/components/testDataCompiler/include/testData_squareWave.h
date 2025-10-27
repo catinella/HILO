@@ -36,8 +36,8 @@
 
 #include <wError.h>
 
-wError squareWave_init();
-wError squareWave_check();
-wError squareWave_generate();
+wError testData_squareWave_init();
+wError testData_squareWave_check();
+wError testData_squareWave_generate();
 
 #endif
