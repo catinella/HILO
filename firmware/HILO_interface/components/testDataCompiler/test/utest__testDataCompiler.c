@@ -1,0 +1,6 @@
+#include <testDataCompiler.h>
+
+int main() {
+
+	return(0);
+}
