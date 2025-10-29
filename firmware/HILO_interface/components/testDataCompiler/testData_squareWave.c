@@ -17,11 +17,11 @@
 //
 //		The key to select this module is "type = squareWave"
 //
-//		JSON message = {
-//			type      = squareWave,
-//			pin       = <0-15>,
-//			period    = <n>,         # milli seconds
-//			dutyCycle = <0 - 100>    # percent
+//		{
+//			"type"      = "squareWave",
+//			"pin"       = <0-15>,
+//			"period"    = <n>,         # milli seconds
+//			"dutyCycle" = <0 - 100>    # percent
 //		}
 //		
 //		
@@ -43,8 +43,12 @@
 ------------------------------------------------------------------------------------------------------------------------------*/
 
 #include <testDataCompiler.h>
+#include <testData_squareWave.h>
+#include <stdbool.h>
+#include <string.h>
 
-wError squareWave_init() {
+
+wError testData_squareWave_init() {
 	//
 	// Description:
 	//	This function registers the _check() and _generate() methods in the parent class testDataCompiler
@@ -55,7 +59,7 @@ wError squareWave_init() {
 	return(err);
 }
 
-wError squareWave_check (JSON message) {
+wError testData_squareWave_check (cJSON *root) {
 	//
 	// Description:
 	//	This function accepts a JSON message as arguments and returns a success value only if the message can be handled
@@ -64,14 +68,49 @@ wError squareWave_check (JSON message) {
 	// Returned value:
 	//	WERROR_SUCCESS
 	//	WERROR_WARNING_MISSMATCHTYPE
+	//	WERROR_ERROR_ILLEGALSYNTAX
 	//
 	wError err = WERROR_SUCCESS;
+	cJSON *type = NULL, *pin = NULL, *period = NULL;
+	
+	if (
+		(type = cJSON_GetObjectItem(root, "type")) == NULL  ||
+		cJSON_IsString(type)                       == false ||
+		type->valuestring                          == NULL
+	)
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALSYNTAX;
+
+	else if (
+		(pin = cJSON_GetObjectItem(root, "pin")) == NULL  ||
+		cJSON_IsNumber(pin)                      == false 
+	)
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALSYNTAX;
+
+	else if (
+		(period = cJSON_GetObjectItem(root, "period")) == NULL  ||
+		cJSON_IsNumber(period)                         == false
+	)
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALSYNTAX;
+
+	else if (
+		(period = cJSON_GetObjectItem(root, "period")) == NULL  ||
+		cJSON_IsNumber(period)                         == false
+	)
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALSYNTAX;
+		
+	else if (strcmp(type->valuestring, TD_SQUAREWAVE_KEYWORD) != 0)
+		// WARNING!
+		err = WERROR_WARNING_TYPEMISSMATCH;
 
 
 	return(err);
 }
 
-wError squareWave_generate() {
+wError testData_squareWave_generate() {
 	//
 	// Description:
 	//	This generates the test data stream

@@ -87,10 +87,11 @@ done
 #
 # Check for the header files
 #
-subModulesList=$(ls ${incFilesPath}/${incFilesPrfx}*.h |sed -e 's/^.*\///' -e 's/\.h$//') || {
+subModulesList=$(ls ${incFilesPath}/${smPrfx}*.h |sed -e 's/^.*\///' -e 's/\.h$//') || {
 	echo "ERROR! no files found" >&2
 	exit 129
 }
+
 
 echo "// ----------- Self generated procedure by $0 -----------" > $tgtFile
 echo "if (" >> $tgtFile

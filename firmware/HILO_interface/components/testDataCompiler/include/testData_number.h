@@ -36,6 +36,9 @@
 #define __TD_NUMBER__
 
 #include <wError.h>
+#include <cjson/cJSON.h>
+
+#define TD_NUMBER_KEYWORD "number"
 
 wError testData_number_init();
 wError testData_number_check();

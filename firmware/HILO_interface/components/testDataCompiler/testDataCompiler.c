@@ -51,12 +51,11 @@
 #include <stddef.h>
 
 typedef struct {
-	tdc_check*    check,
-	tdc_generate* generate
-} smDbItem;
+	tdc_check    check;
+	tdc_generate generate;
+} smDbItems;
 
-
-static smDbItem db[TDC_MAXSUBMODS];
+static smDbItems db[TDC_MAXSUBMODS];
 static uint8_t  db_index = 0;
 
 
@@ -69,8 +68,8 @@ wError testDataCompiler_init () {
 
 	// Internal db initialization
 	for (uint8_t t=0; t<TDC_MAXSUBMODS; t++) {
-		db[t].check    = NULL;
-		db[t].generate = NULL;
+		(db[t]).check    = NULL;
+		(db[t]).generate = NULL;
 	}
 	
 	// TODO: SRAM initialization procedure
@@ -81,7 +80,7 @@ wError testDataCompiler_init () {
 	return(err);
 }
 
-wError testDataCompiler_generate (JSON message) {
+wError testDataCompiler_generate (cJSON message) {
 	//
 	// Description:
 	//	This function accepts a test-data definition as argument, and sends it to the sub-module able to manage it.
@@ -115,7 +114,7 @@ wError testDataCompiler_generate (JSON message) {
 	return(err);
 }
 
-wError testDataCompiler_register (tdc_check* f, tdc_generate* g) {
+wError testDataCompiler_register (tdc_check f, tdc_generate g) {
 	//
 	// Description:
 	//	It resisters the sub.module's methods defined as arguments
@@ -127,8 +126,8 @@ wError testDataCompiler_register (tdc_check* f, tdc_generate* g) {
 	wError err = WERROR_SUCCESS;
 
 	if (f != NULL && g != NULL) {
-		db[db_index].check = f;
-		db[db_index].generate = g;
+		(db[db_index]).check = f;
+		(db[db_index]).generate = g;
 		db_index++;
 	} else
 		// ERROR!

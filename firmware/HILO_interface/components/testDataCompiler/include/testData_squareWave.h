@@ -35,9 +35,12 @@
 #define __TD_SQUAREWAVE__
 
 #include <wError.h>
+#include <cjson/cJSON.h>
 
-wError testData_squareWave_init();
-wError testData_squareWave_check();
-wError testData_squareWave_generate();
+#define TD_SQUAREWAVE_KEYWORD "squareWave"
+
+wError testData_squareWave_init     ();
+wError testData_squareWave_check    (cJSON *root);
+wError testData_squareWave_generate ();
 
 #endif

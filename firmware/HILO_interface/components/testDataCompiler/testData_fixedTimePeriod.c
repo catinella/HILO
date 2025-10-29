@@ -17,13 +17,11 @@
 //		This value can be set as "swap", in this case the new value will be the inverted old one 
 //
 //		The key to select this module is "type = fixedTimePeriod"
-//
-//		JSON message = { 
-// 			type = fixedTimePeriod,
-//			pin = <0-15>,
-//			value = {high|low|swap}
-// 		}
-//
+//			{
+// 				"type" = "fixedTimePeriod",
+//				"pin" = <0-15>,
+//				"value" = {"high"|"low"|"swap"}
+// 			}
 //		
 //		
 // License:  LGPL ver 3.0
@@ -44,8 +42,11 @@
 ------------------------------------------------------------------------------------------------------------------------------*/
 
 #include <testDataCompiler.h>
+#include <testData_fixedTimePeriod.h>
+#include <stdbool.h>
+#include <string.h>
 
-wError fixedTimePeriod_init() {
+wError testData_fixedTimePeriod_init() {
 	//
 	// Description:
 	//	This function registers the _check() and _generate() methods in the parent class testDataCompiler
@@ -56,7 +57,7 @@ wError fixedTimePeriod_init() {
 	return(err);
 }
 
-wError fixedTimePeriod_check() {
+wError testData_fixedTimePeriod_check (cJSON *root) {
 	//
 	// Description:
 	//	This function accepts a JSON message as arguments and returns a success value only if the message can be handled
@@ -65,14 +66,40 @@ wError fixedTimePeriod_check() {
 	// Returned value:
 	//	WERROR_SUCCESS
 	//	WERROR_WARNING_MISSMATCHTYPE
+	//	WERROR_ERROR_ILLEGALSYNTAX
 	//
 	wError err = WERROR_SUCCESS;
+	cJSON  *type = NULL, *pin = NULL, *value = NULL;
+	if (
+		(type = cJSON_GetObjectItem(root, "type")) == NULL  ||
+		cJSON_IsString(type)                       == false ||
+		type->valuestring                          == NULL
+	)
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALSYNTAX;
 
+	else if (
+		(pin = cJSON_GetObjectItem(root, "pin")) == NULL  ||
+		cJSON_IsNumber(pin)                      == false
+	)
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALSYNTAX;
+		
+	else if (
+		(value = cJSON_GetObjectItem(root, "value")) == NULL  ||
+		cJSON_IsString(value)                        == false
+	)
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALSYNTAX;
+		
+	else if (strcmp(type->valuestring, TD_FIXEDTIMEPERIOD_KEYWORD) != 0)
+		// WARNING!
+		err = WERROR_WARNING_TYPEMISSMATCH;
 
 	return(err);
 }
 
-wError fixedTimePeriod_generate() {
+wError testData_fixedTimePeriod_generate() {
 	//
 	// Description:
 	//	This generates the test data stream

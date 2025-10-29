@@ -93,16 +93,17 @@
 #ifndef __TESTDATACOMPILER__
 #define __TESTDATACOMPILER__
 #include <wError.h>
+#include <cjson/cJSON.h>
 
 #define TDC_MAXSUBMODS 8
 
 #define JSON char*
 
-typedef wError (*tdc_check)   (JSON message);
-typedef wError (*tdc_generate)(JSON message);
+typedef wError (*tdc_check)   (cJSON message);
+typedef wError (*tdc_generate)(cJSON message);
 
 wError testData_init     ();
-wError testData_generate (JSON message);
+wError testData_generate (cJSON message);
 wError testData_register (tdc_check* f, tdc_generate* g);
 
 #endif

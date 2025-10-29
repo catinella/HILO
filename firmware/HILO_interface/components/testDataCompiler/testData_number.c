@@ -19,10 +19,10 @@
 //
 //		The key to select this module is "type = number"
 //
-//		JSON message = {
-//			type = number,
-//			pins[] = <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>  # 8bits MSB --> LSB
-//			period = <n>         # milli seconds
+//		{
+//			"type" = "number",
+//			"pins"[] = <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>  # 8bits MSB --> LSB
+//			"period" = <n>         # milli seconds
 //		}
 //
 //		Usually this method is used by the test-client software numeric-keypad, digital-counter...
@@ -46,8 +46,11 @@
 ------------------------------------------------------------------------------------------------------------------------------*/
 
 #include <testDataCompiler.h>
+#include <testData_number.h>
+#include <stdbool.h>
+#include <string.h>
 
-wError number_init() {
+wError testData_number_init() {
 	//
 	// Description:
 	//	This function registers the _check() and _generate() methods in the parent class testDataCompiler
@@ -58,7 +61,7 @@ wError number_init() {
 	return(err);
 }
 
-wError number_check() {
+wError testData_number_check (cJSON *root) {
 	//
 	// Description:
 	//	This function accepts a JSON message as arguments and returns a success value only if the message can be handled
@@ -67,14 +70,42 @@ wError number_check() {
 	// Returned value:
 	//	WERROR_SUCCESS
 	//	WERROR_WARNING_MISSMATCHTYPE
+	//	WERROR_ERROR_ILLEGALSYNTAX
 	//
 	wError err = WERROR_SUCCESS;
+	cJSON  *pins = NULL, *type = NULL, *period = NULL;
+	
+	if (
+		(type = cJSON_GetObjectItem(root, "type")) == NULL  ||
+		cJSON_IsString(type)                       == false ||
+		type->valuestring                          == NULL
+	)
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALSYNTAX;
+
+	else if (
+		(pins = cJSON_GetObjectItem(root, "pins")) == NULL  ||
+		cJSON_IsArray(pins)                        == false 
+	)
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALSYNTAX;
+
+	else if (
+		(period = cJSON_GetObjectItem(root, "period")) == NULL  ||
+		cJSON_IsNumber(period)                         == false
+	)
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALSYNTAX;
+	
+	else if (strcmp(type->valuestring, TD_NUMBER_KEYWORD) != 0)
+		// WARNING!
+		err = WERROR_WARNING_TYPEMISSMATCH;
 
 
 	return(err);
 }
 
-wError number_generate() {
+wError testData_number_generate() {
 	//
 	// Description:
 	//	This generates the test data stream

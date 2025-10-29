@@ -37,9 +37,12 @@
 #define __TD_FIXEDTIMEPERIOD__
 
 #include <wError.h>
+#include <cjson/cJSON.h>
 
-wError testData_fixedTimePeriod_init();
-wError testData_fixedTimePeriod_check();
-wError testData_fixedTimePeriod_generate();
+#define TD_FIXEDTIMEPERIOD_KEYWORD "fixedTimePeriod"
+
+wError testData_fixedTimePeriod_init     ();
+wError testData_fixedTimePeriod_check    (cJSON *root);
+wError testData_fixedTimePeriod_generate ();
 
 #endif
