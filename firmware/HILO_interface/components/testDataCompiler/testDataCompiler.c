@@ -44,11 +44,20 @@
 //
 //
 ------------------------------------------------------------------------------------------------------------------------------*/
-
+#include <debugTools.h>
 #include <testDataCompiler.h>
 #include <testDataCompiler_subModsHeaders.h>
 #include <stdbool.h>
 #include <stddef.h>
+
+#ifdef MOCK
+
+// X86 libraries
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+#endif
 
 typedef struct {
 	tdc_check    check;
@@ -58,7 +67,13 @@ typedef struct {
 static smDbItems db[TDC_MAXSUBMODS];
 static uint8_t  db_index = 0;
 
+#ifdef MOCK
+static FILE* fh = NULL;
+#endif
 
+//------------------------------------------------------------------------------------------------------------------------------
+//                                      P U B L I C   F U N C T I O N S
+//------------------------------------------------------------------------------------------------------------------------------
 wError testDataCompiler_init () {
 	//
 	// Description:
@@ -71,16 +86,34 @@ wError testDataCompiler_init () {
 		(db[t]).check    = NULL;
 		(db[t]).generate = NULL;
 	}
-	
-	// TODO: SRAM initialization procedure
+
+	//
+	// SRAM initialization procedure
+	//
+#ifdef MOCK
+	if ((fh = fopen(UTFILE, "w+")) == NULL) {
+		// ERROR!
+		err = WERROR_ERRUTEST_IOERROR;
+		ERRORBANNER(err);
+		fprintf(stderr, "ERROR! I cannot open the virtual-memory \"%s\" file\n", UTFILE);
+	}
+#else
+	// TODO: real procedure
+#endif
+
+	// SRAM content ereasing...
+	if (WERROR_ISERROR(err) == false)
+		err = testDataCompiler_clean();
 
 	// Sub-modules registration
-	#include <testDataCompiler_subModsRegCalls.dc>
-	
+	if (WERROR_ISERROR(err) == false) {
+		#include <testDataCompiler_subModsRegCalls.dc>
+	}
+
 	return(err);
 }
 
-wError testDataCompiler_generate (cJSON message) {
+wError testDataCompiler_generate (cJSON *message) {
 	//
 	// Description:
 	//	This function accepts a test-data definition as argument, and sends it to the sub-module able to manage it.
@@ -117,7 +150,7 @@ wError testDataCompiler_generate (cJSON message) {
 wError testDataCompiler_register (tdc_check f, tdc_generate g) {
 	//
 	// Description:
-	//	It resisters the sub.module's methods defined as arguments
+	//	It registers the sub.module's methods defined as arguments
 	//
 	// Returned value:
 	//	WERROR_SUCCESS
@@ -133,5 +166,80 @@ wError testDataCompiler_register (tdc_check f, tdc_generate g) {
 		// ERROR!
 		err = WERROR_ERROR_ILLEGALARG;
 		
+	return(err);
+}
+
+wError testDataCompiler_setParams (cJSON *configMessage) {
+	//
+	// Description:
+	//	It sets the configuration data used by the sub-modules to calculate the testing-data based on the given definition
+	//
+	wError err = WERROR_SUCCESS;
+
+	return(err);
+}
+
+
+wError testDataCompiler_clean() {
+	//
+	// Description:
+	//	It cleans the whole SRAM content
+	//
+	wError err = WERROR_SUCCESS;
+
+#ifdef MOCK
+	uint8_t zeroPool[1024];
+	memset(zeroPool, 0, 1024);
+
+	// File rewind
+	if (fseek(fh, 0, SEEK_SET) < 0) {
+		// ERROR!
+		err = WERROR_ERRUTEST_IOERROR;
+		ERRORBANNER(err);
+		fprintf(stderr, "ERROR! I cannot reset the virtual-memory pointer\n");
+		
+	} else {
+		for (uint16_t t = 0; t < trunc(TDC_SRAMSIZE/sizeof(zeroPool)); t++) {
+			if (fwrite(zeroPool, 1, sizeof(zeroPool), fh) < sizeof(zeroPool)) {
+				// ERROR!
+				err = WERROR_ERRUTEST_IOERROR;
+				ERRORBANNER(err);
+				fprintf(stderr, "ERROR! I cannot write in the virtual-memory\n");
+				break;
+			}
+			printf("\r> %d", t);
+		}
+		printf("\n");
+
+		fflush(fh);
+	} 
+
+#endif
+	return(err);
+}
+
+//------------------------------------------------------------------------------------------------------------------------------
+//                                      P R O T E C T E D   F U N C T I O N S
+//------------------------------------------------------------------------------------------------------------------------------
+
+wError testDataCompiler_write (uint16_t data, uint32_t addr, tdcLogicOperator_t wrMode) {
+	//
+	// Description:
+	//	It writes the received configuration parameters on the argument defined struct
+	//
+	wError err = WERROR_SUCCESS;
+#ifdef MOCK
+#else
+#endif
+	return(err);
+}
+
+wError testDataCompiler_getParams (cJSON *configMessage) {
+	//
+	// Description:
+	//	It writes the received configuration parameters on the argument defined struct
+	//
+	wError err = WERROR_SUCCESS;
+
 	return(err);
 }
