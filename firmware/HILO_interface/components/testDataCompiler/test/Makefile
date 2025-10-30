@@ -35,6 +35,7 @@ headFiles   := $(shell ls ../include/testData_*.h)
 
 GDB     ?= 0
 INCLUDE  = -I./ -I../include -I../../crossPlatform_code
+SYMBOLS  = "-DMOCK=1"
 
 ifeq ($(GDB), 0)
 	CFLAGS = -Wall
@@ -42,7 +43,7 @@ else
 	CFLAGS = -Wall -g
 endif
 
-.PHONY: clean
+.PHONY: clean cleanall all debug
 
 all:			$(EXEs)
 
@@ -56,7 +57,7 @@ utest__%:		utest__%.o $(SUTobj) $(SMLOBJs)
 
 $(SUTobj):		../$(SUTsrc) ../include/$(SUThead) $(dc_headsFile) $(dc_initCode)
 			@echo "[ CC* ] $@"
-			@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+			@$(CC) $(CFLAGS) $(INCLUDE) $(SYMBOLS) -c $< -o $@
 
 testData_%.o:	../testData_%.c ../include/testData_%.h
 			@echo "[ CC ] $@"
