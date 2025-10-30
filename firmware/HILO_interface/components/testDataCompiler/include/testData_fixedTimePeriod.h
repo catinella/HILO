@@ -43,6 +43,6 @@
 
 wError testData_fixedTimePeriod_init     ();
 wError testData_fixedTimePeriod_check    (cJSON *root);
-wError testData_fixedTimePeriod_generate ();
+wError testData_fixedTimePeriod_generate (cJSON *root);
 
 #endif

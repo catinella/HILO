@@ -92,18 +92,41 @@
 
 #ifndef __TESTDATACOMPILER__
 #define __TESTDATACOMPILER__
+
+#include <stdint.h>
 #include <wError.h>
 #include <cjson/cJSON.h>
 
 #define TDC_MAXSUBMODS 8
+#define TDC_SRAMSIZE   8388608
 
-#define JSON char*
+#ifdef MOCK
+#define UTFILE "/tmp/testDataCompiler.foo"
+#endif
 
-typedef wError (*tdc_check)   (cJSON message);
-typedef wError (*tdc_generate)(cJSON message);
+typedef wError (*tdc_check)   (cJSON *message);
+typedef wError (*tdc_generate)(cJSON *message);
 
-wError testData_init     ();
-wError testData_generate (cJSON message);
-wError testData_register (tdc_check* f, tdc_generate* g);
+typedef enum {
+	TDC_ANDOP,
+	TDC_OROP,
+	TDC_SWAP
+} tdcLogicOperator_t;
+
+//
+// Public functions
+//
+wError testDataCompiler_init      ();
+wError testDataCompiler_generate  (cJSON *message);
+wError testDataCompiler_register  (tdc_check f, tdc_generate g);
+wError testDataCompiler_setParams (cJSON *configMessage);
+wError testDataCompiler_clean     ();
+
+//
+// Protected functions
+//	[!] The following functions should be used just by the sub-modules
+//
+wError testDataCompiler_write     (uint16_t data, uint32_t addr, tdcLogicOperator_t wrMode);
+wError testDataCompiler_getParams (cJSON *configMessage);
 
 #endif
