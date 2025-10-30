@@ -127,6 +127,7 @@ wError testDataCompiler_clean     ();
 //	[!] The following functions should be used just by the sub-modules
 //
 wError testDataCompiler_write     (uint16_t data, uint32_t addr, tdcLogicOperator_t wrMode);
+wError testDataCompiler_read      (uint16_t *data, uint32_t addr);
 wError testDataCompiler_getParams (cJSON *configMessage);
 
 #endif

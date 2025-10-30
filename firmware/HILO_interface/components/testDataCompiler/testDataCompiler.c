@@ -213,7 +213,8 @@ wError testDataCompiler_clean() {
 
 		fflush(fh);
 	} 
-
+#else
+	// TODO: SRAM content cleaning...
 #endif
 	return(err);
 }
@@ -229,6 +230,19 @@ wError testDataCompiler_write (uint16_t data, uint32_t addr, tdcLogicOperator_t 
 	//
 	wError err = WERROR_SUCCESS;
 #ifdef MOCK
+	if (fseek(fh, addr, SEEK_SET) < 0) {
+		// ERROR!
+		err = WERROR_ERRUTEST_IOERROR;
+		ERRORBANNER(err);
+		fprintf(stderr, "ERROR! I cannot reset the virtual-memory pointer\n");
+	
+	} else if (fwrite((void*)&data, 1, sizeof(data), fh) < sizeof(data)) {
+		// ERROR!
+		err = WERROR_ERRUTEST_IOERROR;
+		ERRORBANNER(err);
+		fprintf(stderr, "ERROR! I cannot write in the virtual-memory\n");
+	}
+	fflush(fh);
 #else
 #endif
 	return(err);
@@ -241,5 +255,31 @@ wError testDataCompiler_getParams (cJSON *configMessage) {
 	//
 	wError err = WERROR_SUCCESS;
 
+	return(err);
+}
+
+wError testDataCompiler_read (uint16_t *data, uint32_t addr) {
+	//
+	// Description:
+	//	It writes the received configuration parameters on the argument defined struct
+	//
+	wError err = WERROR_SUCCESS;
+#ifdef MOCK
+	if (fseek(fh, addr, SEEK_SET) < 0) {
+		// ERROR!
+		err = WERROR_ERRUTEST_IOERROR;
+		ERRORBANNER(err);
+		fprintf(stderr, "ERROR! I cannot reset the virtual-memory pointer\n");
+	
+	} else if (fread((void*)data, 1, sizeof(data), fh) < sizeof(data)) {
+		// ERROR!
+		err = WERROR_ERRUTEST_IOERROR;
+		ERRORBANNER(err);
+		fprintf(stderr, "ERROR! I cannot write in the virtual-memory\n");
+	}
+
+#else
+	// TODO: data reading from the SRAM
+#endif
 	return(err);
 }
