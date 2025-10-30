@@ -61,7 +61,7 @@
 		printf(" %s(%d)\n", __func__, __LINE__);
 
 
-	#define TEST(x, y)  void y() 
+	#define TEST(x, y)  void x##__##y() 
 
 	#define GTEST_DISABLED 1
 
