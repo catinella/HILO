@@ -52,7 +52,7 @@ wError testData_fixedTimePeriod_init() {
 	//	This function registers the _check() and _generate() methods in the parent class testDataCompiler
 	//
 	wError err = WERROR_SUCCESS;
-
+	err = testDataCompiler_register(testData_fixedTimePeriod_check, testData_fixedTimePeriod_generate);
 
 	return(err);
 }
@@ -99,7 +99,7 @@ wError testData_fixedTimePeriod_check (cJSON *root) {
 	return(err);
 }
 
-wError testData_fixedTimePeriod_generate() {
+wError testData_fixedTimePeriod_generate (cJSON *root) {
 	//
 	// Description:
 	//	This generates the test data stream
