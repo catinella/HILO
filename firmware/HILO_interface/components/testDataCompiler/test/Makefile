@@ -51,16 +51,20 @@ utest__%.o:		utest__%.c ../include/$(SUThead)
 			@echo "[ CC ] $@"
 			@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-utest__%:		utest__%.o $(SUTobj) $(SMLOBJs)
+utest__%:		utest__%.o $(SUTobj) $(SMLOBJs) utilities.o
 			@echo "[ LD ] $@"
 			@$(CC) $(CFLAGS) $^ -lcjson -o $@
 
 $(SUTobj):		../$(SUTsrc) ../include/$(SUThead) $(dc_headsFile) $(dc_initCode)
-			@echo "[ CC* ] $@"
+			@echo "[ CC(1) ] $@"
+			@$(CC) $(CFLAGS) $(INCLUDE) $(SYMBOLS) -c $< -o $@
+
+utilities.o:	../utilities.c ../include/utilities.h
+			@echo "[ CC(2) ] $@"
 			@$(CC) $(CFLAGS) $(INCLUDE) $(SYMBOLS) -c $< -o $@
 
 testData_%.o:	../testData_%.c ../include/testData_%.h
-			@echo "[ CC ] $@"
+			@echo "[ CC(3) ] $@"
 			@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(dc_headsFile):	$(headFiles)
@@ -72,7 +76,7 @@ $(dc_initCode):
 			@../buildingTools/initFunctCreator.sh --prefix=testData_ --path=../include --targetName=$@
 
 clean:
-			@rm -fv $(OBJs) $(EXEs) 
+			@rm -fv $(OBJs) $(EXEs) utilities.o
 
 cleanall:		clean
 			@rm -fv $(SUTobj) $(SMLOBJs) $(dc_headsFile) $(dc_initCode)
