@@ -104,8 +104,14 @@
 #define UTFILE "/tmp/testDataCompiler.foo"
 #endif
 
-typedef wError (*tdc_check)   (cJSON *message);
-typedef wError (*tdc_generate)(cJSON *message);
+// Test's configuration data
+typedef struct {
+	float freq;
+} configDB_t;
+
+// Sub-module's object methods
+typedef wError (*tdc_check)   (const cJSON *message);
+typedef wError (*tdc_generate)(const cJSON *message);
 
 typedef enum {
 	TDC_ANDOP,
@@ -117,9 +123,8 @@ typedef enum {
 // Public functions
 //
 wError testDataCompiler_init      ();
-wError testDataCompiler_generate  (cJSON *message);
+wError testDataCompiler_generate  (const cJSON *message);
 wError testDataCompiler_register  (tdc_check f, tdc_generate g);
-wError testDataCompiler_setParams (cJSON *configMessage);
 wError testDataCompiler_clean     ();
 
 //
@@ -128,6 +133,6 @@ wError testDataCompiler_clean     ();
 //
 wError testDataCompiler_write     (uint16_t data, uint32_t addr, tdcLogicOperator_t wrMode);
 wError testDataCompiler_read      (uint16_t *data, uint32_t addr);
-wError testDataCompiler_getParams (cJSON *configMessage);
+wError testDataCompiler_getParams (configDB_t *cdata);
 
 #endif
