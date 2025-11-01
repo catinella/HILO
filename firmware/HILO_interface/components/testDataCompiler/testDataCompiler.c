@@ -64,12 +64,40 @@ typedef struct {
 	tdc_generate generate;
 } smDbItems;
 
+
 static smDbItems db[TDC_MAXSUBMODS];
 static uint8_t  db_index = 0;
 
 #ifdef MOCK
 static FILE* fh = NULL;
 #endif
+
+static configDB_t confDB;
+static bool       confDB_flag = false;
+
+
+static wError _setParams (const cJSON *configMessage) {
+	//
+	// Description:
+	//	It accepts a JSON message as argument and tores the "configuration" field' data in the module's static database.
+	//	The sub-modules will be able to retrive the data using the testDataCompiler_getParams() function, later. 
+	//
+	wError err = WERROR_SUCCESS;
+	cJSON  *freq = NULL;
+	
+	if (
+		(freq = cJSON_GetObjectItem(configMessage, "freq")) == NULL  ||
+		cJSON_IsNumber(freq)                                == false ||
+		freq->valuedouble                                   == 0
+	) {
+		// ERROR!  "freq" field is mandatory
+		err = WERROR_ERROR_ILLEGALSYNTAX;
+	
+	} else 
+		confDB.freq = freq->valuedouble;
+		
+	return(err);
+}
 
 //------------------------------------------------------------------------------------------------------------------------------
 //                                      P U B L I C   F U N C T I O N S
@@ -113,37 +141,73 @@ wError testDataCompiler_init () {
 	return(err);
 }
 
-wError testDataCompiler_generate (cJSON *message) {
+wError testDataCompiler_generate (const cJSON *message) {
 	//
 	// Description:
 	//	This function accepts a test-data definition as argument, and sends it to the sub-module able to manage it.
 	//	The sub-module will write the raw test-data in the SRAM memory
 	//
 	// Returned value:
-	//	WERROR_SUCCESS
-	//	WERROR_ERROR_ITEMNOTFOUND
-	//	WERROR_ERROR_INTFAILURE
+	//	WERROR_SUCCESS              // All definitions have been converted in raw data
+	//	WERROR_WARNING_EMPTYLIST    // No test-data definition found
+	//	WERROR_ERROR_ITEMNOTFOUND   // No manager module for the specified test-data definition
+	//	WERROR_ERROR_INTFAILURE     // The manager returned a critical error
 	//
 	wError  err = WERROR_SUCCESS;
-	uint8_t x = 0;
-	bool    found = false;
-
-	while (found == false && x < TDC_MAXSUBMODS) {
-		if (db[x].check(message) == WERROR_SUCCESS)
-			found = true;
-		else
-			x++;
-	}
-	if (found) {
-		err = db[x].generate(message);
-		if (WERROR_ISERROR(err))
-			// ERROR!
-			err = WERROR_ERROR_INTFAILURE;
-			
-	} else
-		// ERROR!
-		err = WERROR_ERROR_ITEMNOTFOUND;
+	cJSON   *jConfiguration = NULL, *jTest_outputData = NULL;
+	
+	// Checking for configuration session
+	if (
+		confDB_flag == false                                                      &&
+		(jConfiguration = cJSON_GetObjectItem(message, "configuration")) != NULL  &&
+		cJSON_IsObject(jConfiguration)                                            &&
+		WERROR_ISERROR(_setParams(jConfiguration)) == false
+	)
+		// Module configured
+		confDB_flag = true;
 		
+		
+	// TODO: Checking for test_outputData
+	if (
+		(jTest_outputData = cJSON_GetObjectItem(message, "test_outputData")) != NULL  &&
+		cJSON_IsArray(jTest_outputData)
+	) {
+		cJSON   *item = NULL;
+		uint8_t x;
+		bool    found;
+		
+		int arraySize = cJSON_GetArraySize(jTest_outputData);
+		
+		if (arraySize == 0)
+			// WARNING!
+			err = WERROR_WARNING_EMPTYLIST;
+		
+		else {
+			for (uint8_t i = 0; i < arraySize; i++) {
+				item  = cJSON_GetArrayItem(jTest_outputData, i);
+				found = false;
+				x = 0;
+				
+				// Looking for the data-type manager
+				while (found == false && x < TDC_MAXSUBMODS) {
+					if (db[x].check(item) == WERROR_SUCCESS)
+						found = true;
+					else
+						x++;
+				}
+		
+				if (found) {
+					err = db[x].generate(message);
+					if (WERROR_ISERROR(err))
+					// ERROR!
+					err = WERROR_ERROR_INTFAILURE;
+				
+				} else
+					// ERROR!
+					err = WERROR_ERROR_ITEMNOTFOUND;
+			}
+		}
+	}
 	return(err);
 }
 
@@ -166,16 +230,6 @@ wError testDataCompiler_register (tdc_check f, tdc_generate g) {
 		// ERROR!
 		err = WERROR_ERROR_ILLEGALARG;
 		
-	return(err);
-}
-
-wError testDataCompiler_setParams (cJSON *configMessage) {
-	//
-	// Description:
-	//	It sets the configuration data used by the sub-modules to calculate the testing-data based on the given definition
-	//
-	wError err = WERROR_SUCCESS;
-
 	return(err);
 }
 
@@ -248,13 +302,30 @@ wError testDataCompiler_write (uint16_t data, uint32_t addr, tdcLogicOperator_t 
 	return(err);
 }
 
-wError testDataCompiler_getParams (cJSON *configMessage) {
+wError testDataCompiler_getParams (configDB_t *cdata) {
 	//
 	// Description:
 	//	It writes the received configuration parameters on the argument defined struct
 	//
+	// Returned value:
+	//	WERROR_SUCCESS             // The config values have been correctly read
+	//	WERROR_WARNING_RESNOTAVAIL // The module has not yet been configured
+	//	WERROR_ERROR_ILLEGALARG    // NULL argument is not allowed
+	//
 	wError err = WERROR_SUCCESS;
-
+	
+	if (cdata == NULL) 
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALARG;
+	
+	else if (confDB_flag == false)
+		// WARNING
+		err = WERROR_WARNING_RESNOTAVAIL;
+		
+	else
+		// SUCCESS
+		*cdata = confDB;
+		
 	return(err);
 }
 
@@ -262,6 +333,12 @@ wError testDataCompiler_read (uint16_t *data, uint32_t addr) {
 	//
 	// Description:
 	//	It writes the received configuration parameters on the argument defined struct
+	//
+	// Returned value:
+	//	WERROR_SUCCESS
+	// ---mocking mode---
+	//	WERROR_ERRUTEST_IOERROR
+	//	WERROR_ERRUTEST_IOERROR
 	//
 	wError err = WERROR_SUCCESS;
 #ifdef MOCK
