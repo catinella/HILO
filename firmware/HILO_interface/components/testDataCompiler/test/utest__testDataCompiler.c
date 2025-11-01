@@ -22,7 +22,9 @@
 #include <testData_number.h>
 #include <testData_squareWave.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
+
 
 char *FTP_jsonMsg = "{                \
  	\"type\":  \"fixedTimePeriod\", \
@@ -44,10 +46,10 @@ char *SQW_jsonMsg = "{              \
 }";
 
 char *jsonMsg = "{                                   \
-	configuration: {                               \
-		freq: 5                                  \
-	}                                              \
-	test_outputData: [                             \
+	\"configuration\": {                           \
+		\"freq\": 5                              \
+	},                                             \
+	\"test_outputData\": [                         \
 		{                                        \
 			\"type\":  \"fixedTimePeriod\",    \
 			\"pin\":   5,                      \
@@ -203,12 +205,11 @@ TEST (T4, testData_fixedTimePeriod_check) {
 }
 
 TEST (T5, testDataCompiler_generate) {
-/*
 	wError err = WERROR_SUCCESS;
 	cJSON  *jmsg = NULL;
 	
 	// JSON messages creation...
-	if ((jmsg = cJSON_Parse(FTP_jsonMsg)) == NULL) {
+	if ((jmsg = cJSON_Parse(jsonMsg)) == NULL) {
 		// ERROR!
 		err = WERROR_ERRUTEST_CORRUPTDATA;
 		ERRORBANNER (err);
@@ -216,12 +217,21 @@ TEST (T5, testDataCompiler_generate) {
 
 	} else {
 		err = testDataCompiler_generate(jmsg);
-		ASSERT_TRUE (WERROR_ISSUCCESS(err));
+		ASSERT_TRUE ((WERROR_ISERROR(err) == false));
 	}
-*/
+
 	return;
 }
 
+TEST (T6, testDataCompiler_getParams) {
+	wError     err = WERROR_SUCCESS;
+	configDB_t cdata; 
+		
+	err = testDataCompiler_getParams(&cdata);
+	ASSERT_TRUE ((WERROR_ISERROR(err) == false) && cdata.freq == 5);
+	
+	return;
+}
 
 int main() {
 	T1__testDataCompiler_init();
@@ -229,5 +239,7 @@ int main() {
 	T3__testData_number_check();
 	T4__testData_fixedTimePeriod_check();
 	T5__testDataCompiler_generate();
+	T6__testDataCompiler_getParams();
+	
 	return(0);
 }
