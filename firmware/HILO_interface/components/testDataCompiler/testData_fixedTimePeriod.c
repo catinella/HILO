@@ -17,11 +17,11 @@
 //		This value can be set as "swap", in this case the new value will be the inverted old one 
 //
 //		The key to select this module is "type = fixedTimePeriod"
-//			{
-// 				"type" = "fixedTimePeriod",
-//				"pin" = <0-15>,
-//				"value" = {"high"|"low"|"swap"}
-// 			}
+//		{
+// 			"type":   "fixedTimePeriod",
+//			"pin":    <0-15>,
+//			"value":  {"high"|"low"|"swap"}
+// 		}
 //		
 //		
 // License:  LGPL ver 3.0
@@ -45,6 +45,7 @@
 #include <testData_fixedTimePeriod.h>
 #include <stdbool.h>
 #include <string.h>
+#include <utilities.h>
 
 wError testData_fixedTimePeriod_init() {
 	//
@@ -70,31 +71,45 @@ wError testData_fixedTimePeriod_check (cJSON *root) {
 	//
 	wError err = WERROR_SUCCESS;
 	cJSON  *type = NULL, *pin = NULL, *value = NULL;
+
 	if (
 		(type = cJSON_GetObjectItem(root, "type")) == NULL  ||
 		cJSON_IsString(type)                       == false ||
 		type->valuestring                          == NULL
 	)
-		// ERROR!
+		// ERROR!  JSON:type is the lonely mandatory field!!
 		err = WERROR_ERROR_ILLEGALSYNTAX;
 
 	else if (
 		(pin = cJSON_GetObjectItem(root, "pin")) == NULL  ||
 		cJSON_IsNumber(pin)                      == false
 	)
-		// ERROR!
-		err = WERROR_ERROR_ILLEGALSYNTAX;
+		// WARNING!
+		err = WERROR_WARNING_TYPEMISSMATCH;
 		
 	else if (
 		(value = cJSON_GetObjectItem(root, "value")) == NULL  ||
 		cJSON_IsString(value)                        == false
 	)
-		// ERROR!
-		err = WERROR_ERROR_ILLEGALSYNTAX;
-		
+		// WARNING!
+		err = WERROR_WARNING_TYPEMISSMATCH;
+	
+	//
+	// Checking for the field's content
+	//
+
 	else if (strcmp(type->valuestring, TD_FIXEDTIMEPERIOD_KEYWORD) != 0)
 		// WARNING!
 		err = WERROR_WARNING_TYPEMISSMATCH;
+
+	else if (
+		strcmp(strupr(value->valuestring), "HIGH") != 0 &&
+		strcmp(strupr(value->valuestring), "LOW")  != 0 &&
+		strcmp(strupr(value->valuestring), "SWAP") != 0
+	)
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALSYNTAX;
+
 
 	return(err);
 }

@@ -18,10 +18,10 @@
 //		The key to select this module is "type = squareWave"
 //
 //		{
-//			"type"      = "squareWave",
-//			"pin"       = <0-15>,
-//			"period"    = <n>,         # milli seconds
-//			"dutyCycle" = <0 - 100>    # percent
+//			"type":       "squareWave",
+//			"pin":        <0-15>,
+//			"period":     <n>,         # milli seconds
+//			"dutyCycle":  <0-100>      # percent
 //		}
 //		
 //		
@@ -78,29 +78,29 @@ wError testData_squareWave_check (cJSON *root) {
 		cJSON_IsString(type)                       == false ||
 		type->valuestring                          == NULL
 	)
-		// ERROR!
+		// ERROR!  JSON:type is the lonely mandatory field for all sub-modules!!
 		err = WERROR_ERROR_ILLEGALSYNTAX;
 
 	else if (
 		(pin = cJSON_GetObjectItem(root, "pin")) == NULL  ||
 		cJSON_IsNumber(pin)                      == false 
 	)
-		// ERROR!
-		err = WERROR_ERROR_ILLEGALSYNTAX;
+		// WARNING!
+		err = WERROR_WARNING_TYPEMISSMATCH;
 
 	else if (
 		(period = cJSON_GetObjectItem(root, "period")) == NULL  ||
 		cJSON_IsNumber(period)                         == false
 	)
-		// ERROR!
-		err = WERROR_ERROR_ILLEGALSYNTAX;
+		// WARNING!
+		err = WERROR_WARNING_TYPEMISSMATCH;
 
 	else if (
 		(period = cJSON_GetObjectItem(root, "period")) == NULL  ||
 		cJSON_IsNumber(period)                         == false
 	)
-		// ERROR!
-		err = WERROR_ERROR_ILLEGALSYNTAX;
+		// WARNING!
+		err = WERROR_WARNING_TYPEMISSMATCH;
 		
 	else if (strcmp(type->valuestring, TD_SQUAREWAVE_KEYWORD) != 0)
 		// WARNING!

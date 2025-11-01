@@ -20,9 +20,9 @@
 //		The key to select this module is "type = number"
 //
 //		{
-//			"type" = "number",
-//			"pins"[] = <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>  # 8bits MSB --> LSB
-//			"period" = <n>         # milli seconds
+//			"type":   "number",
+//			"pins"[]:  <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>  # 8bits MSB --> LSB
+//			"period":  <n>         # milli seconds
 //		}
 //
 //		Usually this method is used by the test-client software numeric-keypad, digital-counter...
@@ -80,27 +80,28 @@ wError testData_number_check (cJSON *root) {
 		cJSON_IsString(type)                       == false ||
 		type->valuestring                          == NULL
 	)
-		// ERROR!
+		// ERROR!  JSON:type is the lonely mandatory field by all sub-modules!!
 		err = WERROR_ERROR_ILLEGALSYNTAX;
 
 	else if (
 		(pins = cJSON_GetObjectItem(root, "pins")) == NULL  ||
 		cJSON_IsArray(pins)                        == false 
 	)
-		// ERROR!
-		err = WERROR_ERROR_ILLEGALSYNTAX;
+		// WARNING!
+		err = WERROR_WARNING_TYPEMISSMATCH;
 
 	else if (
 		(period = cJSON_GetObjectItem(root, "period")) == NULL  ||
 		cJSON_IsNumber(period)                         == false
 	)
-		// ERROR!
-		err = WERROR_ERROR_ILLEGALSYNTAX;
+		// WARNING!
+		err = WERROR_WARNING_TYPEMISSMATCH;
 	
 	else if (strcmp(type->valuestring, TD_NUMBER_KEYWORD) != 0)
 		// WARNING!
 		err = WERROR_WARNING_TYPEMISSMATCH;
-
+	
+	// TODO: Check for pins field content: all items must be numeric ones
 
 	return(err);
 }
