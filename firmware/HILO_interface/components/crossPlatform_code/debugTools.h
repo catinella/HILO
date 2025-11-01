@@ -60,8 +60,12 @@
 		if (x != y) printf("%s", OKSYMB); else  printf("%s", ERRSYMB); \
 		printf(" %s(%d)\n", __func__, __LINE__);
 
+	#define ASSERT_TRUE(x) \
+		if (x) printf("%s", OKSYMB); else  printf("%s", ERRSYMB); \
+		printf(" %s(%d)\n", __func__, __LINE__);
 
-	#define TEST(x, y)  void x##__##y() 
+	#define TEST(x, y)  \
+		void x##__##y() 
 
 	#define GTEST_DISABLED 1
 
