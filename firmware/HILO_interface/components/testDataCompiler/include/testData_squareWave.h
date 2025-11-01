@@ -40,7 +40,7 @@
 #define TD_SQUAREWAVE_KEYWORD "squareWave"
 
 wError testData_squareWave_init     ();
-wError testData_squareWave_check    (cJSON *root);
-wError testData_squareWave_generate (cJSON *root);
+wError testData_squareWave_check    (const cJSON *root);
+wError testData_squareWave_generate (const cJSON *root);
 
 #endif

@@ -61,7 +61,7 @@ wError testData_number_init() {
 	return(err);
 }
 
-wError testData_number_check (cJSON *root) {
+wError testData_number_check (const cJSON *root) {
 	//
 	// Description:
 	//	This function accepts a JSON message as arguments and returns a success value only if the message can be handled
@@ -106,7 +106,7 @@ wError testData_number_check (cJSON *root) {
 	return(err);
 }
 
-wError testData_number_generate (cJSON *root) {
+wError testData_number_generate (const cJSON *root) {
 	//
 	// Description:
 	//	This generates the test data stream

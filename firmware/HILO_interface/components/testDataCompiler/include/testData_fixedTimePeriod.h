@@ -42,7 +42,7 @@
 #define TD_FIXEDTIMEPERIOD_KEYWORD "fixedTimePeriod"
 
 wError testData_fixedTimePeriod_init     ();
-wError testData_fixedTimePeriod_check    (cJSON *root);
-wError testData_fixedTimePeriod_generate (cJSON *root);
+wError testData_fixedTimePeriod_check    (const cJSON *root);
+wError testData_fixedTimePeriod_generate (const cJSON *root);
 
 #endif

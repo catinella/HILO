@@ -59,7 +59,7 @@ wError testData_squareWave_init() {
 	return(err);
 }
 
-wError testData_squareWave_check (cJSON *root) {
+wError testData_squareWave_check (const cJSON *root) {
 	//
 	// Description:
 	//	This function accepts a JSON message as arguments and returns a success value only if the message can be handled
@@ -110,7 +110,7 @@ wError testData_squareWave_check (cJSON *root) {
 	return(err);
 }
 
-wError testData_squareWave_generate (cJSON *root) {
+wError testData_squareWave_generate (const cJSON *root) {
 	//
 	// Description:
 	//	This generates the test data stream

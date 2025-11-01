@@ -41,7 +41,7 @@
 #define TD_NUMBER_KEYWORD "number"
 
 wError testData_number_init     ();
-wError testData_number_check    (cJSON *root);
-wError testData_number_generate (cJSON *root);
+wError testData_number_check    (const cJSON *root);
+wError testData_number_generate (const cJSON *root);
 
 #endif
