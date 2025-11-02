@@ -65,12 +65,12 @@
 //
 //		All sub-module file-names must respect the following syntax: testData_<module-name>.[ch]
 //
+//
 //		Configurable symbols:
 //		=====================
 //		TDC_MAXSUBMODS   Maximum number of sub-modules
-//		
-//		
-//		
+//		TDC_SRAMSIZE     Max SRAM size
+//		TDC_NUMOFPINS    Number of HILO's digital pins
 //		
 //		
 // License:  LGPL ver 3.0
@@ -99,6 +99,7 @@
 
 #define TDC_MAXSUBMODS 8
 #define TDC_SRAMSIZE   8388608
+#define TDC_NUMOFPINS  16
 
 #ifdef MOCK
 #define UTFILE "/tmp/testDataCompiler.foo"
