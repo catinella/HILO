@@ -38,17 +38,18 @@ char *NUM_jsonMsg = "{                    \
 	\"type\":   \"number\",             \
 	\"pins\":   [8,9,10,11,12,13,14,15],\
 	\"period\": 10,                     \
+	\"value\":  255,                    \
 	\"start\":  20,                     \
 	\"stop\":   40                      \
 }";
 
-char *SQW_jsonMsg = "{              \
-	\"type\":      \"squareWave\",\
-	\"pin\":       5,             \
-	\"period\":    10,            \
-	\"dutyCycle\": 50,            \
-	\"start\":     20,            \
-	\"stop\":      40             \
+char *SQW_jsonMsg = "{               \
+	\"type\":      \"squareWave\", \
+	\"pin\":       5,              \
+	\"period\":    100,            \
+	\"dutyCycle\": 50,             \
+	\"start\":     20,             \
+	\"stop\":      40              \
 }";
 
 char *jsonMsg = "{                                       \
