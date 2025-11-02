@@ -18,9 +18,11 @@
 //
 //		The key to select this module is "type = fixedTimePeriod"
 //		{
-// 			"type":   "fixedTimePeriod",
-//			"pin":    <0-15>,
-//			"value":  {"high"|"low"|"swap"}
+// 			"type":  "fixedTimePeriod",        // char*
+//			"pin":   <0-15>,                   // uint8_t
+//			"value": {"high"|"low"|"swap"}     // char*
+//			"start": <n>                       // float - milliseconds
+//			"stop":  <n>                       // float - milliseconds
 // 		}
 //		
 //		
@@ -46,6 +48,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <utilities.h>
+#include <math.h>
 
 wError testData_fixedTimePeriod_init() {
 	//
@@ -70,42 +73,45 @@ wError testData_fixedTimePeriod_check (const cJSON *root) {
 	//	WERROR_ERROR_ILLEGALSYNTAX
 	//
 	wError err = WERROR_SUCCESS;
-	cJSON  *type = NULL, *pin = NULL, *value = NULL;
+	cJSON  *type = NULL, *pin = NULL, *value = NULL, *start = NULL, *stop = NULL;
 
+	// Checking for the mandatory "type" field
 	if (
 		(type = cJSON_GetObjectItem(root, "type")) == NULL  ||
 		cJSON_IsString(type)                       == false ||
 		type->valuestring                          == NULL
 	)
-		// ERROR!  JSON:type is the lonely mandatory field!!
+		// ERROR!
 		err = WERROR_ERROR_ILLEGALSYNTAX;
 
-	else if (
-		(pin = cJSON_GetObjectItem(root, "pin")) == NULL  ||
-		cJSON_IsNumber(pin)                      == false
-	)
-		// WARNING!
-		err = WERROR_WARNING_TYPEMISSMATCH;
-		
-	else if (
-		(value = cJSON_GetObjectItem(root, "value")) == NULL  ||
-		cJSON_IsString(value)                        == false
-	)
-		// WARNING!
-		err = WERROR_WARNING_TYPEMISSMATCH;
-	
-	//
-	// Checking for the field's content
-	//
-
+	// Checking for the JSON message ID
 	else if (strcmp(type->valuestring, TD_FIXEDTIMEPERIOD_KEYWORD) != 0)
 		// WARNING!
 		err = WERROR_WARNING_TYPEMISSMATCH;
-
+	
+	// Checking for the required fields	
 	else if (
-		strcmp(strupr(value->valuestring), "HIGH") != 0 &&
-		strcmp(strupr(value->valuestring), "LOW")  != 0 &&
-		strcmp(strupr(value->valuestring), "SWAP") != 0
+		(pin = cJSON_GetObjectItem(root, "pin"))     == NULL  ||
+		(value = cJSON_GetObjectItem(root, "value")) == NULL  ||
+		(start = cJSON_GetObjectItem(root, "start")) == NULL  ||
+		(stop = cJSON_GetObjectItem(root, "stop"))   == NULL  ||
+		cJSON_IsNumber(pin)                          == false ||
+		cJSON_IsString(value)                        == false || 
+		cJSON_IsNumber(start)                        == false ||
+		cJSON_IsNumber(stop)                         == false
+	)
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALSYNTAX;
+
+	// Checking for the field's content
+	else if (
+		(
+			strcmp(strupr(value->valuestring), "HIGH") != 0 &&
+			strcmp(strupr(value->valuestring), "LOW")  != 0 &&
+			strcmp(strupr(value->valuestring), "SWAP") != 0
+		)                                                     || 
+		pin->valueint >> TDC_NUMOFPINS                        ||
+		stop->valuedouble <= start->valuedouble
 	)
 		// ERROR!
 		err = WERROR_ERROR_ILLEGALSYNTAX;
@@ -119,8 +125,77 @@ wError testData_fixedTimePeriod_generate (const cJSON *root) {
 	// Description:
 	//	This generates the test data stream
 	//
-	wError err = WERROR_SUCCESS;
-
-
+	// Returned value:
+	//	WERROR_SUCCESS
+	//	WERROR_ERROR_INTFAILURE   // The DB has not yet been initialized or the initialization failed
+	//
+	//
+	wError     err = WERROR_SUCCESS;
+	configDB_t conf;
+	cJSON      *pin = NULL, *value = NULL, *start = NULL, *stop = NULL;
+	
+	// Frequency setting reading
+	err = testDataCompiler_getParams(&conf);
+	
+	if (WERROR_ISSUCCESS(err)) {
+		uint32_t steps_t0 = 0, steps_t1 = 0;
+		uint16_t bitConf = 0;
+		
+		pin   = cJSON_GetObjectItem(root, "pin");
+		value = cJSON_GetObjectItem(root, "value");
+		start = cJSON_GetObjectItem(root, "start");
+		stop  = cJSON_GetObjectItem(root, "stop");
+		
+		steps_t0 = trunc(conf.freq * (float)(start->valuedouble));
+		steps_t1 = trunc(conf.freq * (float)(stop->valuedouble));
+		
+		if (strcmp(strupr(value->valuestring), "HIGH") == 0) {
+			bitConf = 1 << pin->valueint;
+			for (uint32_t t = steps_t0; t < steps_t1; t++) {
+				if ((err = testDataCompiler_write(bitConf, t, TDC_OROP)) && WERROR_ISERROR(err)) {
+					// ERROR!
+					break;
+				}
+			}
+		
+		} else if (strcmp(strupr(value->valuestring), "LOW")  == 0) {
+			bitConf = ~(1 << pin->valueint);
+			for (uint32_t t = steps_t0; t < steps_t1; t++) {
+				if ((err = testDataCompiler_write(bitConf, t, TDC_ANDOP)) && WERROR_ISERROR(err)) {
+					// ERROR!
+					break;
+				}
+			}
+			
+		} else {
+			for (uint32_t t = steps_t0; t < steps_t1; t++) {
+				// Old value reading...
+				if ((err = testDataCompiler_read(&bitConf, t)) && WERROR_ISERROR(err)) {
+					// ERROR!
+					break;
+				
+				} else if ((bitConf & (1 < pin->valueint)) == 0) {
+					// Old state = LOW ---> new state HIGH
+					bitConf =  (1 << pin->valueint);
+					if ((err = testDataCompiler_write(bitConf, t, TDC_OROP)) && WERROR_ISERROR(err)) {
+						// ERROR!
+						break;
+					 }
+			
+				} else {
+					// Old state = HIGH ---> new state LOW
+					bitConf = ~(1 << pin->valueint);
+					if ((err = testDataCompiler_write(bitConf, t, TDC_ANDOP)) && WERROR_ISERROR(err)) {
+						// ERROR!
+						break;
+					 }
+				}
+			}
+					
+		}
+	} else
+		// ERROR! (The DB has not yet been initialized or the initialization failed)
+		err = WERROR_ERROR_INTFAILURE;
+		
 	return(err);
 }
