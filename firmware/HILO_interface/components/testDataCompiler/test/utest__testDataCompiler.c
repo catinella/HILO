@@ -29,42 +29,54 @@
 char *FTP_jsonMsg = "{                \
  	\"type\":  \"fixedTimePeriod\", \
 	\"pin\":   5,                   \
-	\"value\": \"high\"             \
+	\"value\": \"high\",            \
+	\"start\": 20,                  \
+	\"stop\":  40                   \
 }";
 
-char *NUM_jsonMsg = "{                   \
-	\"type\":  \"number\",             \
-	\"pins\":  [8,9,10,11,12,13,14,15],\
-	\"period\": 10                     \
+char *NUM_jsonMsg = "{                    \
+	\"type\":   \"number\",             \
+	\"pins\":   [8,9,10,11,12,13,14,15],\
+	\"period\": 10,                     \
+	\"start\":  20,                     \
+	\"stop\":   40                      \
 }";
 
 char *SQW_jsonMsg = "{              \
 	\"type\":      \"squareWave\",\
 	\"pin\":       5,             \
 	\"period\":    10,            \
-	\"dutyCycle\": 50             \
+	\"dutyCycle\": 50,            \
+	\"start\":     20,            \
+	\"stop\":      40             \
 }";
 
-char *jsonMsg = "{                                   \
-	\"configuration\": {                           \
-		\"freq\": 5                              \
-	},                                             \
-	\"test_outputData\": [                         \
-		{                                        \
-			\"type\":  \"fixedTimePeriod\",    \
-			\"pin\":   5,                      \
-			\"value\": \"high\"                \
-		}, {                                     \
-			\"type\":  \"number\",             \
-			\"pins\":  [8,9,10,11,12,13,14,15],\
-			\"period\": 10                     \
-		}, {                                     \
-			\"type\":      \"squareWave\",     \
-			\"pin\":       5,                  \
-			\"period\":    10,                 \
-			\"dutyCycle\": 50                  \
-		}                                        \
-	]                                              \
+char *jsonMsg = "{                                       \
+	\"configuration\": {                               \
+		\"freq\": 5                                  \
+	},                                                 \
+	\"test_outputData\": [                             \
+		{                                            \
+			\"type\":      \"fixedTimePeriod\",    \
+			\"pin\":       5,                      \
+			\"value\":     \"high\",               \
+			\"start\":     10,                     \
+			\"stop\":      15                      \
+		}, {                                         \
+			\"type\":      \"number\",             \
+			\"pins\":      [8,9,10,11,12,13,14,15],\
+			\"period\":    10,                     \
+			\"start\":     20,                     \
+			\"stop\":      40                      \
+		}, {                                         \
+			\"type\":      \"squareWave\",         \
+			\"pin\":       7,                      \
+			\"period\":    10,                     \
+			\"dutyCycle\": 50,                     \
+			\"start\":     10,                     \
+			\"stop\":      100                     \
+		}                                            \
+	]                                                  \
 }";
 
 //------------------------------------------------------------------------------------------------------------------------------
