@@ -22,7 +22,10 @@
 //		{
 //			"type":   "number",
 //			"pins"[]:  <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>  # 8bits MSB --> LSB
-//			"period":  <n>         # milli seconds
+//			"period":  <n ms>,
+			"value":   <0-255>,
+			"start":   <n ms>,
+			"stiop":   <n ms>
 //		}
 //
 //		Usually this method is used by the test-client software numeric-keypad, digital-counter...
@@ -113,6 +116,7 @@ wError testData_number_check (const cJSON *root) {
 		// ERROR!
 		err = WERROR_ERROR_ILLEGALSYNTAX;
 	
+	// Checking for structured-data
 	else {
 		
 		// TODO: Check for pins field content: all items must be numeric ones
