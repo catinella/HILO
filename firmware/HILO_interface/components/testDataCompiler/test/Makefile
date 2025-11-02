@@ -53,7 +53,7 @@ utest__%.o:		utest__%.c ../include/$(SUThead)
 
 utest__%:		utest__%.o $(SUTobj) $(SMLOBJs) utilities.o
 			@echo "[ LD ] $@"
-			@$(CC) $(CFLAGS) $^ -lcjson -o $@
+			@$(CC) $(CFLAGS) $^ -lcjson -lm -o $@
 
 $(SUTobj):		../$(SUTsrc) ../include/$(SUThead) $(dc_headsFile) $(dc_initCode)
 			@echo "[ CC(1) ] $@"
