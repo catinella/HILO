@@ -83,31 +83,37 @@
 
 	JSON messages:
 		<HILO>/test/set_recepit = {
-			configuration = {
+			configuration: {
 				//
 				// I/O direction configuration
 				//
-				pin0 = {IN|OUT}, 
-				pin1 = {IN|OUT},
+				pin0:  {IN|OUT}, 
+				pin1:  {IN|OUT},
 				...
-				pin15 = {IN|OUT},
+				pin15: {IN|OUT},
 
 				// Frequency in Khz
-				freq=<n>
+				freq:  <n>           // 1 = 0.1 Khz
 			},
-			test_outputData[] = {
-				type = fixedTimePeriod,
-				pin = <0-15>,
-				value = {high|low|swap}
+			test_outputData[] : {
+				type:  fixedTimePeriod,
+				pin:   <0-15>,
+				value: {high|low|swap},
+				start: <milliseconds>,
+				stop:  <milliseconds>
 			}, {
-				type = squareWave,
-				pin = <0-15>,
-				period = <n>,         # milli seconds
-				dutyCycle = <0 - 100> # percent
+				type:      squareWave,
+				pin:       <0-15>,
+				period:    <milliseconds>,
+				dutyCycle: <0-100>,          // percent
+				start:     <milliseconds>,
+				stop:      <milliseconds>
 			}, {
-				type = number,
-				pins[] = <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>  # 8bits MSB --> LSB
-				period = <n>,         # milli seconds
+				type:   number,
+				pins[]: <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>  // 8bits MSB --> LSB
+				period: <milliseconds>,
+				start:  <milliseconds>,
+				stop:   <milliseconds>
 			}, ...
 		}
 
