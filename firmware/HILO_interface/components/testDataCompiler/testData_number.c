@@ -73,8 +73,9 @@ wError testData_number_check (const cJSON *root) {
 	//	WERROR_ERROR_ILLEGALSYNTAX
 	//
 	wError err = WERROR_SUCCESS;
-	cJSON  *pins = NULL, *type = NULL, *period = NULL;
+	cJSON  *pins = NULL, *type = NULL, *period = NULL, *value = NULL, *start = NULL, *stop = NULL;
 	
+	// Checking for the mandatory "type" field
 	if (
 		(type = cJSON_GetObjectItem(root, "type")) == NULL  ||
 		cJSON_IsString(type)                       == false ||
@@ -83,26 +84,40 @@ wError testData_number_check (const cJSON *root) {
 		// ERROR!  JSON:type is the lonely mandatory field by all sub-modules!!
 		err = WERROR_ERROR_ILLEGALSYNTAX;
 
-	else if (
-		(pins = cJSON_GetObjectItem(root, "pins")) == NULL  ||
-		cJSON_IsArray(pins)                        == false 
-	)
-		// WARNING!
-		err = WERROR_WARNING_TYPEMISSMATCH;
-
-	else if (
-		(period = cJSON_GetObjectItem(root, "period")) == NULL  ||
-		cJSON_IsNumber(period)                         == false
-	)
-		// WARNING!
-		err = WERROR_WARNING_TYPEMISSMATCH;
-	
+	// Checking for the JSON message ID
 	else if (strcmp(type->valuestring, TD_NUMBER_KEYWORD) != 0)
 		// WARNING!
 		err = WERROR_WARNING_TYPEMISSMATCH;
 	
-	// TODO: Check for pins field content: all items must be numeric ones
+	// Checking for the required fields	
+	else if (
+		(pins = cJSON_GetObjectItem(root, "pins"))     == NULL  ||
+		(period = cJSON_GetObjectItem(root, "period")) == NULL  ||
+		(value = cJSON_GetObjectItem(root, "value"))   == NULL  ||
+		(start = cJSON_GetObjectItem(root, "start"))   == NULL  ||
+		(stop = cJSON_GetObjectItem(root, "stop"))     == NULL  ||
+		cJSON_IsArray(pins)                            == false ||
+		cJSON_IsNumber(period)                         == false ||
+		cJSON_IsNumber(value)                          == false 
+		
+	)
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALSYNTAX;
 
+	// Checking for the field's content
+	else if (
+		period->valueint         == 0                          ||
+		value->valueint          >  255                        ||
+		(float)stop->valuedouble <= (float)start->valuedouble
+	)
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALSYNTAX;
+	
+	else {
+		
+		// TODO: Check for pins field content: all items must be numeric ones
+	}
+	
 	return(err);
 }
 
