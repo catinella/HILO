@@ -189,7 +189,7 @@ wError testDataCompiler_generate (const cJSON *message) {
 				x = 0;
 				
 				// Looking for the data-type manager
-				while (found == false && x < TDC_MAXSUBMODS) {
+				while (found == false && x < db_index) {
 					if (db[x].check(item) == WERROR_SUCCESS)
 						found = true;
 					else
@@ -197,7 +197,7 @@ wError testDataCompiler_generate (const cJSON *message) {
 				}
 		
 				if (found) {
-					err = db[x].generate(message);
+					err = db[x].generate(item);
 					if (WERROR_ISERROR(err))
 					// ERROR!
 					err = WERROR_ERROR_INTFAILURE;
