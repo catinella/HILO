@@ -1,0 +1,19 @@
+#-------------------------------------------------------------------------------------------------------------------------------
+#                                                     _   _ ___ _     ___  
+#                                                    | | | |_ _| |   / _ \ 
+#                                                    | |_| || || |  | | | |
+#                                                    |  _  || || |__| |_| |
+#                                                    |_| |_|___|_____\___/ 
+#                                                     Hardware in the loop
+#-------------------------------------------------------------------------------------------------------------------------------
+
+1.0 Files
+	Makefile
+	utest__testDataCompiler.c
+
+2.0 Description
+	This directory contains all unit-tests for the testDataCompiler module and its sub-modules.
+	
+	In order to mock the SRAM operations calls, I have simulated their functionalities with a binary file
+	(/tmp/testDataCompiler.foo). For a better check for the testDataCompiler_generate() results, you can read the file content.
+	In this case I suggest you to use "ghex" tool.
