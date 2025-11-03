@@ -99,6 +99,11 @@ TEST (T2, testData_squareWave_check) {
 	cJSON  *j_squareWave = NULL;
 
 	
+	//
+	// Test target: wrong JSON-data type
+	// 	For every JSON that does not match with the expected type, the <sub.module>_check() function returns a warning
+	// 	code
+	//
 	if ((j_squareWave = cJSON_Parse(NUM_jsonMsg)) == NULL) {
 		// ERROR!
 		err = WERROR_ERRUTEST_CORRUPTDATA;
@@ -106,32 +111,65 @@ TEST (T2, testData_squareWave_check) {
 		fprintf(stderr, "ERROR! JSON message parsing failed\n");
 
 	} else {
-		//
-		// Test target: wrong JSON data
-		// 	For every JSON that does not match with the expected type, the <sub.module>_check() function returns a warning
-		// 	code
-		//
 		err = testData_squareWave_check(j_squareWave);
 		ASSERT_TRUE (WERROR_ISWARNING(err));
 
 		free(j_squareWave);
 		j_squareWave = NULL;
+	}
+
+
+	//
+	// Test target: correct JSON-data
+	//
+	if ((j_squareWave = cJSON_Parse(SQW_jsonMsg)) == NULL) {
+		// ERROR!
+		err = WERROR_ERRUTEST_CORRUPTDATA;
+		ERRORBANNER (err);
+		fprintf(stderr, "ERROR! JSON message parsing failed\n");
+
+	} else {
+		//
+		// Test target: right JSON-data
+		//
+		err = testData_squareWave_check(j_squareWave);
+		ASSERT_TRUE (WERROR_ISSUCCESS(err));
 		
-		if ((j_squareWave = cJSON_Parse(SQW_jsonMsg)) == NULL) {
+		free(j_squareWave);
+		j_squareWave = NULL;
+	}
+
+	
+	//
+	// Test target: incoherent JSON-data
+	//	
+	if ((j_squareWave = cJSON_Parse(SQW_jsonMsg)) == NULL) {
+		// ERROR!
+		err = WERROR_ERRUTEST_CORRUPTDATA;
+		ERRORBANNER (err);
+		fprintf(stderr, "ERROR! JSON message parsing failed\n");
+
+	} else  {
+		// Field removing
+		cJSON_DeleteItemFromObject(j_squareWave, "period");
+
+		if (cJSON_GetObjectItemCaseSensitive(j_squareWave, "period") != NULL) {
 			// ERROR!
 			err = WERROR_ERRUTEST_CORRUPTDATA;
 			ERRORBANNER (err);
-			fprintf(stderr, "ERROR! JSON message parsing failed\n");
+			fprintf(stderr, "ERROR! JSON message manipulation failed\n");
 
 		} else {
 			//
 			// Test target: right JSON data
 			//
 			err = testData_squareWave_check(j_squareWave);
-			ASSERT_TRUE (WERROR_ISSUCCESS(err));
+			ASSERT_TRUE (WERROR_ISERROR(err));
 		}
-	}
 
+		free(j_squareWave);
+		j_squareWave = NULL;
+	}
 	return;
 }
 
@@ -140,6 +178,11 @@ TEST (T3, testData_number_check) {
 	wError err = WERROR_SUCCESS;
 	cJSON  *j_number = NULL;
 	
+	//
+	// Test target: wrong JSON data
+	// 	For every JSON that does not match with the expected type, the <sub.module>_check() function returns a warning
+	// 	code
+	//
 	if ((j_number = cJSON_Parse(SQW_jsonMsg)) == NULL) {
 		// ERROR!
 		err = WERROR_ERRUTEST_CORRUPTDATA;
@@ -147,30 +190,58 @@ TEST (T3, testData_number_check) {
 		fprintf(stderr, "ERROR! JSON message parsing failed\n");
 
 	} else {
-		//
-		// Test target: wrong JSON data
-		// 	For every JSON that does not match with the expected type, the <sub.module>_check() function returns a warning
-		// 	code
-		//
 		err = testData_number_check(j_number);
 		ASSERT_TRUE (WERROR_ISWARNING(err));
 
 		free(j_number);
 		j_number = NULL;
-		
-		if ((j_number = cJSON_Parse(NUM_jsonMsg)) == NULL) {
+	}
+
+	
+	//
+	// Test target: correct JSON-data
+	//
+	if ((j_number = cJSON_Parse(NUM_jsonMsg)) == NULL) {
+		// ERROR!
+		err = WERROR_ERRUTEST_CORRUPTDATA;
+		ERRORBANNER (err);
+		fprintf(stderr, "ERROR! JSON message parsing failed\n");
+
+	} else {
+		err = testData_number_check(j_number);
+		ASSERT_TRUE (WERROR_ISSUCCESS(err));
+
+		free(j_number);
+		j_number = NULL;
+	}
+
+
+	//
+	// Test target: incoherent JSON-data
+	//	
+	if ((j_number = cJSON_Parse(NUM_jsonMsg)) == NULL) {
+		// ERROR!
+		err = WERROR_ERRUTEST_CORRUPTDATA;
+		ERRORBANNER (err);
+		fprintf(stderr, "ERROR! JSON message parsing failed\n");
+
+	} else {
+		// Field removing
+		cJSON_DeleteItemFromObject(j_number, "start");
+
+		if (cJSON_GetObjectItemCaseSensitive(j_number, "start") != NULL) {
 			// ERROR!
 			err = WERROR_ERRUTEST_CORRUPTDATA;
 			ERRORBANNER (err);
-			fprintf(stderr, "ERROR! JSON message parsing failed\n");
+			fprintf(stderr, "ERROR! JSON message manipulation failed\n");
 
 		} else {
-			//
-			// Test target: right JSON data
-			//
 			err = testData_number_check(j_number);
-			ASSERT_TRUE (WERROR_ISSUCCESS(err));
+			ASSERT_TRUE (WERROR_ISERROR(err));
 		}
+
+		free(j_number);
+		j_number = NULL;
 	}
 
 	return;
@@ -181,6 +252,11 @@ TEST (T4, testData_fixedTimePeriod_check) {
 	wError err = WERROR_SUCCESS;
 	cJSON  *j_fixedTimePeriod = NULL;
 	
+	//
+	// Test target: wrong JSON data
+	// 	For every JSON that does not match with the expected type, the <sub.module>_check() function returns a warning
+	// 	code
+	//
 	if ((j_fixedTimePeriod = cJSON_Parse(SQW_jsonMsg)) == NULL) {
 		// ERROR!
 		err = WERROR_ERRUTEST_CORRUPTDATA;
@@ -188,34 +264,66 @@ TEST (T4, testData_fixedTimePeriod_check) {
 		fprintf(stderr, "ERROR! JSON message parsing failed\n");
 
 	} else {
-		//
-		// Test target: wrong JSON data
-		// 	For every JSON that does not match with the expected type, the <sub.module>_check() function returns a warning
-		// 	code
-		//
 		err = testData_fixedTimePeriod_check(j_fixedTimePeriod);
 		ASSERT_TRUE (WERROR_ISWARNING(err));
 
 		free(j_fixedTimePeriod);
 		j_fixedTimePeriod = NULL;
-		
-		if ((j_fixedTimePeriod = cJSON_Parse(FTP_jsonMsg)) == NULL) {
+	}
+	
+
+	//
+	// Test target: correct JSON-data
+	//
+	if ((j_fixedTimePeriod = cJSON_Parse(FTP_jsonMsg)) == NULL) {
+		// ERROR!
+		err = WERROR_ERRUTEST_CORRUPTDATA;
+		ERRORBANNER (err);
+		fprintf(stderr, "ERROR! JSON message parsing failed\n");
+
+	} else {
+		//
+		// Test target: right JSON data
+		//
+		err = testData_fixedTimePeriod_check(j_fixedTimePeriod);
+		ASSERT_TRUE (WERROR_ISSUCCESS(err));
+
+		free(j_fixedTimePeriod);
+		j_fixedTimePeriod = NULL;
+	}
+
+	
+	//
+	// Test target: incoherent JSON-data
+	//	
+	if ((j_fixedTimePeriod = cJSON_Parse(FTP_jsonMsg)) == NULL) {
+		// ERROR!
+		err = WERROR_ERRUTEST_CORRUPTDATA;
+		ERRORBANNER (err);
+		fprintf(stderr, "ERROR! JSON message parsing failed\n");
+
+	} else {
+		// Field removing
+		cJSON_DeleteItemFromObject(j_fixedTimePeriod, "stop");
+
+		if (cJSON_GetObjectItemCaseSensitive(j_fixedTimePeriod, "stop") != NULL) {
 			// ERROR!
 			err = WERROR_ERRUTEST_CORRUPTDATA;
 			ERRORBANNER (err);
-			fprintf(stderr, "ERROR! JSON message parsing failed\n");
+			fprintf(stderr, "ERROR! JSON message manipulation failed\n");
 
 		} else {
-			//
-			// Test target: right JSON data
-			//
 			err = testData_fixedTimePeriod_check(j_fixedTimePeriod);
-			ASSERT_TRUE (WERROR_ISSUCCESS(err));
+			ASSERT_TRUE (WERROR_ISERROR(err));
+
+			free(j_fixedTimePeriod);
+			j_fixedTimePeriod = NULL;
 		}
 	}
 
 	return;
 }
+
 
 TEST (T5, testDataCompiler_generate) {
 	wError err = WERROR_SUCCESS;
@@ -235,6 +343,7 @@ TEST (T5, testDataCompiler_generate) {
 
 	return;
 }
+
 
 TEST (T6, testDataCompiler_getParams) {
 	wError     err = WERROR_SUCCESS;
