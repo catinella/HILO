@@ -21,7 +21,9 @@
 //			"type":       "squareWave",
 //			"pin":        <0-15>,
 //			"period":     <n>,         # milli seconds
-//			"dutyCycle":  <0-100>      # percent
+//			"dutyCycle":  <0-100>,     # percent
+//			"start":      <n ms>,
+//			"stiop":      <n ms>
 //		}
 //		
 //		
@@ -71,41 +73,46 @@ wError testData_squareWave_check (const cJSON *root) {
 	//	WERROR_ERROR_ILLEGALSYNTAX
 	//
 	wError err = WERROR_SUCCESS;
-	cJSON *type = NULL, *pin = NULL, *period = NULL;
+	cJSON *j_type = NULL, *j_pin = NULL, *j_period = NULL, *j_dutyCycle = NULL, *j_start = NULL, *j_stop = NULL;
 	
 	if (
-		(type = cJSON_GetObjectItem(root, "type")) == NULL  ||
-		cJSON_IsString(type)                       == false ||
-		type->valuestring                          == NULL
+		(j_type = cJSON_GetObjectItem(root, "type")) == NULL  ||
+		cJSON_IsString(j_type)                       == false ||
+		j_type->valuestring                          == NULL
 	)
 		// ERROR!  JSON:type is the lonely mandatory field for all sub-modules!!
 		err = WERROR_ERROR_ILLEGALSYNTAX;
 
+	// Checking for the JSON message ID
+	else if (strcmp(j_type->valuestring, TD_SQUAREWAVE_KEYWORD) != 0)
+		// WARNING!
+		err = WERROR_WARNING_TYPEMISSMATCH;
+	
+	// Checking for the required fields	
 	else if (
-		(pin = cJSON_GetObjectItem(root, "pin")) == NULL  ||
-		cJSON_IsNumber(pin)                      == false 
+		(j_pin = cJSON_GetObjectItem(root, "pin"))             == NULL  ||
+		(j_period = cJSON_GetObjectItem(root, "period"))       == NULL  ||
+		(j_dutyCycle = cJSON_GetObjectItem(root, "dutyCycle")) == NULL  ||
+		(j_start = cJSON_GetObjectItem(root, "start"))         == NULL  ||
+		(j_stop = cJSON_GetObjectItem(root, "stop"))           == NULL  ||
+		cJSON_IsNumber(j_pin)                                  == false ||
+		cJSON_IsNumber(j_period)                               == false ||
+		cJSON_IsNumber(j_dutyCycle)                            == false ||
+		cJSON_IsNumber(j_start)                                == false ||
+		cJSON_IsNumber(j_stop)                                 == false
 	)
-		// WARNING!
-		err = WERROR_WARNING_TYPEMISSMATCH;
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALSYNTAX;
 
+	// Checking for the field's content
 	else if (
-		(period = cJSON_GetObjectItem(root, "period")) == NULL  ||
-		cJSON_IsNumber(period)                         == false
+		j_pin->valueint > 15                                         ||
+		j_period->valueint == 0                                      ||
+		(j_dutyCycle->valueint == 0 || j_dutyCycle->valueint > 100)  ||
+		(float)j_stop->valuedouble <= (float)j_start->valuedouble
 	)
-		// WARNING!
-		err = WERROR_WARNING_TYPEMISSMATCH;
-
-	else if (
-		(period = cJSON_GetObjectItem(root, "period")) == NULL  ||
-		cJSON_IsNumber(period)                         == false
-	)
-		// WARNING!
-		err = WERROR_WARNING_TYPEMISSMATCH;
-		
-	else if (strcmp(type->valuestring, TD_SQUAREWAVE_KEYWORD) != 0)
-		// WARNING!
-		err = WERROR_WARNING_TYPEMISSMATCH;
-
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALSYNTAX;
 
 	return(err);
 }
