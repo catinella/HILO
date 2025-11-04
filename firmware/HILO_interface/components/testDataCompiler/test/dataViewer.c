@@ -1,0 +1,129 @@
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <ncurses.h>
+#include <wError.h>
+#include <string.h>
+#include <errno.h>
+
+#define SWIN_SIZE 20
+
+typedef uint16_t TDdata_t;
+
+wError dataDrawing (WINDOW *win, FILE *fh, uint32_t offset) {
+	wError err = WERROR_SUCCESS;
+
+	// Labels printing
+	for (uint8_t b = 0; b < (8 * sizeof (TDdata_t)); b++)
+		mvwprintw (win, (b + 2), 2, "bit%02d: ", b);
+
+	// Loocking for the data-block
+	if (fseek (fh, (offset * sizeof (TDdata_t)), SEEK_SET) < 0) {
+		// ERROR!
+		err = WERROR_ERRUTEST_IOERROR;
+
+	} else {
+		TDdata_t bitconf = 0;
+		size_t psize;
+
+		// Data printing
+		for (uint8_t col = 0; col < (COLS - 20); col++) {
+			if ((psize = fread (&bitconf, 1, sizeof (bitconf), fh)) && psize == sizeof (bitconf)) {
+				for (uint8_t x = 0; x < (8 * sizeof (TDdata_t)); x++) {
+					if ((bitconf & 1 << x) > 0)
+						mvwprintw (win, (x + 2), (col + 8), "#");
+
+					else
+						mvwprintw (win, (x + 2), (col + 8), "_");
+				}
+			} else {
+				fprintf (stderr, "ERROR! reading operation failed: %s\n", strerror (errno));
+				err = WERROR_ERRUTEST_IOERROR;
+				break;
+			}
+		}
+	}
+
+	return (err);
+}
+
+int main (int argc, char *argv[]) {
+	wError err = WERROR_SUCCESS;
+	FILE   *fh = NULL;
+	
+	if (argv[1] == NULL || strlen(argv[1]) == 0) {
+		// ERROR!
+		fprintf(stderr, "ERROR! Use %s <binary-data file>\n", argv[0]);
+		err = WERROR_ERROR_ILLEGALARG;
+		
+	} else if ((fh = fopen(argv[1], "r")) == NULL) {
+		// ERROR!
+		fprintf(stderr, "ERROR! I cannot open the \"%s\" file\n", argv[1]);
+		err = WERROR_ERROR_ILLEGALARG;
+	
+	} else {
+		WINDOW *win = NULL;
+		int    opt;
+
+		initscr();
+		cbreak();
+		noecho();
+		curs_set(0);
+
+		{
+			// Actual size
+			int rows, cols; getmaxyx(stdscr, rows, cols);
+			
+			// Window size
+			int h = SWIN_SIZE, w = cols - 2;
+			if (w < 4)  w = cols;            // fallback
+			if (h > rows - 1) h = rows - 1;  // Saving one line for the status banner
+			if (h < 3)        h = rows;      // Fix
+			
+			// Windows position
+			int y = (rows - h) / 2;
+			int x = (cols - w) / 2;
+			if (y < 0) y = 0;
+			if (x < 0) x = 0;
+
+			win = newwin(h, w, y, x);
+		}
+
+		if (win == NULL) {
+			// ERROR
+			err = WERROR_ERROR_INTERNALS;
+			fprintf(stderr, "ERROR! I cannot create new windows\n");
+
+		} else {
+			uint32_t pos = 0;
+
+			keypad(win, TRUE);
+			nodelay(win, FALSE);
+			set_escdelay(300);
+			wtimeout(win, -1);
+			
+			mvprintw(LINES-2, COLS/2-8, "Press: [q] to quit or LEFT/RIGHT arrows to scroll the data");
+			refresh();
+		
+			box(win, 0, 0);
+			mvwprintw(win, 0, 4, "[ Logic analyzer ]");
+
+			while (opt != 'q' && WERROR_ISERROR(err) == false) {
+				if ((err = dataDrawing(win, fh, pos)) && WERROR_ISERROR(err) == false) {
+					wrefresh(win);
+					opt = wgetch(win);
+				}
+				if      (opt == KEY_LEFT && pos > 0) pos--;
+				else if (opt == KEY_RIGHT)           pos++;
+			}
+		
+			delwin(win);
+		}
+		endwin();
+		fclose(fh);
+	}
+
+	
+	return(err);
+}
