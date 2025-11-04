@@ -8,6 +8,7 @@
 #include <errno.h>
 
 #define SWIN_SIZE 20
+#define GRAYCOLOR 10
 
 typedef uint16_t TDdata_t;
 
@@ -25,18 +26,31 @@ wError dataDrawing (WINDOW *win, FILE *fh, uint32_t offset) {
 
 	} else {
 		TDdata_t bitconf = 0;
-		size_t psize;
+		size_t   psize;
+		uint16_t spliter_counter = offset;
+		uint8_t  spliter_size = 0;
 
 		// Data printing
-		for (uint8_t col = 0; col < (COLS - 20); col++) {
+		for (uint8_t col = 0; (col + spliter_size) < (COLS - 20); col++) {
 			if ((psize = fread (&bitconf, 1, sizeof (bitconf), fh)) && psize == sizeof (bitconf)) {
+				
+				if ((spliter_counter % 10) == 0) {
+					wattron(win, COLOR_PAIR(GRAYCOLOR));
+					for (uint8_t x = 0; x < (8 * sizeof (TDdata_t)); x++) 
+						mvwprintw (win, (x + 2), (col + 8 + spliter_size), "|");
+					spliter_size++;
+					wattroff(win, COLOR_PAIR(GRAYCOLOR));
+				}
+				
 				for (uint8_t x = 0; x < (8 * sizeof (TDdata_t)); x++) {
 					if ((bitconf & 1 << x) > 0)
-						mvwprintw (win, (x + 2), (col + 8), "#");
+						mvwprintw (win, (x + 2), (col + 8 + spliter_size), "#");
 
 					else
-						mvwprintw (win, (x + 2), (col + 8), "_");
+						mvwprintw (win, (x + 2), (col + 8 + spliter_size), "_");
 				}
+				spliter_counter++;
+				
 			} else {
 				fprintf (stderr, "ERROR! reading operation failed: %s\n", strerror (errno));
 				err = WERROR_ERRUTEST_IOERROR;
@@ -97,7 +111,8 @@ int main (int argc, char *argv[]) {
 
 		} else {
 			uint32_t pos = 0;
-
+			int      gray = (COLORS >= 16) ? 8 : COLOR_WHITE;   // fallback for 8-colors palette
+			
 			keypad(win, TRUE);
 			nodelay(win, FALSE);
 			set_escdelay(300);
@@ -105,6 +120,14 @@ int main (int argc, char *argv[]) {
 			
 			mvprintw(LINES-2, COLS/2-8, "Press: [q] to quit or LEFT/RIGHT arrows to scroll the data");
 			refresh();
+
+			start_color();
+			use_default_colors();  // It allows transparent background (bgcolor=-1)
+		
+			if (has_colors() && COLORS >= 16) {
+				start_color();
+				init_pair(GRAYCOLOR, gray, -1); // 8 = gray
+			}
 		
 			box(win, 0, 0);
 			mvwprintw(win, 0, 4, "[ Logic analyzer ]");
