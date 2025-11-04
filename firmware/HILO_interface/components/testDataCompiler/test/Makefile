@@ -45,14 +45,22 @@ endif
 
 .PHONY: clean cleanall all debug
 
-all:			$(EXEs)
+all:			$(EXEs) dataViewer
+
+dataViewer.o:	dataViewer.c
+			@echo "[ CC(4) ] $@"
+			@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+
+dataViewer:		dataViewer.o
+			@echo "[ LD(1) ] $@"
+			@$(CC) $(CFLAGS) $^ -lncurses -o $@
 
 utest__%.o:		utest__%.c ../include/$(SUThead)
-			@echo "[ CC ] $@"
+			@echo "[ CC(0) ] $@"
 			@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 utest__%:		utest__%.o $(SUTobj) $(SMLOBJs) utilities.o
-			@echo "[ LD ] $@"
+			@echo "[ LD(0) ] $@"
 			@$(CC) $(CFLAGS) $^ -lcjson -lm -o $@
 
 $(SUTobj):		../$(SUTsrc) ../include/$(SUThead) $(dc_headsFile) $(dc_initCode)
@@ -76,10 +84,10 @@ $(dc_initCode):
 			@../buildingTools/initFunctCreator.sh --prefix=testData_ --path=../include --targetName=$@
 
 clean:
-			@rm -fv $(OBJs) $(EXEs) utilities.o
+			@rm -fv $(OBJs) $(EXEs) utilities.o dataViewer.o
 
 cleanall:		clean
-			@rm -fv $(SUTobj) $(SMLOBJs) $(dc_headsFile) $(dc_initCode)
+			@rm -fv $(SUTobj) $(SMLOBJs) $(dc_headsFile) $(dc_initCode) dataViewer
 
 debug:
 			@echo "Sub-modules: $(SMLOBJs)"
