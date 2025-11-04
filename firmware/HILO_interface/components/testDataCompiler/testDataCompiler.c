@@ -167,7 +167,7 @@ wError testDataCompiler_generate (const cJSON *message) {
 		confDB_flag = true;
 		
 		
-	// TODO: Checking for test_outputData
+	// Checking for test_outputData
 	if (
 		(jTest_outputData = cJSON_GetObjectItem(message, "test_outputData")) != NULL  &&
 		cJSON_IsArray(jTest_outputData)
@@ -198,13 +198,16 @@ wError testDataCompiler_generate (const cJSON *message) {
 		
 				if (found) {
 					err = db[x].generate(item);
-					if (WERROR_ISERROR(err))
-					// ERROR!
-					err = WERROR_ERROR_INTFAILURE;
-				
-				} else
+					if (WERROR_ISERROR(err)) {
+						// ERROR!
+						err = WERROR_ERROR_INTFAILURE;
+						break;
+					}
+				} else {
 					// ERROR!
 					err = WERROR_ERROR_ITEMNOTFOUND;
+					break;
+				}
 			}
 		}
 	}
@@ -341,6 +344,8 @@ wError testDataCompiler_read (uint16_t *data, uint32_t addr) {
 	//	WERROR_ERRUTEST_IOERROR
 	//
 	wError err = WERROR_SUCCESS;
+	addr = addr * sizeof(data);
+
 #ifdef MOCK
 	if (fseek(fh, addr, SEEK_SET) < 0) {
 		// ERROR!
