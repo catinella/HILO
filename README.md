@@ -20,7 +20,7 @@ The goal of this project is to get a device that allows the user to test an elec
 In the 1990 when I was studying at high scool, who was developing new devices, used generic boxes with buttons, switches,
 LEDs, displays.... installed on it. This device allowed him to emulate the external environment.
 
-[![ Testing device](images/development_breadboard.png)
+![ Testing device](images/development_breadboard.png)
 
 It could look like useful for hobbyist, but it is an expensive, big, uncomfortable device, usually. 
 For professional using it is not an adequate solution, because td does not allow you to see what happens in very short
