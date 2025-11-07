@@ -39,7 +39,7 @@ the user can change the HILO's output-pins, directly, and verifies the DUT's beh
 - **Test mode:**
 	the user has to create a DUT test-recepit where he has to define the HILO's output-pins values, when they change during
 	the test, and the max frequency of the changes. This synchronization will be also used to read the HILO's input-pins.
-	Before to start the test, the HILO will convert the pin-status changes definitions in a scheduled output pins sequence.
+	Before to start the test, the HILO will convert the pin-status changes definitions in a scheduled output data sequence.
 	When this raw-data sequence is ready, a bit configuration will be sent to the output-pins on every chock pulse, and
 	the input pins will be read.
 
