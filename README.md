@@ -8,15 +8,15 @@
 -------------------------------------------------------------------------------------------------------------------------------
 
 ## 1.0 Files
-+-----------------+--------------------------------------+
-|  **Files/Dirs** | **Description**                      |
-+-----------------+--------------------------------------+
-|  firmware       | The firmware for manager MCU         |
-+-----------------+--------------------------------------+
-|  PCB            | All the PCBs used in the project     |
-+-----------------+--------------------------------------+
-|  pcSoftware     | The software used to manage the HILO |
-+-----------------+--------------------------------------+
++------------+--------------------------------------+
+| Files/Dirs | Description                          |
++------------+--------------------------------------+
+| firmware   | The firmware for manager MCU         |
++------------+--------------------------------------+
+| PCB        | All the PCBs used in the project     |
++------------+--------------------------------------+
+| pcSoftware | The software used to manage the HILO |
++------------+--------------------------------------+
 
 ## 2.0 Decription
 The goal of this project is to get a device that allows the user to test an electronic system in an easy way, alseo remotely.
