@@ -21,12 +21,14 @@ It could look like useful for hobbyist, but it is an expensive, big, uncomfortab
 For professional using it is not an adequate solution, because td does not allow you to see what happens in very short
 time slots. For example, you need to monitor a 8bit bus behaviour after one millisecond after some digital input signal.
 In this case, this kind of devices is absolutely unuseful.
-Unfortunately, many Italian companies still use the same deplorable methodology, todat too! It forces the firmware
-developers to work on-site only.
+Unfortunately, many Italian companies still use the same deplorable methodology, today too! Their test plans do not respect
+the [V-model](https://www.sei.cmu.edu/blog/using-v-models-for-testing), and their firmware developers have to work on-site
+only.
 
 But the smarter companies use advanced and complicated devices that allow them to test their electronic products remotely,
 in deeper and easier way. These tools are very sophisticated and programmable simulator, where they can simulate the
-external environment in realistic and reliable way. These tools' class is called HILO (Hardware In he LOop).
+external environment in realistic and reliable way. These tools' class is called 
+[**HILO**](https://en.wikipedia.org/wiki/Hardware-in-the-loop_simulation) (Hardware In the LOop).
 
 This project aims to provide a low-cost and very very simple HILO. This one offers less and more limited features,
 obviously.
