@@ -11,7 +11,7 @@
 | pcSoftware | The software used to manage the HILO |
 
 ## 2.0 Decription
-The goal of this project is to get a device that allows the user to test an electronic system in an easy way, alseo remotely.
+The goal of this project is to get a device that allows the user to test an electronic system in an easy way, also remotely.
 In the 1990 when I was studying at high scool, who was developing new devices, used generic boxes with buttons, switches,
 LEDs, displays.... installed on it. This device allowed him to emulate the external environment.
 
