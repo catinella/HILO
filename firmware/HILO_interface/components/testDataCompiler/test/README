@@ -8,8 +8,12 @@
 #-------------------------------------------------------------------------------------------------------------------------------
 
 1.0 Files
-	Makefile
-	utest__testDataCompiler.c
+	Makefile                            Unit tests building rules
+	utest__testDataCompiler.c           UTs for the testDataCompiler fabric
+	utest__testData_fixedTimePeriod.c   UTs for testData_fixedTimePeriod sub-module
+	utest__testData_number.c            UTs for testData_number.c
+	utest__testData_squareWave.c        UTs for testData_squareWave.c
+	dataViewer.c                        Useful tool to check for the Virtual-SRAM content
 
 2.0 Description
 	This directory contains all unit-tests for the testDataCompiler module and its sub-modules.
