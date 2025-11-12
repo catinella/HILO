@@ -244,6 +244,9 @@ wError testDataCompiler_clean() {
 	//
 	wError err = WERROR_SUCCESS;
 
+	// All test params will be disabled
+	confDB_flag = false;
+	
 #ifdef MOCK
 	uint8_t zeroPool[1024];
 	memset(zeroPool, 0, 1024);
@@ -285,9 +288,15 @@ wError testDataCompiler_write (uint16_t data, uint32_t addr, tdcLogicOperator_t 
 	// Description:
 	//	It writes the received configuration parameters on the argument defined struct
 	//
+	// Arguments:
+	//	data    Bit configuration to store in the SRAM
+	//	addr    The item position in the memory (NOT its address in bytes)
+	//	wrMode  How to merge the new data {TDC_ANDOP | TDC_OROP | TDC_SWAP}
+	//
 	wError err = WERROR_SUCCESS;
+	
 #ifdef MOCK
-	if (fseek(fh, addr, SEEK_SET) < 0) {
+	if (fseek(fh, (addr * sizeof(data)), SEEK_SET) < 0) {
 		// ERROR!
 		err = WERROR_ERRUTEST_IOERROR;
 		ERRORBANNER(err);
