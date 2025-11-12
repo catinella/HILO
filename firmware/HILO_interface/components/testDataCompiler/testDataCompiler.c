@@ -294,9 +294,10 @@ wError testDataCompiler_write (uint16_t data, uint32_t addr, tdcLogicOperator_t 
 	//	wrMode  How to merge the new data {TDC_ANDOP | TDC_OROP | TDC_SWAP}
 	//
 	wError err = WERROR_SUCCESS;
+	addr = addr * sizeof(uint16_t);
 	
 #ifdef MOCK
-	if (fseek(fh, (addr * sizeof(data)), SEEK_SET) < 0) {
+	if (fseek(fh, addr, SEEK_SET) < 0) {
 		// ERROR!
 		err = WERROR_ERRUTEST_IOERROR;
 		ERRORBANNER(err);
@@ -353,7 +354,7 @@ wError testDataCompiler_read (uint16_t *data, uint32_t addr) {
 	//	WERROR_ERRUTEST_IOERROR
 	//
 	wError err = WERROR_SUCCESS;
-	addr = addr * sizeof(data);
+	addr = addr * sizeof(uint16_t);
 
 #ifdef MOCK
 	if (fseek(fh, addr, SEEK_SET) < 0) {
