@@ -43,7 +43,11 @@ else
 	CFLAGS = -Wall -g
 endif
 
-.PHONY: clean cleanall all debug
+.PHONY: clean cleanall all debug utests
+
+#-------------------------------------------------------------------------------------------------------------------------------
+#                                  F I L E S   B U I L D I N G   R U L E S
+#-------------------------------------------------------------------------------------------------------------------------------
 
 all:			$(EXEs) dataViewer
 
@@ -89,5 +93,8 @@ clean:
 cleanall:		clean
 			@rm -fv $(SUTobj) $(SMLOBJs) $(dc_headsFile) $(dc_initCode) dataViewer
 
+utests:		$(EXEs)
+			@for utf in $^; do ./$$utf; done
+			
 debug:
 			@echo "Sub-modules: $(SMLOBJs)"

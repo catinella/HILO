@@ -1,2 +1,5 @@
 utest__testDataCompiler
 dataViewer
+utest__testData_fixedTimePeriod
+utest__testData_number
+utest__testData_squareWave
