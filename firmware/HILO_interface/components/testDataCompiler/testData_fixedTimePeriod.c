@@ -174,7 +174,7 @@ wError testData_fixedTimePeriod_generate (const cJSON *root) {
 					// ERROR!
 					break;
 				
-				} else if ((bitConf & (1 < pin->valueint)) == 0) {
+				} else if ((bitConf & (1 << pin->valueint)) == 0) {
 					// Old state = LOW ---> new state HIGH
 					bitConf =  (1 << pin->valueint);
 					if ((err = testDataCompiler_write(bitConf, t, TDC_OROP)) && WERROR_ISERROR(err)) {
