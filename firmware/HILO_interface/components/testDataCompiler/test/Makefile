@@ -57,7 +57,7 @@ dataViewer:		dataViewer.o
 
 utest__%.o:		utest__%.c ../include/$(SUThead)
 			@echo "[ CC(0) ] $@"
-			@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+			@$(CC) $(CFLAGS) $(INCLUDE) $(SYMBOLS) -c $< -o $@
 
 utest__%:		utest__%.o $(SUTobj) $(SMLOBJs) utilities.o
 			@echo "[ LD(0) ] $@"
