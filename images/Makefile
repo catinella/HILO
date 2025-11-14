@@ -1,4 +1,5 @@
 
+-include Makefile.conf
 
 SRCs := $(shell ls *.puml)
 IMGs := $(SRCs:.puml=.png)
