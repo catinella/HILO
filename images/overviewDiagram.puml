@@ -2,6 +2,8 @@
 
 top to bottom direction
 
+actor User as USR
+
 rectangle "Test client" as TCL
 
 rectangle "HILO device" as HILO
@@ -25,22 +27,23 @@ package "DUT" as DUT {
 	circle "pin15" as DP15
 }
 
-TCL -down-> HILO: wireless
-HILO -down-> DP00
-HILO -down-> DP01
-HILO -down-> DP02
-HILO -down-> DP03
-HILO -down-> DP04
-HILO -down-> DP05
-HILO -down-> DP06
-HILO -down-> DP07
-HILO -down-> DP08
-HILO -down-> DP09
-HILO -down-> DP10
-HILO -down-> DP11
-HILO -down-> DP12
-HILO -down-> DP13
-HILO -down-> DP14
-HILO -down-> DP15
+USR  <-down-> TCL
+TCL  <-down-> HILO: wireless
+HILO -down- DP00
+HILO -down- DP01
+HILO -down- DP02
+HILO -down- DP03
+HILO -down- DP04
+HILO -down- DP05
+HILO -down- DP06
+HILO -down- DP07
+HILO -down- DP08
+HILO -down- DP09
+HILO -down- DP10
+HILO -down- DP11
+HILO -down- DP12
+HILO -down- DP13
+HILO -down- DP14
+HILO -down- DP15
 
 @enduml
