@@ -2,6 +2,8 @@
 
 top to bottom direction
 
+footer "It has been created with PlantUML"
+
 actor User as USR
 
 cloud "WiFi" AS WLAN
