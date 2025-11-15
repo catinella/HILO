@@ -4,6 +4,8 @@ top to bottom direction
 
 actor User as USR
 
+cloud "WiFi" AS WLAN
+
 rectangle "Test client" as TCL
 
 rectangle "HILO device" as HILO
@@ -28,7 +30,9 @@ package "DUT" as DUT {
 }
 
 USR  <-down-> TCL
-TCL  <-down-> HILO: wireless
+TCL  <-down-> WLAN
+WLAN <-down-> HILO
+
 HILO -down- DP00
 HILO -down- DP01
 HILO -down- DP02
