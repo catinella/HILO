@@ -4,7 +4,7 @@
 ## 1.0 Files
 
 | **Files and dirs** | **Description**                                                            |
-+--------------------+----------------------------------------------------------------------------+
+|--------------------|----------------------------------------------------------------------------|
 | HILO_engine        | The real-time component that performs the scheduled test                   |
 | HILO_interface     | The component that interface the HILO's engine with the test client system |
 
