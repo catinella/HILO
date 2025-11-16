@@ -1,0 +1,42 @@
+
+
+@startuml
+
+actor       "User"           as USER
+participant "Test's client"  as TCL
+participant "HILO_interface" as HILOIF
+database    "SRAM"           as SRAM1
+database    "SRAM"           as SRAM2
+participant "HILO_engine"    as HILOEN
+entity      "Dev Under Test" as DUT
+
+USER   -> TCL:    Recipit creation using GUI
+TCL    -> TCL:    JSON creation
+TCL    -> HILOIF: WiFi transmission (REST-API)
+HILOIF -> HILOIF: From JSON to raw data convertion
+HILOIF -> SRAM1:  Data for the test procedure
+USER   -> TCL:    Test starting command
+TCL    -> TCL:    JSON creation
+TCL    -> HILOIF: WiFi transmission (REST-API)
+HILOIF -> HILOEN: Start!
+SRAM1  -> HILOEN: get test's configuration data[0]
+HILOEN -> DUT:    Output PINs values setting
+DUT    -> HILOEN: Input PINs reading
+HILOEN -> SRAM2:  Saving the results
+
+TCL    -> HILOIF: Test status? (REST-API)
+HILOIF -> TCL:    It is in progress
+
+SRAM1  -> HILOEN: get test's configuration data[n]
+HILOEN -> DUT:    Output PINs values setting
+DUT    -> HILOEN: Input PINs reading
+HILOEN -> SRAM2:  Saving the results
+
+TCL    -> HILOIF: Test status? (RESTAPI)
+HILOIF -> TCL:    Test procedure executed
+
+TCL    -> HILOIF: Get the results (RESTAPI)
+SRAM2  -> HILOIF: Readinf test results
+HILOIF -> TCL:    Test's results sending (TCP/IP SOCKET)
+TCL    -> USER:   Test's results reppresentation
+@enduml
