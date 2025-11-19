@@ -51,4 +51,4 @@ the user can change the HILO's output-pins, directly, and verifies the DUT's beh
 
 #### 2.2 Functional scheme overview:
 
-![overview_diagram](images/overviewDiagram.png)
+![overview_diagram](images/overviewDiagram.png) 
