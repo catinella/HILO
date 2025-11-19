@@ -2,13 +2,54 @@
 
 @startuml
 
-actor       "User"           as USER
-participant "Test's client"  as TCL
-participant "HILO_interface" as HILOIF
-database    "SRAM"           as SRAM1
-database    "SRAM"           as SRAM2
-participant "HILO_engine"    as HILOEN
-entity      "Dev Under Test" as DUT
+'-------------------------------------------------------------------------------------------------------------------------------
+'                                                    P A R T I C I P A N T S
+'-------------------------------------------------------------------------------------------------------------------------------
+
+actor "User" as USER
+
+participant TCL [
+	**Test's client**
+	---
+	Software App
+]
+
+box "local" #LightBlue
+	actor USER
+	participant TCL
+end box
+
+participant HILOIF [
+	**HILO interface**
+	---
+	Firmware
+]
+
+database "SRAM" as SRAM1
+database "SRAM" as SRAM2
+
+participant HILOEN [
+	**HILO engine**
+	---
+	Firmware
+]
+
+box "HILO device" #Yellow
+	participant HILOIF
+	database    SRAM1
+	database    SRAM2
+	participant HILOEN
+end box
+
+participant DUT [
+	**Device Under Test**
+	---
+	User's PCB
+]
+
+'-------------------------------------------------------------------------------------------------------------------------------
+'                              P A R T I C I P A N T ' s   I N T E R A C T I O N S
+'-------------------------------------------------------------------------------------------------------------------------------
 
 USER   -> TCL:    Recipit creation using GUI
 TCL    -> TCL:    JSON creation
@@ -19,6 +60,9 @@ USER   -> TCL:    Test starting command
 TCL    -> TCL:    JSON creation
 TCL    -> HILOIF: WiFi transmission (REST-API)
 HILOIF -> HILOEN: Start!
+
+== Test execution ==
+
 SRAM1  -> HILOEN: get test's configuration data[0]
 HILOEN -> DUT:    Output PINs values setting
 DUT    -> HILOEN: Input PINs reading
@@ -27,6 +71,8 @@ HILOEN -> SRAM2:  Saving the results
 TCL    -> HILOIF: Test status? (REST-API)
 HILOIF -> TCL:    It is in progress
 
+... and so on...
+
 SRAM1  -> HILOEN: get test's configuration data[n]
 HILOEN -> DUT:    Output PINs values setting
 DUT    -> HILOEN: Input PINs reading
@@ -34,6 +80,8 @@ HILOEN -> SRAM2:  Saving the results
 
 TCL    -> HILOIF: Test status? (RESTAPI)
 HILOIF -> TCL:    Test procedure executed
+
+== End of the test ==
 
 TCL    -> HILOIF: Get the results (RESTAPI)
 SRAM2  -> HILOIF: Readinf test results
