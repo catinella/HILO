@@ -51,4 +51,59 @@ the user can change the HILO's output-pins, directly, and verifies the DUT's beh
 
 #### 2.2 Functional scheme overview:
 
-![overview_diagram](images/overviewDiagram.png)
+@startuml
+
+top to bottom direction
+skinparam actorStyle awesome
+
+footer "It has been created with PlantUML"
+
+Actor " User " as USER
+
+cloud "  WiFi Network  " AS WLAN
+
+rectangle "Test client" as TCL
+
+rectangle "HILO device" as HILO
+
+package "DUT" as DUT {
+	circle "pin00" as DP00
+	circle "pin01" as DP01
+	circle "pin02" as DP02
+	circle "pin03" as DP03
+	circle "pin04" as DP04
+	circle "pin05" as DP05
+	circle "pin06" as DP06
+	circle "pin07" as DP07
+	circle "pin08" as DP08
+	circle "pin09" as DP09
+	circle "pin10" as DP10
+	circle "pin11" as DP11
+	circle "pin12" as DP12
+	circle "pin13" as DP13
+	circle "pin14" as DP14
+	circle "pin15" as DP15
+}
+
+USER <-down-> TCL
+TCL  <-down-> WLAN
+WLAN <-down-> HILO
+
+HILO -down- DP00
+HILO -down- DP01
+HILO -down- DP02
+HILO -down- DP03
+HILO -down- DP04
+HILO -down- DP05
+HILO -down- DP06
+HILO -down- DP07
+HILO -down- DP08
+HILO -down- DP09
+HILO -down- DP10
+HILO -down- DP11
+HILO -down- DP12
+HILO -down- DP13
+HILO -down- DP14
+HILO -down- DP15
+
+@enduml
