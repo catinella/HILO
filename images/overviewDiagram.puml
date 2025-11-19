@@ -5,7 +5,9 @@ skinparam actorStyle awesome
 
 footer "It has been created with PlantUML"
 
-cloud "WiFi" AS WLAN
+Actor " User " as USER
+
+cloud "  WiFi Network  " AS WLAN
 
 rectangle "Test client" as TCL
 
@@ -30,7 +32,7 @@ package "DUT" as DUT {
 	circle "pin15" as DP15
 }
 
-:User: <-down-> TCL
+USER <-down-> TCL
 TCL  <-down-> WLAN
 WLAN <-down-> HILO
 
