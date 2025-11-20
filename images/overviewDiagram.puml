@@ -7,11 +7,18 @@ footer "It has been created with PlantUML"
 
 Actor " User " as USER
 
-cloud "  WiFi Network  " AS WLAN
-
 rectangle "Test client" as TCL
 
+rectangle "WLAN Router/HotSpot" as ROUT
+
+cloud "  WiFi Network  \n (192.168.x.0) " AS WLAN
+
 rectangle "HILO device" as HILO
+
+note top of HILO
+	Hilo device can be configured as
+	WiFI HotSpot or a WLAN connected host
+end note
 
 package "DUT" as DUT {
 	circle "pin00" as DP00
@@ -34,7 +41,10 @@ package "DUT" as DUT {
 
 USER <-down-> TCL
 TCL  <-down-> WLAN
-WLAN <-down-> HILO
+TCL  <-[#Blue]-> WLAN
+WLAN <--down-> HILO
+WLAN <-[#Blue]-> ROUT
+WLAN <-[#Blue]-> HILO
 
 HILO -down- DP00
 HILO -down- DP01
