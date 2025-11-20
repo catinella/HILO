@@ -25,7 +25,14 @@ me to create complicated graphic diagrams starting by a sequence of ASCII instru
 [offical manual](https://plantuml.com/guide#goog_rewarded) is also available.
 
 ## 2.2 Images on GIT??!!!??
-I kow, many people are drawing a terrible expressions in their face, in this moment! GIT is not make to store images. I completely
+I know, many people are drawing a terrible expressions in their face, now! GIT is not made to store images. I completely
 agree with you. My solution would be to include puml file only in git, and store all static images in a web-area. Unfortunately
-GITHB does not provide a web-space!! Someone use a proper branch for the image files. But is looks like (Waltdisney catoon) Pippo
-when he sweep the dust under the carpet, IMHO. However, I will be happy to evaluate every possible suggestion
+GITHB does not provide a web-space!! Someone use a proper branch for the image files. But it looks like Walt Disney's catoon
+Pippo (Goofy in EN) when he sweep the dust under the carpet, IMHO. So, I have to wait that GitHUB implements a PlantUML engine in
+its Markdown language interpreter.
+
+However, I will be happy to evaluate every possible suggestion
+
+A sentence by ChatGPT-5.1 about PlantUML: "___Il futuro si sta allineando a PlantUML, non il contrario.___"; translated version
+"___So the future is aligning with PlantUML, not the other way around.___"
+by ChatGPT (20/11/2025)
