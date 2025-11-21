@@ -49,6 +49,13 @@ the user can change the HILO's output-pins, directly, and verifies the DUT's beh
 	changes with a precise time, it is not adequate for real-time interactions.
 
 
-#### 2.2 Functional scheme overview:
+#### 2.3 Communication channel
+In order to get a very fast, relayable, and flexible communication channel between the test-client software and the HILO's interface,
+TCP/IP limk has been selected. In fact, it allows a huge transfer rate, a very high quality error checking and retransmission, and
+virtually-infinite distances. It allows the test operator to work remotely respect to the HILO device, and the DUT, bviousely.
+In order to make the HILO device using as comfotable as possible, WiFI connection has been selected. In this way the test operator
+can set its own test-desk without to take care of boring cables to connect to it.
+
+#### 2.4 Functional scheme overview:
 
 ![overview_diagram](images/overviewDiagram.png) 
