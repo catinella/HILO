@@ -2,8 +2,8 @@
 
 @startuml
 
-skinparam ParticipantPadding 20
-skinparam BoxPadding 10
+skinparam ParticipantPadding 40
+skinparam BoxPadding 30
 
 '-------------------------------------------------------------------------------------------------------------------------------
 '                                                    P A R T I C I P A N T S
@@ -54,6 +54,9 @@ participant DUT [
 '                              P A R T I C I P A N T ' s   I N T E R A C T I O N S
 '-------------------------------------------------------------------------------------------------------------------------------
 
+|||
+|||
+
 USER   -> TCL:    Recipit creation using GUI
 TCL    -> TCL:    JSON creation
 TCL    -> HILOIF: WiFi transmission (REST-API)
@@ -74,7 +77,15 @@ HILOEN -> SRAM2:  Saving the results
 TCL    -> HILOIF: Test status? (REST-API)
 HILOIF -> TCL:    It is in progress
 
-... and so on...
+|||
+|||
+|||
+hnote over TCL, DUT
+	<size:20>...and so on...</size>
+end note
+|||
+|||
+|||
 
 SRAM1  -> HILOEN: get test's configuration data[n]
 HILOEN -> DUT:    Output PINs values setting
@@ -90,4 +101,8 @@ TCL    -> HILOIF: Get the results (RESTAPI)
 SRAM2  -> HILOIF: Readinf test results
 HILOIF -> TCL:    Test's results sending (TCP/IP SOCKET)
 TCL    -> USER:   Test's results reppresentation
+
+|||
+|||
+
 @enduml
