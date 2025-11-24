@@ -169,26 +169,11 @@ wError testData_fixedTimePeriod_generate (const cJSON *root) {
 			
 		} else {
 			for (uint32_t t = steps_t0; t < steps_t1; t++) {
-				// Old value reading...
-				if ((err = testDataCompiler_read(&bitConf, t)) && WERROR_ISERROR(err)) {
+				bitConf = 1 << pin->valueint;
+				
+				if ((err = testDataCompiler_write(bitConf, t, TDC_SWAP)) && WERROR_ISERROR(err)) {
 					// ERROR!
 					break;
-				
-				} else if ((bitConf & (1 << pin->valueint)) == 0) {
-					// Old state = LOW ---> new state HIGH
-					bitConf =  (1 << pin->valueint);
-					if ((err = testDataCompiler_write(bitConf, t, TDC_OROP)) && WERROR_ISERROR(err)) {
-						// ERROR!
-						break;
-					 }
-			
-				} else {
-					// Old state = HIGH ---> new state LOW
-					bitConf = ~(1 << pin->valueint);
-					if ((err = testDataCompiler_write(bitConf, t, TDC_ANDOP)) && WERROR_ISERROR(err)) {
-						// ERROR!
-						break;
-					 }
 				}
 			}
 					
