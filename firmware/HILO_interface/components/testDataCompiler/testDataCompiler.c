@@ -75,7 +75,9 @@ static FILE* fh = NULL;
 static configDB_t confDB;
 static bool       confDB_flag = false;
 
-
+//------------------------------------------------------------------------------------------------------------------------------
+//                                    P R I V A T E   F U N C T I O N S 
+//------------------------------------------------------------------------------------------------------------------------------
 static wError _setParams (const cJSON *configMessage) {
 	//
 	// Description:
@@ -98,6 +100,66 @@ static wError _setParams (const cJSON *configMessage) {
 		
 	return(err);
 }
+
+static wError _getPin (uint16_t word, uint8_t pos, bool *value) {
+	//
+	// Description:
+	//	This function accepts a bits sequence (word) and read the argument defined pin's value 
+	//
+	wError err = WERROR_SUCCESS;
+	if (value == NULL)
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALARG;
+		
+	else
+		*value = ((1 << pos) & word) > 0 ? 1 : 0;
+		
+	return(err);
+}
+
+static wError _setPin (uint16_t *word, uint8_t pos, bool value)  {
+	//
+	// Description:
+	//	This function accepts a bits sequence (word) and overwrite the argument defined pin with the given value 
+	//
+	wError err = WERROR_SUCCESS;
+
+	if (word == NULL)
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALARG;
+		
+	else {
+		if (value == 1)
+			// Bit setting
+			*word |= (1 << pos);
+		else
+			// Bit resetting
+			*word &= ~(1 << pos);
+	}
+		
+	return(err);
+}
+
+static wError _swapPin (uint16_t *word, uint8_t pos) {
+	//
+	// Description:
+	//	This function accepts a bits sequence (word) and swap the value of the argument defined pin 
+	//
+	wError err = WERROR_SUCCESS;
+
+	if (word == NULL)
+		// ERROR!
+		err = WERROR_ERROR_ILLEGALARG;
+		
+	else {
+		bool op;
+		if ((err = _getPin (*word, pos, &op)) == WERROR_SUCCESS)
+			err = _setPin (word, pos, op ? 0 : 1);
+	}
+	
+	return(err);
+}
+
 
 //------------------------------------------------------------------------------------------------------------------------------
 //                                      P U B L I C   F U N C T I O N S
@@ -288,27 +350,75 @@ wError testDataCompiler_write (uint16_t data, uint32_t addr, tdcLogicOperator_t 
 	// Description:
 	//	It writes the received configuration parameters on the argument defined struct
 	//
+	//	[!] TDC_SWAP: When you select swap mode, the argument "data" will be analized and for every bit set to 1, the
+	//	    respective bit in the original configuration will be swapped
+	//
 	// Arguments:
 	//	data    Bit configuration to store in the SRAM
 	//	addr    The item position in the memory (NOT its address in bytes)
 	//	wrMode  How to merge the new data {TDC_ANDOP | TDC_OROP | TDC_SWAP}
 	//
-	wError err = WERROR_SUCCESS;
+	wError   err = WERROR_SUCCESS;
+	uint16_t tData = 0;
+
+	// Chunk position to bytes offset
 	addr = addr * sizeof(uint16_t);
 	
 #ifdef MOCK
+	// Moving to the right position
 	if (fseek(fh, addr, SEEK_SET) < 0) {
 		// ERROR!
 		err = WERROR_ERRUTEST_IOERROR;
 		ERRORBANNER(err);
 		fprintf(stderr, "ERROR! I cannot reset the virtual-memory pointer\n");
 	
-	} else if (fwrite((void*)&data, 1, sizeof(data), fh) < sizeof(data)) {
+	// Old data reading...
+	} else if (fread((void*)&tData, 1, sizeof(tData), fh) < sizeof(tData)) {
 		// ERROR!
 		err = WERROR_ERRUTEST_IOERROR;
 		ERRORBANNER(err);
-		fprintf(stderr, "ERROR! I cannot write in the virtual-memory\n");
+		fprintf(stderr, "ERROR! I cannot read the virtual-memory\n");
+		
+	// Returning to the right position
+	} else if (fseek(fh, addr, SEEK_SET) < 0) {
+		// ERROR!
+		err = WERROR_ERRUTEST_IOERROR;
+		ERRORBANNER(err);
+		fprintf(stderr, "ERROR! I cannot reset the virtual-memory pointer\n");
+
+	} else {
+
+		if (wrMode == TDC_SWAP) {
+			bool value;
+
+			// Data swapping
+			for (uint8_t t = 0; t < (8*sizeof(data)); t++) {
+				if ((err = _getPin (data, t, &value)) != WERROR_SUCCESS) {
+					// ERROR!
+					break;
+				
+				} else if (value == 1)
+					_swapPin(&tData, t);
+			}
+
+		} else  if (wrMode == TDC_OROP)
+			tData |= data;
+
+		else if (wrMode == TDC_ANDOP)
+			tData &= data;
+
+		else
+			// Overwriting...
+			tData = data;
+	
+		if (fwrite((void*)&tData, 1, sizeof(tData), fh) < sizeof(tData)) {
+			// ERROR!
+			err = WERROR_ERRUTEST_IOERROR;
+			ERRORBANNER(err);
+			fprintf(stderr, "ERROR! I cannot write in the virtual-memory\n");
+		}
 	}
+	
 	fflush(fh);
 #else
 #endif
