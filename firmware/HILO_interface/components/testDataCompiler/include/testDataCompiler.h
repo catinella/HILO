@@ -117,7 +117,8 @@ typedef wError (*tdc_generate)(const cJSON *message);
 typedef enum {
 	TDC_ANDOP,
 	TDC_OROP,
-	TDC_SWAP
+	TDC_SWAP,
+	TDC_OWROP
 } tdcLogicOperator_t;
 
 //
