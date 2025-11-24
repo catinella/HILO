@@ -1,17 +1,22 @@
 @startuml
 
+'!pragma layout vizjs
+
 top to bottom direction
 skinparam actorStyle awesome
 
 footer "It has been created with PlantUML"
 
-Actor " User " as USER
+Actor " Local user "  as LUSER
+Actor " Remote user " as RUSER
 
-rectangle "Test client" as TCL
+rectangle "Test client" as TCL1
+rectangle "Test client" as TCL2
 
 rectangle "WLAN Router/HotSpot" as ROUT
 
 cloud "  WiFi Network  \n (192.168.x.0) " AS WLAN
+cloud "  Public Nework "                  AS WAN
 
 rectangle "HILO device" as HILO
 
@@ -20,31 +25,45 @@ note top of HILO
 	WiFI HotSpot or a WLAN connected host
 end note
 
-package "DUT" as DUT {
-	circle "pin00" as DP00
-	circle "pin01" as DP01
-	circle "pin02" as DP02
-	circle "pin03" as DP03
-	circle "pin04" as DP04
-	circle "pin05" as DP05
-	circle "pin06" as DP06
-	circle "pin07" as DP07
-	circle "pin08" as DP08
-	circle "pin09" as DP09
-	circle "pin10" as DP10
-	circle "pin11" as DP11
-	circle "pin12" as DP12
-	circle "pin13" as DP13
-	circle "pin14" as DP14
-	circle "pin15" as DP15
+hide <<phisical-device>> stereotype
+
+skinparam component<<phisical-device>> {
+	BackgroundColor #aaccee
+	'BorderColor #ff4444
+	FontSize 20
+	FontStyle bold
 }
 
-USER <-down-> TCL
-TCL  <-down-> WLAN
-TCL  <-[#Blue]-> WLAN
-WLAN <--down-> HILO
-WLAN <-[#Blue]-> ROUT
-WLAN <-[#Blue]-> HILO
+component "\nDevice Under Test" as DUT <<phisical-device>> {
+	port "pin00" as DP00
+	port "pin01" as DP01 
+	port "pin02" as DP02 
+	port "pin03" as DP03 
+	port "pin04" as DP04 
+	port "pin05" as DP05 
+	port "pin06" as DP06 
+	port "pin07" as DP07 
+	port "pin08" as DP08 
+	port "pin09" as DP09 
+	port "pin10" as DP10 
+	port "pin11" as DP11 
+	port "pin12" as DP12 
+	port "pin13" as DP13 
+	port "pin14" as DP14 
+	port "pin15" as DP15 
+}
+
+LUSER <-down-> TCL1
+RUSER <-[#Red]-> TCL2
+TCL1  <-down-> WLAN
+TCL1  <-[#Blue]-> WLAN
+TCL2  <-[#Red]-> WAN
+WLAN  <--down-> HILO
+WLAN  <-[#Blue]-> ROUT
+WAN   <-[#Red]-> ROUT
+WLAN  <-[#Red]-> ROUT
+WLAN  <-[#Blue]-> HILO
+WLAN  <-[#Red]-> HILO
 
 HILO -down- DP00
 HILO -down- DP01
