@@ -95,6 +95,23 @@ char *jsonMsgNum1 = "{                                   \
 }";
 
 
+char *jsonMsgSQW = "{                                    \
+	\"configuration\": {                               \
+		\"freq\": 5                                  \
+	},                                                 \
+	\"test_outputData\": [                             \
+		{                                            \
+			\"type\":      \"squareWave\",         \
+			\"pin\":       7,                      \
+			\"period\":    10,                     \
+			\"dutyCycle\": 50,                     \
+			\"start\":     10,                     \
+			\"stop\":      100                     \
+		}                                            \
+	]                                                  \
+}";
+
+
 char *jsonMsg = "{                                       \
 	\"configuration\": {                               \
 		\"freq\": 5                                  \
@@ -460,6 +477,29 @@ TEST (T4, testDataCompiler_generate) {
 	return;
 }
 
+TEST (T5, testDataCompiler_generate) {
+	//
+	// Description:
+	//	It is an easy test for the testData_squareWave sub-module.
+	// 
+	wError err = WERROR_SUCCESS;
+	cJSON  *jmsg = NULL;
+
+	testDataCompiler_clean();
+	
+	if ((jmsg = cJSON_Parse(jsonMsgSQW)) == NULL) {
+		// ERROR!
+		err = WERROR_ERRUTEST_CORRUPTDATA;
+		ERRORBANNER (err);
+		fprintf(stderr, "ERROR! JSON message parsing failed\n");
+
+	} else {
+		err = testDataCompiler_generate(jmsg);
+		ASSERT_TRUE ((WERROR_ISERROR(err) == false));
+	}
+
+	return;
+}
 //------------------------------------------------------------------------------------------------------------------------------
 //                                                       M A I N
 //------------------------------------------------------------------------------------------------------------------------------
@@ -471,6 +511,7 @@ int main() {
 	T2__testDataCompiler_generate();
 	T3__testDataCompiler_generate();
 	T4__testDataCompiler_generate();
+	T5__testDataCompiler_generate();
 	
 	return(0);
 }
