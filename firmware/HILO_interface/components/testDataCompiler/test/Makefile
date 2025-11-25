@@ -94,7 +94,7 @@ cleanall:		clean
 			@rm -fv $(SUTobj) $(SMLOBJs) $(dc_headsFile) $(dc_initCode) dataViewer
 
 utests:		$(EXEs)
-			@for utf in $^; do ./$$utf; done
+			@for utf in $^; do echo ""; printf "\n------------%s------------\n" "$$utf"; ./$$utf; done
 			
 debug:
 			@echo "Sub-modules: $(SMLOBJs)"
