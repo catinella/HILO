@@ -38,6 +38,8 @@
 #include <wError.h>
 #include <cjson/cJSON.h>
 
+#define TD_NUMBER_RESOLUTION 8
+
 #define TD_NUMBER_KEYWORD "number"
 
 wError testData_number_init     ();
