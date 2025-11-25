@@ -224,8 +224,9 @@ wError testData_number_generate (const cJSON *root) {
 		start = cJSON_GetObjectItem(root, "start");
 		stop  = cJSON_GetObjectItem(root, "stop");
 		
-		steps_t0 = trunc(conf.freq * (float)(start->valuedouble));
-		steps_t1 = trunc(conf.freq * (float)(stop->valuedouble));
+		// [!] Freq is expressed in 1K/10 Hz
+		steps_t0 = trunc((conf.freq/10) * (float)(start->valuedouble));
+		steps_t1 = trunc((conf.freq/10) * (float)(stop->valuedouble));
 
 		//
 		// PINs list retriving...
