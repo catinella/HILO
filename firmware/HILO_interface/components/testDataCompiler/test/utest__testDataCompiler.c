@@ -25,7 +25,7 @@
 
 char *jsonMsgCC = "{                                     \
 	\"configuration\": {                               \
-		\"freq\": 5                                  \
+		\"freq\": 50                                 \
 	},                                                 \
 	\"test_outputData\": []                            \
 }";
@@ -33,7 +33,7 @@ char *jsonMsgCC = "{                                     \
 
 char *jsonMsgFxp1 = "{                                   \
 	\"configuration\": {                               \
-		\"freq\": 5                                  \
+		\"freq\": 50                                 \
 	},                                                 \
 	\"test_outputData\": [                             \
 		{                                            \
@@ -49,7 +49,7 @@ char *jsonMsgFxp1 = "{                                   \
 
 char *jsonMsgFxp2 = "{                                   \
 	\"configuration\": {                               \
-		\"freq\": 5                                  \
+		\"freq\": 50                                 \
 	},                                                 \
 	\"test_outputData\": [                             \
 		{                                            \
@@ -65,7 +65,7 @@ char *jsonMsgFxp2 = "{                                   \
 
 char *jsonMsgFxp3 = "{                                   \
 	\"configuration\": {                               \
-		\"freq\": 5                                  \
+		\"freq\": 50                                 \
 	},                                                 \
 	\"test_outputData\": [                             \
 		{                                            \
@@ -81,7 +81,7 @@ char *jsonMsgFxp3 = "{                                   \
 
 char *jsonMsgNum1 = "{                                   \
 	\"configuration\": {                               \
-		\"freq\": 5                                  \
+		\"freq\": 50                                 \
 	},                                                 \
 	\"test_outputData\": [                             \
 		{                                            \
@@ -97,7 +97,7 @@ char *jsonMsgNum1 = "{                                   \
 
 char *jsonMsgSQW = "{                                    \
 	\"configuration\": {                               \
-		\"freq\": 5                                  \
+		\"freq\": 50                                 \
 	},                                                 \
 	\"test_outputData\": [                             \
 		{                                            \
@@ -114,7 +114,7 @@ char *jsonMsgSQW = "{                                    \
 
 char *jsonMsg = "{                                       \
 	\"configuration\": {                               \
-		\"freq\": 5                                  \
+		\"freq\": 50                                 \
 	},                                                 \
 	\"test_outputData\": [                             \
 		{                                            \
@@ -188,7 +188,7 @@ TEST (T1, testDataCompiler_getParams) {
 		ASSERT_TRUE ((WERROR_ISERROR(err) == false));
 
 		err = testDataCompiler_getParams(&cdata);
-		ASSERT_TRUE ((WERROR_ISERROR(err) == false) && cdata.freq == 5);
+		ASSERT_TRUE ((WERROR_ISERROR(err) == false) && cdata.freq == 50);
 	}
 	
 	return;
