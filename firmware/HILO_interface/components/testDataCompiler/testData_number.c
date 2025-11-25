@@ -22,7 +22,6 @@
 //		{
 //			"type":   "number",
 //			"pins"[]:  <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>, <0-15>  # 8bits MSB --> LSB
-//			"period":  <n ms>,
 //			"value":   <0-255>,
 //			"start":   <n ms>,
 //			"stiop":   <n ms>
@@ -52,6 +51,58 @@
 #include <testData_number.h>
 #include <stdbool.h>
 #include <string.h>
+#include <math.h>
+
+static wError _isNotUsedPin (uint8_t pin) {
+	//
+	// Description:
+	//	This function returns a success if the pin has not been already used/registered or a warning if it has been.
+	//	If the first case, the pin will be added to the used-pins internal list.
+	//	The pin must be a number smaller then 16 or 255 to clean the internal data
+	//
+	// Returned value:
+	//	WERROR_SUCCESS             // Ok, the pin is available
+	//	WERROR_WARNING_RESBUSY     // Warning, the pin was already used
+	//	WERROR_ERROR_ILLEGALARG    // Illegal Pin number
+	//	WERROR_ERROR_DATAOVERFLOW  // You are trying to register too many pins numbers
+	//
+	static uint8_t usedPinsList[TD_NUMBER_RESOLUTION];
+	static uint8_t usedPinsList_idx = 0;
+	wError         err = WERROR_SUCCESS;
+	
+	if (pin == 255) {
+		// References cleaning
+		memset(usedPinsList, 255, sizeof(usedPinsList));
+		usedPinsList_idx = 0;
+
+	// HILO has 16 pin only, at the moment
+	} else if (pin > 15) {
+			// ERROR!
+			err = WERROR_ERROR_ILLEGALARG;
+
+	} else {
+		bool found = false;
+		for (uint8_t t = 0; t < usedPinsList_idx; t++) {
+			if (usedPinsList[t] == pin) {
+				found = true;
+				break;
+			}
+		}
+		if (found) {
+			// WARNING! (Pin already in use)
+			err = WERROR_WARNING_RESBUSY;
+
+		} else if (usedPinsList_idx >= TD_NUMBER_RESOLUTION) {
+			// ERROR!
+			err = WERROR_ERROR_DATAOVERFLOW;
+
+		} else {
+			usedPinsList[usedPinsList_idx] = pin;
+			usedPinsList_idx++;
+		}
+	}
+	return(err);
+}
 
 wError testData_number_init() {
 	//
@@ -76,9 +127,11 @@ wError testData_number_check (const cJSON *root) {
 	//	WERROR_ERROR_ILLEGALSYNTAX
 	//
 	wError err = WERROR_SUCCESS;
-	cJSON  *pins = NULL, *type = NULL, *period = NULL, *value = NULL, *start = NULL, *stop = NULL;
+	cJSON  *pins = NULL, *type = NULL, *value = NULL, *start = NULL, *stop = NULL;
 	
+	//
 	// Checking for the mandatory "type" field
+	//
 	if (
 		(type = cJSON_GetObjectItem(root, "type")) == NULL  ||
 		cJSON_IsString(type)                       == false ||
@@ -87,39 +140,62 @@ wError testData_number_check (const cJSON *root) {
 		// ERROR!  JSON:type is the lonely mandatory field by all sub-modules!!
 		err = WERROR_ERROR_ILLEGALSYNTAX;
 
+	//
 	// Checking for the JSON message ID
+	//
 	else if (strcmp(type->valuestring, TD_NUMBER_KEYWORD) != 0)
 		// WARNING!
 		err = WERROR_WARNING_TYPEMISSMATCH;
 	
+	//
 	// Checking for the required fields	
+	//
 	else if (
-		(pins = cJSON_GetObjectItem(root, "pins"))     == NULL  ||
-		(period = cJSON_GetObjectItem(root, "period")) == NULL  ||
-		(value = cJSON_GetObjectItem(root, "value"))   == NULL  ||
-		(start = cJSON_GetObjectItem(root, "start"))   == NULL  ||
-		(stop = cJSON_GetObjectItem(root, "stop"))     == NULL  ||
-		cJSON_IsArray(pins)                            == false ||
-		cJSON_IsNumber(period)                         == false ||
-		cJSON_IsNumber(value)                          == false 
+		(pins = cJSON_GetObjectItem(root,  "pins"))   == NULL  ||
+		(value = cJSON_GetObjectItem(root, "value"))  == NULL  ||
+		(start = cJSON_GetObjectItem(root, "start"))  == NULL  ||
+		(stop = cJSON_GetObjectItem(root,  "stop"))   == NULL  ||
+		cJSON_IsArray(pins)                           == false ||
+		cJSON_IsNumber(value)                         == false 
 		
 	)
 		// ERROR!
 		err = WERROR_ERROR_ILLEGALSYNTAX;
 
+	//
 	// Checking for the field's content
-	else if (
-		period->valueint         == 0                          ||
-		value->valueint          >  255                        ||
-		(float)stop->valuedouble <= (float)start->valuedouble
-	)
+	//
+	else if (value->valueint > 255 || (float)stop->valuedouble <= (float)start->valuedouble)
 		// ERROR!
 		err = WERROR_ERROR_ILLEGALSYNTAX;
-	
-	// Checking for structured-data
+
 	else {
+		cJSON *item = NULL;
 		
-		// TODO: Check for pins field content: all items must be numeric ones
+		int arraySize = cJSON_GetArraySize(pins);
+		
+		if (arraySize != TD_NUMBER_RESOLUTION)
+			// ERROR!
+			err = WERROR_ERROR_ILLEGALSYNTAX;
+
+		else {
+			// Function's initialization
+			_isNotUsedPin(255);
+			
+			for (uint8_t i = 0; i < TD_NUMBER_RESOLUTION; i++) {
+				item  = cJSON_GetArrayItem(pins, i);
+				if (cJSON_IsNumber(item) == false) {
+					// ERROR!
+					err = WERROR_ERROR_ILLEGALSYNTAX;
+					break;
+				}
+				if (_isNotUsedPin(item->valueint) != WERROR_SUCCESS) {
+					// ERROR!
+					err = WERROR_ERROR_ILLEGALSYNTAX;
+					break;
+				}
+			}
+		}
 	}
 	
 	return(err);
@@ -130,8 +206,66 @@ wError testData_number_generate (const cJSON *root) {
 	// Description:
 	//	This generates the test data stream
 	//
-	wError err = WERROR_SUCCESS;
+	wError     err = WERROR_SUCCESS;
+	configDB_t conf;
 
+	// Frequency setting reading
+	err = testDataCompiler_getParams(&conf);
+	
+	if (WERROR_ISSUCCESS(err)) {
+		cJSON    *pins = NULL, *value = NULL, *start = NULL, *stop = NULL, *item = NULL;
+		uint32_t steps_t0 = 0, steps_t1 = 0;
+		uint16_t bitConf = 0;
+		uint8_t  usedPins[TD_NUMBER_RESOLUTION] = {0,0,0,0, 0,0,0,0};
+		uint16_t mask = 0;
+		
+		pins  = cJSON_GetObjectItem(root, "pins");
+		value = cJSON_GetObjectItem(root, "value");
+		start = cJSON_GetObjectItem(root, "start");
+		stop  = cJSON_GetObjectItem(root, "stop");
+		
+		steps_t0 = trunc(conf.freq * (float)(start->valuedouble));
+		steps_t1 = trunc(conf.freq * (float)(stop->valuedouble));
+
+		//
+		// PINs list retriving...
+		//
+		for (uint8_t i = 0; i < TD_NUMBER_RESOLUTION; i++) {
+			item  = cJSON_GetArrayItem(pins, i);
+			usedPins[i] = item->valueint;
+			mask |= 1 << item->valueint;
+		}
+
+		//
+		// Cleaning the used bits in the stored data
+		//
+		for (uint32_t t = steps_t0; t < steps_t1; t++) {
+			if ((err = testDataCompiler_write(~(mask), t, TDC_ANDOP)) && WERROR_ISERROR(err)) {
+				// ERROR!
+				break;
+			}
+		}
+
+		//
+		// Bits configuration creation...
+		//
+		if (WERROR_ISERROR(err) == false) {
+			for (uint8_t pos = 0; pos < TD_NUMBER_RESOLUTION; pos++) {
+				if ((value->valueint & (1 << pos)) > 0)
+					bitConf |= 1 << usedPins[pos];
+			}
+		}
+		
+		//
+		// Bits configuration saving...
+		//
+		for (uint32_t t = steps_t0; t < steps_t1; t++) {
+			if ((err = testDataCompiler_write(bitConf, t, TDC_OROP)) && WERROR_ISERROR(err)) {
+				// ERROR!
+				break;
+			}
+		}
+	}
 
 	return(err);
 }
