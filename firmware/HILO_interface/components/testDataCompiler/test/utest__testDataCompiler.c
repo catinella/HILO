@@ -23,6 +23,14 @@
 #include <stdlib.h>
 
 
+char *jsonMsgCC = "{                                     \
+	\"configuration\": {                               \
+		\"freq\": 5                                  \
+	},                                                 \
+	\"test_outputData\": []                            \
+}";
+
+
 char *jsonMsgFxp1 = "{                                   \
 	\"configuration\": {                               \
 		\"freq\": 5                                  \
@@ -37,6 +45,7 @@ char *jsonMsgFxp1 = "{                                   \
 		}                                            \
 	]                                                  \
 }";
+
 
 char *jsonMsgFxp2 = "{                                   \
 	\"configuration\": {                               \
@@ -53,6 +62,7 @@ char *jsonMsgFxp2 = "{                                   \
 	]                                                  \
 }";
 
+
 char *jsonMsgFxp3 = "{                                   \
 	\"configuration\": {                               \
 		\"freq\": 5                                  \
@@ -67,6 +77,23 @@ char *jsonMsgFxp3 = "{                                   \
 		}                                            \
 	]                                                  \
 }";
+
+
+char *jsonMsgNum1 = "{                                   \
+	\"configuration\": {                               \
+		\"freq\": 5                                  \
+	},                                                 \
+	\"test_outputData\": [                             \
+		{                                            \
+			\"type\":      \"number\",             \
+			\"pins\":      [8,9,10,11,12,13,14,15],\
+			\"value\":     202,                    \
+			\"start\":     20,                     \
+			\"stop\":      40                      \
+		}                                            \
+	]                                                  \
+}";
+
 
 char *jsonMsg = "{                                       \
 	\"configuration\": {                               \
@@ -101,6 +128,12 @@ char *jsonMsg = "{                                       \
 //------------------------------------------------------------------------------------------------------------------------------
 
 TEST (T1, testDataCompiler_init) {
+	//
+	// Description:
+	//	This is a test for the fabric functionality of the testDataCompiler super-class. The procedure load all sub-modules
+	//	references in the super-class internal DB
+	//	If the test fails then at least one sub-module registartion procedure failed
+	//
 	wError err = WERROR_SUCCESS;
 	
 	// All sub-modules initialization...
@@ -111,15 +144,51 @@ TEST (T1, testDataCompiler_init) {
 }
 
 
+TEST (T1, testDataCompiler_getParams) {
+	//
+	// Description:
+	//	This procedure check for the function used by the sub-modules to get the active configuration
+	//
+	wError     err = WERROR_SUCCESS;
+	configDB_t cdata; 
+	cJSON      *jmsg = NULL;
+
+	// It reset the configuration data too	
+	testDataCompiler_clean();
+
+	// When you try to get the config's values but the db is empty, then you should get a warning
+	err = testDataCompiler_getParams(&cdata);
+	ASSERT_TRUE ((WERROR_ISWARNING(err) == true));
+	
+	if ((jmsg = cJSON_Parse(jsonMsgCC)) == NULL) {
+		// ERROR!
+		err = WERROR_ERRUTEST_CORRUPTDATA;
+		ERRORBANNER (err);
+		fprintf(stderr, "ERROR! JSON message parsing failed\n");
+
+	} else {
+		err = testDataCompiler_generate(jmsg);
+		ASSERT_TRUE ((WERROR_ISERROR(err) == false));
+
+		err = testDataCompiler_getParams(&cdata);
+		ASSERT_TRUE ((WERROR_ISERROR(err) == false) && cdata.freq == 5);
+	}
+	
+	return;
+}
+
+
 TEST (T1, testDataCompiler_generate) {
+	//
+	// Description:
+	//	This is the simplest test to fixedTimePeriod. It just sets the defined pin to one for a short period.
+	//
+	
 	wError err = WERROR_SUCCESS;
 	cJSON  *jmsg = NULL;
 
 	testDataCompiler_clean();
 	
-	//
-	// Simple test for fixedTimePeriod() module
-	//
 	if ((jmsg = cJSON_Parse(jsonMsgFxp1)) == NULL) {
 		// ERROR!
 		err = WERROR_ERRUTEST_CORRUPTDATA;
@@ -198,14 +267,16 @@ TEST (T1, testDataCompiler_generate) {
 
 
 TEST (T2, testDataCompiler_generate) {
+	//
+	// Description:
+	//	It is another easy test for the fixedTimePeriod sub-module. It sets tthe defined bit to one for a longer time
+	//	This test has been created to prepare the virtual SRAM's content for the next test, mainly.
+	// 
 	wError err = WERROR_SUCCESS;
 	cJSON  *jmsg = NULL;
 
 	testDataCompiler_clean();
 	
-	//
-	// Simple test for fixedTimePeriod() module
-	//
 	if ((jmsg = cJSON_Parse(jsonMsgFxp2)) == NULL) {
 		// ERROR!
 		err = WERROR_ERRUTEST_CORRUPTDATA;
@@ -277,8 +348,10 @@ TEST (T2, testDataCompiler_generate) {
 
 TEST (T3, testDataCompiler_generate) {
 	//
-	// [!] This test requires to run after the T2::testDataCompiler_generate test. Because the current one uses data
-	//     written by the previouse one.
+	// Description:
+	//	It is a bit more complicated test for fixedTimePeriod sub-module. This procedure reqires the
+	//	T2::testDataCompiler_generate test has been executed to fill virtual SRAM correctly.
+	//    In this test, thecurrect defined pin's value will be swapped.
 	//
 	wError err = WERROR_SUCCESS;
 	cJSON  *jmsg = NULL;
@@ -361,22 +434,43 @@ TEST (T3, testDataCompiler_generate) {
 
 	return;
 }
-TEST (T1, testDataCompiler_getParams) {
-	wError     err = WERROR_SUCCESS;
-	configDB_t cdata; 
-		
-	err = testDataCompiler_getParams(&cdata);
-	ASSERT_TRUE ((WERROR_ISERROR(err) == false) && cdata.freq == 5);
+
+TEST (T4, testDataCompiler_generate) {
+	//
+	// Description:
+	//	It is an easy test for the testData_number sub-module.
+	//	It simulate a key-pad where for a given period you still push the defined number
+	// 
+	wError err = WERROR_SUCCESS;
+	cJSON  *jmsg = NULL;
+
+	testDataCompiler_clean();
 	
+	if ((jmsg = cJSON_Parse(jsonMsgNum1)) == NULL) {
+		// ERROR!
+		err = WERROR_ERRUTEST_CORRUPTDATA;
+		ERRORBANNER (err);
+		fprintf(stderr, "ERROR! JSON message parsing failed\n");
+
+	} else {
+		err = testDataCompiler_generate(jmsg);
+		ASSERT_TRUE ((WERROR_ISERROR(err) == false));
+	}
+
 	return;
 }
 
+//------------------------------------------------------------------------------------------------------------------------------
+//                                                       M A I N
+//------------------------------------------------------------------------------------------------------------------------------
+
 int main() {
 	T1__testDataCompiler_init();
+	T1__testDataCompiler_getParams();
 	T1__testDataCompiler_generate();
 	T2__testDataCompiler_generate();
 	T3__testDataCompiler_generate();
-	T1__testDataCompiler_getParams();
+	T4__testDataCompiler_generate();
 	
 	return(0);
 }
