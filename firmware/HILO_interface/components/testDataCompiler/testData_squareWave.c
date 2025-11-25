@@ -48,7 +48,7 @@
 #include <testData_squareWave.h>
 #include <stdbool.h>
 #include <string.h>
-
+#include <math.h>
 
 wError testData_squareWave_init() {
 	//
@@ -123,7 +123,59 @@ wError testData_squareWave_generate (const cJSON *root) {
 	//	This generates the test data stream
 	//
 	wError err = WERROR_SUCCESS;
+	configDB_t conf;
+	cJSON      *pin = NULL, *period = NULL, *dCycle = NULL, *start = NULL, *stop = NULL;
+	
+	// Frequency setting reading
+	err = testDataCompiler_getParams(&conf);
+	
+	if (WERROR_ISSUCCESS(err)) {
+		uint32_t steps_t0 = 0, steps_t1 = 0;
+		
+		pin    = cJSON_GetObjectItem(root, "pin");
+		period = cJSON_GetObjectItem(root, "period");
+		dCycle = cJSON_GetObjectItem(root, "dutyCycle");
+		start  = cJSON_GetObjectItem(root, "start");
+		stop   = cJSON_GetObjectItem(root, "stop");
+		
+		steps_t0 = trunc(conf.freq * (float)(start->valuedouble));
+		steps_t1 = trunc(conf.freq * (float)(stop->valuedouble));
 
 
+		{
+			uint8_t st = 0;
+			uint16_t hs = 0, ls = 0;
+			uint16_t hsCounter = trunc(conf.freq * (period->valueint * dCycle->valueint / 100));
+			uint16_t lsCounter = trunc(conf.freq * (period->valueint * (100 - dCycle->valueint) / 100));
+			uint16_t bitConf = 0;
+			
+			for (uint32_t t = steps_t0; t < steps_t1; t++) {
+				if (st == 0) {
+					bitConf = 1 << pin->valueint;
+					if (hs > hsCounter) {
+						st =1;
+						ls = 0;
+					} else {
+						hs++;
+						err = testDataCompiler_write(bitConf, t, TDC_OROP);
+					}
+					
+				} else if (st == 1) {
+					bitConf = ~(1 << pin->valueint);
+					if (hs > lsCounter) {
+						st = 0;
+						hs = 0;
+					} else {
+						ls++;
+						err = testDataCompiler_write(bitConf, t, TDC_ANDOP);
+					}
+				}
+				if (WERROR_ISERROR(err))
+					// ERROR!
+					break;
+			}
+		} 
+	}
+	
 	return(err);
 }
