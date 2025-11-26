@@ -146,31 +146,30 @@ wError testData_squareWave_generate (const cJSON *root) {
 		{
 			uint8_t st = 0;
 			uint16_t hs = 0, ls = 0;
-			uint16_t hsCounter = trunc(conf.freq * (period->valueint * dCycle->valueint / 100));
-			uint16_t lsCounter = trunc(conf.freq * (period->valueint * (100 - dCycle->valueint) / 100));
+			uint16_t hsCounter = trunc((conf.freq/10) * (period->valueint * dCycle->valueint / 100));
+			uint16_t lsCounter = trunc((conf.freq/10) * (period->valueint * (100 - dCycle->valueint) / 100));
 			uint16_t bitConf = 0;
 			
 			for (uint32_t t = steps_t0; t < steps_t1; t++) {
 				if (st == 0) {
 					bitConf = 1 << pin->valueint;
-					if (hs > hsCounter) {
-						st =1;
+					if (hs == (hsCounter-1)) {
+						st = 1;
 						ls = 0;
-					} else {
-						hs++;
-						err = testDataCompiler_write(bitConf, t, TDC_OROP);
-					}
+					} 
+					hs++;
+					err = testDataCompiler_write(bitConf, t, TDC_OROP);
 					
 				} else if (st == 1) {
 					bitConf = ~(1 << pin->valueint);
-					if (hs > lsCounter) {
+					if (ls == (lsCounter-1)) {
 						st = 0;
 						hs = 0;
-					} else {
-						ls++;
-						err = testDataCompiler_write(bitConf, t, TDC_ANDOP);
-					}
+					} 
+					ls++;
+					err = testDataCompiler_write(bitConf, t, TDC_ANDOP);
 				}
+					
 				if (WERROR_ISERROR(err))
 					// ERROR!
 					break;
