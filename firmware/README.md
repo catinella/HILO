@@ -14,16 +14,18 @@ This folder contains the firmwares for all used MCUs.
 	
 ### 2.1 Dataflow description:
 Please, consider the logic scheme stored in the ../PCB/README file.
-The HILO can function in two different ways: scheduled-mode and interactive-mode.
+The HILO can function in two different ways: **scheduled-mode** and **interactive-mode**.
 
 - In the first one, the user have to prepare a test's recipit and send it via REST API to the HILO_interface component.
 Then it will instructs the HILO_engine on the step iw will have to follow to perform the test correctly. At the end of
 the test, the software-client will retrive all resulted data, and the user will be able to evaluate the the DUT's
 behaviohr.
 	
-![Firware sequence diagram](../images/overviewFirmwarSequenceDiagram.png)
+![Time sequence diagram for the **scheduled mode**](../images/overviewFirmwarSequenceDiagram.png)
 
 - In the interactive-mode, the user can change the output-pins value via REST API, dinamically. All data on the monitored
-input pins will be continuously reported via UDP stream. So, the user will be able to evaluate the DUT behavior
-modifying the DUT's input and checking for the DUT's output, dinamically.
+input pins will be continuously reported via TCP/IP stream. So, the user will be able to evaluate the DUT behavior
+modifying the DUT's input and checking for the DUT's output, dinamically. Because the DUT's inputs change manually, the
+HILO's sample rating is set to 1Khz.
 
+![Time sequence diagram for the **interactive mode**](../images/overviewFirmwarSequenceDiagram_intvMode.png)

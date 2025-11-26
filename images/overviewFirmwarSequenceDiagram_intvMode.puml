@@ -1,0 +1,109 @@
+
+@startuml
+
+skinparam ParticipantPadding 40
+skinparam BoxPadding 30
+
+'-------------------------------------------------------------------------------------------------------------------------------
+'                                                    P A R T I C I P A N T S
+'-------------------------------------------------------------------------------------------------------------------------------
+
+actor "User" as USER
+
+participant TCL [
+	**Test's client**
+	---
+	Software App
+]
+
+box "local" #LightBlue
+	actor USER
+	participant TCL
+end box
+
+participant HILOIF [
+	**HILO interface**
+	---
+	Firmware
+]
+
+database "SRAM" as SRAM
+
+participant HILOEN [
+	**HILO engine**
+	---
+	Firmware
+]
+
+box "HILO device" #Yellow
+	participant HILOIF
+	database    SRAM
+	participant HILOEN
+end box
+
+participant FUSES [
+	**HILO's fuses**
+	---
+	Protection system
+]
+
+participant DUT [
+	**Device Under Test**
+	---
+	User's PCB
+]
+
+'-------------------------------------------------------------------------------------------------------------------------------
+'                              P A R T I C I P A N T ' s   I N T E R A C T I O N S
+'-------------------------------------------------------------------------------------------------------------------------------
+
+|||
+|||
+|||
+
+USER   -> TCL:    Interactive mode selection
+USER   -> TCL:    I/O pins dir configuration
+TCL    -> HILOIF: **REST-API**: POST/intv/configure
+TCL    -> TCL:    TCP/IP socket opening
+HILOIF -> HILOIF: strea-maddr acknowledge
+HILOIF -> HILOEN: HENG_INTV_SETPINSDIR
+HILOEN -> HILOEN: GPIO configuration
+
+== Interactive mode enabled ==
+group "Data acknowledge" 
+	|||
+	|||
+	DUT    -> HILOEN: data collecting
+	FUSES  -> HILOEN: HILO's fuses status
+	hnote over HILOEN, DUT
+		<size:10>...256 Bytes (16 8bits-data-pkg) ...</size>
+	end note
+	FUSES  -> HILOEN: HILO's fuses status
+	DUT    -> HILOEN: data collecting
+	|||
+	|||
+	HILOEN -> SRAM:   128 Bytes
+	HILOEN -> HILOIF: [INT] Data is ready
+	SRAM   -> HILOIF: 128 Bytes
+	HILOIF -> TCL:    128 Bytes trough TCP/IP socket
+	TCL    -> USER:   Graphic data reppresentation
+end
+group "Output event generating" 
+	|||
+	|||
+	USER   -> TCL:    Output changing request
+	TCL    -> HILOIF: **REST-API**: POST/intv/send_data
+	HILOIF -> HILOEN: HENG_INTV_SETPINSVAL
+	HILOEN -> DUT:    Output pins' values change
+end
+|||
+|||
+== Interactive mode disabled ==
+USER   -> TCL:    Interactive mode disabling command
+TCL    -> HILOIF: **REST-API**: POST/intv/stop
+TCL    -> TCL:    TCP/IP socket closing
+HILOIF -> HILOEN: HENG_INTV_STOP
+|||
+|||
+
+@enduml
