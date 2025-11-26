@@ -40,6 +40,7 @@
 #include <wError.h>
 #include <string.h>
 #include <errno.h>
+#include <math.h>
 
 #define SWIN_SIZE 20
 #define GRAYCOLOR 10
@@ -68,20 +69,27 @@ wError dataDrawing (WINDOW *win, FILE *fh, uint32_t offset) {
 		for (uint8_t col = 0; (col + spliter_size) < (COLS - 20); col++) {
 			if ((psize = fread (&bitconf, 1, sizeof (bitconf), fh)) && psize == sizeof (bitconf)) {
 				
+				mvwprintw(win, ((8 * sizeof (TDdata_t)) + 2), (col + 8 + spliter_size), "    ");
 				if ((spliter_counter % 10) == 0) {
+					char tmp[8];
+
 					wattron(win, COLOR_PAIR(GRAYCOLOR));
-					for (uint8_t x = 0; x < (8 * sizeof (TDdata_t)); x++) 
-						mvwprintw (win, (x + 2), (col + 8 + spliter_size), "|");
+					for (uint8_t y = 0; y < (8 * sizeof (TDdata_t)); y++) 
+						mvwprintw(win, (y + 2), (col + 8 + spliter_size), "|");
+
+					sprintf(tmp, "%d", (int)trunc(spliter_counter/10));
+					mvwprintw(win, ((8 * sizeof (TDdata_t)) + 2), (col + 8 + spliter_size), tmp);
+
 					spliter_size++;
 					wattroff(win, COLOR_PAIR(GRAYCOLOR));
 				}
 				
-				for (uint8_t x = 0; x < (8 * sizeof (TDdata_t)); x++) {
-					if ((bitconf & 1 << x) > 0)
-						mvwprintw (win, (x + 2), (col + 8 + spliter_size), "#");
+				for (uint8_t y = 0; y < (8 * sizeof (TDdata_t)); y++) {
+					if ((bitconf & 1 << y) > 0)
+						mvwprintw(win, (y + 2), (col + 8 + spliter_size), "#");
 
 					else
-						mvwprintw (win, (x + 2), (col + 8 + spliter_size), "_");
+						mvwprintw(win, (y + 2), (col + 8 + spliter_size), "_");
 				}
 				spliter_counter++;
 				
