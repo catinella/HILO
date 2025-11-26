@@ -392,6 +392,9 @@ TEST (T3, testDataCompiler_generate) {
 			//	Because the sampling rate is 5Khz, the period is 0.2ms.
 			//	In the test definition the bit number 5 will be swapped for 6ms after 10ms by the test beginning.
 			//
+			//	The defined by JSON-recipit number is 202 and the used bits sequence starts by pin-8
+			//
+			//
 
 			FILE     *fh    = NULL;
 			uint16_t buffer = 0;
@@ -472,6 +475,62 @@ TEST (T4, testDataCompiler_generate) {
 	} else {
 		err = testDataCompiler_generate(jmsg);
 		ASSERT_TRUE ((WERROR_ISERROR(err) == false));
+
+		if (WERROR_ISERROR(err) == false) {
+			//
+			// Checking for the virtual-SRAM content
+			//	Because the sampling rate (freq:50) is 5Khz, the period is 0.2ms.
+			//	In the JSON test recipit, the number must be present on the HILO's output pins, after 20ms, and it
+			//	doesn't have to change for other 20ms. It means the number should be recorded in virtual SRAM after 100
+			//	records and it should be written in the next 100 records. 
+			//
+
+			FILE     *fh    = NULL;
+			uint16_t buffer = 0;
+			
+			if ((fh = fopen(UTFILE, "r")) == NULL) {
+				// ERROR!
+				err = WERROR_ERRUTEST_IOERROR;
+				ERRORBANNER (err);
+				fprintf(stderr, "ERROR! I cannot open the virtual-SRAM (%s)\n", UTFILE);
+
+			} else if (fseek(fh, 0, SEEK_SET) < 0) {
+				// ERROR!
+				err = WERROR_ERRUTEST_IOERROR;
+				ERRORBANNER (err);
+				fprintf(stderr, "ERROR! I cannot index the virtual-SRAM\n");
+
+			} else {
+				
+				uint8_t st = 0;
+				uint16_t t = 0;
+				uint16_t expData = 202 << 8;
+				
+				while (WERROR_ISERROR(err) == false) {
+					if      (t == 100)   st = 1;
+					else if (t == 200)   st = 2;
+					else if (t == 1024) break;
+					
+					if (fread(&buffer, sizeof(buffer), 1, fh) != 1) {
+						// ERROR!
+						err = WERROR_ERRUTEST_IOERROR;
+						ERRORBANNER (err);
+						fprintf(stderr, "ERROR! I cannot read the virtual-SRAM\n");
+	
+					} else if (buffer != 0x00 && st == 0) {
+						// TEST FAILED
+						err = WERROR_ERRUTEST_TESTFAILED;
+
+					} else if (buffer != expData && st == 1) {
+						// TEST FAILED
+						err = WERROR_ERRUTEST_TESTFAILED;
+					}
+					t++;
+				}
+
+				ASSERT_TRUE ((WERROR_ISERROR(err) == false));
+			}
+		}
 	}
 
 	return;
@@ -496,6 +555,7 @@ TEST (T5, testDataCompiler_generate) {
 	} else {
 		err = testDataCompiler_generate(jmsg);
 		ASSERT_TRUE ((WERROR_ISERROR(err) == false));
+
 	}
 
 	return;
