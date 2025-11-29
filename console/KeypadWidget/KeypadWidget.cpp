@@ -23,10 +23,6 @@ KeypadWidget::KeypadWidget (QWidget *parent):QWidget (parent) {
 	m_display->setAlignment(Qt::AlignRight);
 	m_display->setMaxLength(3);
 	m_display->setFixedSize(120, 30);
-
-	//
-	// Smaller font
-	//
 	{
 		QFont dispFont = m_display->font ();
 		dispFont.setPointSize (20);
@@ -68,7 +64,7 @@ KeypadWidget::KeypadWidget (QWidget *parent):QWidget (parent) {
 		mainLayout->addWidget(m_display);
 		mainLayout->addLayout(grid);
 		mainLayout->addWidget(keypad[12]);
-		mainLayout->setContentsMargins(0,0,0,0);
+		mainLayout->setContentsMargins(2,2,2,2);
 		grid->setHorizontalSpacing(0);
 		grid->setVerticalSpacing(0);
 

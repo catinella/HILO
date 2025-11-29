@@ -7,11 +7,13 @@
 #		aux     Script driven building process
 #
 #-------------------------------------------------------------------------------------------------------------------------------
-TEMPLATE = app
+TEMPLATE = lib
 SOURCES += $$files($$PWD/*.cpp)
 HEADERS += $$files($$PWD/*.h)
+FORMS   += $$files($$PWD/*.ui)
+CONFIG  += staticlib
+TARGET   = KeypadWidget
 QT      += widgets
-TARGET   = HILO_console
 GDB      = $$(GDB)
 
 equals(GDB, 1) {
@@ -23,7 +25,7 @@ equals(GDB, 1) {
 }
 
 cleanall.target   = cleanall
-cleanall.commands = $$escape_expand(@rm -fv HILO_console)
+cleanall.commands = $$escape_expand(@rm -fv lib$${TARGET}.a Makefile)
 cleanall.depends  = clean
 
 QMAKE_EXTRA_TARGETS += cleanall
