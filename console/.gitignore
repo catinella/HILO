@@ -2,3 +2,4 @@
 .qtc_clangd
 Makefile
 *.pro.user
+conf.pri
