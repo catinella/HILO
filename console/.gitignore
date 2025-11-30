@@ -1,3 +1,4 @@
 .qmake.stash
 .qtc_clangd
 Makefile
+*.pro.user
