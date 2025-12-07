@@ -3,3 +3,9 @@
 Makefile
 *.pro.user
 conf.pri
+moc_*.cpp
+moc_*.[ho]
+ui_*.h
+*.o
+*.a
+HILO_console
