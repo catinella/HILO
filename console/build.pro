@@ -26,9 +26,9 @@
 #-------------------------------------------------------------------------------------------------------------------------------
 
 TEMPLATE = subdirs
-SUBDIRS += KeypadWidget mainApp
+SUBDIRS += KeypadWidget mainApp PinStrip
 
-app.depends        = KeypadWidget
+app.depends        = KeypadWidget PinStrip
 
 cleanall.target    = cleanall
 for(dir, SUBDIRS) {cleanall.commands += $$escape_expand(make -C $$dir cleanall;)}
