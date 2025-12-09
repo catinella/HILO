@@ -17,9 +17,9 @@
    <property name="geometry">
     <rect>
      <x>60</x>
-     <y>149</y>
-     <width>191</width>
-     <height>61</height>
+     <y>159</y>
+     <width>181</width>
+     <height>46</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -32,9 +32,9 @@ border: 2px;</string>
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>180</width>
+      <x>0</x>
+      <y>5</y>
+      <width>181</width>
       <height>21</height>
      </rect>
     </property>
@@ -51,7 +51,15 @@ border: 2px;</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QCheckBox::indicator {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #3a3a3a;
+    background: #ffffff;
+}
+QCheckBox::indicator:checked {
+    background: #000000;
+}</string>
        </property>
        <property name="text">
         <string/>
@@ -73,7 +81,15 @@ border: 2px;</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QCheckBox::indicator {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #3a3a3a;
+    background: #ffffff;
+}
+QCheckBox::indicator:checked {
+    background: #000000;
+}</string>
        </property>
        <property name="text">
         <string/>
@@ -89,7 +105,15 @@ border: 2px;</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QCheckBox::indicator {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #3a3a3a;
+    background: #ffffff;
+}
+QCheckBox::indicator:checked {
+    background: #000000;
+}</string>
        </property>
        <property name="text">
         <string/>
@@ -105,7 +129,15 @@ border: 2px;</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QCheckBox::indicator {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #3a3a3a;
+    background: #ffffff;
+}
+QCheckBox::indicator:checked {
+    background: #000000;
+}</string>
        </property>
        <property name="text">
         <string/>
@@ -121,7 +153,15 @@ border: 2px;</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QCheckBox::indicator {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #3a3a3a;
+    background: #ffffff;
+}
+QCheckBox::indicator:checked {
+    background: #000000;
+}</string>
        </property>
        <property name="text">
         <string/>
@@ -137,7 +177,15 @@ border: 2px;</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QCheckBox::indicator {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #3a3a3a;
+    background: #ffffff;
+}
+QCheckBox::indicator:checked {
+    background: #000000;
+}</string>
        </property>
        <property name="text">
         <string/>
@@ -153,7 +201,15 @@ border: 2px;</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QCheckBox::indicator {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #3a3a3a;
+    background: #ffffff;
+}
+QCheckBox::indicator:checked {
+    background: #000000;
+}</string>
        </property>
        <property name="text">
         <string/>
@@ -169,7 +225,15 @@ border: 2px;</string>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
+        <string notr="true">QCheckBox::indicator {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #3a3a3a;
+    background: #ffffff;
+}
+QCheckBox::indicator:checked {
+    background: #000000;
+}</string>
        </property>
        <property name="text">
         <string/>
@@ -181,9 +245,9 @@ border: 2px;</string>
    <widget class="QWidget" name="horizontalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>30</y>
-      <width>160</width>
+      <x>10</x>
+      <y>25</y>
+      <width>161</width>
       <height>21</height>
      </rect>
     </property>
