@@ -35,14 +35,39 @@
 #                                                                                                               cols=128 tab=6
 #-------------------------------------------------------------------------------------------------------------------------------
 
-TEMPLATE = app
-TARGET   = PinStrip_test
-QT      += widgets testlib
-SOURCES += test.cpp ../PinStrip.cpp
-HEADERS += ../PinStrip.h
-FORMS   += ../PinStrip.ui
-DESTDIR  = $$PWD
+CONFIG_FILE  = "$$PWD/../conf.pri"
+TEMPLATE     = app
+TARGET       = PinStrip_test
+QT          += widgets testlib
+INCLUDEPATH += $$PWD/..
+SOURCES     += test.cpp ../PinStrip.cpp
+HEADERS     += ../PinStrip.h
+FORMS       += ../PinStrip.ui
+DESTDIR      = $$PWD
 # RESOURCES += ../PinStrip.qrc
 
 
+exists($$CONFIG_FILE) {
+	message("[i] configuration file $$CONFIG_FILE detected")
+	include($$CONFIG_FILE)
+} else {
+	# Checking for environment variables
+	GDB = $$(GDB)
+}
+
+equals(GDB, 1) {
+	message("WARNING! You are building $$TARGET module in debug mode")
+	CONFIG  += debug
+	CONFIG  -= release
+} else {
+	message("[i] You are building $$TARGET in release mode")
+	CONFIG  += release
+	CONFIG  -= debug
+}
+
+cleanall.target   = cleanall
+cleanall.commands = $$escape_expand(@rm -fv $$TARGET Makefile)
+cleanall.depends  = clean
+
+QMAKE_EXTRA_TARGETS += cleanall
 
