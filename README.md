@@ -59,3 +59,14 @@ can set its own test-desk without to take care of boring cables to connect to it
 #### 2.4 Functional scheme overview:
 
 ![overview_diagram](images/overviewDiagram.png) 
+
+#### 2.5 Licence:
+This script is a wfree software; you can redistribute it and/or modify it under the terms	of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 3.0 of the License, or (at your option) any later version. 
+
+For further details please read the full [LGPL text file](https://www.gnu.org/licenses/lgpl-3.0.txt).
+You should find a copy of the GNU General Public License document in the root folder of the project; if not, write to the 
+
+	Free Software Foundation, Inc.,
+	59 Temple Place, Suite 330,
+	Boston, MA  02111-1307  USA
