@@ -61,7 +61,7 @@ can set its own test-desk without to take care of boring cables to connect to it
 ![overview_diagram](images/overviewDiagram.png) 
 
 #### 2.5 Licence:
-This script is a wfree software; you can redistribute it and/or modify it under the terms	of the GNU Lesser General Public License
+This script is a free software; you can redistribute it and/or modify it under the terms	of the GNU Lesser General Public License
 as published by the Free Software Foundation; either version 3.0 of the License, or (at your option) any later version. 
 
 For further details please read the full [LGPL text file](https://www.gnu.org/licenses/lgpl-3.0.txt).
