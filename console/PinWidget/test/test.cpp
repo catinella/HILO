@@ -1,3 +1,41 @@
+/*------------------------------------------------------------------------------------------------------------------------------
+//                                                    _   _ ___ _     ___  
+//                                                   | | | |_ _| |   / _ \
+//                                                   | |_| || || |  | | | |
+//                                                   |  _  || || |__| |_| |
+//                                                   |_| |_|___|_____\___/ 
+//                                                    Hardware in the loop
+//                                              (https://github.com/catinella/HILO)
+//
+//
+//
+//
+// Filename: test.cpp
+//
+// Author:   Silvano Catinella <catinella@yahoo.com>
+//
+// Description:
+//	This source file is a test for the PinWidget class. Compiling and executing this file, a graphic window will be
+//	dysplaied. In the window you will see a list ob buttons and a single pin. You can connect the pin to every button
+//	using the right button on the pin and on the target button. Then you can verify the pin's color will change when you
+//	will push the connected button.
+//
+//
+// License:  LGPL ver 3.0
+//
+// 		This script is a wfree software; you can redistribute it and/or modify it under the terms	of the GNU
+// 		Lesser General Public License as published by the Free Software Foundation; either version 3.0 of the License,
+// 		or (at your option) any later version. 
+//
+//		For further details please read the full LGPL text file [https://www.gnu.org/licenses/lgpl-3.0.txt].
+// 		You should have received a copy of the GNU General Public License along with this file; if not, write to the 
+//
+//			Free Software Foundation, Inc.,
+//			59 Temple Place, Suite 330,
+//			Boston, MA  02111-1307  USA
+//
+//                                                                                                               cols=128 tab=6
+------------------------------------------------------------------------------------------------------------------------------*/
 #include <QApplication>
 #include <QWidget>
 #include <QVBoxLayout>
@@ -34,16 +72,22 @@ public:
 		m_overlay->raise();
 
 		
-		for (int t=0; t<NUMOFBUTTS; t++) {
-			// Mouse's LEFT button
-			connect(m_buttons[t], &QPushButton::clicked, this, [this, t]() {
-				m_pin->setValue(m_pin->getValue() ? 0 : 1);
-			});
+		// Mouse's LEFT button
+		connect(m_pin, &PinWidget::rightClicked, this, [this]() {
+			m_selectedPin = m_pin;
+		});
 
+		for (int t=0; t<NUMOFBUTTS; t++) {
+			
 			// Mouse's RIGHT button
 			connect(m_buttons[t], &ConnectButton::rightClicked, this, [this, t]() {
 				if (m_selectedPin) {
+					// Graphic link
 					m_overlay->setEndpoints(m_buttons[t], m_selectedPin);
+
+					// Logic link
+					m_buttons[t]->setLinkedPin(m_selectedPin);
+					
 					m_selectedPin = nullptr;  // consumo la selezione
 				}
 			});
