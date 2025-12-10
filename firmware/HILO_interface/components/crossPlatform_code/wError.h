@@ -33,7 +33,7 @@
 //		WERROR_ERROR_SPIBUSERROR      Some erro occurred on SPI bus using
 //		WERROR_ERROR_ILLEGALOP        Operation was not permitted
 //		WERROR_ERROR_ILLEGALARG       Argument malformed or not permitted
- //
+//
 //
 // License:  LGPL ver 3.0
 //
@@ -41,9 +41,8 @@
 // 		Lesser General Public License as published by the Free Software Foundation; either version 3.0 of the License,
 // 		or (at your option) any later version. 
 //
-//		For further details please read the full LGPL text file  "Linuxwoodo/trunk/templates/lgpl-3.0.txt".
-// 		You should have received a copy of the GNU General Public License along with this file; 
-// 		if not, write to the 
+//		For further details please read the full LGPL text file [https://www.gnu.org/licenses/lgpl-3.0.txt].
+// 		You should have received a copy of the GNU General Public License along with this file; if not, write to the 
 //
 //			Free Software Foundation, Inc.,
 //			59 Temple Place, Suite 330,
