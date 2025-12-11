@@ -20,6 +20,51 @@
 //	using the right button on the pin and on the target button. Then you can verify the pin's color will change when you
 //	will push the connected button.
 //
+//	Test's time diagram:
+//	====================
+//
+//	USER       TestWidget          PidWidget         ConnectButton         ConnectionOverlay
+//	 |             |                   |                   |                      |              //
+//	 |             |       right-click |                   |                      |              //
+//	 +================================>|                   |                      |              //
+//	 |             | rightClicked()    |                   |                      |              //
+//	 |             |<------------------+                   |                      |              //
+//	 |          +--+                   |                   |                      |              //
+//	 |          |  | selected=true     |                   |                      |              //
+//	 |          +->|                   |                   |                      |              // Pin selection
+//	 |             |                   |                   |                      |              //
+//	///////////////////////////////////////////////////////////////////////////////////////////////
+//	 |             |                   |                   |                      |              //
+//	 |             |                   |       right-click |                      |              //
+//	 +====================================================>|                      |              //
+//	 |             | rightClicked()    |                   |                      |              //
+//	 |             |<--------------------------------------+                      |              //
+//	 |          +--+                   |                   |                      |              //
+//	 |          |  | selected?         |                   |                      |              //
+//	 |          +->|                   |                   |        setEndpoint() |              //
+//	 |             +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>|              //
+//	 |             |                   |    setLinkedPin() |                      |              // Button linking...
+//	 |             +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>|                      |              //
+//	 |             |                   |                   |                      |              //
+//	 |             |                   |                   |                      |              //
+//	///////////////////////////////////////////////////////////////////////////////////////////////
+//	 |             |                   |                   |                      |              //
+//	 |             |                   |        left-click |                      |              //
+//	 +====================================================>|                      |              //
+//	 |             |                   | setValue()        |                      |              // Pin's value changing
+//	 |             |                   |<~~~~~~~~~~~~~~~~~~+                      |              //
+//	 |             |                   |                   |                      |              //
+//	 |             |                   |                   |                      |              //
+//
+//	+--------+----------------------+
+//	| Symbol | Description          |
+//	+--------+----------------------+
+//	|   ===  | user activity        |
+//	|   ---  | QT signal            |
+//	|   ~~~  | Fuction/method call  |
+//	+--------+----------------------+
+//
+//
 //
 // License:  LGPL ver 3.0
 //
@@ -71,32 +116,31 @@ public:
 		m_overlay->resize(size());
 		m_overlay->raise();
 
-		
-		// Mouse's LEFT button
-		connect(m_pin, &PinWidget::rightClicked, this, [this]() {
-			m_selectedPin = m_pin;
-		});
 
 		for (int t=0; t<NUMOFBUTTS; t++) {
 			
 			// Mouse's RIGHT button
 			connect(m_buttons[t], &ConnectButton::rightClicked, this, [this, t]() {
-				if (m_selectedPin) {
+				if (m_selected) {
 					// Graphic link
-					m_overlay->setEndpoints(m_buttons[t], m_selectedPin);
+					m_overlay->setEndpoints(m_buttons[t], m_pin);
 
 					// Logic link
-					m_buttons[t]->setLinkedPin(m_selectedPin);
+					m_buttons[t]->setLinkedPin(m_pin);
+
+					// Remove the old link
+					for (int x=0; x<NUMOFBUTTS; x++) {
+						if (t != x) m_buttons[x]->setLinkedPin(nullptr);
+					}
 					
-					m_selectedPin = nullptr;  // consumo la selezione
+					m_selected = false;
 				}
 			});
 		}
 		
 		// DESTRO sul pin: lo seleziono per connessione
 		connect(m_pin, &PinWidget::rightClicked, this, [this]() {
-			m_selectedPin = m_pin;
-			// volendo qui potresti evidenziare graficamente il pin selezionato
+			m_selected = true;
 		});
 
 
@@ -113,9 +157,10 @@ protected:
 
 private:
 	QVector <ConnectButton*> m_buttons;
-	PinWidget               *m_pin         = nullptr;
-	ConnectionOverlay       *m_overlay     = nullptr;
-	PinWidget               *m_selectedPin = nullptr;
+	PinWidget               *m_pin      = nullptr;
+	ConnectionOverlay       *m_overlay  = nullptr;
+	bool                    m_selected  = false;
+
 };
 
 //------------------------------------------------------------------------------------------------------------------------------
