@@ -35,17 +35,16 @@
 #                                                                                                               cols=128 tab=6
 #-------------------------------------------------------------------------------------------------------------------------------
 
-CONFIG_FILE  = "$$PWD/../conf.pri"
-TEMPLATE     = app
-TARGET       = PinStrip_test
-QT          += widgets testlib
-INCLUDEPATH += $$PWD/..
-SOURCES     += test.cpp ../PinStrip.cpp
-HEADERS     += ../PinStrip.h
-FORMS       += ../PinStrip.ui
-DESTDIR      = $$PWD
-# RESOURCES += ../PinStrip.qrc
-
+CONFIG_FILE   = "$$PWD/../conf.pri"
+TEMPLATE      = app
+TARGET        = PinStrip_test
+QT           += widgets testlib
+INCLUDEPATH  += $$PWD $$PWD/.. $$PWD/../../PinWidget
+SOURCES      += $$PWD/*.cpp $$PWD/../PinStrip.cpp $$PWD/../ConnectionOverlay.cpp
+LIBS         += -L$$PWD/../../PinWidget -lPinWidget
+HEADERS      += $$PWD/../PinStrip.h $$PWD/../ConnectionOverlay.h $$PWD/*.h
+DESTDIR       = $$PWD
+PINWIDGET_LIB = $$PWD/../../PinWidget/libPinWidget.a
 
 exists($$CONFIG_FILE) {
 	message("[i] configuration file $$CONFIG_FILE detected")
@@ -64,6 +63,20 @@ equals(GDB, 1) {
 	CONFIG  += release
 	CONFIG  -= debug
 }
+
+#-------------------------------------------------------------------------------------------------------------------------------
+#                                                E T R A   R U L E S
+#-------------------------------------------------------------------------------------------------------------------------------
+
+check_pinwidget.target = check_pinwidget
+check_pinwidget.commands = @test -f $$PINWIDGET_LIB || ( \
+    	echo "ERROR: Required library not found: $$PINWIDGET_LIB"; \
+	echo "You have to compile it manually"; \
+	false \
+)
+
+PRE_TARGETDEPS      += check_pinwidget
+QMAKE_EXTRA_TARGETS += check_pinwidget
 
 cleanall.target   = cleanall
 cleanall.commands = $$escape_expand(@rm -fv $$TARGET Makefile)
