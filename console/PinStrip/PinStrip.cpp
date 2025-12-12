@@ -15,8 +15,8 @@
 // Author:   Silvano Catinella <catinella@yahoo.com>
 //
 // Description:
-//
-//
+//		This class allows you to create stripes of pins. These objects are using to connect the virtual-instruments
+//		to the DUT
 //
 // License:  LGPL ver 3.0
 //
@@ -35,17 +35,107 @@
 //                                                                                                               cols=128 tab=6
 ------------------------------------------------------------------------------------------------------------------------------*/
 #include "PinStrip.h"
-#include "ui_PinStrip.h"
+#include <QHBoxLayout>
 
-PinStrip::PinStrip(QWidget *parent) : QWidget(parent), ui(new Ui::PinStrip) {
-	ui->setupUi(this);
+#define MAXNUMOFPINS 8
 
-	// Qui colleghi i segnali dei pin, imposti stati iniziali, ecc.
-	// esempio:
-	// connect(ui->chkPin1, &QCheckBox::toggled, this, &PinStrip::onPin1Toggled);
+PinStrip::PinStrip (int pinCount, QWidget *parent):QWidget (parent) {
+	//
+	// Description:
+	//	This is the PinStrip class' constructor.
+	//	It creates its own pinCount argument defined pin items and associates their valueChanged signals to a Lambda
+	//	function. Everytime a pin's value will change, the associated Lambda will send a message with the new value
+	//	of the whole PinStrip.
+	//
+	auto layout = new QHBoxLayout (this);
+
+	for (int i = 0; i < pinCount; ++i) {
+		auto pin = new PinWidget(this);
+		m_pins.append(pin);
+		layout->addWidget(pin);
+
+		connect(pin, &PinWidget::valueChanged, this, [this](void) {
+			uint8_t v = 0;
+			getValue(v);
+			emit valuesChanged(v);
+		});
+	}
+
+	setLayout (layout);
+
+	return;
 }
 
-PinStrip::~PinStrip() {
-	delete ui;
+int PinStrip::pinSrtipSize () const {
+	//
+	// Description:
+	//	It returns the number of PINs belong to the PinStripke
+	
+	//
+	return m_pins.size();
 }
 
+void PinStrip::setValue (uint8_t value) {
+	//
+	// Description:
+	//	It sets the PinStrip's value.
+	//	[!] When every bit is set to a new value, it emits a new PinWidget::valueChanged signal that will execute
+	//	    the associated Lambda that will call PinStrip::setValue() method! It will generate an endless loop.
+	//	    To avoid this trouble, this function stops all pin's signal before to set it with a new value.
+	//
+	for (int i = 0; i < m_pins.size(); i++) {
+		bool bitValue = (value & (1 << i)) > 0 ? 1 : 0;
+		//printf("%s: %d)%d\n", __PRETTY_FUNCTION__, i, bitValue);
+		QSignalBlocker b(m_pins[i]);
+		m_pins[i]->setValue(bitValue);
+	}
+	return;
+}
+
+void PinStrip::getValue (uint8_t &value) {
+	//
+	// Description:
+	//	It allows you to get the PinStrip's current value
+	//
+	value = 0;
+	for (int i = 0; i < m_pins.size(); i++) {
+		if (m_pins[i]->getValue() == 1)
+			value |= (1 << i);
+	}
+	return;
+}
+
+void PinStrip::setValue (uint8_t index, bool value) {
+	//
+	// Description:
+	//	It sets the pin's value for a pin belong to the PinStrip.
+	//	[!] Read PinStrip::setValue description for the reason of the signal blocking
+	//
+	QSignalBlocker b(m_pins[index]);
+	m_pins[index]->setValue(value);
+	return;
+}
+
+void PinStrip::getValue (uint8_t index, bool &value) {
+	//
+	// Description:
+	//	It allows you to get the index argument defined pin's value.
+	//
+	value = m_pins[index]->getValue();
+	return;
+}
+
+PinWidget* PinStrip::getPin(int i) const {
+	//
+	// Description:
+	//	It returns the address of the PIN in the argument defined position
+	//	This funzion is used to catch the PIN's signal
+	//
+	PinWidget *w = nullptr;
+	if (i >= 0 && i < m_pins.size())
+		w = m_pins[i];
+	else {
+		// ERROR!
+	}
+	return w;
+}

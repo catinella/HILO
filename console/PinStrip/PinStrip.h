@@ -15,8 +15,8 @@
 // Author:   Silvano Catinella <catinella@yahoo.com>
 //
 // Description:
-//
-//
+//		This class allows you to create stripes of pins. These objects are using to connect the virtual-instruments
+//		to the DUT
 //
 // License:  LGPL ver 3.0
 //
@@ -34,25 +34,31 @@
 //
 //                                                                                                               cols=128 tab=6
 ------------------------------------------------------------------------------------------------------------------------------*/
-#ifndef PINSTRIP_H
-#define PINSTRIP_H
+#ifndef __PINSTRIP__
+#define __PINSTRIP__
 
 #include <QWidget>
+#include "PinWidget.h"
 
-namespace Ui {
-	class PinStrip;
-}
-
-class PinStrip : public QWidget {
+class PinStrip:public QWidget {
 	Q_OBJECT
-
 public:
-	explicit PinStrip(QWidget *parent = nullptr);
-	~PinStrip();
+	explicit PinStrip (int pinCount = 8, QWidget * parent = nullptr);
+
+	int        pinSrtipSize () const;
+	void       setValue    (uint8_t value);
+	void       getValue    (uint8_t &value);
+	void       setValue    (uint8_t index, bool value);
+	void       getValue    (uint8_t index, bool &value);
+	PinWidget* getPin      (int i) const;
+	
+signals:
+	void valuesChanged (uint8_t newValues);
 
 private:
-	Ui::PinStrip *ui;
+	QVector<PinWidget*>m_pins;
+
+	//private slots: void onPinToggled (int index, bool value);	// slot interno
 };
 
-#endif // PINSTRIP_H
-
+#endif
