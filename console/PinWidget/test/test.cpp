@@ -23,7 +23,7 @@
 //	Test's time diagram:
 //	====================
 //
-//	USER       TestWidget          PidWidget         ConnectButton         ConnectionOverlay
+//	USER       TestWidget          PinWidget         ConnectButton         ConnectionOverlay
 //	 |             |                   |                   |                      |              //
 //	 |             |       right-click |                   |                      |              //
 //	 +================================>|                   |                      |              //
