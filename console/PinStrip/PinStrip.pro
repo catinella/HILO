@@ -25,14 +25,15 @@
 #
 #-------------------------------------------------------------------------------------------------------------------------------
 
-CONFIG_FILE = "$$PWD/../conf.pri"
-TEMPLATE    = lib
-SOURCES    += $$files($$PWD/*.cpp)
-HEADERS    += $$files($$PWD/*.h)
-FORMS      += $$PWD/PinStrip.ui
-CONFIG     += staticlib
-TARGET      = PinStrip
-QT         += widgets
+CONFIG_FILE     = "$$PWD/../conf.pri"
+TEMPLATE        = lib
+SOURCES        += $$files($$PWD/*.cpp)
+HEADERS        += $$files($$PWD/*.h)
+FORMS          += $$PWD/PinStrip.ui
+CONFIG         += staticlib
+TARGET          = PinStrip
+QT             += widgets
+PRE_TARGETDEPS += $$PWD/../PinWidget/libPinWidget.a
 
 exists($$CONFIG_FILE) {
 	message("[i] configuration file $$CONFIG_FILE detected")
