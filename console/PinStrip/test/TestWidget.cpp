@@ -15,8 +15,27 @@
 // Author:   Silvano Catinella <catinella@yahoo.com>
 //
 // Description:
+//		This class provides the object that implement the whole test.
 //
-//
+//		+===================== mainLayout =====================+
+//		|                                                      |
+//		|  +================= canvasLayout =================+  |
+//		|  |                                                |  |
+//		|  |  +============== toolLayout ================+  |  |
+//		|  |  |  +-------+  +-------+         +-------+  |  |  |
+//		|  |  |  | Tool0 |  | Tool1 |  ////// | Tool7 |  |  |  |
+//		|  |  |  +-------+  +-------+         +-------+  |  |  |
+//		|  |  |     *           *                 *      |  |  |
+//		|  |  +==========================================+  |  |
+//		|  |                                                |  |
+//		|  |  +-------------- DUT's stripe --------------+  |  |
+//		|  |  |   *    *    *    *    *    *    *    *   |  |  |
+//		|  |  |   0    1    2    3    4    5    6    7   |  |  |
+//		|  |  +------------------------------------------+  |  |
+//		|  |                                                |  |
+//		|  +================================================+  |
+//		|                                                      |
+//		+======================================================+
 //
 // License:  LGPL ver 3.0
 //
@@ -39,6 +58,11 @@
 #include <QHBoxLayout>
 
 TestWidget::TestWidget (QWidget *parent):QWidget (parent) {
+	//
+	// Description:
+	//	It is the object constructor and implements all the test's logic
+	//	See the the schema on the file top to get how the objects are arranged on the application's window
+	//
 	m_canvas = new QWidget (this);
 
 	auto *canvasLayout = new QVBoxLayout (m_canvas);
@@ -47,41 +71,42 @@ TestWidget::TestWidget (QWidget *parent):QWidget (parent) {
 	canvasLayout->setContentsMargins (0, 0, 0, 0);
 	toolsLayout->setContentsMargins (0, 0, 0, 0);
 
-	// 1) Crea subito il DUT strip (serve nelle lambda e nella registerTerminal)
+	// 1) DUT's strip creation
 	m_dutStrip = new PinStrip (8, m_canvas);
 
-	// 2) Crea i tool e mettili nella riga orizzontale (toolsLayout)
+	// 2) Tools creation and adjustment in the horizontal-layout (toolsLayout)
 	for (uint8_t i = 0; i < 8; ++i) {
 		ToolWidget *tool = new ToolWidget (i, m_canvas);
 		toolsLayout->addWidget (tool);
 		m_tools.append (tool);
 
-		// IMPORTANT: trasporta i bit dal tool verso il DUT strip
+		// IMPORTANT: It brings bit from tool to DUT's strip
 		connect (tool->pinStrip (), &PinStrip::valuesChanged, this,[this, i] (uint8_t value) {
 			   m_dutStrip->setValue (i, (((1u << i) & value) != 0u) ? 1 : 0);}
 		);
 	}
 
-	// 3) Layout finale: tools sopra, dut strip sotto
+	// 3) Canvas layout
 	canvasLayout->addLayout (toolsLayout);
 	canvasLayout->addWidget (m_dutStrip);
 
-	// 4) Overlay: UNO SOLO, sopra al canvas
+	// 4) Adding Overlay to canvas
 	m_overlay = new ConnectionOverlay (m_canvas);
 	m_overlay->setGeometry (m_canvas->rect ());
 	m_overlay->raise ();
 	m_overlay->show ();
 
-	// 5) Registra terminali: prima DUT pins, poi tool pins
+	// 5) DUT's pin registration
 	for (int i = 0; i < 8; ++i) {
 		m_overlay->registerTerminal(QString("dut.%1").arg(i), m_dutStrip->getPin(i));
 	}
 
+	// 6) Tool's pin registration
 	for (int i = 0; i < m_tools.size (); ++i) {
 		m_overlay->registerTerminal(QString("tool.%1").arg(i), m_tools[i]->pinStrip()->getPin(0));
 	}
 
-	// 6) Main layout: contiene solo il canvas
+	// 7) Main layout: contiene solo il canvas
 	auto *mainLayout = new QVBoxLayout (this);
 	mainLayout->addWidget (m_canvas);
 	setLayout (mainLayout);
@@ -96,4 +121,3 @@ void TestWidget::resizeEvent(QResizeEvent *e) {
 		m_overlay->update();
 	}
 }
-
