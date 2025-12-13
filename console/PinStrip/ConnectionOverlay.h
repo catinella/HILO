@@ -66,7 +66,7 @@ private:
 	QString idOfWidget    (QObject * w) const;
 
 	QHash<QString, QPointer<QWidget>> m_terminals;    // id -> widget
-	QHash<QWidget*, QString>          m_reverse;      // widget -> id
+	QHash<QObject*, QString>          m_reverse;      // widget -> id
 	QVector<QPair <QString, QString>> m_connections;  // lista cavi
 	QString                           m_pendingFrom;  // primo click
 
