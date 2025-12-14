@@ -50,7 +50,6 @@ public:
 	void registerTerminal (const QString & id, QWidget * w);
 
 	// Gestione connessioni
-	void addConnection    (const QString & fromId, const QString & toId);
 	void clearConnections ();
 
 signals:
@@ -62,7 +61,8 @@ protected:
 	void resizeEvent (QResizeEvent * event)              override;
 
 private:
-	QPoint terminalCenter (QWidget * w) const;
+	void    addConnection (const QString & fromId, const QString & toId);
+	QPoint  terminalCenter(QWidget * w) const;
 	QString idOfWidget    (QObject * w) const;
 
 	QHash<QString, QPointer<QWidget>> m_terminals;    // id -> widget
