@@ -41,13 +41,23 @@
 #include <QMouseEvent>
 
 ConnectionOverlay::ConnectionOverlay (QWidget *parent):QWidget (parent) {
+	//
+	// Description:
+	//	It is the lonely class' constructor
+	//
+
+	// [!] Because the Overlay is put on the top ot the graphich layers stack. WA_TransparentForMouseEvents property
+	//     must be set to FALSE, else every mouse events will be disabled
 	setAttribute (Qt::WA_TransparentForMouseEvents, true);
+
 	setAttribute (Qt::WA_NoSystemBackground, true);
+
 	setAttribute (Qt::WA_TranslucentBackground, true);
 
 	// IMPORTANT: Overlay must be on all graphic elements
 	raise ();
 }
+
 
 void ConnectionOverlay::registerTerminal (const QString & id, QWidget *w) {
 	//
@@ -63,7 +73,7 @@ void ConnectionOverlay::registerTerminal (const QString & id, QWidget *w) {
 		
 		connect(w, SIGNAL(rightClicked()), this, SLOT(onTerminalRightClicked()));
 
-		 connect(w, &QObject::destroyed, this, [this, id, w]() {
+		connect(w, &QObject::destroyed, this, [this, id, w]() {
 			m_terminals.remove(id);
 			m_reverse.remove(w);
 			if (m_pendingFrom == id)
@@ -73,30 +83,17 @@ void ConnectionOverlay::registerTerminal (const QString & id, QWidget *w) {
 	}
 }
 
-void ConnectionOverlay::addConnection (const QString & fromId, const QString & toId) {
-	if (fromId.isEmpty () || toId.isEmpty ()) {
-		qCritical() << __PRETTY_FUNCTION__ << ": Invalid arguments";
-
-	} else if (!m_terminals.contains(fromId) || !m_terminals.contains(toId)) {
-		qWarning() << __PRETTY_FUNCTION__ << ": ??";
-
-	} else {
-		qDebug() << __PRETTY_FUNCTION__ << ": new connect append";
-		m_connections.append ({fromId, toId});
-		update ();
-	}
-}
 
 void ConnectionOverlay::clearConnections () {
+	//
+	// Description:
+	//	It clears all the sored connections
+	//
 	m_connections.clear ();
 	m_pendingFrom.clear ();
 	update ();
 }
 
-QString ConnectionOverlay::idOfWidget (QObject *w) const {
-	auto it = m_reverse.find (static_cast < QWidget * >(w));
-	return (it == m_reverse.end ())? QString () : it.value ();
-}
 
 bool ConnectionOverlay::eventFilter (QObject *watched, QEvent *event) {
 	bool handled = false;
@@ -156,42 +153,39 @@ bool ConnectionOverlay::eventFilter (QObject *watched, QEvent *event) {
 	return handled ? true : baseHandled;
 }
 
+
 void ConnectionOverlay::paintEvent (QPaintEvent *) {
-	QPainter p (this);
-	p.setRenderHint (QPainter::Antialiasing, true);
+	//
+	// Description:
+	//	This method is called by QT internal loop, and draws the link between the selected items.
+	//	[!] All the linked items and the selected item, are stored in the m_connections property
+	//
+	QPainter p(this);
+	p.setRenderHint(QPainter::Antialiasing, true);
 	
-	qDebug() << "PAINT overlay size=" << size()
-		<< " connections=" << m_connections.size()
-		<< " visible=" << isVisible();
-		
-	// disegna cavi esistenti
-	for (const auto & c:m_connections) {
-		QWidget *a = m_terminals.value (c.first, nullptr);
-		QWidget *b = m_terminals.value (c.second, nullptr);
-		qDebug() << "DRAW ids" << c.first << "->" << c.second << " a "
-			<< (a ? a->metaObject()->className() : "NULL") << " b "
-			<< (b ? b->metaObject()->className() : "NULL");
+	// All links drawing...
+	for (const auto &c : m_connections) {
+		QWidget *a = m_terminals.value(c.first, nullptr);
+		QWidget *b = m_terminals.value(c.second, nullptr);
                     
 		if (a != nullptr && b != nullptr) {
-			const QPoint pa = terminalCenter (a);
-			const QPoint pb = terminalCenter (b);
-
-			qDebug() << "PTS" << pa << "->" << pb;
+			const QPoint pa = terminalCenter(a);
+			const QPoint pb = terminalCenter(b);
 
 			// marker giganteschi
 			p.drawEllipse(pa, 10, 10);
 			p.drawEllipse(pb, 10, 10);
 			
-			p.drawLine (pa, pb);
+			p.drawLine(pa, pb);
 		}
 	}
 
-	// disegna “cavo pendente” (solo come feedback: dal from verso il suo centro)
-	if (!m_pendingFrom.isEmpty ()) {
+	// Uncompleted link drawing...
+	if (m_pendingFrom.isEmpty() == false) {
 		QWidget *a = m_terminals.value (m_pendingFrom, nullptr);
 		if (a) {
 			const QPoint pa = terminalCenter (a);
-			// piccolo segno per indicare selezione
+			// Selected item marker
 			p.drawEllipse (pa, 6, 6);
 		}
 	}
@@ -199,7 +193,42 @@ void ConnectionOverlay::paintEvent (QPaintEvent *) {
 	return;
 }
 
+
+void ConnectionOverlay::resizeEvent (QResizeEvent *e) {
+	QWidget::resizeEvent(e);
+	update();
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------
+//                                          P R I V A T E   M E T H O D S
+//------------------------------------------------------------------------------------------------------------------------------
+
+void ConnectionOverlay::addConnection (const QString &fromId, const QString &toId) {
+	//
+	// Description:
+	//	It checks for the argument defined Object-IDs and if they are ok then it stores them in the m_connections property.
+	//	The property will be used by paintEvent() method to draw all stored links 
+	//
+	if (fromId.isEmpty () || toId.isEmpty ()) {
+		qCritical() << __PRETTY_FUNCTION__ << ": Invalid arguments";
+
+	} else if (!m_terminals.contains(fromId) || !m_terminals.contains(toId)) {
+		qWarning() << __PRETTY_FUNCTION__ << ": ??";
+
+	} else {
+		qDebug() << __PRETTY_FUNCTION__ << ": new connect append";
+		m_connections.append ({fromId, toId});
+		update ();
+	}
+}
+
+
 QPoint ConnectionOverlay::terminalCenter(QWidget *w) const {
+	//
+	// Description:
+	//	This methos accepts a widget as argument and returns coordinates of the widget's center point
+	//
 	auto out = QPoint();
 	if (w) {
 		
@@ -215,19 +244,20 @@ QPoint ConnectionOverlay::terminalCenter(QWidget *w) const {
 }
 
 
-void ConnectionOverlay::resizeEvent (QResizeEvent *e) {
-	QWidget::resizeEvent (e);
-	update ();
+QString ConnectionOverlay::idOfWidget (QObject *w) const {
+	auto it = m_reverse.find (static_cast < QWidget * >(w));
+	return (it == m_reverse.end ())? QString () : it.value ();
 }
 
+//------------------------------------------------------------------------------------------------------------------------------
+//                                                     S L O T S
+//------------------------------------------------------------------------------------------------------------------------------
 
 void ConnectionOverlay::onTerminalRightClicked() {
 	//
 	// Description:
 	//	This is the slot associated to the rightClicked signal emitted by virtual tools' pin or by DUT's stripe pins
 	//
-	qDebug() << __PRETTY_FUNCTION__ << "======= START =======";
-	
 	QObject       *w = sender();
 	const QString id = m_reverse.value(w);
 	
@@ -251,6 +281,5 @@ void ConnectionOverlay::onTerminalRightClicked() {
 			update();
 		}
 	}
-	qDebug() << __PRETTY_FUNCTION__ << "======= STOP =======";
 	return;
 }
