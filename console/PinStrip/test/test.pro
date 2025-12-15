@@ -40,11 +40,19 @@ TEMPLATE      = app
 TARGET        = PinStrip_test
 QT           += widgets testlib
 INCLUDEPATH  += $$PWD $$PWD/.. $$PWD/../../PinWidget
-SOURCES      += $$PWD/*.cpp $$PWD/../PinStrip.cpp $$PWD/../ConnectionOverlay.cpp
 LIBS         += -L$$PWD/../../PinWidget -lPinWidget
-HEADERS      += $$PWD/../PinStrip.h $$PWD/../ConnectionOverlay.h $$PWD/*.h
 DESTDIR       = $$PWD
 PINWIDGET_LIB = $$PWD/../../PinWidget/libPinWidget.a
+SOURCES      += \
+	$$PWD/*.cpp \
+	$$PWD/../PinStrip.cpp \
+	$$PWD/../ConnectionOverlay.cpp \
+	$$PWD/../pinConnection.cpp
+HEADERS      += \
+	$$PWD/*.h \
+	$$PWD/../PinStrip.h \
+	$$PWD/../ConnectionOverlay.h \
+	$$PWD/../pinConnection.h
 
 exists($$CONFIG_FILE) {
 	message("[i] configuration file $$CONFIG_FILE detected")
