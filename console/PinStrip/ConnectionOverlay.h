@@ -40,36 +40,36 @@
 #include <QPointer>
 #include <QHash>
 #include <QVector>
+#include "pinConnection.h"
 
 class ConnectionOverlay:public QWidget {
 	Q_OBJECT
 public:
-	explicit ConnectionOverlay (QWidget * parent = nullptr);
+	explicit ConnectionOverlay (QWidget *parent = nullptr);
 
 	// Registra un "terminale" (es. PinWidget o un QPushButton che rappresenta un pin)
-	void registerTerminal (const QString & id, QWidget * w);
+	void registerTerminal (const QString &id, PinWidget *w);
 
 	// Gestione connessioni
 	void clearConnections ();
 
 signals:
-	void connectionAdded (const QString & fromId, const QString & toId);
+	void connectionAdded (const QString &fromId, const QString &toId);
 
 protected:
-	bool eventFilter (QObject * watched, QEvent * event) override;
-	void paintEvent  (QPaintEvent * event)               override;
-	void resizeEvent (QResizeEvent * event)              override;
+	bool eventFilter (QObject *watched, QEvent* event) override;
+	void paintEvent  (QPaintEvent *event)              override;
+	void resizeEvent (QResizeEvent *event)             override;
 
 private:
-	void    addConnection (const QString & fromId, const QString & toId);
-	QPoint  terminalCenter(QWidget * w) const;
-	QString idOfWidget    (QObject * w) const;
+	bool    delConnection (const QString &fromId, const QString &toId);
+	void    addConnection (const QString &fromId, const QString &toId);
+	QPoint  terminalCenter(QWidget *w) const;
+	QString idOfWidget    (QObject *w) const;
 
-	QHash<QString, QPointer<QWidget>> m_terminals;    // id -> widget
-	QHash<QObject*, QString>          m_reverse;      // widget -> id
-	QVector<QPair <QString, QString>> m_connections;  // lista cavi
-	QString                           m_pendingFrom;  // primo click
+	QVector<PinConnection> m_linksPool;
+	QVector<PinConnection>::iterator selectedItem = m_linksPool.end();
 
 private slots:
-	void onTerminalRightClicked();
+	void onTerminalRightClicked(const QString &key, PinWidget *w);
 };
