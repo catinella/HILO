@@ -59,26 +59,17 @@ ConnectionOverlay::ConnectionOverlay (QWidget *parent):QWidget (parent) {
 }
 
 
-void ConnectionOverlay::registerTerminal (const QString & id, QWidget *w) {
+void ConnectionOverlay::registerTerminal (const QString & id, PinWidget *w) {
 	//
 	// Description:
 	//	This method associate the argument defined object's signal rightClicked to the onTerminalRightClicked()
 	//	slot.
 	//
 	if (w != nullptr && id.isEmpty () == false) {
-		m_terminals[id] = w;
-		m_reverse[w]    = id;
-
 		qDebug() << "REGISTER" << id << "w=" << w << (w ? w->metaObject()->className() : "NULL");
 		
-		connect(w, SIGNAL(rightClicked()), this, SLOT(onTerminalRightClicked()));
-
-		connect(w, &QObject::destroyed, this, [this, id, w]() {
-			m_terminals.remove(id);
-			m_reverse.remove(w);
-			if (m_pendingFrom == id)
-				m_pendingFrom.clear();
-			update();
+		connect(w, &PinWidget::rightClicked, this, [this, key=id, w](auto...){
+			onTerminalRightClicked(key, w);
 		});
 	}
 }
@@ -89,13 +80,13 @@ void ConnectionOverlay::clearConnections () {
 	// Description:
 	//	It clears all the sored connections
 	//
-	m_connections.clear ();
-	m_pendingFrom.clear ();
+	m_linksPool.clear ();
 	update ();
 }
 
 
 bool ConnectionOverlay::eventFilter (QObject *watched, QEvent *event) {
+/*
 	bool handled = false;
 
 	if (event != nullptr) {
@@ -144,13 +135,16 @@ bool ConnectionOverlay::eventFilter (QObject *watched, QEvent *event) {
 			}
 		}
 	}
+	
 	// 3) Default: lascia fare a QWidget
 	bool baseHandled = false;
 	if (!handled) {
 		baseHandled = QWidget::eventFilter (watched, event);
 	}
 
-	return handled ? true : baseHandled;
+	return(handled ? true : baseHandled);
+*/
+	return(true);
 }
 
 
@@ -160,15 +154,19 @@ void ConnectionOverlay::paintEvent (QPaintEvent *) {
 	//	This method is called by QT internal loop, and draws the link between the selected items.
 	//	[!] All the linked items and the selected item, are stored in the m_connections property
 	//
-	QPainter p(this);
+	QPainter  p(this);
+	PinWidget *a = nullptr;
+	PinWidget *b = nullptr;
+	QString   aid = "";
+	QString   bid = "";
+	
 	p.setRenderHint(QPainter::Antialiasing, true);
 	
 	// All links drawing...
-	for (const auto &c : m_connections) {
-		QWidget *a = m_terminals.value(c.first, nullptr);
-		QWidget *b = m_terminals.value(c.second, nullptr);
+	for (const auto &item : m_linksPool) {
+		if (item.isValid()) {
+                  item.getItems(aid, bid, a, b);
                     
-		if (a != nullptr && b != nullptr) {
 			const QPoint pa = terminalCenter(a);
 			const QPoint pb = terminalCenter(b);
 
@@ -177,19 +175,20 @@ void ConnectionOverlay::paintEvent (QPaintEvent *) {
 			p.drawEllipse(pb, 10, 10);
 			
 			p.drawLine(pa, pb);
+			
+		} else {
+			QWidget *ptr = nullptr;
+                  item.getItems(aid, bid, a, b);
+                  if (a != nullptr) ptr = a;
+                  else              ptr = b;
+			if (ptr != nullptr) {
+				const QPoint pa = terminalCenter (ptr);
+				// Selected item marker
+				p.drawEllipse (pa, 6, 6);
+			}
 		}
 	}
 
-	// Uncompleted link drawing...
-	if (m_pendingFrom.isEmpty() == false) {
-		QWidget *a = m_terminals.value (m_pendingFrom, nullptr);
-		if (a) {
-			const QPoint pa = terminalCenter (a);
-			// Selected item marker
-			p.drawEllipse (pa, 6, 6);
-		}
-	}
-	
 	return;
 }
 
@@ -203,14 +202,14 @@ void ConnectionOverlay::resizeEvent (QResizeEvent *e) {
 //------------------------------------------------------------------------------------------------------------------------------
 //                                          P R I V A T E   M E T H O D S
 //------------------------------------------------------------------------------------------------------------------------------
-
+/*
 void ConnectionOverlay::addConnection (const QString &fromId, const QString &toId) {
 	//
 	// Description:
 	//	It checks for the argument defined Object-IDs and if they are ok then it stores them in the m_connections property.
 	//	The property will be used by paintEvent() method to draw all stored links 
 	//
-	if (fromId.isEmpty () || toId.isEmpty ()) {
+	if (fromId.isEmpty() || toId.isEmpty()) {
 		qCritical() << __PRETTY_FUNCTION__ << ": Invalid arguments";
 
 	} else if (!m_terminals.contains(fromId) || !m_terminals.contains(toId)) {
@@ -218,11 +217,11 @@ void ConnectionOverlay::addConnection (const QString &fromId, const QString &toI
 
 	} else {
 		qDebug() << __PRETTY_FUNCTION__ << ": new connect append";
-		m_connections.append ({fromId, toId});
+		m_connections.append({fromId, toId});
 		update ();
 	}
 }
-
+*/
 
 QPoint ConnectionOverlay::terminalCenter(QWidget *w) const {
 	//
@@ -231,55 +230,58 @@ QPoint ConnectionOverlay::terminalCenter(QWidget *w) const {
 	//
 	auto out = QPoint();
 	if (w) {
-		
 		const QPoint c(w->width() / 2, w->height() / 2);
-		
-		// 1) punto nel globale partendo dal widget
 		const QPoint g = w->mapToGlobal(c);
-		
-		// 2) torna nelle coordinate dell’overlay
 		out = this->mapFromGlobal(g);
 	}
 	return(out);
 }
 
-
+/*
 QString ConnectionOverlay::idOfWidget (QObject *w) const {
 	auto it = m_reverse.find (static_cast < QWidget * >(w));
 	return (it == m_reverse.end ())? QString () : it.value ();
 }
+*/
+
+/*
+bool ConnectionOverlay::delConnection (const QString & fromId, const QString & toId) {
+	m_connections.remove({fromId, toId});
+}
+*/
 
 //------------------------------------------------------------------------------------------------------------------------------
 //                                                     S L O T S
 //------------------------------------------------------------------------------------------------------------------------------
-
-void ConnectionOverlay::onTerminalRightClicked() {
+void ConnectionOverlay::onTerminalRightClicked(const QString &key, PinWidget *w) {
 	//
 	// Description:
 	//	This is the slot associated to the rightClicked signal emitted by virtual tools' pin or by DUT's stripe pins
 	//
-	QObject       *w = sender();
-	const QString id = m_reverse.value(w);
 	
-	qDebug() << "RIGHTCLICK caught, sender id =" << id;
-	
-	if (id.isEmpty() == false) {
-	 
-		if (m_pendingFrom.isEmpty()) {
-			m_pendingFrom = id;
-			update();
+	qDebug() << "RIGHTCLICK caught, sender id =" << key;
+
+	if (selectedItem == m_linksPool.end()) {
+		selectedItem = std::find_if(
+			m_linksPool.begin(), m_linksPool.end(), [&](const PinConnection &c){return c.involves(key);}
+		);
+		
+		if (selectedItem != m_linksPool.end()) {
+			m_linksPool.erase(selectedItem);
+			selectedItem = m_linksPool.end();
 			
 		} else {
-			const QString from = m_pendingFrom;
-			const QString to   = id;
-			m_pendingFrom.clear();
-	
-			if (from != to) {
-				addConnection(from, to);
-				emit connectionAdded(from, to);
-			}
-			update();
+			// New item creation
+			m_linksPool.append(PinConnection(key, w));
+			selectedItem = std::prev(m_linksPool.end());
 		}
+	} else {
+		// The link is completed
+		selectedItem->addItem(key, w);
+		selectedItem = m_linksPool.end();
 	}
+	
+	update();
+	
 	return;
 }
