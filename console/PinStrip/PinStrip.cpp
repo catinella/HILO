@@ -86,7 +86,7 @@ void PinStrip::setValue (uint8_t value) {
 	for (int i = 0; i < m_pins.size(); i++) {
 		bool bitValue = (value & (1 << i)) > 0 ? 1 : 0;
 		//printf("%s: %d)%d\n", __PRETTY_FUNCTION__, i, bitValue);
-		QSignalBlocker b(m_pins[i]);
+		//QSignalBlocker b(m_pins[i]);
 		m_pins[i]->setValue(bitValue);
 	}
 	return;
