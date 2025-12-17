@@ -43,6 +43,12 @@ bool PinConnection::addItem (const QString &x, PinWidget *xw) {
 	} else {
 		// ERROR!
 	}
+
+	// Links between pins on the same side, is not allowed
+	if (aW != nullptr && bW != nullptr && aW->getSide() == bW->getSide()) {
+		aW = nullptr;
+		bW = nullptr;
+	}
 	return(out);
 }
 
