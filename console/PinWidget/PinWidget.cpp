@@ -36,13 +36,14 @@
 ------------------------------------------------------------------------------------------------------------------------------*/
 #include "PinWidget.h"
 
-PinWidget::PinWidget (QWidget *parent): QWidget (parent) {
+PinWidget::PinWidget (compPinSide_t side, QWidget *parent): QWidget (parent) {
 	//
 	// Description:
 	//	This is the Object builder method
 	//
 	setSizePolicy (QSizePolicy::Minimum, QSizePolicy::Minimum);
 	setFixedSize(8, 16);
+	m_side = side;
 }
 
 bool PinWidget::getValue () const {
@@ -63,6 +64,10 @@ void PinWidget::setValue (bool v) {
 		update ();
 		emit valueChanged (m_value);
 	}
+}
+
+compPinSide_t PinWidget::getSide() {
+	return(m_side);
 }
 
 void PinWidget::paintEvent (QPaintEvent *) {

@@ -40,13 +40,19 @@
 #include <QPainter>
 #include <QMouseEvent>
 
+typedef enum {
+	PWDG_DUTSIDE,
+	PWDG_TOOLSIDE
+} compPinSide_t;
+
 class PinWidget: public QWidget {
 	Q_OBJECT 
 public:
-	explicit PinWidget (QWidget * parent = nullptr);
+	explicit PinWidget (compPinSide_t side, QWidget * parent = nullptr);
 
-	bool getValue () const;
-	void setValue (bool v);
+	bool          getValue () const;
+	void          setValue (bool v);
+	compPinSide_t getSide  ();
 
 signals:
 	void valueChanged (bool value);
@@ -58,7 +64,8 @@ protected:
 	void  mousePressEvent (QMouseEvent * event) override;
 
 private:
-	bool  m_value = false;
+	bool          m_value = false;
+	compPinSide_t m_side;
 };
 
 #endif // PINWIDGET_H
