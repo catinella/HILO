@@ -72,7 +72,7 @@ TestWidget::TestWidget (QWidget *parent):QWidget (parent) {
 	toolsLayout->setContentsMargins (0, 0, 0, 0);
 
 	// 1) DUT's strip creation
-	m_dutStrip = new PinStrip (8, m_canvas);
+	m_dutStrip = new PinStrip (PWDG_DUTSIDE, 8, m_canvas);
 
 	// 2) Tools creation and adjustment in the horizontal-layout (toolsLayout)
 	for (uint8_t i = 0; i < 8; ++i) {

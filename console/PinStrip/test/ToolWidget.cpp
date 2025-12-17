@@ -41,7 +41,7 @@
 ToolWidget::ToolWidget (int n, QWidget *parent): QWidget(parent) {
 	QString label = "Tool " + QString::number(n);
 	m_button = new QPushButton(label, this);
-	m_pin1   = new PinStrip(1, this);
+	m_pin1   = new PinStrip(PWDG_TOOLSIDE, 1, this);
 
 	auto layout = new QVBoxLayout (this);
 	layout->addWidget (m_button);
