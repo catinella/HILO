@@ -39,7 +39,7 @@
 
 #define MAXNUMOFPINS 8
 
-PinStrip::PinStrip (int pinCount, QWidget *parent):QWidget (parent) {
+PinStrip::PinStrip (compPinSide_t side, int pinCount, QWidget *parent): QWidget (parent) {
 	//
 	// Description:
 	//	This is the PinStrip class' constructor.
@@ -50,7 +50,7 @@ PinStrip::PinStrip (int pinCount, QWidget *parent):QWidget (parent) {
 	auto layout = new QHBoxLayout (this);
 
 	for (int i = 0; i < pinCount; ++i) {
-		auto pin = new PinWidget(this);
+		auto pin = new PinWidget(side, this);
 		m_pins.append(pin);
 		layout->addWidget(pin);
 

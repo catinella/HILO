@@ -43,7 +43,7 @@
 class PinStrip:public QWidget {
 	Q_OBJECT
 public:
-	explicit PinStrip (int pinCount = 8, QWidget * parent = nullptr);
+	explicit PinStrip (compPinSide_t side, int pinCount = 8, QWidget * parent = nullptr);
 
 	int        pinSrtipSize () const;
 	void       setValue    (uint8_t value);
@@ -56,7 +56,8 @@ signals:
 	void valuesChanged (uint8_t newValues);
 
 private:
-	QVector<PinWidget*>m_pins;
+	QVector<PinWidget*> m_pins;
+	compPinSide_t       m_side;
 
 	//private slots: void onPinToggled (int index, bool value);	// slot interno
 };
