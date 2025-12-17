@@ -108,7 +108,7 @@ public:
 
 		layout->addLayout(buttonLayout);
 
-		m_pin = new PinWidget(this);
+		m_pin = new PinWidget(PWDG_DUTSIDE, this);
 		layout->addWidget(m_pin, 0, Qt::AlignHCenter);
 
 		// overlay sopra tutto
