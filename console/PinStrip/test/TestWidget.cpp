@@ -79,11 +79,6 @@ TestWidget::TestWidget (QWidget *parent):QWidget (parent) {
 		ToolWidget *tool = new ToolWidget (i, m_canvas);
 		toolsLayout->addWidget (tool);
 		m_tools.append (tool);
-
-		// IMPORTANT: It brings bit from tool to DUT's strip
-		connect (tool->pinStrip (), &PinStrip::valuesChanged, this,[this, i] (uint8_t value) {
-			   m_dutStrip->setValue (i, (((1u << i) & value) != 0u) ? 1 : 0);}
-		);
 	}
 
 	// 3) Canvas layout
