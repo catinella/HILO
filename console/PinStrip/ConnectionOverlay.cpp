@@ -271,9 +271,9 @@ void ConnectionOverlay::onTerminalValueChanged(const QString &id, PinWidget *src
 			
 			c.getItems(xID, yID, xWidget, yWidget);
 			if (xID == id)
-				yWidget->setValue(v);
+				yWidget->setValue(v, false);
 			else
-				xWidget->setValue(v);
+				xWidget->setValue(v, false);
 		}
 	}
 
