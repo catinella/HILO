@@ -51,7 +51,7 @@ public:
 	explicit PinWidget (compPinSide_t side, QWidget * parent = nullptr);
 
 	bool          getValue () const;
-	void          setValue (bool v);
+	void          setValue (bool value, bool propagate = true);
 	compPinSide_t getSide  ();
 
 signals:

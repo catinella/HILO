@@ -54,7 +54,7 @@ bool PinWidget::getValue () const {
 	return(m_value);
 }
 
-void PinWidget::setValue (bool v) {
+void PinWidget::setValue (bool v, bool propagate) {
 	//
 	// Description:
 	//	It sets the pin value
@@ -62,7 +62,8 @@ void PinWidget::setValue (bool v) {
 	if (m_value != v) {
 		m_value = v;
 		update ();
-		emit valueChanged (m_value);
+		if (propagate)
+			emit valueChanged (m_value);
 	}
 }
 
