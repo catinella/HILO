@@ -41,21 +41,29 @@
 ToolWidget::ToolWidget (int n, QWidget *parent): QWidget(parent) {
 	QString label = "Tool " + QString::number(n);
 	m_button = new QPushButton(label, this);
-	m_pin1   = new PinStrip(PWDG_TOOLSIDE, 1, this);
+	m_pin    = new PinStrip(PWDG_TOOLSIDE, 1, this);
 
 	auto layout = new QVBoxLayout (this);
-	layout->addWidget (m_button);
-	layout->addWidget (m_pin1);
+	layout->addWidget(m_button);
+	layout->addWidget(m_pin);
 	setLayout (layout);
+
+	qDebug()
+		<< __PRETTY_FUNCTION__ << " : "
+		<< " pin" << m_pin
+		<< " parent=" << m_pin->parent()
+		<< " parentWidget=" << m_pin->parentWidget()
+		<< " meta=" << m_pin->metaObject()->className();
+
 
 	connect (m_button, &QPushButton::pressed, this,[this] () {
 		uint8_t cval = 0;
-		m_pin1->getValue(cval);
+		m_pin->getValue(cval);
 		cval = (cval == 0) ? 1 : 0;
-		m_pin1->setValue(cval);
+		m_pin->setValue(cval);
 	});
 }
 
 PinStrip* ToolWidget::pinStrip() const {
-	return(m_pin1);
+	return(m_pin);
 }

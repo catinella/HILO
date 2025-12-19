@@ -49,7 +49,7 @@ public:
 	PinStrip* pinStrip   () const;
 private:
 	QPushButton *m_button = nullptr;
-	PinStrip    *m_pin1   = nullptr;
+	PinStrip    *m_pin    = nullptr;
 };
 
 #endif
