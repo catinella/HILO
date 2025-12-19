@@ -18,9 +18,6 @@
 //		This class allows you to create stripes of pins. These objects are used to connect the virtual-instruments
 //		to the DUT
 //
-//		BUGs:
-//		=====
-//		- Multi connected pin
 //
 // License:  LGPL ver 3.0
 //
