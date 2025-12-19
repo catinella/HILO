@@ -17,25 +17,27 @@
 // Description:
 //		This class provides the object that implement the whole test.
 //
-//		+===================== mainLayout =====================+
-//		|                                                      |
-//		|  +================= canvasLayout =================+  |
-//		|  |                                                |  |
-//		|  |  +============== toolLayout ================+  |  |
-//		|  |  |  +-------+  +-------+         +-------+  |  |  |
-//		|  |  |  | Tool0 |  | Tool1 |  ////// | Tool7 |  |  |  |
-//		|  |  |  +-------+  +-------+         +-------+  |  |  |
-//		|  |  |     *           *                 *      |  |  |
-//		|  |  +==========================================+  |  |
-//		|  |                                                |  |
-//		|  |  +-------------- DUT's stripe --------------+  |  |
-//		|  |  |   *    *    *    *    *    *    *    *   |  |  |
-//		|  |  |   0    1    2    3    4    5    6    7   |  |  |
-//		|  |  +------------------------------------------+  |  |
-//		|  |                                                |  |
-//		|  +================================================+  |
-//		|                                                      |
-//		+======================================================+
+//		     mainLayout 
+//		         |
+//		         |
+//		    +====+============ canvasWidget =================+  
+//		    |                                                |  
+//		    |                   toolLayout ---------------------+
+//		    |                        |                       |  |
+//		    |         +----------+---+----+--------+         |  |
+//		    |         |          |        |        |         |  |
+//		    |     +---+---+  +---+---+         +---+---+     |  |
+//		    |     | Tool0 |  | Tool1 |  ////// | Tool7 |     |  +-- canvasLayout  
+//		    |     +-------+  +-------+         +-------+     |  |
+//		    |        *           *                 *         |  |
+//		    |                                                |  |
+//		    |                                                |  |
+//		    |  +-------------- DUT's stripe --------------+  |  |
+//		    |  |   *    *    *    *    *    *    *    *   +-----+
+//		    |  |   0    1    2    3    4    5    6    7   |  |  
+//		    |  +------------------------------------------+  |  
+//		    |                                                |  
+//		    +================================================+  
 //
 // License:  LGPL ver 3.0
 //
@@ -63,33 +65,40 @@ TestWidget::TestWidget (QWidget *parent):QWidget (parent) {
 	//	It is the object constructor and implements all the test's logic
 	//	See the the schema on the file top to get how the objects are arranged on the application's window
 	//
-	m_canvas = new QWidget (this);
+	m_canvas = new QWidget(this);
 
-	auto *canvasLayout = new QVBoxLayout (m_canvas);
-	auto *toolsLayout = new QHBoxLayout ();
+	auto *canvasLayout = new QVBoxLayout(m_canvas);
+	auto *toolsLayout  = new QHBoxLayout();
 
-	canvasLayout->setContentsMargins (0, 0, 0, 0);
-	toolsLayout->setContentsMargins (0, 0, 0, 0);
+	{
+		this->setAutoFillBackground(true);
+		QPalette pal = this->palette();
+		pal.setColor(QPalette::Window, QColor(102, 178, 255));  // grigio scuro
+		this->setPalette(pal);
+	}
+	
+	canvasLayout->setContentsMargins(0, 0, 0, 0);
+	toolsLayout->setContentsMargins(0, 0, 0, 0);
 
 	// 1) DUT's strip creation
-	m_dutStrip = new PinStrip (PWDG_DUTSIDE, 8, m_canvas);
+	m_dutStrip = new PinStrip(PWDG_DUTSIDE, 8, m_canvas);
 
 	// 2) Tools creation and adjustment in the horizontal-layout (toolsLayout)
 	for (uint8_t i = 0; i < 8; ++i) {
-		ToolWidget *tool = new ToolWidget (i, m_canvas);
-		toolsLayout->addWidget (tool);
-		m_tools.append (tool);
+		ToolWidget *tool = new ToolWidget(i, m_canvas);
+		toolsLayout->addWidget(tool);
+		m_tools.append(tool);
 	}
 
 	// 3) Canvas layout
-	canvasLayout->addLayout (toolsLayout);
-	canvasLayout->addWidget (m_dutStrip);
+	canvasLayout->addLayout(toolsLayout);
+	canvasLayout->addWidget(m_dutStrip);
 
 	// 4) Adding Overlay to canvas
-	m_overlay = new ConnectionOverlay (m_canvas);
-	m_overlay->setGeometry (m_canvas->rect ());
-	m_overlay->raise ();
-	m_overlay->show ();
+	m_overlay = new ConnectionOverlay(m_canvas);
+	m_overlay->setGeometry(m_canvas->rect());
+	m_overlay->raise();
+	m_overlay->show();
 
 	// 5) DUT's pin registration
 	for (int i = 0; i < 8; ++i) {
@@ -97,14 +106,14 @@ TestWidget::TestWidget (QWidget *parent):QWidget (parent) {
 	}
 
 	// 6) Tool's pin registration
-	for (int i = 0; i < m_tools.size (); ++i) {
+	for (int i = 0; i < m_tools.size(); ++i) {
 		m_overlay->registerTerminal(QString("tool.%1").arg(i), m_tools[i]->pinStrip()->getPin(0));
 	}
 
 	// 7) Main layout: contiene solo il canvas
-	auto *mainLayout = new QVBoxLayout (this);
-	mainLayout->addWidget (m_canvas);
-	setLayout (mainLayout);
+	auto *mainLayout = new QVBoxLayout(this);
+	mainLayout->addWidget(m_canvas);
+	setLayout(mainLayout);
 }
 
 void TestWidget::resizeEvent(QResizeEvent *e) {
