@@ -15,8 +15,12 @@
 // Author:   Silvano Catinella <catinella@yahoo.com>
 //
 // Description:
-//		This class allows you to create stripes of pins. These objects are using to connect the virtual-instruments
+//		This class allows you to create stripes of pins. These objects are used to connect the virtual-instruments
 //		to the DUT
+//
+//		BUGs:
+//		=====
+//		- Multi connected pin
 //
 // License:  LGPL ver 3.0
 //
@@ -36,10 +40,11 @@
 ------------------------------------------------------------------------------------------------------------------------------*/
 #include "PinStrip.h"
 #include <QHBoxLayout>
+#include <QFrame>
 
-#define MAXNUMOFPINS 8
+//#define MAXNUMOFPINS 8
 
-PinStrip::PinStrip (compPinSide_t side, int pinCount, QWidget *parent): QWidget (parent) {
+PinStrip::PinStrip (compPinSide_t side, int pinCount, QWidget *parent): QWidget(parent) {
 	//
 	// Description:
 	//	This is the PinStrip class' constructor.
@@ -47,12 +52,49 @@ PinStrip::PinStrip (compPinSide_t side, int pinCount, QWidget *parent): QWidget 
 	//	function. Everytime a pin's value will change, the associated Lambda will send a message with the new value
 	//	of the whole PinStrip.
 	//
-	auto layout = new QHBoxLayout (this);
+	// Arguments:
+	//	side       The pin connected device side {PWDG_DUTSIDE | PWDG_TOOLSIDE}
+	//	pinCount   The number of PINs in the strip
+	//	QWidget    The parent QWidget
+	//
+	auto root   = new QVBoxLayout(this);
+	auto frame  = new QFrame(this);
+	auto layout = new QHBoxLayout(frame);
 
+	root->addWidget(frame, 0, Qt::AlignCenter);
+	frame->setObjectName("pinStripFrame");
+	frame->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
+	
+	if (pinCount > 1) {
+		QPalette pal = frame->palette();
+		//frame->setFrameStyle(QFrame::Box | QFrame::Plain);
+		frame->setFrameStyle(QFrame::Panel | QFrame::Raised);
+		frame->setLineWidth(3);
+		layout->setSpacing(15);
+		layout->setContentsMargins(10, 10, 10, 10);
+		layout->setAlignment(Qt::AlignCenter);
+		frame->setAutoFillBackground(true);
+		pal.setColor(QPalette::Window, QColor(255, 204, 153));
+		frame->setPalette(pal);
+		
+	} else {
+		frame->setFrameStyle(QFrame::NoFrame);
+		frame->setLineWidth(0);
+	}
+	
 	for (int i = 0; i < pinCount; ++i) {
-		auto pin = new PinWidget(side, this);
+		auto pin = new PinWidget(side, frame);
 		m_pins.append(pin);
 		layout->addWidget(pin);
+
+/*
+		qDebug()
+			<< __PRETTY_FUNCTION__ << " : "
+			<< " pin"           << pin
+			<< " parent="       << pin->parent()
+			<< " parentWidget=" << pin->parentWidget()
+			<< " meta="         << pin->metaObject()->className();
+*/
 
 		connect(pin, &PinWidget::valueChanged, this, [this](void) {
 			uint8_t v = 0;
