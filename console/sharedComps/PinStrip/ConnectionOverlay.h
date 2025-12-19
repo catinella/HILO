@@ -62,15 +62,16 @@ protected:
 	void resizeEvent (QResizeEvent *event)             override;
 
 private:
-	bool    delConnection (const QString &fromId, const QString &toId);
-	void    addConnection (const QString &fromId, const QString &toId);
-	QPoint  terminalCenter(QWidget *w) const;
-	QString idOfWidget    (QObject *w) const;
+	bool                             delConnection  (const QString &fromId, const QString &toId);
+	void                             addConnection  (const QString &fromId, const QString &toId);
+	QPoint                           terminalCenter (QWidget *w) const;
+	QString                          idOfWidget     (QObject *w) const;
+	QVector<PinConnection>::iterator linkFinder     (QString key);
 
-	QVector<PinConnection> m_linksPool;
+	QVector<PinConnection>           m_linksPool;
 	QVector<PinConnection>::iterator selectedItem = m_linksPool.end();
 
 private slots:
-	void onTerminalRightClicked(const QString &key, PinWidget *w);
-	void onTerminalValueChanged(const QString &id, PinWidget *src, bool v);
+	void onTerminalRightClicked (const QString &key, PinWidget *w);
+	void onTerminalValueChanged (const QString &id, PinWidget *src, bool v);
 };

@@ -170,9 +170,9 @@ void ConnectionOverlay::paintEvent (QPaintEvent *) {
 	p.setRenderHint(QPainter::Antialiasing, true);
 	
 	// All links drawing...
-	for (const auto &item : m_linksPool) {
-		if (item.isValid()) {
-                  item.getItems(aid, bid, a, b);
+	for (auto item = m_linksPool.begin(); item < m_linksPool.end(); item++) {
+		if (item->isValid()) {
+                  item->getItems(aid, bid, a, b);
                     
 			const QPoint pa = terminalCenter(a);
 			const QPoint pb = terminalCenter(b);
@@ -184,14 +184,16 @@ void ConnectionOverlay::paintEvent (QPaintEvent *) {
 			p.drawLine(pa, pb);
 			
 		} else {
-			QWidget *ptr = nullptr;
-                  item.getItems(aid, bid, a, b);
-                  if (a != nullptr) ptr = a;
-                  else              ptr = b;
-			if (ptr != nullptr) {
-				const QPoint pa = terminalCenter (ptr);
-				// Selected item marker
-				p.drawEllipse (pa, 6, 6);
+			if (item == selectedItem) {
+				QWidget *ptr = nullptr;
+				item->getItems(aid, bid, a, b);
+				if (a != nullptr) ptr = a;
+				else              ptr = b;
+				if (ptr != nullptr) {
+					const QPoint pa = terminalCenter (ptr);
+					// Selected item marker
+					p.drawEllipse (pa, 6, 6);
+				}
 			}
 		}
 	}
@@ -223,6 +225,15 @@ QPoint ConnectionOverlay::terminalCenter(QWidget *w) const {
 	return(out);
 }
 
+
+QVector<PinConnection>::iterator ConnectionOverlay::linkFinder (QString id) {
+	QVector<PinConnection>::iterator item;
+	for (item = m_linksPool.begin(); item < m_linksPool.end(); item++) {
+		if (item->involves(id) && item != selectedItem) 
+			break;
+	}
+	return(item);
+}
 //------------------------------------------------------------------------------------------------------------------------------
 //                                                     S L O T S
 //------------------------------------------------------------------------------------------------------------------------------
@@ -235,20 +246,29 @@ void ConnectionOverlay::onTerminalRightClicked(const QString &key, PinWidget *w)
 	qDebug() << "RIGHTCLICK caught, sender id =" << key;
 
 	if (selectedItem == m_linksPool.end()) {
-		selectedItem = std::find_if(
-			m_linksPool.begin(), m_linksPool.end(), [&](const PinConnection &c){return c.involves(key);}
-		);
-		
+
+		// Is the source pin already in-use?
+		selectedItem = linkFinder(key);
+
 		if (selectedItem != m_linksPool.end()) {
 			m_linksPool.erase(selectedItem);
 			selectedItem = m_linksPool.end();
 			
-		} else {
-			// New item creation
-			m_linksPool.append(PinConnection(key, w));
-			selectedItem = std::prev(m_linksPool.end());
 		}
+		// New item creation
+		m_linksPool.append(PinConnection(key, w));
+		selectedItem = std::prev(m_linksPool.end());
+		
 	} else {
+		// Is the target pin already in-use?
+		auto oldOne = linkFinder(key); 
+
+		// Old link removed
+		if (oldOne != m_linksPool.end()) {
+			qDebug() << __PRETTY_FUNCTION__ << ": " << __LINE__;
+			m_linksPool.erase(oldOne);
+
+		}
 		// The link is completed
 		selectedItem->addItem(key, w);
 		selectedItem = m_linksPool.end();
