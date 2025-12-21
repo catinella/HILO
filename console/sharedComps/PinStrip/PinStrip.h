@@ -46,20 +46,34 @@ public:
 	explicit PinStrip (compPinSide_t side, int pinCount = 8, QWidget * parent = nullptr);
 
 	int        pinSrtipSize () const;
-	void       setValue    (uint8_t value);
-	void       getValue    (uint8_t &value);
-	void       setValue    (uint8_t index, bool value);
-	void       getValue    (uint8_t index, bool &value);
-	PinWidget* getPin      (int i) const;
+	void       setValue     (uint8_t value);
+	void       getValue     (uint8_t &value);
+	void       setValue     (uint8_t index, bool value);
+	void       getValue     (uint8_t index, bool &value);
+	PinWidget* getPin       (int i) const;
+
+	// Movment API
+	QPoint position () const;
+	void   moveTo   (const QPoint &posInParent);
+	void   moveBy   (const QPoint &deltaInParent);
 	
 signals:
 	void valuesChanged (uint8_t newValues);
+	void dragStarted   (const QPoint &pos);
+	void dragging      (const QPoint &delta);
+	void dragFinished  ();
 
+protected:
+	void mousePressEvent   (QMouseEvent *e) override;
+	void mouseMoveEvent    (QMouseEvent *e) override;
+	void mouseReleaseEvent (QMouseEvent *e) override;
+    
 private:
 	QVector<PinWidget*> m_pins;
 	compPinSide_t       m_side;
-
-	//private slots: void onPinToggled (int index, bool value);	// slot interno
+	bool                m_dragging = false;
+	QPoint              m_pressPos; 
+	QPoint              m_lastGlobalPos;
 };
 
 #endif
