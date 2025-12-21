@@ -114,6 +114,21 @@ TestWidget::TestWidget (QWidget *parent):QWidget (parent) {
 	auto *mainLayout = new QVBoxLayout(this);
 	mainLayout->addWidget(m_canvas);
 	setLayout(mainLayout);
+
+	#include <algorithm> // std::clamp
+
+	connect(m_dutStrip, &PinStrip::dragging, this, [this](const QPoint &delta) {
+		QPoint p = m_dutStrip->position() + delta;
+
+		const int maxX = width()  - m_dutStrip->width();
+		const int maxY = height() - m_dutStrip->height();
+
+		p.setX(std::clamp(p.x(), 0, maxX));
+		p.setY(std::clamp(p.y(), 0, maxY));
+
+		m_dutStrip->moveTo(p);
+	});
+
 }
 
 void TestWidget::resizeEvent(QResizeEvent *e) {
