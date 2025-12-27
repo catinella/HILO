@@ -127,6 +127,8 @@ TestWidget::TestWidget (QWidget *parent):QWidget (parent) {
 		p.setY(std::clamp(p.y(), 0, maxY));
 
 		m_dutStrip->moveTo(p);
+
+		m_overlay->paintNow();
 	});
 
 }
