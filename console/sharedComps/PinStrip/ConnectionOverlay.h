@@ -47,11 +47,13 @@ class ConnectionOverlay:public QWidget {
 public:
 	explicit ConnectionOverlay (QWidget *parent = nullptr);
 
-	// Registra un "terminale" (es. PinWidget o un QPushButton che rappresenta un pin)
+	// Single PIN registration
 	void registerTerminal (const QString &id, PinWidget *w);
 
-	// Gestione connessioni
+	// Connections resetting
 	void clearConnections ();
+
+	void paintNow ();
 
 signals:
 	void connectionAdded (const QString &fromId, const QString &toId);

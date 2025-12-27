@@ -40,7 +40,7 @@
 #include <QPainter>
 #include <QMouseEvent>
 
-ConnectionOverlay::ConnectionOverlay (QWidget *parent):QWidget (parent) {
+ConnectionOverlay::ConnectionOverlay (QWidget *parent): QWidget(parent) {
 	//
 	// Description:
 	//	It is the lonely class' constructor
@@ -91,6 +91,19 @@ void ConnectionOverlay::clearConnections () {
 	update ();
 }
 
+
+void ConnectionOverlay::paintNow () {
+	//
+	// Description:
+	//	It forces the object to redraw every pin connection. It is used by the application to manage th PinStripe
+	//	moving event
+	//
+	update();
+}
+
+//------------------------------------------------------------------------------------------------------------------------------
+//                                        P R O T E C T E D   M E T H O D S
+//------------------------------------------------------------------------------------------------------------------------------
 
 bool ConnectionOverlay::eventFilter (QObject *watched, QEvent *event) {
 /*
@@ -155,7 +168,7 @@ bool ConnectionOverlay::eventFilter (QObject *watched, QEvent *event) {
 }
 
 
-void ConnectionOverlay::paintEvent (QPaintEvent *) {
+void ConnectionOverlay::paintEvent (QPaintEvent*) {
 	//
 	// Description:
 	//	This method is called by QT internal loop, and draws the link between the selected items.
