@@ -259,7 +259,7 @@ void PinStrip::mouseReleaseEvent (QMouseEvent *e) {
 		m_dragging = false;
 		emit dragFinished();
 		e->accept();
-		update();
+		
 	} else
 		// Event propagating...
 		QWidget::mouseReleaseEvent(e);
