@@ -21,11 +21,11 @@ Then it will instructs the HILO_engine on the step iw will have to follow to per
 the test, the software-client will retrive all resulted data, and the user will be able to evaluate the the DUT's
 behaviohr.
 	
-![Time sequence diagram for the **scheduled mode**](../images/overviewFirmwarSequenceDiagram.png)
+![Time sequence diagram for the **scheduled mode**](images/overviewFirmwarSequenceDiagram.png)
 
 - In the interactive-mode, the user can change the output-pins value via REST API, dinamically. All data on the monitored
 input pins will be continuously reported via TCP/IP stream. So, the user will be able to evaluate the DUT behavior
 modifying the DUT's input and checking for the DUT's output, dinamically. Because the DUT's inputs change manually, the
 HILO's sample rating is set to 1Khz.
 
-![Time sequence diagram for the **interactive mode**](../images/overviewFirmwarSequenceDiagram_intvMode.png)
+![Time sequence diagram for the **interactive mode**](images/overviewFirmwarSequenceDiagram_intvMode.png)
