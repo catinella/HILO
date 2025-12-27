@@ -15,8 +15,14 @@
 // Author:   Silvano Catinella <catinella@yahoo.com>
 //
 // Description:
-//		This folder hosts the test of the PinStrip widget.
+//	This is a test for the PinStripe widget class. The test execution will show a PinStripe widget composed by many pins and a
+//	set of buttons where everyone of them is connected to a single pin. In the test, every button reppresents a virtual tool
+//	(eg. a button, a switch...) and the PinStripe would be the DUT's pins. So, you can connect every DUT's pin with any tool's
+//	pin, then push the button and verify the DUT's pin value changing.
 //
+//
+//	Overview diagram:
+//	=================
 //
 //		USER            PinWidget    ToolWidget   PinStripe     pinConnection   connectionOverlay
 //		  |                 |             |           |               |                 |             
@@ -52,6 +58,42 @@
 //		  |                 |             |           |               |                 |        //
 //
 //		* : propagate = false
+//
+//
+//	PinStrip movement functionality diagram:
+//	========================================
+//
+//		USER            PinStripe          TestWidget     connectionOverlay
+//		  |                    |                |                |     
+//		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//		  |                    |                |                |     
+//		  |   left-butt(press) |                |                |     
+//		  +===================>|                |                |
+//		  |                    +---+            |                |     
+//		  |                    |   |flag        |                |     
+//		  |                    |   |setting     |                |     
+//		  |                    +<--+            |                |     
+//		  |                    |                |                |     
+//		  |    left-butt(hold) |                |                |     
+//		  +===================>|       dragging |                |
+//		  |                    +--------------->|                |     
+//		  |                    | moveTo()       |                |     
+//		  |                    |<~~~~~~~~~~~~~~~+     paintNow() |     
+//		  |                    |                +~~~~~~~~~~~~~~~>|     
+//		  |                    |                |                |     
+//		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//		  |                    |                |                |     
+//		  | left-butt(release) |                |                |     
+//		  +===================>|                |                |
+//		  |                    +---+            |                |     
+//		  |                    |   |flag        |                |     
+//		  |                    |   |resetting   |                |     
+//		  |                    +<--+            |                |     
+//		  |                    |                |                |     
+//		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//		  |                    |                |                |     
+//
+//
 //
 //		+--------+----------------------+
 //		| Symbol | Description          |
