@@ -19,10 +19,15 @@
 //	set of buttons where everyone of them is connected to a single pin. In the test, every button reppresents a virtual tool
 //	(eg. a button, a switch...) and the PinStripe would be the DUT's pins. So, you can connect every DUT's pin with any tool's
 //	pin, then push the button and verify the DUT's pin value changing.
+//	
+//	In order to connect a couple of pins, click with the mouse's right button on the two pins and you will see a graphic line
+//	from one to another.
 //
+//	To move the PinStripe around keep the left button pressed on the object and move the mouse to the new destination, then
+//	release the button
 //
-//	Overview diagram:
-//	=================
+//	Pins connection diagram:
+//	========================
 //
 //		USER            PinWidget    ToolWidget   PinStripe     pinConnection   connectionOverlay
 //		  |                 |             |           |               |                 |             
@@ -44,6 +49,14 @@
 //		  |                 |             |           |               |                 |        //
 //		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
 //		  |                 |             |           |               |                 |        //
+//
+//	Pin's value changing diagram:
+//	=============================
+//
+//		USER            PinWidget    ToolWidget   PinStripe     pinConnection   connectionOverlay
+//		  |                 |             |           |               |                 |             
+//		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+//		  |                 |             |           |               |                 |        //
 //		  |                 |  btn pressed|           |               |                 |        // Virtual tool activation
 //		  +==============================>|           |               |                 |        //    (Graphic button)
 //		  |                 |setValue()   |           |               |                 |        //
@@ -55,13 +68,10 @@
 //		  |                 |             |           |               |                 |        //
 //		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //		  |                 |             |           |               |                 |        //
-//		  |                 |             |           |               |                 |        //
+//		  |                 |             |           |               |                 |        //  * : propagate = false
 //
-//		* : propagate = false
-//
-//
-//	PinStrip movement functionality diagram:
-//	========================================
+//	PinStrip drag-and-drop functionality diagram:
+//	=============================================
 //
 //		USER            PinStripe          TestWidget     connectionOverlay
 //		  |                    |                |                |     
@@ -92,7 +102,6 @@
 //		  |                    |                |                |     
 //		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //		  |                    |                |                |     
-//
 //
 //
 //		+--------+----------------------+
