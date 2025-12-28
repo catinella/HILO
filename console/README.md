@@ -20,10 +20,11 @@ behavior controlling its input and output in all configurations you have planned
 In order to provide a multiplatform and very flexible GUI I have developed this module using the QT framework. In fact, QT allows
 me to modify and create new widgets in a very powerful way.
 
-### 2.2 QT code building
-To provide a multiplaform building chain I have use the official QT's tool **QMake6**. It requires a configuration file (file.pro)
-to produce the platform dependent build-chain files (eg. Makefile for Unix/Linux). Then, you can compile the code with your usual
-tool-chain, directly. For example, if you are using a POSIX systems, you can run the following command:
+## 3.0 code building
+To provide a multiplaform building chain, I have used the official QT's tool **QMake6**. It requires a configuration file
+file.pro) to produce the platform dependent build-chain files (eg. Makefile for Unix/Linux). After you obtained those files , you
+can compile the code with your usual tool-chain, directly. For example, to performs the described tasks together, if you are using
+a POSIX systems, you can run the following command:
 
 	qmake6 *.pro && make all
 
