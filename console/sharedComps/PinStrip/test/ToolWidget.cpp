@@ -46,7 +46,16 @@ ToolWidget::ToolWidget (int n, QWidget *parent): QWidget(parent) {
 	auto layout = new QVBoxLayout (this);
 	layout->addWidget(m_button);
 	layout->addWidget(m_pin);
-	setLayout (layout);
+	setLayout(layout);
+
+	layout->setContentsMargins(0,0,0,0);
+	layout->setSpacing(4);
+
+	layout->setSizeConstraint(QLayout::SetFixedSize); // ToolWidget prende size “a contenuto”
+
+	layout->addWidget(m_button, 0, Qt::AlignTop);
+	layout->addWidget(m_pin,    0, Qt::AlignTop);
+	layout->addStretch(1);
 
 	qDebug()
 		<< __PRETTY_FUNCTION__ << " : "
