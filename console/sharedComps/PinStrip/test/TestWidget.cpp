@@ -58,6 +58,8 @@
 #include "TestWidget.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <algorithm> // std::clamp
+#include <QDebug>
 
 TestWidget::TestWidget (QWidget *parent):QWidget (parent) {
 	//
@@ -67,9 +69,12 @@ TestWidget::TestWidget (QWidget *parent):QWidget (parent) {
 	//
 	m_canvas = new QWidget(this);
 
-	auto *canvasLayout = new QVBoxLayout(m_canvas);
-	auto *toolsLayout  = new QHBoxLayout();
-
+	auto   *canvasLayout = new QVBoxLayout(m_canvas);
+	auto   *toolsLayout  = new QHBoxLayout();
+	QPoint refP;
+	int    toolWidHeight = 0;
+	int    toolWidWidth  = 0;
+	
 	{
 		this->setAutoFillBackground(true);
 		QPalette pal = this->palette();
@@ -88,11 +93,24 @@ TestWidget::TestWidget (QWidget *parent):QWidget (parent) {
 		ToolWidget *tool = new ToolWidget(i, m_canvas);
 		toolsLayout->addWidget(tool);
 		m_tools.append(tool);
+
+		if (i == 4) {
+			refP = tool->pos();
+			toolWidHeight = tool->height();
+			toolWidWidth  = tool->width();
+		}
 	}
 
 	// 3) Canvas layout
 	canvasLayout->addLayout(toolsLayout);
-	canvasLayout->addWidget(m_dutStrip);
+	toolsLayout->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
+
+	// 3.1) DUT's strip geometry
+	m_dutStrip->adjustSize();
+	m_dutStrip->move(refP.x(), refP.y() + toolWidHeight + 200);
+	m_dutStrip->show();
+	m_dutStrip->raise();
+
 
 	// 4) Adding Overlay to canvas
 	m_overlay = new ConnectionOverlay(m_canvas);
@@ -115,7 +133,7 @@ TestWidget::TestWidget (QWidget *parent):QWidget (parent) {
 	mainLayout->addWidget(m_canvas);
 	setLayout(mainLayout);
 
-	#include <algorithm> // std::clamp
+	resize(8*toolWidWidth, 400);
 
 	connect(m_dutStrip, &PinStrip::dragging, this, [this](const QPoint &delta) {
 		QPoint p = m_dutStrip->position() + delta;
