@@ -41,12 +41,14 @@
 #include <QWidget>
 #include <QVector>
 #include <QPushButton>
+#include <PinStrip.h>
 
 #define KEYPAD_COLS     3
 #define KEYPAD_ROWS     4
 #define KEYPAD_XBTNSIZE 32
 #define KEYPAD_YBTNSIZE 32
 #define KEYPAD_BTNSLABS {"1","2","3","4","5","6","7","8","9","CLR","0","DEL","OK"};
+#define KEYPAD_DATABITS 8
 
 class QLineEdit;
 
@@ -61,22 +63,24 @@ public:
 	explicit KeypadWidget (QWidget * parent = nullptr);
 	~KeypadWidget ();
 
-	signals:
-		void digitPressed (int digit);
-		void textChanged  (const QString & text);
-		void enterPressed (const QString & text);
+signals:
+	void digitPressed (int digit);
+	void textChanged  (const QString & text);
+	void enterPressed (const QString & text);
 
-	private slots:
-		void onDigitClicked ();
-		void onClearClicked ();
-		void onBackspaceClicked ();
-		void onOkClicked ();
+private slots:
+	void onDigitClicked ();
+	void onClearClicked ();
+	void onBackspaceClicked ();
+	void onOkClicked ();
+	
 private:
 	// Defined by ui_KeypadWidget.h
 	Ui::KeypadWidget *ui;
 
 	QVector<QPushButton*> digitButtons;
-
+	PinStrip              myPins;
+	
 	void appendDigit (const QString &d);
 };
 
