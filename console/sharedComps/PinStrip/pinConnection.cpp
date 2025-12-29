@@ -98,7 +98,7 @@ bool PinConnection::involves (const PinWidget *w) const {
 //------------------------------------------------------------------------------------------------------------------------------
 //                                               P R I V A T E   M E T H O D S
 //------------------------------------------------------------------------------------------------------------------------------
-bool PinConnection::normalize() {
+void PinConnection::normalize() {
 	//
 	// Description:
 	//	This is the main constructor.

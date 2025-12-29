@@ -27,5 +27,5 @@ public:
 	bool involves   (const PinWidget *w) const;
 
 private:
-	bool normalize ();
+	void normalize ();
 };
