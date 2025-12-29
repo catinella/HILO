@@ -75,7 +75,7 @@ void ConnectionOverlay::registerTerminal (const QString & id, PinWidget *w) {
 
 		// Left click for value changing
 		connect(w, &PinWidget::valueChanged, this, [this, id, w](bool v){
-			onTerminalValueChanged(id, w, v);
+			onTerminalValueChanged(id, v);
 		});
 
 	}
@@ -292,7 +292,7 @@ void ConnectionOverlay::onTerminalRightClicked(const QString &key, PinWidget *w)
 	return;
 }
 
-void ConnectionOverlay::onTerminalValueChanged(const QString &id, PinWidget *src, bool v) {
+void ConnectionOverlay::onTerminalValueChanged(const QString &id, bool v) {
 
 	qDebug() << "LEFTCLICK caught, sender id =" << id; 
 

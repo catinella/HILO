@@ -75,5 +75,5 @@ private:
 
 private slots:
 	void onTerminalRightClicked (const QString &key, PinWidget *w);
-	void onTerminalValueChanged (const QString &id, PinWidget *src, bool v);
+	void onTerminalValueChanged (const QString &id, bool v);
 };
