@@ -35,15 +35,35 @@
 //                                                                                                               cols=128 tab=6
 ------------------------------------------------------------------------------------------------------------------------------*/
 #include <QApplication>
-#include "MyWindow.h"
+#include <QVBoxLayout>
+#include <QWidget>
+#include <QDebug>
+#include "KeypadWidget.h"
 
-int main(int argc, char *argv[])
-{
-    QApplication app(argc, argv);
+void onEnterPressed (const QString &value) {
+	qDebug() << "Typed value: " << value;
+}
 
-    MyWindow w;
-    w.show();
+void onTextChanged (const QString &value) {
+	qDebug() << "You typed " << value;
+}
 
-    return app.exec();
+int main(int argc, char *argv[]) {
+	QApplication app(argc, argv);
+
+	auto window = new QWidget();
+	auto keypad = new KeypadWidget(window);
+
+	QVBoxLayout *layout = new QVBoxLayout(window);
+	layout->addWidget(keypad->getMyPins());
+	layout->addWidget(keypad);
+	
+	window->setMinimumSize(400, 400);
+	window->show();
+
+	QObject::connect(keypad, &KeypadWidget::enterPressed, &onEnterPressed);
+	QObject::connect(keypad, &KeypadWidget::textChanged,  &onTextChanged);
+
+	return(app.exec());
 }
 
