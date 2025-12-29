@@ -60,9 +60,10 @@ class KeypadWidget:public QWidget {
     Q_OBJECT
 
 public:
-	explicit KeypadWidget (QWidget * parent = nullptr);
-	~KeypadWidget ();
-
+	explicit  KeypadWidget (QWidget * parent = nullptr);
+	         ~KeypadWidget ();
+	PinStrip* getMyPins    ();
+	
 signals:
 	void digitPressed (int digit);
 	void textChanged  (const QString & text);
@@ -79,7 +80,7 @@ private:
 	Ui::KeypadWidget *ui;
 
 	QVector<QPushButton*> digitButtons;
-	PinStrip              myPins;
+	PinStrip              *myPins;
 	
 	void appendDigit (const QString &d);
 };

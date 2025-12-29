@@ -50,11 +50,7 @@ void KeypadWidget::appendDigit (const QString & d) {
 //------------------------------------------------------------------------------------------------------------------------------
 //                                          P U B L I C   M E T H O D S
 //------------------------------------------------------------------------------------------------------------------------------
-KeypadWidget::KeypadWidget (QWidget *parent):
-	QWidget(parent),
-	ui(new Ui::KeypadWidget),
-	myPins(PWDG_TOOLSIDE, KEYPAD_DATABITS)
-{
+KeypadWidget::KeypadWidget (QWidget *parent): QWidget(parent), ui(new Ui::KeypadWidget) {
 	ui->setupUi(this);
 	digitButtons = {
 		ui->pushButton_0,
@@ -81,11 +77,23 @@ KeypadWidget::KeypadWidget (QWidget *parent):
 	connect(ui->pushButton_canc, &QPushButton::clicked, this, &KeypadWidget::onClearClicked);
 	connect(ui->pushButton_del,  &QPushButton::clicked, this, &KeypadWidget::onBackspaceClicked);
 	connect(ui->pushButton_ack,  &QPushButton::clicked, this, &KeypadWidget::onOkClicked);
+
+	// Pin strip creation
+	myPins = new PinStrip(PWDG_TOOLSIDE, KEYPAD_DATABITS, parent);
 }
 
 KeypadWidget::~KeypadWidget () {
 	delete ui;
 }
+
+PinStrip* KeypadWidget::getMyPins () {
+	return(myPins);
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------
+//                                              P R I V A T E   S L O T S
+//------------------------------------------------------------------------------------------------------------------------------
 
 void KeypadWidget::onDigitClicked () {
 	//
