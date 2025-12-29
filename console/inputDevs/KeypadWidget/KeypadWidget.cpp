@@ -53,16 +53,8 @@ void KeypadWidget::appendDigit (const QString & d) {
 KeypadWidget::KeypadWidget (QWidget *parent): QWidget(parent), ui(new Ui::KeypadWidget) {
 	ui->setupUi(this);
 	digitButtons = {
-		ui->pushButton_0,
-		ui->pushButton_1,
-		ui->pushButton_2,
-		ui->pushButton_3,
-		ui->pushButton_4,
-		ui->pushButton_5,
-		ui->pushButton_6,
-		ui->pushButton_7,
-		ui->pushButton_8,
-		ui->pushButton_9
+		ui->pushButton_0, ui->pushButton_1, ui->pushButton_2, ui->pushButton_3, ui->pushButton_4,
+		ui->pushButton_5, ui->pushButton_6, ui->pushButton_7, ui->pushButton_8, ui->pushButton_9
 	};
 
 	//
@@ -75,8 +67,7 @@ KeypadWidget::KeypadWidget (QWidget *parent): QWidget(parent), ui(new Ui::Keypad
 	// Special buttons
 	//
 	connect(ui->pushButton_canc, &QPushButton::clicked, this, &KeypadWidget::onClearClicked);
-	connect(ui->pushButton_del,  &QPushButton::clicked, this, &KeypadWidget::onBackspaceClicked);
-	connect(ui->pushButton_ack,  &QPushButton::clicked, this, &KeypadWidget::onOkClicked);
+	connect(ui->pushButton_ok,  &QPushButton::clicked, this, &KeypadWidget::onOkClicked);
 
 	// Pin strip creation
 	myPins = new PinStrip(PWDG_TOOLSIDE, KEYPAD_DATABITS, parent);
@@ -114,15 +105,6 @@ void KeypadWidget::onDigitClicked () {
 void KeypadWidget::onClearClicked () {
 	ui->displayEdit->clear();
 	emit textChanged(QString());
-}
-
-void KeypadWidget::onBackspaceClicked () {
-	auto txt = ui->displayEdit->text ();
-	if (!txt.isEmpty()) {
-		txt.chop(1);
-		ui->displayEdit->setText(txt);
-		emit textChanged(txt);
-	}
 }
 
 void KeypadWidget::onOkClicked() {

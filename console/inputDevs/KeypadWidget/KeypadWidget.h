@@ -72,7 +72,6 @@ signals:
 private slots:
 	void onDigitClicked ();
 	void onClearClicked ();
-	void onBackspaceClicked ();
 	void onOkClicked ();
 	
 private:

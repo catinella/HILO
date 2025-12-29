@@ -40,7 +40,7 @@
      <x>150</x>
      <y>10</y>
      <width>131</width>
-     <height>261</height>
+     <height>221</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -68,13 +68,13 @@ QGroupBox::title {
       <x>10</x>
       <y>20</y>
       <width>115</width>
-      <height>235</height>
+      <height>195</height>
      </rect>
     </property>
     <property name="minimumSize">
      <size>
       <width>115</width>
-      <height>235</height>
+      <height>195</height>
      </size>
     </property>
     <property name="maximumSize">
@@ -250,29 +250,6 @@ border: 1px solid rgb(119, 118, 123)</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QPushButton" name="pushButton_del">
-        <property name="maximumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(61, 56, 70);
-color: white;
-border: 1px solid rgb(119, 118, 123)</string>
-        </property>
-        <property name="text">
-         <string>DEL</string>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="1">
        <widget class="QPushButton" name="pushButton_8">
         <property name="maximumSize">
@@ -411,35 +388,6 @@ border: 1px solid rgb(119, 118, 123)</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
-       <widget class="QPushButton" name="pushButton_0">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(61, 56, 70);
-color: white;
-border: 1px solid rgb(119, 118, 123)</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="0">
        <widget class="QPushButton" name="pushButton_1">
         <property name="sizePolicy">
@@ -475,41 +423,17 @@ border: 1px solid rgb(119, 118, 123)</string>
         </property>
        </widget>
       </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="verticalLayoutWidget_2">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>190</y>
-       <width>111</width>
-       <height>38</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <property name="leftMargin">
-       <number>5</number>
-      </property>
-      <property name="topMargin">
-       <number>5</number>
-      </property>
-      <property name="rightMargin">
-       <number>5</number>
-      </property>
-      <property name="bottomMargin">
-       <number>3</number>
-      </property>
-      <item>
-       <widget class="QPushButton" name="pushButton_ack">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>30</height>
-         </size>
+      <item row="3" column="0">
+       <widget class="QPushButton" name="pushButton_0">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
         <property name="maximumSize">
          <size>
-          <width>100</width>
+          <width>30</width>
           <height>30</height>
          </size>
         </property>
@@ -524,7 +448,30 @@ color: white;
 border: 1px solid rgb(119, 118, 123)</string>
         </property>
         <property name="text">
-         <string>Acknowledge</string>
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="pushButton_ok">
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 153, 0);
+color: white;
+border: 1px solid rgb(119, 118, 123)</string>
+        </property>
+        <property name="text">
+         <string>OK</string>
         </property>
        </widget>
       </item>
