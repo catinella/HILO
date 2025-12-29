@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
 	layout->addWidget(keypad->getMyPins());
 	layout->addWidget(keypad);
 	
-	window->setMinimumSize(400, 400);
+	window->setMinimumSize(640, 480);
 	window->show();
 
 	QObject::connect(keypad, &KeypadWidget::enterPressed, &onEnterPressed);
