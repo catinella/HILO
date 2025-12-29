@@ -40,7 +40,7 @@
 #include <QDebug>
 #include "KeypadWidget.h"
 
-void onEnterPressed (const QString &value) {
+void onEnterPressed (const unsigned int &value) {
 	qDebug() << "Typed value: " << value;
 }
 

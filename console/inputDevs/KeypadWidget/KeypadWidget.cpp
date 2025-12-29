@@ -108,5 +108,12 @@ void KeypadWidget::onClearClicked () {
 }
 
 void KeypadWidget::onOkClicked() {
-	emit enterPressed(ui->displayEdit->text());
+	unsigned int currValue = ui->displayEdit->text().toInt();
+	if (currValue < std::pow(2.0, KEYPAD_DATABITS) && oldValue != currValue) {
+		oldValue = currValue;
+		emit enterPressed(currValue);
+	} else {
+		qCritical() << "Syntax ERROR!";
+		ui->displayEdit->setText(QString::number(oldValue));
+	}
 }
