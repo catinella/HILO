@@ -25,15 +25,17 @@
 #
 #-------------------------------------------------------------------------------------------------------------------------------
 
-CONFIG_FILE  = $$PWD/../conf.pri
-TEMPLATE     = app
-SOURCES     += $$PWD/*.cpp $$PWD/../KeypadWidget.cpp
-HEADERS     += $$PWD/*.h   $$PWD/../KeypadWidget.h
-FORMS       += $$PWD/../KeypadWidget.ui
-INCLUDEPATH += $$PWD/..
-QT          += widgets
-TARGET       = KeypadWidget_test
-DESTDIR      = $$PWD
+CONFIG_FILE     = $$PWD/../conf.pri
+TEMPLATE        = app
+SOURCES        += $$PWD/*.cpp $$PWD/../KeypadWidget.cpp
+HEADERS        += $$PWD/*.h   $$PWD/../KeypadWidget.h
+FORMS          += $$PWD/../KeypadWidget.ui
+INCLUDEPATH    += $$PWD/.. $$PWD/../../../sharedComps/PinStrip $$PWD/../../../sharedComps/PinWidget
+QT             += widgets
+TARGET          = KeypadWidget_test
+DESTDIR         = $$PWD
+LIBS           += -L$$PWD/../../../sharedComps/PinStrip -lPinStrip -L$$PWD/../../../sharedComps/PinWidget -lPinWidget
+PRE_TARGETDEPS += $$PWD/../../../sharedComps/PinStrip/libPinStrip.a $$PWD/../../../sharedComps/PinWidget/libPinWidget.a 
 
 exists($$CONFIG_FILE) {
 	message("[i] configuration file $$CONFIG_FILE detected")

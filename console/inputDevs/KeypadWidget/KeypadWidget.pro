@@ -25,14 +25,17 @@
 #
 #-------------------------------------------------------------------------------------------------------------------------------
 
-CONFIG_FILE = "$$PWD/../conf.pri"
-TEMPLATE    = lib
-SOURCES    += $$files($$PWD/*.cpp)
-HEADERS    += $$files($$PWD/*.h)
-FORMS      += $$PWD/KeypadWidget.ui
-CONFIG     += staticlib
-TARGET      = KeypadWidget
-QT         += widgets
+CONFIG_FILE     = "$$PWD/../conf.pri"
+TEMPLATE        = lib
+SOURCES        += $$PWD/*.cpp
+HEADERS        += $$PWD/*.h $$PWD/../../sharedComps/PinStrip/PinStrip.h
+INCLUDEPATH    += $$PWD/.. $$PWD/../../sharedComps/PinStrip $$PWD/../../sharedComps/PinWidget
+FORMS          += $$PWD/KeypadWidget.ui
+CONFIG         += staticlib
+TARGET          = KeypadWidget
+QT             += widgets
+PRE_TARGETDEPS += $$PWD/../../sharedComps/PinStrip/libPinStrip.a $$PWD/../../sharedComps/PinWidget/libPinWidget.a
+LIBS           += -L$$PWD/../../sharedComps/PinStrip -lPinStrip -L$$PWD/../../sharedComps/PinWidget -lPinWidget
 
 exists($$CONFIG_FILE) {
 	message("[i] configuration file $$CONFIG_FILE detected")
