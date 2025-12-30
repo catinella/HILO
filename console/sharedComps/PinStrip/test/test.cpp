@@ -73,7 +73,7 @@
 //	PinStrip drag-and-drop functionality diagram:
 //	=============================================
 //
-//		USER            PinStripe          TestWidget     connectionOverlay
+//		USER            PinStripe           test.cpp      connectionOverlay
 //		  |                    |                |                |     
 //		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //		  |                    |                |                |     
@@ -132,15 +132,92 @@
 ------------------------------------------------------------------------------------------------------------------------------*/
 
 #include <QApplication>
-#include "TestWidget.h"
+#include <QWidget>
+#include <QVBoxLayout>
+#include "PinStrip.h"
+#include "ConnectionOverlay.h"
+#include "ToolWidget.h"
 
+#define TEST_NUMOFPINS      8
+#define TEST_DISPLAY_WIDTH  640
+#define TEST_DISPLAY_HEIGHT 480
 
 int main(int argc, char *argv[]) {
 	QApplication app(argc, argv);
+	
+	auto                 canvas        = new QWidget();
+	auto                 canvasLayout  = new QVBoxLayout(canvas);
+	auto                 toolsLayout   = new QHBoxLayout();
+	PinStrip             *dutStrip     = nullptr;
+	ConnectionOverlay    *overlay      = nullptr;
+	QVector<ToolWidget*> tools;
 
-	TestWidget w;
-	w.show();
+	{
+		canvas->setAutoFillBackground(true);
+		QPalette pal = canvas->palette();
+		pal.setColor(QPalette::Window, QColor(102, 178, 255));  // grigio scuro
+		canvas->setPalette(pal);
+	}
+	
+	canvasLayout->setContentsMargins(10, 10, 10, 10);
+	toolsLayout->setContentsMargins(0, 0, 0, 0);
 
-	return app.exec();
+	// 1) DUT's strip creation
+	dutStrip = new PinStrip(PWDG_DUTSIDE, 8, canvas);
+
+	// 2) Tools creation and adjustment in the horizontal-layout (toolsLayout)
+	for (uint8_t i = 0; i < 8; ++i) {
+		ToolWidget *tool = new ToolWidget(i, canvas);
+		toolsLayout->addWidget(tool);
+		tools.append(tool);
+	}
+
+	// 3) Canvas layout
+ 	canvasLayout->addLayout(toolsLayout);
+	toolsLayout->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
+
+	// 3.1) DUT's strip geometry
+	dutStrip->adjustSize();
+	dutStrip->move((TEST_DISPLAY_WIDTH - dutStrip->width())/2, (TEST_DISPLAY_HEIGHT/2));
+	dutStrip->show();
+	dutStrip->raise();
+
+
+	// 4) Adding Overlay to canvas
+	overlay = new ConnectionOverlay(canvas);
+	overlay->setGeometry(canvas->rect());
+	overlay->raise();
+	overlay->show();
+
+	// 5) DUT's pin registration
+	for (int i = 0; i < 8; ++i) {
+		overlay->registerTerminal(QString("dut.%1").arg(i), dutStrip->getPin(i));
+	}
+
+	// 6) Tool's pin registration
+	for (int i = 0; i < tools.size(); ++i) {
+		overlay->registerTerminal(QString("tool.%1").arg(i), tools[i]->pinStrip()->getPin(0));
+	}
+
+	// 7) Canvas resizing
+	canvas->setMinimumSize(TEST_DISPLAY_WIDTH, TEST_DISPLAY_HEIGHT);
+
+	QObject::connect(dutStrip, &PinStrip::dragging, [dutStrip, canvas, overlay](const QPoint &delta) {
+		QPoint p = dutStrip->position() + delta;
+
+		const int maxX = canvas->width()  - dutStrip->width();
+		const int maxY = canvas->height() - dutStrip->height();
+
+		p.setX(std::clamp(p.x(), 0, maxX));
+		p.setY(std::clamp(p.y(), 0, maxY));
+
+		dutStrip->moveTo(p);
+
+		overlay->paintNow();
+	});
+	
+	canvas->show();
+
+	return(app.exec());
 }
 
