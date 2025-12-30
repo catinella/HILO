@@ -64,6 +64,21 @@ int main(int argc, char *argv[]) {
 	QObject::connect(keypad, &KeypadWidget::enterPressed, &onEnterPressed);
 	QObject::connect(keypad, &KeypadWidget::textChanged,  &onTextChanged);
 
+	QObject::connect(keypad->getMyPins(), &PinStrip::dragging, [keypad, window](const QPoint &delta) {
+		auto dutStrip = keypad->getMyPins();
+            QPoint p = dutStrip->position() + delta;
+
+            const int maxX = window->width()  - dutStrip->width();
+            const int maxY = window->height() - dutStrip->height();
+
+            p.setX(std::clamp(p.x(), 0, maxX));
+            p.setY(std::clamp(p.y(), 0, maxY));
+
+            dutStrip->moveTo(p);
+
+     //       overlay->paintNow();
+      });
+
 	return(app.exec());
 }
 
