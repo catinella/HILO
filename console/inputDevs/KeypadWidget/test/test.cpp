@@ -10,12 +10,12 @@
 //
 //
 //
-// Filename: HILO_console.cpp
+// Filename: test.cpp
 //
 // Author:   Silvano Catinella <catinella@yahoo.com>
 //
 // Description:
-//
+//		This is an interactive test for KeypadWidget class
 //
 //
 // License:  LGPL ver 3.0
@@ -77,6 +77,16 @@ int main(int argc, char *argv[]) {
             dutStrip->moveTo(p);
 
      //       overlay->paintNow();
+      });
+
+	QObject::connect(keypad, &KeypadWidget::dragging, [keypad, window](const QPoint &delta) {
+            QPoint    p    = keypad->position() + delta;
+            const int maxX = window->width()  - keypad->width();
+            const int maxY = window->height() - keypad->height();
+
+            p.setX(std::clamp(p.x(), 0, maxX));
+            p.setY(std::clamp(p.y(), 0, maxY));
+            keypad->moveTo(p);
       });
 
 	return(app.exec());

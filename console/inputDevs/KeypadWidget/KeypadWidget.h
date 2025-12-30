@@ -57,12 +57,20 @@ class KeypadWidget:public QWidget {
 public:
 	explicit  KeypadWidget (QWidget * parent = nullptr);
 	         ~KeypadWidget ();
-	PinStrip* getMyPins    ();
+	PinStrip* getMyPins    () const;
+	
+	// Movment API
+	QPoint    position     () const;
+	void      moveTo       (const QPoint &posInParent);
+	void      moveBy       (const QPoint &deltaInParent);
 	
 signals:
 	void digitPressed (int digit);
 	void textChanged  (const QString &text);
 	void enterPressed (const unsigned int value);
+	void dragStarted  (const QPoint &pos);
+	void dragging     (const QPoint &delta);
+	void dragFinished ();
 
 private slots:
 	void onDigitClicked ();
@@ -74,8 +82,16 @@ private:
 	QVector<QPushButton*> digitButtons;
 	PinStrip              *myPins = nullptr;
 	unsigned int          oldValue = 0;
+	bool                  m_dragging = false;
+	QPoint                m_pressPos; 
+	QPoint                m_lastGlobalPos;
 
 	void appendDigit (const QString &d);
+
+protected:
+	void mousePressEvent   (QMouseEvent *e) override;
+	void mouseMoveEvent    (QMouseEvent *e) override;
+	void mouseReleaseEvent (QMouseEvent *e) override;
 };
 
 #endif // KEYPADWIDGET_H
