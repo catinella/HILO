@@ -145,11 +145,11 @@
 int main(int argc, char *argv[]) {
 	QApplication app(argc, argv);
 	
-	auto                 canvas        = new QWidget();
-	auto                 canvasLayout  = new QVBoxLayout(canvas);
-	auto                 toolsLayout   = new QHBoxLayout();
-	PinStrip             *dutStrip     = nullptr;
-	ConnectionOverlay    *overlay      = nullptr;
+	auto    canvas        = new QWidget();
+	auto    canvasLayout  = new QVBoxLayout(canvas);
+	auto    toolsLayout   = new QHBoxLayout();
+	auto    dutStrip      = new PinStrip(PWDG_DUTSIDE, 8, canvas);
+	auto    overlay       = new ConnectionOverlay(canvas);
 	QVector<ToolWidget*> tools;
 
 	{
@@ -162,21 +162,18 @@ int main(int argc, char *argv[]) {
 	canvasLayout->setContentsMargins(10, 10, 10, 10);
 	toolsLayout->setContentsMargins(0, 0, 0, 0);
 
-	// 1) DUT's strip creation
-	dutStrip = new PinStrip(PWDG_DUTSIDE, 8, canvas);
-
-	// 2) Tools creation and adjustment in the horizontal-layout (toolsLayout)
+	// 1) Tools creation and adjustment in the horizontal-layout (toolsLayout)
 	for (uint8_t i = 0; i < 8; ++i) {
 		ToolWidget *tool = new ToolWidget(i, canvas);
 		toolsLayout->addWidget(tool);
 		tools.append(tool);
 	}
 
-	// 3) Canvas layout
+	// 2) Canvas layout
  	canvasLayout->addLayout(toolsLayout);
 	toolsLayout->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
 
-	// 3.1) DUT's strip geometry
+	// 3) DUT's strip geometry
 	dutStrip->adjustSize();
 	dutStrip->move((TEST_DISPLAY_WIDTH - dutStrip->width())/2, (TEST_DISPLAY_HEIGHT/2));
 	dutStrip->show();
@@ -184,7 +181,6 @@ int main(int argc, char *argv[]) {
 
 
 	// 4) Adding Overlay to canvas
-	overlay = new ConnectionOverlay(canvas);
 	overlay->setGeometry(canvas->rect());
 	overlay->raise();
 	overlay->show();
