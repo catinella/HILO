@@ -70,39 +70,6 @@
 //		  |                 |             |           |               |                 |        //
 //		  |                 |             |           |               |                 |        //  * : propagate = false
 //
-//	PinStrip drag-and-drop functionality diagram:
-//	=============================================
-//
-//		USER            PinStripe           test.cpp      connectionOverlay
-//		  |                    |                |                |     
-//		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//		  |                    |                |                |     
-//		  |   left-butt(press) |                |                |     
-//		  +===================>|                |                |
-//		  |                    +---+            |                |     
-//		  |                    |   |flag        |                |     
-//		  |                    |   |setting     |                |     
-//		  |                    +<--+            |                |     
-//		  |                    |                |                |     
-//		  |    left-butt(hold) |                |                |     
-//		  +===================>|       dragging |                |
-//		  |                    +--------------->|                |     
-//		  |                    | moveTo()       |                |     
-//		  |                    |<~~~~~~~~~~~~~~~+     paintNow() |     
-//		  |                    |                +~~~~~~~~~~~~~~~>|     
-//		  |                    |                |                |     
-//		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//		  |                    |                |                |     
-//		  | left-butt(release) |                |                |     
-//		  +===================>|                |                |
-//		  |                    +---+            |                |     
-//		  |                    |   |flag        |                |     
-//		  |                    |   |resetting   |                |     
-//		  |                    +<--+            |                |     
-//		  |                    |                |                |     
-//		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//		  |                    |                |                |     
-//
 //
 //		+--------+----------------------+
 //		| Symbol | Description          |
@@ -198,8 +165,8 @@ int main(int argc, char *argv[]) {
 	// 7) Canvas resizing
 	canvas->setMinimumSize(TEST_DISPLAY_WIDTH, TEST_DISPLAY_HEIGHT);
 
-	QObject::connect(dutStrip, &PinStrip::dragging, [dutStrip, canvas, overlay](const QPoint &delta) {
-		QPoint p = dutStrip->position() + delta;
+	QObject::connect(dutStrip->getDragger(), &DragController::dragging, [dutStrip, canvas, overlay](const QPoint &delta) {
+		QPoint p = dutStrip->getPosition() + delta;
 
 		const int maxX = canvas->width()  - dutStrip->width();
 		const int maxY = canvas->height() - dutStrip->height();
@@ -207,7 +174,7 @@ int main(int argc, char *argv[]) {
 		p.setX(std::clamp(p.x(), 0, maxX));
 		p.setY(std::clamp(p.y(), 0, maxY));
 
-		dutStrip->moveTo(p);
+		dutStrip->move(p);
 
 		overlay->paintNow();
 	});
