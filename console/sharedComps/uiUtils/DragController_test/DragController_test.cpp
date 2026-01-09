@@ -36,6 +36,7 @@
 
 #include <QApplication>
 #include <QWidget>
+#include <QDebug>
 #include "movableButton.h"
 
 #define TEST_DISPLAY_WIDTH  640
@@ -63,9 +64,10 @@ int main(int argc, char *argv[]) {
 
 	QObject::connect(mvBtn->m_drag, &DragController::dragStarted, canvas, [&](const QPoint &p) {
 		dragStartPos = p;
+		qDebug() << "start position: X =" << p.x() << "; Y =" << p.y();
 	});
 
-	QObject::connect(mvBtn->m_drag, &DragController::dragging, [mvBtn, canvas, dragStartPos](const QPoint &delta) {
+	QObject::connect(mvBtn->m_drag, &DragController::dragging, [mvBtn, canvas, &dragStartPos](const QPoint &delta) {
 		QPoint p = dragStartPos + delta;
 
 		const int maxX = canvas->width()  - mvBtn->width();
