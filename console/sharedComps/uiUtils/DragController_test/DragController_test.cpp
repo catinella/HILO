@@ -15,7 +15,11 @@
 // Author:   Silvano Catinella <catinella@yahoo.com>
 //
 // Description:
-//	
+//		This is a simple test for the DragController class. Executing this code a window with a common button will be
+//		shown. You should be able to mode the button around the window.
+//		
+//		Define the TEST_ACTIVEMODE symbol to test the class' obect in active mode, or TEST_PASSIVEMODE to test it
+//		in passive mode
 //
 // License:  LGPL ver 3.0
 //
