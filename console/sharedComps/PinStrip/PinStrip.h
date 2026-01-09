@@ -39,41 +39,32 @@
 
 #include <QWidget>
 #include "PinWidget.h"
+#include "DragController.h"
 
 class PinStrip:public QWidget {
 	Q_OBJECT
 public:
 	explicit PinStrip (compPinSide_t side, int pinCount = 8, QWidget * parent = nullptr);
 
-	int        pinSrtipSize () const;
-	void       setValue     (uint8_t value);
-	void       getValue     (uint8_t &value);
-	void       setValue     (uint8_t index, bool value);
-	void       getValue     (uint8_t index, bool &value);
-	PinWidget* getPin       (int i) const;
-
-	// Movment API
-	QPoint position () const;
-	void   moveTo   (const QPoint &posInParent);
-	void   moveBy   (const QPoint &deltaInParent);
+	unsigned int    getSize     () const;
+	void            setValue    (uint8_t value);
+	void            getValue    (uint8_t &value) const;
+	void            setValue    (uint8_t index, bool value);
+	void            getValue    (uint8_t index, bool &value) const;
+	PinWidget*      getPin      (int i) const;
+	DragController* getDragger  () const;
+	QPoint          getPosition () const;
 	
 signals:
 	void valuesChanged (uint8_t newValues);
-	void dragStarted   (const QPoint &pos);
-	void dragging      (const QPoint &delta);
-	void dragFinished  ();
 
-protected:
-	void mousePressEvent   (QMouseEvent *e) override;
-	void mouseMoveEvent    (QMouseEvent *e) override;
-	void mouseReleaseEvent (QMouseEvent *e) override;
-    
 private:
+	void setPosition (QPoint currPosition);
+	
 	QVector<PinWidget*> m_pins;
 	compPinSide_t       m_side;
-	bool                m_dragging = false;
-	QPoint              m_pressPos; 
-	QPoint              m_lastGlobalPos;
+	DragController      *m_dragger = nullptr;
+	QPoint              m_position;
 };
 
 #endif
