@@ -39,18 +39,23 @@ CONFIG_FILE   = "$$PWD/../conf.pri"
 TEMPLATE      = app
 TARGET        = PinStrip_test
 QT           += widgets testlib
-INCLUDEPATH  += $$PWD $$PWD/.. $$PWD/../../PinWidget
-LIBS         += -L$$PWD/../../PinWidget -lPinWidget
-DESTDIR       = $$PWD
 PINWIDGET_LIB = $$PWD/../../PinWidget/libPinWidget.a
-SOURCES      += \
-	$$PWD/*.cpp \
-	$$PWD/../PinStrip.cpp \
+DESTDIR       = $$PWD
+INCLUDEPATH +=              \
+	$$PWD $$PWD/..        \
+	$$PWD/../../PinWidget \
+	$$PWD/../../uiUtils
+LIBS +=                                   \
+	-L$$PWD/../../PinWidget -lPinWidget \
+	-L$$PWD/../../uiUtils   -luiUtils
+SOURCES +=                           \
+	$$PWD/*.cpp                    \
+	$$PWD/../PinStrip.cpp          \
 	$$PWD/../ConnectionOverlay.cpp \
 	$$PWD/../pinConnection.cpp
-HEADERS      += \
-	$$PWD/*.h \
-	$$PWD/../PinStrip.h \
+HEADERS +=                         \
+	$$PWD/*.h                    \
+	$$PWD/../PinStrip.h          \
 	$$PWD/../ConnectionOverlay.h \
 	$$PWD/../pinConnection.h
 
