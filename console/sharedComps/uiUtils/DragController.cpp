@@ -1,5 +1,76 @@
-#include "DragController.h"
+/*------------------------------------------------------------------------------------------------------------------------------
+//                                                    _   _ ___ _     ___  
+//                                                   | | | |_ _| |   / _ \
+//                                                   | |_| || || |  | | | |
+//                                                   |  _  || || |__| |_| |
+//                                                   |_| |_|___|_____\___/ 
+//                                                    Hardware in the loop
+//                                              (https://github.com/catinella/HILO)
+//
+//
+//
+//
+// Filename: DragController.cpp
+//
+// Author:   Silvano Catinella <catinella@yahoo.com>
+//
+// Description:
+//		This class allows you to move the HILO's widgets around the window. The widget's movement (dragging) can be 
+//		performed in two way: active or passive mode. 
+//
+//		Passive mode:
+//		=============
+//
+//		USER               DragController           app             widget
+//		  |                       |                  |                |
+//		  |      left-button push |                  |                |
+//		  +======================>|   dragStarted(P0)|                |
+//		  |                       +----------------->|                |
+//		  |                       |                  +---+            |
+//		  |                       |                  |   | store      |
+//		  |                       |                  |   | X0         |
+//		  |                       |                  |<--+            |
+//		  |        mouse movement |                  |                |
+//		  +======================>|   dragging(delta)|                |
+//		  |                       +----------------->|  move(P0+delta)|
+//		  |                       |                  +~~~~~~~~~~~~~~~>|
+//		  |                       |                  |                |
+//		///////////////////////////////////////////////////////////////////
+//		  |                       |                  |                |
+//		  |   left-button release |                  |                |
+//		  +======================>|                  |                |
+//		  |                       +---+              |                |
+//		  |                       |   | flag         |                |
+//		  |                       |   | resetting    |                |
+//		  |                       |<--+              |                |
+//		  |                       |                  |                |
+//
+//		+--------+----------------------+
+//		| Symbol | Description          |
+//		+--------+----------------------+
+//		|   ===  | user activity        |
+//		|   ---  | QT signal            |
+//		|   ~~~  | Fuction/method call  |
+//		+--------+----------------------+
+//
+// License:  LGPL ver 3.0
+//
+// 		This script is a free software; you can redistribute it and/or modify it under the terms	of the GNU
+// 		Lesser General Public License as published by the Free Software Foundation; either version 3.0 of the License,
+// 		or (at your option) any later version. 
+//
+//		For further details please read the full LGPL text file [https://www.gnu.org/licenses/lgpl-3.0.txt].
+// 		You should have received a copy of the GNU General Public License along with this file; 
+// 		if not, write to the 
+//
+//			Free Software Foundation, Inc.,
+//			59 Temple Place, Suite 330,
+//			Boston, MA  02111-1307  USA
+//
+//                                                                                                               cols=128 tab=6
+------------------------------------------------------------------------------------------------------------------------------*/
 
+#include "DragController.h"
 #include <QWidget>
 #include <QEvent>
 #include <QMouseEvent>
@@ -72,7 +143,8 @@ bool DragController::eventFilter(QObject *obj, QEvent *ev) {
 				break;
 		}
 
-		if (out == false) out = QObject::eventFilter(obj, ev);
+		//if (out == false) out = QObject::eventFilter(obj, ev);
+		out = QObject::eventFilter(obj, ev);
 	}
 
 	return(out);
