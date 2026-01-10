@@ -10,7 +10,7 @@
 #
 #
 #
-# Filename: PinStrip.h
+# Filename: test.pro
 #
 # Author:   Silvano Catinella <catinella@yahoo.com>
 #
@@ -35,12 +35,14 @@
 #                                                                                                               cols=128 tab=6
 #-------------------------------------------------------------------------------------------------------------------------------
 
-CONFIG_FILE   = "$$PWD/../conf.pri"
-TEMPLATE      = app
-TARGET        = PinStrip_test
-QT           += widgets testlib
-PINWIDGET_LIB = $$PWD/../../PinWidget/libPinWidget.a
-DESTDIR       = $$PWD
+CONFIG_FILE     = "$$PWD/../../../conf.pri"
+TEMPLATE        = app
+TARGET          = PinStrip_test
+QT             += widgets testlib
+DESTDIR         = $$PWD
+PRE_TARGETDEPS +=                          \
+	$$PWD/../../PinWidget/libPinWidget.a \
+	$$PWD/../../uiUtils/libuiUtils.a
 INCLUDEPATH +=              \
 	$$PWD $$PWD/..        \
 	$$PWD/../../PinWidget \
@@ -59,37 +61,27 @@ HEADERS +=                         \
 	$$PWD/../ConnectionOverlay.h \
 	$$PWD/../pinConnection.h
 
+include("$$PWD/../../../utils.pri")
+
 exists($$CONFIG_FILE) {
 	message("[i] configuration file $$CONFIG_FILE detected")
 	include($$CONFIG_FILE)
-} else {
-	# Checking for environment variables
-	GDB = $$(GDB)
 }
 
-equals(GDB, 1) {
-	message("WARNING! You are building $$TARGET module in debug mode")
-	CONFIG  += debug
-	CONFIG  -= release
-} else {
-	message("[i] You are building $$TARGET in release mode")
-	CONFIG  += release
-	CONFIG  -= debug
+# Checking for dependences
+checkPreTargetDepsExist() {} else {
+	error("Test failed")
 }
+
+# Settings by environmwent-vars
+include("$$PWD/../../../envVarOverriding.pri")
+
+# Checking for GNU Debugger enabling setting
+include("$$PWD/../../../gdbToConfig.pri")
 
 #-------------------------------------------------------------------------------------------------------------------------------
 #                                                E T R A   R U L E S
 #-------------------------------------------------------------------------------------------------------------------------------
-
-check_pinwidget.target = check_pinwidget
-check_pinwidget.commands = @test -f $$PINWIDGET_LIB || ( \
-    	echo "ERROR: Required library not found: $$PINWIDGET_LIB"; \
-	echo "You have to compile it manually"; \
-	false \
-)
-
-PRE_TARGETDEPS      += check_pinwidget
-QMAKE_EXTRA_TARGETS += check_pinwidget
 
 cleanall.target   = cleanall
 cleanall.commands = $$escape_expand(@rm -fv $$TARGET Makefile)

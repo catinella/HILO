@@ -25,35 +25,43 @@
 #
 #-------------------------------------------------------------------------------------------------------------------------------
 
-CONFIG_FILE     = $$PWD/../conf.pri
+CONFIG_FILE     = $$PWD/../../../conf.pri
 TEMPLATE        = app
 SOURCES        += $$PWD/*.cpp $$PWD/../KeypadWidget.cpp
-HEADERS        += $$PWD/*.h   $$PWD/../KeypadWidget.h
+HEADERS        += $$PWD/../KeypadWidget.h
 FORMS          += $$PWD/../KeypadWidget.ui
-INCLUDEPATH    += $$PWD/.. $$PWD/../../../sharedComps/PinStrip $$PWD/../../../sharedComps/PinWidget
 QT             += widgets
 TARGET          = KeypadWidget_test
 DESTDIR         = $$PWD
-LIBS           += -L$$PWD/../../../sharedComps/PinStrip -lPinStrip -L$$PWD/../../../sharedComps/PinWidget -lPinWidget
-PRE_TARGETDEPS += $$PWD/../../../sharedComps/PinStrip/libPinStrip.a $$PWD/../../../sharedComps/PinWidget/libPinWidget.a 
+INCLUDEPATH    +=                                   \
+	$$PWD/.. $$PWD/../../../sharedComps/PinStrip  \
+	$$PWD/../../../sharedComps/PinWidget
+LIBS           +=                                        \
+	-L$$PWD/../../../sharedComps/PinStrip  -lPinStrip  \
+	-L$$PWD/../../../sharedComps/PinWidget -lPinWidget
+PRE_TARGETDEPS +=                                        \
+	$$PWD/../../../sharedComps/PinStrip/libPinStrip.a  \
+	$$PWD/../../../sharedComps/PinWidget/libPinWidget.a 
 
+include("$$PWD/../../../utils.pri")
+
+# Configuration loading...
 exists($$CONFIG_FILE) {
 	message("[i] configuration file $$CONFIG_FILE detected")
 	include($$CONFIG_FILE)
-} else {
-	# Checking for environment variables
-	GDB = $$(GDB)
 }
 
-equals(GDB, 1) {
-	message(WARNING! You are building $$TARGET module in debug mode)
-	CONFIG  += debug
-	CONFIG  -= release
-} else {
-	message([i] You are building $$TARGET in release mode)
-	CONFIG  += release
-	CONFIG  -= debug
+# Checking for dependences
+checkPreTargetDepsExist() {} else {
+	error("Test failed")
 }
+
+# Settings by environmwent-vars
+include("$$PWD/../../../envVarOverriding.pri")
+
+# Checking for GNU Debugger enabling setting
+include("$$PWD/../../../gdbToConfig.pri")
+
 
 cleanall.target   = cleanall
 cleanall.commands = $$escape_expand(@rm -fv $$DESTDIR/$$TARGET Makefile)

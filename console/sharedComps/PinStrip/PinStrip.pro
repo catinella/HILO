@@ -15,8 +15,12 @@
 # Author:   Silvano Catinella <catinella@yahoo.com>
 #
 # Description:
-#	QMake setting to creates the Makefile. In this file you can find all rules to build the source dode
+#	QMake setting to creates the Makefile. In this file you can find all rules to build the source code
 # 
+# 	This class depends by the following modules. You need to compile them before
+# 		- PinWidget
+# 		- uiUtils
+#
 #	TEMPLATE = {app|lib|subdirs|aux}
 #		app     Executable file
 #		lib     Library (lib.a, lib.so) file
@@ -25,7 +29,7 @@
 #
 #-------------------------------------------------------------------------------------------------------------------------------
 
-CONFIG_FILE     = "$$PWD/../conf.pri"
+CONFIG_FILE     = "$$PWD/../../conf.pri"
 TEMPLATE        = lib
 SOURCES        += $$files($$PWD/*.cpp)
 HEADERS        += $$files($$PWD/*.h)
@@ -33,26 +37,31 @@ INCLUDEPATH    += $$PWD $$PWD/../PinWidget $$PWD/../uiUtils
 CONFIG         += staticlib
 TARGET          = PinStrip
 QT             += widgets
-PRE_TARGETDEPS += $$PWD/../PinWidget/libPinWidget.a
+PRE_TARGETDEPS += $$PWD/../PinWidget/libPinWidget.a $$PWD/../uiUtils/libuiUtils.a
+ENVVARSLIST     = GDB
 
+include("$$PWD/../../utils.pri")
+
+# Configuration loading...
 exists($$CONFIG_FILE) {
 	message("[i] configuration file $$CONFIG_FILE detected")
 	include($$CONFIG_FILE)
-} else {
-	# Checking for environment variables
-	GDB = $$(GDB)
 }
 
-equals(GDB, 1) {
-	message("WARNING! You are building $$TARGET module in debug mode")
-	CONFIG  += debug
-	CONFIG  -= release
-} else {
-	message("[i] You are building $$TARGET in release mode")
-	CONFIG  += release
-	CONFIG  -= debug
+# Checking for dependences
+checkPreTargetDepsExist() {} else {
+	error("Test failed")
 }
 
+# Settings by environmwent-vars
+include("$$PWD/../../envVarOverriding.pri")
+
+# Checking for GNU Debugger enabling setting
+include("$$PWD/../../gdbToConfig.pri")
+
+#
+# Customized rules
+#
 cleanall.target   = cleanall
 cleanall.commands = $$escape_expand(@rm -fv lib$${TARGET}.a Makefile)
 cleanall.depends  = clean

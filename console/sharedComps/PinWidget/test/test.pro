@@ -25,7 +25,7 @@
 #
 #-------------------------------------------------------------------------------------------------------------------------------
 
-CONFIG_FILE  = "$$PWD/../../conf.pri"
+CONFIG_FILE  = "$$PWD/../../../conf.pri"
 TEMPLATE     = app
 SOURCES     += $$PWD/*.cpp  $$PWD/../PinWidget.cpp
 HEADERS     += $$PWD/../PinWidget.h $$PWD/*.h
@@ -36,20 +36,14 @@ INCLUDEPATH += ../ ./
 exists($$CONFIG_FILE) {
 	message("[i] configuration file $$CONFIG_FILE detected")
 	include($$CONFIG_FILE)
-} else {
-	# Checking for environment variables
-	GDB = $$(GDB)
 }
 
-equals(GDB, 1) {
-	message("WARNING! You are building $$TARGET module in debug mode")
-	CONFIG  += debug
-	CONFIG  -= release
-} else {
-	message("[i] You are building $$TARGET in release mode")
-	CONFIG  += release
-	CONFIG  -= debug
-}
+# Settings by environmwent-vars
+include("$$PWD/../../../envVarOverriding.pri")
+
+# Checking for GNU Debugger enabling setting
+include("$$PWD/../../../gdbToConfig.pri")
+
 
 cleanall.target   = cleanall
 cleanall.commands = $$escape_expand(@rm -fv $$TARGET Makefile)

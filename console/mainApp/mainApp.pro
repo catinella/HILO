@@ -25,36 +25,50 @@
 #
 #-------------------------------------------------------------------------------------------------------------------------------
 
-CONFIG_FILE  = $$PWD/../conf.pri
-TEMPLATE     = app
-SOURCES     += $$files($$PWD/*.cpp)
-HEADERS     += $$files($$PWD/*.h)
-LIBS        += -L$$PWD/../KeypadWidget -lKeypadWidget
-INCLUDEPATH += $$PWD/../KeypadWidget
-QT          += widgets
-TARGET       = HILO_console
-DESTDIR      = ../
+CONFIG_FILE     = $$PWD/../conf.pri
+TEMPLATE        = app
+SOURCES        += $$files($$PWD/*.cpp)
+HEADERS        += $$files($$PWD/*.h)
+INCLUDEPATH    += $$PWD/../KeypadWidget
+QT             += widgets
+TARGET          = HILO_console
+DESTDIR         = ../
+ENVVARSLIST     = GDB
+LIBS           +=                                      \
+	-L$$PWD/../inputDevs/KeypadWidget -lKeypadWidget \
+	-L$$PWD/../sharedComps/uiUtils    -luiUtils      \
+	-L$$PWD/../sharedComps/PinWidget  -lPinWidget    \
+	-L$$PWD/../sharedComps/PinStripe  -lPinStripe
+PRE_TARGETDEPS +=                                      \
+	$$PWD/../sharedComps/uiUtils/libuiUtils.a        \
+	$$PWD/../sharedComps/PinWidget/libPinWidget.a    \
+	$$PWD/../sharedComps/PinStripe/libPinStripe.a
 
+include("$$PWD/../utils.pri")
+
+# Configuration loading...
 exists($$CONFIG_FILE) {
 	message("[i] configuration file $$CONFIG_FILE detected")
 	include($$CONFIG_FILE)
-} else {
-	# Checking for environment variables
-	GDB = $$(GDB)
 }
 
-equals(GDB, 1) {
-	message(WARNING! You are building $$TARGET module in debug mode)
-	CONFIG  += debug
-	CONFIG  -= release
-} else {
-	message([i] You are building $$TARGET in release mode)
-	CONFIG  += release
-	CONFIG  -= debug
+# Checking for dependences
+checkPreTargetDepsExist() {} else {
+	error("Test failed")
 }
 
+# Settings by environmwent-vars
+include("$$PWD/../envVarOverriding.pri")
+
+# Checking for GNU Debugger enabling setting
+include("$$PWD/../gdbToConfig.pri")
+message("CONFIG=$$CONFIG")
+
+#
+# Customized rules
+#
 cleanall.target   = cleanall
-cleanall.commands = $$escape_expand(@rm -fv $$DESTDIR/$$TARGET Makefile)
+cleanall.commands = $$escape_expand(@rm -fv lib$${TARGET}.a Makefile)
 cleanall.depends  = clean
 
 QMAKE_EXTRA_TARGETS += cleanall

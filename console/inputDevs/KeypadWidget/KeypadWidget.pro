@@ -25,39 +25,49 @@
 #
 #-------------------------------------------------------------------------------------------------------------------------------
 
-CONFIG_FILE     = "$$PWD/../conf.pri"
+CONFIG_FILE     = "$$PWD/../../conf.pri"
 TEMPLATE        = lib
 SOURCES        += $$PWD/*.cpp
 HEADERS        += $$PWD/*.h $$PWD/../../sharedComps/PinStrip/PinStrip.h
-INCLUDEPATH    += $$PWD/.. $$PWD/../../sharedComps/PinStrip $$PWD/../../sharedComps/PinWidget
 FORMS          += $$PWD/KeypadWidget.ui
 CONFIG         += staticlib
 TARGET          = KeypadWidget
 QT             += widgets
-PRE_TARGETDEPS += $$PWD/../../sharedComps/PinStrip/libPinStrip.a $$PWD/../../sharedComps/PinWidget/libPinWidget.a
-LIBS           += -L$$PWD/../../sharedComps/PinStrip -lPinStrip -L$$PWD/../../sharedComps/PinWidget -lPinWidget
+INCLUDEPATH +=                          \
+	$$PWD/..                          \
+	$$PWD/../../sharedComps/PinStrip  \
+	$$PWD/../../sharedComps/uiUtils
+LIBS +=                                               \
+	-L$$PWD/../../sharedComps/PinStrip  -lPinStrip  \
+	-L$$PWD/../../sharedComps/PinWidget -lPinWidget \
+	-L$$PWD/../../sharedComps/uiUtils   -luiUtils  
+PRE_TARGETDEPS +=                                      \
+	$$PWD/../../sharedComps/PinStrip/libPinStrip.a   \
+	$$PWD/../../sharedComps/PinWidget/libPinWidget.a \
+	$$PWD/../../sharedComps/PinWidget/libuUtils.h
 
+include("$$PWD/../../utils.pri")
+
+# Configuration loading...
 exists($$CONFIG_FILE) {
 	message("[i] configuration file $$CONFIG_FILE detected")
 	include($$CONFIG_FILE)
-} else {
-	# Checking for environment variables
-	GDB = $$(GDB)
 }
 
-equals(GDB, 1) {
-	message("WARNING! You are building $$TARGET module in debug mode")
-	CONFIG  += debug
-	CONFIG  -= release
-} else {
-	message("[i] You are building $$TARGET in release mode")
-	CONFIG  += release
-	CONFIG  -= debug
+# Checking for dependences
+checkPreTargetDepsExist() {} else {
+	error("Test failed")
 }
+
+# Settings by environmwent-vars
+include("$$PWD/../../envVarOverriding.pri")
+
+# Checking for GNU Debugger enabling setting
+include("$$PWD/../../gdbToConfig.pri")
+
 
 cleanall.target   = cleanall
-cleanall.commands = $$escape_expand(@rm -fv lib$${TARGET}.a Makefile)
+cleanall.commands = $$escape_expand(@rm -fv $$DESTDIR/$$TARGET Makefile)
 cleanall.depends  = clean
 
 QMAKE_EXTRA_TARGETS += cleanall
-cleanall
