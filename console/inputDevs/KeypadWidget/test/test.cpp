@@ -64,9 +64,9 @@ int main(int argc, char *argv[]) {
 	QObject::connect(keypad, &KeypadWidget::enterPressed, &onEnterPressed);
 	QObject::connect(keypad, &KeypadWidget::textChanged,  &onTextChanged);
 
-	QObject::connect(keypad->getMyPins(), &PinStrip::dragging, [keypad, window](const QPoint &delta) {
+	QObject::connect(keypad->getMyPins()->getDragger(), &DragController::dragging, [keypad, window](const QPoint &delta) {
 		auto dutStrip = keypad->getMyPins();
-            QPoint p = dutStrip->position() + delta;
+            QPoint p = dutStrip->getPosition() + delta;
 
             const int maxX = window->width()  - dutStrip->width();
             const int maxY = window->height() - dutStrip->height();
@@ -74,19 +74,19 @@ int main(int argc, char *argv[]) {
             p.setX(std::clamp(p.x(), 0, maxX));
             p.setY(std::clamp(p.y(), 0, maxY));
 
-            dutStrip->moveTo(p);
+            dutStrip->move(p);
 
      //       overlay->paintNow();
       });
 
-	QObject::connect(keypad, &KeypadWidget::dragging, [keypad, window](const QPoint &delta) {
-            QPoint    p    = keypad->position() + delta;
+	QObject::connect(keypad->getDragger(), &DragController::dragging, [keypad, window](const QPoint &delta) {
+            QPoint    p    = keypad->getPosition() + delta;
             const int maxX = window->width()  - keypad->width();
             const int maxY = window->height() - keypad->height();
 
             p.setX(std::clamp(p.x(), 0, maxX));
             p.setY(std::clamp(p.y(), 0, maxY));
-            keypad->moveTo(p);
+            keypad->move(p);
       });
 
 	return(app.exec());
