@@ -15,6 +15,8 @@
 // Author:   Silvano Catinella <catinella@yahoo.com>
 //
 // Description:
+//		This class allows you to create virtual numeric keypad objects. Connecting one object belong to this class to the
+//		DUT's input-pins, you will be able to send decimal numbers to the device.
 //
 //
 //
@@ -41,7 +43,8 @@
 #include <QWidget>
 #include <QVector>
 #include <QPushButton>
-#include <PinStrip.h>
+#include "PinStrip.h"
+#include "DragController.h"
 
 #define KEYPAD_DATABITS 8
 
@@ -55,22 +58,16 @@ class KeypadWidget:public QWidget {
     Q_OBJECT
 
 public:
-	explicit  KeypadWidget (QWidget * parent = nullptr);
-	         ~KeypadWidget ();
-	PinStrip* getMyPins    () const;
-	
-	// Movment API
-	QPoint    position     () const;
-	void      moveTo       (const QPoint &posInParent);
-	void      moveBy       (const QPoint &deltaInParent);
+	explicit        KeypadWidget  (QWidget * parent = nullptr);
+	                ~KeypadWidget ();
+	PinStrip*       getMyPins     () const;
+	QPoint          getPosition   () const;
+	DragController* getDragger    () const;
 	
 signals:
 	void digitPressed (int digit);
 	void textChanged  (const QString &text);
 	void enterPressed (const unsigned int value);
-	void dragStarted  (const QPoint &pos);
-	void dragging     (const QPoint &delta);
-	void dragFinished ();
 
 private slots:
 	void onDigitClicked ();
@@ -78,20 +75,14 @@ private slots:
 	void onOkClicked    ();
 	
 private:
-	Ui::KeypadWidget      *ui = nullptr;
+	Ui::KeypadWidget      *ui        = nullptr;
+	PinStrip              *myPins    = nullptr;
+	unsigned int          oldValue   = 0;
+	DragController        *m_dragger = nullptr;
 	QVector<QPushButton*> digitButtons;
-	PinStrip              *myPins = nullptr;
-	unsigned int          oldValue = 0;
-	bool                  m_dragging = false;
-	QPoint                m_pressPos; 
-	QPoint                m_lastGlobalPos;
+	QPoint                m_position; 
 
 	void appendDigit (const QString &d);
-
-protected:
-	void mousePressEvent   (QMouseEvent *e) override;
-	void mouseMoveEvent    (QMouseEvent *e) override;
-	void mouseReleaseEvent (QMouseEvent *e) override;
 };
 
 #endif // KEYPADWIDGET_H
