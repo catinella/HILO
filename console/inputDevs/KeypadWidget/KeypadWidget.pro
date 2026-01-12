@@ -36,6 +36,7 @@ QT             += widgets
 INCLUDEPATH +=                          \
 	$$PWD/..                          \
 	$$PWD/../../sharedComps/PinStrip  \
+	$$PWD/../../sharedComps/PinWidget \
 	$$PWD/../../sharedComps/uiUtils
 LIBS +=                                               \
 	-L$$PWD/../../sharedComps/PinStrip  -lPinStrip  \
@@ -44,7 +45,7 @@ LIBS +=                                               \
 PRE_TARGETDEPS +=                                      \
 	$$PWD/../../sharedComps/PinStrip/libPinStrip.a   \
 	$$PWD/../../sharedComps/PinWidget/libPinWidget.a \
-	$$PWD/../../sharedComps/PinWidget/libuUtils.h
+	$$PWD/../../sharedComps/uiUtils/libuiUtils.a
 
 include("$$PWD/../../utils.pri")
 

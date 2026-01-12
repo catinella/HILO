@@ -33,15 +33,19 @@ FORMS          += $$PWD/../KeypadWidget.ui
 QT             += widgets
 TARGET          = KeypadWidget_test
 DESTDIR         = $$PWD
-INCLUDEPATH    +=                                   \
-	$$PWD/.. $$PWD/../../../sharedComps/PinStrip  \
-	$$PWD/../../../sharedComps/PinWidget
-LIBS           +=                                        \
+INCLUDEPATH +=                             \
+	$$PWD/..                             \
+	$$PWD/../../../sharedComps/PinStrip  \
+	$$PWD/../../../sharedComps/PinWidget \
+	$$PWD/../../../sharedComps/uiUtils
+LIBS +=                                                  \
 	-L$$PWD/../../../sharedComps/PinStrip  -lPinStrip  \
-	-L$$PWD/../../../sharedComps/PinWidget -lPinWidget
-PRE_TARGETDEPS +=                                        \
-	$$PWD/../../../sharedComps/PinStrip/libPinStrip.a  \
-	$$PWD/../../../sharedComps/PinWidget/libPinWidget.a 
+	-L$$PWD/../../../sharedComps/PinWidget -lPinWidget \
+	-L$$PWD/../../../sharedComps/uiUtils   -luiUtils
+PRE_TARGETDEPS +=                                         \
+	$$PWD/../../../sharedComps/PinStrip/libPinStrip.a   \
+	$$PWD/../../../sharedComps/PinWidget/libPinWidget.a \
+	$$PWD/../../../sharedComps/uiUtils/libuiUtils.a
 
 include("$$PWD/../../../utils.pri")
 
