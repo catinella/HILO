@@ -33,6 +33,8 @@ FORMS          += $$PWD/KeypadWidget.ui
 CONFIG         += staticlib
 TARGET          = KeypadWidget
 QT             += widgets
+DESTDIR         = .
+
 INCLUDEPATH +=                          \
 	$$PWD/..                          \
 	$$PWD/../../sharedComps/PinStrip  \
@@ -56,9 +58,7 @@ exists($$CONFIG_FILE) {
 }
 
 # Checking for dependences
-checkPreTargetDepsExist() {} else {
-	error("Test failed")
-}
+checkPreTargetDepsExist() {} else {error("Test failed")}
 
 # Settings by environmwent-vars
 include("$$PWD/../../envVarOverriding.pri")
@@ -66,9 +66,5 @@ include("$$PWD/../../envVarOverriding.pri")
 # Checking for GNU Debugger enabling setting
 include("$$PWD/../../gdbToConfig.pri")
 
-
-cleanall.target   = cleanall
-cleanall.commands = $$escape_expand(@rm -fv $$DESTDIR/$$TARGET Makefile)
-cleanall.depends  = clean
-
-QMAKE_EXTRA_TARGETS += cleanall
+# Cleanall rule
+include("$$PWD/../../cleanallRuleForLib.pri")
