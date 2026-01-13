@@ -25,13 +25,15 @@
 #
 #-------------------------------------------------------------------------------------------------------------------------------
 
-CONFIG_FILE  = "$$PWD/../../../conf.pri"
-TEMPLATE     = app
-SOURCES     += $$PWD/*.cpp  $$PWD/../PinWidget.cpp
-HEADERS     += $$PWD/../PinWidget.h $$PWD/*.h
-QT          += widgets
-TARGET       = PinWidget_test
-INCLUDEPATH += ../ ./
+QMAKETOOLS_DIR  = "$$PWD/../../../qmakeTools"
+CONFIG_FILE     = "$$QMAKETOOLS_DIR/conf.pri"
+TEMPLATE        = app
+SOURCES        += $$PWD/*.cpp  $$PWD/../PinWidget.cpp
+HEADERS        += $$PWD/../PinWidget.h $$PWD/*.h
+QT             += widgets
+TARGET          = PinWidget_test
+INCLUDEPATH    += ../ ./
+DESTDIR         = $$PWD
 
 exists($$CONFIG_FILE) {
 	message("[i] configuration file $$CONFIG_FILE detected")
@@ -39,14 +41,10 @@ exists($$CONFIG_FILE) {
 }
 
 # Settings by environmwent-vars
-include("$$PWD/../../../envVarOverriding.pri")
+include("$$QMAKETOOLS_DIR/envVarOverriding.pri")
 
 # Checking for GNU Debugger enabling setting
-include("$$PWD/../../../gdbToConfig.pri")
+include("$$QMAKETOOLS_DIR/gdbToConfig.pri")
 
-
-cleanall.target   = cleanall
-cleanall.commands = $$escape_expand(@rm -fv $$TARGET Makefile)
-cleanall.depends  = clean
-
-QMAKE_EXTRA_TARGETS += cleanall
+# Cleanall rule definition
+include("$$QMAKETOOLS_DIR/cleanallRuleForApp.pri")

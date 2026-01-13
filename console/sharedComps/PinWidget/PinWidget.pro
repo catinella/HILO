@@ -25,13 +25,15 @@
 #
 #-------------------------------------------------------------------------------------------------------------------------------
 
-CONFIG_FILE = "$$PWD/../../conf.pri"
-TEMPLATE    = lib
-SOURCES    += $$files($$PWD/*.cpp)
-HEADERS    += $$files($$PWD/*.h)
-CONFIG     += staticlib
-TARGET      = PinWidget
-QT         += widgets
+QMAKETOOLS_DIR  = "$$PWD/../../qmakeTools"
+CONFIG_FILE     = "$$PWD/../../conf.pri"
+TEMPLATE        = lib
+SOURCES        += $$files($$PWD/*.cpp)
+HEADERS        += $$files($$PWD/*.h)
+CONFIG         += staticlib
+TARGET          = PinWidget
+QT             += widgets
+DESTDIR         = $$PWD
 
 exists($$CONFIG_FILE) {
 	message("[i] configuration file $$CONFIG_FILE detected")
@@ -44,9 +46,5 @@ include("$$PWD/../../envVarOverriding.pri")
 # Checking for GNU Debugger enabling setting
 include("$$PWD/../../gdbToConfig.pri")
 
-
-cleanall.target   = cleanall
-cleanall.commands = $$escape_expand(@rm -fv lib$${TARGET}.a Makefile)
-cleanall.depends  = clean
-
-QMAKE_EXTRA_TARGETS += cleanall
+# Cleanall rule
+include("$$QMAKETOOLS_DIR/cleanallRuleForLib.pri")

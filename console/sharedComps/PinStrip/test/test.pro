@@ -35,7 +35,8 @@
 #                                                                                                               cols=128 tab=6
 #-------------------------------------------------------------------------------------------------------------------------------
 
-CONFIG_FILE     = "$$PWD/../../../conf.pri"
+QMAKETOOLS_DIR  = "$$PWD/../../../qmakeTools"
+CONFIG_FILE     = "$$QMAKETOOLS_DIR/conf.pri"
 TEMPLATE        = app
 TARGET          = PinStrip_test
 QT             += widgets testlib
@@ -61,7 +62,7 @@ HEADERS +=                         \
 	$$PWD/../ConnectionOverlay.h \
 	$$PWD/../pinConnection.h
 
-include("$$PWD/../../../utils.pri")
+include("$$QMAKETOOLS_DIR/utils.pri")
 
 exists($$CONFIG_FILE) {
 	message("[i] configuration file $$CONFIG_FILE detected")
@@ -69,23 +70,13 @@ exists($$CONFIG_FILE) {
 }
 
 # Checking for dependences
-checkPreTargetDepsExist() {} else {
-	error("Test failed")
-}
+checkPreTargetDepsExist() {} else { error("Test failed") }
 
 # Settings by environmwent-vars
-include("$$PWD/../../../envVarOverriding.pri")
+include("$$QMAKETOOLS_DIR/envVarOverriding.pri")
 
 # Checking for GNU Debugger enabling setting
-include("$$PWD/../../../gdbToConfig.pri")
+include("$$QMAKETOOLS_DIR/gdbToConfig.pri")
 
-#-------------------------------------------------------------------------------------------------------------------------------
-#                                                E T R A   R U L E S
-#-------------------------------------------------------------------------------------------------------------------------------
-
-cleanall.target   = cleanall
-cleanall.commands = $$escape_expand(@rm -fv $$TARGET Makefile)
-cleanall.depends  = clean
-
-QMAKE_EXTRA_TARGETS += cleanall
-
+# Cleanall rule definition
+include("$$QMAKETOOLS_DIR/cleanallRuleForApp.pri")

@@ -25,7 +25,8 @@
 #
 #-------------------------------------------------------------------------------------------------------------------------------
 
-CONFIG_FILE     = $$PWD/../../../conf.pri
+QMAKETOOLS_DIR  = "$$PWD/../../../qmakeTools"
+CONFIG_FILE     = "$$QMAKETOOLS_DIR/conf.pri"
 TEMPLATE        = app
 SOURCES        += $$PWD/*.cpp $$PWD/../KeypadWidget.cpp
 HEADERS        += $$PWD/../KeypadWidget.h
@@ -47,7 +48,7 @@ PRE_TARGETDEPS +=                                         \
 	$$PWD/../../../sharedComps/PinWidget/libPinWidget.a \
 	$$PWD/../../../sharedComps/uiUtils/libuiUtils.a
 
-include("$$PWD/../../../utils.pri")
+include("$$QMAKETOOLS_DIR/utils.pri")
 
 # Configuration loading...
 exists($$CONFIG_FILE) {
@@ -59,10 +60,10 @@ exists($$CONFIG_FILE) {
 checkPreTargetDepsExist() {} else {error("Test failed")}
 
 # Settings by environmwent-vars
-include("$$PWD/../../../envVarOverriding.pri")
+include("$$QMAKETOOLS_DIR/envVarOverriding.pri")
 
 # Checking for GNU Debugger enabling setting
-include("$$PWD/../../../gdbToConfig.pri")
+include("$$QMAKETOOLS_DIR/gdbToConfig.pri")
 
 # Cleanall rule definition
-include("$$PWD/../../../cleanallRuleForApp.pri")
+include("$$QMAKETOOLS_DIR/cleanallRuleForApp.pri")

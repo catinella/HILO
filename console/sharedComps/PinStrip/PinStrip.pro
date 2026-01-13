@@ -29,7 +29,8 @@
 #
 #-------------------------------------------------------------------------------------------------------------------------------
 
-CONFIG_FILE     = "$$PWD/../../conf.pri"
+QMAKETOOLS_DIR  = "$$PWD/../../qmakeTools"
+CONFIG_FILE     = "$$QMAKETOOLS_DIR/conf.pri"
 TEMPLATE        = lib
 SOURCES        += $$files($$PWD/*.cpp)
 HEADERS        += $$files($$PWD/*.h)
@@ -39,8 +40,9 @@ TARGET          = PinStrip
 QT             += widgets
 PRE_TARGETDEPS += $$PWD/../PinWidget/libPinWidget.a $$PWD/../uiUtils/libuiUtils.a
 ENVVARSLIST     = GDB
+DESTDIR         = $$PWD
 
-include("$$PWD/../../utils.pri")
+include("$$QMAKETOOLS_DIR/utils.pri")
 
 # Configuration loading...
 exists($$CONFIG_FILE) {
@@ -49,21 +51,13 @@ exists($$CONFIG_FILE) {
 }
 
 # Checking for dependences
-checkPreTargetDepsExist() {} else {
-	error("Test failed")
-}
+checkPreTargetDepsExist() {} else {error("Test failed")}
 
 # Settings by environmwent-vars
-include("$$PWD/../../envVarOverriding.pri")
+include("$$QMAKETOOLS_DIR/envVarOverriding.pri")
 
 # Checking for GNU Debugger enabling setting
-include("$$PWD/../../gdbToConfig.pri")
+include("$$QMAKETOOLS_DIR/gdbToConfig.pri")
 
-#
-# Customized rules
-#
-cleanall.target   = cleanall
-cleanall.commands = $$escape_expand(@rm -fv lib$${TARGET}.a Makefile)
-cleanall.depends  = clean
-
-QMAKE_EXTRA_TARGETS += cleanall
+# Cleanall rule
+include("$$QMAKETOOLS_DIR/cleanallRuleForLib.pri")

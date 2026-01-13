@@ -25,13 +25,15 @@
 #
 #-------------------------------------------------------------------------------------------------------------------------------
 
-CONFIG_FILE     = "$$PWD/../../../conf.pri"
+QMAKETOOLS_DIR  = "$$PWD/../../../qmakeTools"
+CONFIG_FILE     = "$$QMAKETOOLS_DIR/conf.pri"
 TEMPLATE        = app
 SOURCES        += $$files($$PWD/*.cpp) $$files($$PWD/../DragController.cpp)
 HEADERS        += $$files($$PWD/*.h) $$files($$PWD/../DragController.h)
 QT             += widgets
 TARGET          = DragController_test
 INCLUDEPATH     = $$PWD/..
+DESTDIR         = $$PWD
 
 HILO_DRAG_MODE = $$(HILO_DRAG_MODE)
 equals(HILO_DRAG_MODE, PASSIVE) {
@@ -51,14 +53,10 @@ exists($$CONFIG_FILE) {
 }
 
 # Settings by environmwent-vars
-include("$$PWD/../../../envVarOverriding.pri")
+include("$$QMAKETOOLS_DIR/envVarOverriding.pri")
 
 # Checking for GNU Debugger enabling setting
-include("$$PWD/../../../gdbToConfig.pri")
+include("$$QMAKETOOLS_DIR/gdbToConfig.pri")
 
-
-cleanall.target   = cleanall
-cleanall.commands = $$escape_expand(@rm -fv $${TARGET} Makefile)
-cleanall.depends  = clean
-
-QMAKE_EXTRA_TARGETS += cleanall
+# Cleanall rule definition
+include("$$QMAKETOOLS_DIR/cleanallRuleForApp.pri")
