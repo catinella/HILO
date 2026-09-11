@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="736" width="928" viewBox="0 0 928 736" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
+<path d="M 8,320 L 8,480" fill="none" stroke="black"/>
+<path d="M 72,320 L 72,480" fill="none" stroke="black"/>
+<path d="M 112,32 L 112,112" fill="none" stroke="black"/>
+<path d="M 112,176 L 112,256" fill="none" stroke="black"/>
+<path d="M 176,336 L 176,496" fill="none" stroke="black"/>
+<path d="M 200,112 L 200,144" fill="none" stroke="black"/>
+<path d="M 200,256 L 200,288" fill="none" stroke="black"/>
+<path d="M 200,528 L 200,624" fill="none" stroke="black"/>
+<path d="M 264,32 L 264,112" fill="none" stroke="black"/>
+<path d="M 264,176 L 264,256" fill="none" stroke="black"/>
+<path d="M 296,336 L 296,496" fill="none" stroke="black"/>
+<path d="M 312,112 L 312,144" fill="none" stroke="black"/>
+<path d="M 312,256 L 312,288" fill="none" stroke="black"/>
+<path d="M 328,528 L 328,624" fill="none" stroke="black"/>
+<path d="M 352,32 L 352,112" fill="none" stroke="black"/>
+<path d="M 352,176 L 352,256" fill="none" stroke="black"/>
+<path d="M 400,112 L 400,144" fill="none" stroke="black"/>
+<path d="M 416,336 L 416,496" fill="none" stroke="black"/>
+<path d="M 440,32 L 440,112" fill="none" stroke="black"/>
+<path d="M 488,112 L 488,144" fill="none" stroke="black"/>
+<path d="M 520,336 L 520,496" fill="none" stroke="black"/>
+<path d="M 528,32 L 528,112" fill="none" stroke="black"/>
+<path d="M 568,112 L 568,144" fill="none" stroke="black"/>
+<path d="M 592,144 L 592,272" fill="none" stroke="black"/>
+<path d="M 592,304 L 592,368" fill="none" stroke="black"/>
+<path d="M 608,288 L 608,400" fill="none" stroke="black"/>
+<path d="M 616,32 L 616,112" fill="none" stroke="black"/>
+<path d="M 648,288 L 648,368" fill="none" stroke="black"/>
+<path d="M 656,32 L 656,112" fill="none" stroke="black"/>
+<path d="M 696,544 L 696,608" fill="none" stroke="black"/>
+<path d="M 720,336 L 720,496" fill="none" stroke="black"/>
+<path d="M 808,32 L 808,112" fill="none" stroke="black"/>
+<path d="M 824,64 L 824,144" fill="none" stroke="black"/>
+<path d="M 832,336 L 832,496" fill="none" stroke="black"/>
+<path d="M 848,544 L 848,608" fill="none" stroke="black"/>
+<path d="M 872,144 L 872,176" fill="none" stroke="black"/>
+<path d="M 888,416 L 888,576" fill="none" stroke="black"/>
+<path d="M 904,176 L 904,272" fill="none" stroke="black"/>
+<path d="M 904,304 L 904,368" fill="none" stroke="black"/>
+<path d="M 112,32 L 624,32" fill="none" stroke="black"/>
+<path d="M 648,32 L 808,32" fill="none" stroke="black"/>
+<path d="M 808,64 L 824,64" fill="none" stroke="black"/>
+<path d="M 112,112 L 624,112" fill="none" stroke="black"/>
+<path d="M 648,112 L 808,112" fill="none" stroke="black"/>
+<path d="M 104,142 L 192,142" fill="none" stroke="black"/><path d="M 104,146 L 192,146" fill="none" stroke="black"/>
+<path d="M 208,142 L 304,142" fill="none" stroke="black"/><path d="M 208,146 L 304,146" fill="none" stroke="black"/>
+<path d="M 320,142 L 392,142" fill="none" stroke="black"/><path d="M 320,146 L 392,146" fill="none" stroke="black"/>
+<path d="M 408,142 L 480,142" fill="none" stroke="black"/><path d="M 408,146 L 480,146" fill="none" stroke="black"/>
+<path d="M 496,142 L 560,142" fill="none" stroke="black"/><path d="M 496,146 L 560,146" fill="none" stroke="black"/>
+<path d="M 576,142 L 584,142" fill="none" stroke="black"/><path d="M 576,146 L 584,146" fill="none" stroke="black"/>
+<path d="M 600,142 L 816,142" fill="none" stroke="black"/><path d="M 600,146 L 816,146" fill="none" stroke="black"/>
+<path d="M 832,142 L 864,142" fill="none" stroke="black"/><path d="M 832,146 L 864,146" fill="none" stroke="black"/>
+<path d="M 880,142 L 920,142" fill="none" stroke="black"/><path d="M 880,146 L 920,146" fill="none" stroke="black"/>
+<path d="M 112,176 L 352,176" fill="none" stroke="black"/>
+<path d="M 872,176 L 904,176" fill="none" stroke="black"/>
+<path d="M 112,256 L 352,256" fill="none" stroke="black"/>
+<path d="M 104,286 L 192,286" fill="none" stroke="black"/><path d="M 104,290 L 192,290" fill="none" stroke="black"/>
+<path d="M 208,286 L 304,286" fill="none" stroke="black"/><path d="M 208,290 L 304,290" fill="none" stroke="black"/>
+<path d="M 320,286 L 600,286" fill="none" stroke="black"/><path d="M 320,290 L 600,290" fill="none" stroke="black"/>
+<path d="M 616,286 L 640,286" fill="none" stroke="black"/><path d="M 616,290 L 640,290" fill="none" stroke="black"/>
+<path d="M 656,286 L 920,286" fill="none" stroke="black"/><path d="M 656,290 L 920,290" fill="none" stroke="black"/>
+<path d="M 8,320 L 72,320" fill="none" stroke="black"/>
+<path d="M 176,336 L 296,336" fill="none" stroke="black"/>
+<path d="M 416,336 L 520,336" fill="none" stroke="black"/>
+<path d="M 720,336 L 832,336" fill="none" stroke="black"/>
+<path d="M 80,368 L 168,368" fill="none" stroke="black"/>
+<path d="M 296,368 L 408,368" fill="none" stroke="black"/>
+<path d="M 520,366 L 592,366" fill="none" stroke="black"/><path d="M 520,370 L 592,370" fill="none" stroke="black"/>
+<path d="M 648,366 L 720,366" fill="none" stroke="black"/><path d="M 648,370 L 720,370" fill="none" stroke="black"/>
+<path d="M 832,366 L 904,366" fill="none" stroke="black"/><path d="M 832,370 L 904,370" fill="none" stroke="black"/>
+<path d="M 80,400 L 168,400" fill="none" stroke="black"/>
+<path d="M 304,400 L 408,400" fill="none" stroke="black"/>
+<path d="M 520,398 L 608,398" fill="none" stroke="black"/><path d="M 520,402 L 608,402" fill="none" stroke="black"/>
+<path d="M 832,416 L 888,416" fill="none" stroke="black"/>
+<path d="M 296,432 L 408,432" fill="none" stroke="black"/>
+<path d="M 520,430 L 584,430" fill="none" stroke="black"/><path d="M 520,434 L 584,434" fill="none" stroke="black"/>
+<path d="M 664,430 L 720,430" fill="none" stroke="black"/><path d="M 664,434 L 720,434" fill="none" stroke="black"/>
+<path d="M 296,464 L 408,464" fill="none" stroke="black"/>
+<path d="M 520,462 L 600,462" fill="none" stroke="black"/><path d="M 520,466 L 600,466" fill="none" stroke="black"/>
+<path d="M 656,462 L 720,462" fill="none" stroke="black"/><path d="M 656,466 L 720,466" fill="none" stroke="black"/>
+<path d="M 8,480 L 72,480" fill="none" stroke="black"/>
+<path d="M 176,496 L 296,496" fill="none" stroke="black"/>
+<path d="M 416,496 L 520,496" fill="none" stroke="black"/>
+<path d="M 720,496 L 832,496" fill="none" stroke="black"/>
+<path d="M 200,528 L 328,528" fill="none" stroke="black"/>
+<path d="M 328,560 L 688,560" fill="none" stroke="black"/>
+<path d="M 848,576 L 888,576" fill="none" stroke="black"/>
+<path d="M 336,592 L 696,592" fill="none" stroke="black"/>
+<path d="M 200,624 L 328,624" fill="none" stroke="black"/>
+<path d="M 616,64 L 632,32" fill="none" stroke="black"/>
+<path d="M 616,80 L 640,32" fill="none" stroke="black"/>
+<path d="M 612,104 L 648,32" fill="none" stroke="black"/>
+<path d="M 616,112 L 656,32" fill="none" stroke="black"/>
+<path d="M 632,96 L 660,40" fill="none" stroke="black"/>
+<path d="M 640,96 L 656,64" fill="none" stroke="black"/>
+<polygon class="arrowhead" points="696,560 684,554.4 684,565.6" fill="black" transform="rotate(0,688,560)"/>
+<polygon class="arrowhead" points="416,464 404,458.4 404,469.6" fill="black" transform="rotate(0,408,464)"/>
+<polygon class="arrowhead" points="416,432 404,426.4 404,437.6" fill="black" transform="rotate(0,408,432)"/>
+<polygon class="arrowhead" points="416,400 404,394.4 404,405.6" fill="black" transform="rotate(0,408,400)"/>
+<polygon class="arrowhead" points="416,368 404,362.4 404,373.6" fill="black" transform="rotate(0,408,368)"/>
+<polygon class="arrowhead" points="344,592 332,586.4 332,597.6" fill="black" transform="rotate(180,336,592)"/>
+<polygon class="arrowhead" points="312,400 300,394.4 300,405.6" fill="black" transform="rotate(180,304,400)"/>
+<polygon class="arrowhead" points="176,400 164,394.4 164,405.6" fill="black" transform="rotate(0,168,400)"/>
+<polygon class="arrowhead" points="176,368 164,362.4 164,373.6" fill="black" transform="rotate(0,168,368)"/>
+<polygon class="arrowhead" points="88,400 76,394.4 76,405.6" fill="black" transform="rotate(180,80,400)"/>
+<polygon class="arrowhead" points="88,368 76,362.4 76,373.6" fill="black" transform="rotate(180,80,368)"/>
+<circle cx="200" cy="144" r="6" class="closeddot" fill="black"/>
+<circle cx="200" cy="288" r="6" class="closeddot" fill="black"/>
+<circle cx="312" cy="144" r="6" class="closeddot" fill="black"/>
+<circle cx="312" cy="288" r="6" class="closeddot" fill="black"/>
+<circle cx="400" cy="144" r="6" class="closeddot" fill="black"/>
+<circle cx="488" cy="144" r="6" class="closeddot" fill="black"/>
+<circle cx="568" cy="144" r="6" class="closeddot" fill="black"/>
+<circle cx="592" cy="144" r="6" class="closeddot" fill="black"/>
+<circle cx="608" cy="288" r="6" class="closeddot" fill="black"/>
+<circle cx="648" cy="288" r="6" class="closeddot" fill="black"/>
+<circle cx="824" cy="144" r="6" class="closeddot" fill="black"/>
+<circle cx="872" cy="144" r="6" class="closeddot" fill="black"/>
+<g class="text">
+<text x="188" y="68">SRAM 8MB</text>
+<text x="308" y="68">SRAM 8MB</text>
+<text x="396" y="68">SRAM 8MB</text>
+<text x="484" y="68">SRAM 8MB</text>
+<text x="572" y="68">SRAM 8MB</text>
+<text x="732" y="68">SRAM 8MB</text>
+<text x="188" y="84">APS6404L-3SQR-SN</text>
+<text x="304" y="84">(bank1)</text>
+<text x="392" y="84">(bank2)</text>
+<text x="480" y="84">(bank3)</text>
+<text x="568" y="84">(bank4)</text>
+<text x="732" y="84">APS6404L-3SQR-SN</text>
+<text x="192" y="100">(bank0)</text>
+<text x="648" y="100">/</text>
+<text x="736" y="100">(bank7)</text>
+<text x="636" y="116">..</text>
+<text x="64" y="148">SPI Bus</text>
+<text x="188" y="212">SRAM 8MB</text>
+<text x="308" y="212">SRAM 8MB</text>
+<text x="188" y="228">APS6404L-3SQR-SN</text>
+<text x="304" y="228">(bank1)</text>
+<text x="192" y="244">(bank0)</text>
+<text x="64" y="292">SPI Bus</text>
+<text x="108" y="356">GPIO</text>
+<text x="388" y="356">GPIO</text>
+<text x="556" y="356">SPI(1)</text>
+<text x="684" y="356">SPI(1)</text>
+<text x="868" y="356">SPI(3)</text>
+<text x="124" y="388">&lt;...DATA...&gt;</text>
+<text x="232" y="388">I/O lines</text>
+<text x="356" y="388">&lt;....DATA....&gt;</text>
+<text x="468" y="388">STM32 M4</text>
+<text x="556" y="388">SPI(3)</text>
+<text x="40" y="404">DUT</text>
+<text x="236" y="404">interfaces</text>
+<text x="464" y="404">(RealTime</text>
+<text x="776" y="404">ESP32-Wroom</text>
+<text x="232" y="420">and</text>
+<text x="468" y="420">micro)</text>
+<text x="556" y="420">SPI(2)</text>
+<text x="684" y="420">SPI(2)</text>
+<text x="772" y="420">DevKitC-V4</text>
+<text x="240" y="436">protections</text>
+<text x="624" y="436">&lt;rt-data&gt;</text>
+<text x="776" y="436">(interface)</text>
+<text x="356" y="452">....FUSES....&gt;</text>
+<text x="544" y="452">I2C</text>
+<text x="696" y="452">I2C</text>
+<text x="628" y="468">&lt;cmds&gt;</text>
+<text x="388" y="484">GPIO</text>
+<text x="772" y="532">/\/\/\/\/\/\/\/\/\/\</text>
+<text x="408" y="548">REST API (tcp/ip)</text>
+<text x="264" y="580">Test client</text>
+<text x="604" y="580">Data stream (udp/ip)</text>
+<text x="768" y="580">WiFi link</text>
+<text x="772" y="628">\/\/\/\/\/\/\/\/\/\/</text>
+</g>
+</svg>
