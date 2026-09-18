@@ -37,18 +37,19 @@ participant HILOEN [
 	Firmware
 ]
 
-box "HILO device" #Yellow
-	participant HILOIF
-	database    SRAM1
-	database    SRAM2
-	participant HILOEN
-end box
-
 participant FUSES [
 	**HILO's fuses"**
 	---
 	Protection system
 ]
+
+box "HILO device" #Yellow
+	participant HILOIF
+	database    SRAM1
+	database    SRAM2
+	participant HILOEN
+	participant FUSES
+end box
 
 participant DUT [
 	**Device Under Test**
