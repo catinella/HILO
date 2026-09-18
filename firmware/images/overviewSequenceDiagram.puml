@@ -44,6 +44,12 @@ box "HILO device" #Yellow
 	participant HILOEN
 end box
 
+participant FUSES [
+	**HILO's fuses"**
+	---
+	Protection system
+]
+
 participant DUT [
 	**Device Under Test**
 	---
@@ -51,7 +57,7 @@ participant DUT [
 ]
 
 '-------------------------------------------------------------------------------------------------------------------------------
-'                              P A R T I C I P A N T ' s   I N T E R A C T I O N S
+'                                                 I N T E R A C T I O N S 
 '-------------------------------------------------------------------------------------------------------------------------------
 
 |||
@@ -66,11 +72,14 @@ USER   -> TCL:    Test starting command
 TCL    -> TCL:    JSON creation
 TCL    -> HILOIF: WiFi transmission (REST-API)
 HILOIF -> HILOEN: Start!
+HILOEN -> HILOEN: Test initialization
 
 == Test execution ==
 
 SRAM1  -> HILOEN: get test's configuration data[0]
+HILOEN -> HILOEN: Fuses status consideration
 HILOEN -> DUT:    Output PINs values setting
+FUSES  -> HILOEN: Fuses status acknowledging
 DUT    -> HILOEN: Input PINs reading
 HILOEN -> SRAM2:  Saving the results
 
@@ -88,7 +97,9 @@ end note
 |||
 
 SRAM1  -> HILOEN: get test's configuration data[n]
+HILOEN -> HILOEN: Fuses status consideration
 HILOEN -> DUT:    Output PINs values setting
+FUSES  -> HILOEN: Fuses status acknowledging
 DUT    -> HILOEN: Input PINs reading
 HILOEN -> SRAM2:  Saving the results
 
