@@ -62,28 +62,43 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-typedef uint16_t bitConf_t
+typedef uint16_t bitConf_t;
 
 #define RINGBUFFER_PERCTHRESHOLD 50
 
-typedef struct {
-	unsigned int index;
-	bitConf_t    *storage;
-	unsigned int usedSize;
-} ringBuffer_t;
+typedef struct _ringBuffer ringBuffer_t;
 
-void (*ringBuffer_refillCingB) (ringBuffer_t *obj);
-void (*ringBuffer_emptyingCB)  (ringBuffer_t *obj);
+typedef void (*rbCB_t) (struct ringBuffer_t *obj);
+
+typedef enum {
+	RINGBUFFER_INBUFF,
+	RINGBUFFER_OUTBUFF
+} ringBufferDir_t;
+
+typedef struct _ringBuffer {
+	ringBufferDir_t dir;
+	bitConf_t       *storage;
+	unsigned int    storage_noi;
+	unsigned int    index;
+	unsigned int    usedSize;
+	rbCB_t          myCB;
+};
+
 
 //------------------------------------------------------------------------------------------------------------------------------
 //                                    P U B L I C   F U N C T I O N S
 //------------------------------------------------------------------------------------------------------------------------------
-void ringBuffer_set_refillCingB (ringBuffer_refillCingB *refillCingB_a);
-void ringBuffer_set_emptyingCB  (ringBuffer_emptyingCB  *emptyingCB_a);
 
-bool ringBuffer_init            (ringBuffer_t *obj, const bitConf_t *storage_a);
+bool ringBuffer_init (
+	ringBuffer_t    *obj, 
+	bitConf_t       *storage_a, 
+	unsigned int    storageNoi_a, 
+	ringBufferDir_t dir_a, 
+	rbCB_t          cb_a
+);
+
 bool ringBuffer_push            (ringBuffer_t *obj, bitConf_t data);
-bool ringBuffer_pull            (ringBuffer_t *obj, *bitConf_t data);
+bool ringBuffer_pull            (ringBuffer_t *obj, bitConf_t *data);
 
 bool ringBuffer_forcedEmptying  (ringBuffer_t *obj);
 bool ringBuffer_forcedFilling   (ringBuffer_t *obj);

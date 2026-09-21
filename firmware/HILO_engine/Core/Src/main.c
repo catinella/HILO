@@ -22,42 +22,47 @@
 //	in order to obtain a precise schedule of the steps comprising the test, they are executed by a timer interrupt, as shown
 //	in the following diagram:
 //
-//		       [TIMER]
-//		          |
-//		          ▼
-//		   +-------------+
-//		   | ADC trigger |
-//		   +------+------+
-//		          |
-//		          ▼
-//		     +---------+
-//		     |  Output |
-//		     | loading |
-//		     +----+----+
-//		          |
-//		          ▼
-//		  +--------------+
-//		  | GPIO writing |
-//		  +-------+------+
-//		          |
-//		          ▼
-//		 +-----------------+
-//		 | ADC Acknowledge |
-//		 +--------+--------+
-//		          |
-//		          ▼
-//		  +--------------+
-//		  | GPIO reading |
-//		  +-------+------+
-//		          |
-//		          ▼
-//		     +---------+
-//		     | Results |
-//		     | storing |
-//		     +----+----+
-//		          |
-//		          ▼
-//		        [END]          
+//		         [TIMER]
+//		            |
+//		            ▼
+//		     +-------------+
+//		     | ADC trigger |
+//		     +------+------+
+//		            |
+//		            ▼
+//		       +---------+
+//		       |  Output |
+//		       | loading |
+//		       +----+----+
+//		            |
+//		            ▼
+//		    +--------------+
+//		    | GPIO writing |
+//		    +-------+------+
+//		            |
+//		            ▼
+//		   +-----------------+
+//		   | ADC Acknowledge |
+//		   +--------+--------+
+//		            |
+//		            ▼
+//		 +----------------------+
+//		 | FUSEs status reading |
+//		 +----------+-----------+
+//		            |
+//		            ▼
+//		    +--------------+
+//		    | GPIO reading |
+//		    +-------+------+
+//		            |
+//		            ▼
+//		       +---------+
+//		       | Results |
+//		       | storing |
+//		       +----+----+
+//		            |
+//		            ▼
+//		          [END]          
 //
 //
 //	In order to reduce the time required by a single step, the configurations pins are moved in from the external SRAM to the
