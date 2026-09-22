@@ -37,6 +37,7 @@
 //                                                                                                               cols=128 tab=6
 ------------------------------------------------------------------------------------------------------------------------------*/
 #include <ringBuffer.h>
+#include <stddef.h>
 
 #define RBUFFTSH(X) (X * RINGBUFFER_PERCTHRESHOLD / 100)
 

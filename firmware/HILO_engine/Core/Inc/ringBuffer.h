@@ -68,14 +68,14 @@ typedef uint16_t bitConf_t;
 
 typedef struct _ringBuffer ringBuffer_t;
 
-typedef void (*rbCB_t) (struct ringBuffer_t *obj);
+typedef void (*rbCB_t) (ringBuffer_t *obj);
 
 typedef enum {
 	RINGBUFFER_INBUFF,
 	RINGBUFFER_OUTBUFF
 } ringBufferDir_t;
 
-typedef struct _ringBuffer {
+struct _ringBuffer {
 	ringBufferDir_t dir;
 	bitConf_t       *storage;
 	unsigned int    storage_noi;
