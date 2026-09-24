@@ -18,6 +18,7 @@ INC = -I. -I../Inc $(shell pkg-config --cflags minuteC)
 
 MINUTE_SCG  = $(shell pkg-config --variable=prefix minuteC)/share/minute/minute_cCodeGenerator.py
 
+.SECONDARY:	$(wildcard *.sgc)
 .PHONY:	all, clean, cleanall
 
 all:		$(testExes)
