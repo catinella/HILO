@@ -39,11 +39,8 @@ bitConf_t foodata_get () {
 	
 	} 
 
-	if (inc)
-		foodata++;
-
-	else
-		foodata--;
+	if (inc) foodata++;
+	else     foodata--;
 
 	return(foodata);
 }
@@ -64,6 +61,7 @@ TEST(ringBuffer, T1) {
 	ringBuffer_t inputBuffer;
 	bool         rc = false;
 	bitConf_t    data = 0;
+	FILE         *fh = NULL;
 
 	//
 	// foo-data loading...
@@ -73,7 +71,8 @@ TEST(ringBuffer, T1) {
 		for (unsigned int t = 0; t < STORAGE_SIZE; t++) {
 			tmp = foodata_get();
 			storage[t] = tmp;
-			printf("%d) %d\n", t, tmp);
+			if (fileArgumentsDb_get("verbose", NULL))
+				printf("%d) %d\n", t, tmp);
 		}
 	}
 
@@ -87,24 +86,68 @@ TEST(ringBuffer, T1) {
 	rc = ringBuffer_init(&inputBuffer, storage, STORAGE_SIZE, RINGBUFFER_INBUFF, refillCB);
 	ASSERT_TRUE(rc);
 
-	{
-		FILE *fh = fopen(TEST_FILE, "w");
-		if (fh == NULL) {
-			// ERROR!
-		
-		} else {
-			for (unsigned int t = 0; t < PROCDATA_SIZE; t++) {
-				if (ringBuffer_pushPull(&inputBuffer, &data)) {
-					fprintf(fh, "%d\n", data);
-					fflush(fh);
-				} else {
-					// ERROR!
-					break;
-				}
+	fh = fopen(TEST_FILE, "w");
+	if (fh == NULL) {
+		// ERROR!
+		return;
+
+	} else {
+		for (unsigned int t = 0; t < PROCDATA_SIZE; t++) {
+			if (ringBuffer_pushPull(&inputBuffer, &data)) {
+				fprintf(fh, "%d\n", data);
+				fflush(fh);
+			} else {
+				// ERROR!
+				break;
 			}
-			fclose(fh);
 		}
+		fclose(fh);
 	}
+
+	fh = fopen(TEST_FILE, "r");
+	if (fh == NULL) {
+		// ERROR!
+		fprintf(stderr, "ERROR! I cannot open the \"%s\" file\n", TEST_FILE);
+		return;
+
+	} else {
+		bool      err = false;
+		char      line[16];
+		bitConf_t last = 0;
+		bool      flag = true;
+		bool      inc = true;
+
+		for (unsigned int t = 0; t < PROCDATA_SIZE; t++) {
+			if (fgets(line, sizeof(line), fh) == NULL) {
+				// ERROR!
+				fprintf(stderr, "\nERROR! I cannot read from the \"%s\" file\n", TEST_FILE);
+				return;
+
+			} else if (flag) {
+				last = atoi(line);
+				flag = false;
+			
+			} else if ((inc  && atoi(line) != (last + 1)) || (!inc && atoi(line) != (last - 1))) {
+				// ERROR!
+				break;
+				fprintf(stderr, "\nERROR! %d-data is a corrupted one\n", t);
+				err = true;
+			
+			} else {
+				last = atoi(line);
+				if (fileArgumentsDb_get("verbose", NULL))
+					printf(".");
+			}
+
+			if      (last == FOODATA_MAX)  inc = false;
+			else if (last == 0)            inc = true;
+		}
+		if (fileArgumentsDb_get("verbose", NULL))
+			printf("\n");
+
+		ASSERT_TRUE(!err);
+	}
+
 	return;
 }
 
