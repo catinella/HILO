@@ -39,7 +39,6 @@
 #include <ringBuffer.h>
 #include <stddef.h>
 
-#define RBUFFTSH(X) (X * RINGBUFFER_PERCTHRESHOLD / 100)
 
 bool ringBuffer_init (
 	ringBuffer_t    *obj, 
@@ -57,13 +56,16 @@ bool ringBuffer_init (
 	//	false   ERROR!: invalid arguments
 	//
 	bool out = false;
-	if (storage_a != NULL && cb_a != NULL && obj != NULL && storageNoi_a > 0) {
+	if (
+		storage_a != NULL && storageNoi_a > 0 && (storageNoi_a % 2 == 0) &&  // Checking for the storage
+		cb_a != NULL && obj != NULL
+	) {
 		obj->dir         = dir_a;
 		obj->myCB        = cb_a;
 		obj->storage     = storage_a;
 		obj->storage_noi = storageNoi_a;
-		obj->usedSize    = 0;
 		obj->index       = 0;
+		obj->usedSize    = 0;
 		out = true;
 	} else {
 		// ERROR!
@@ -71,102 +73,39 @@ bool ringBuffer_init (
 	return(out);
 }
 
-bool ringBuffer_push (ringBuffer_t *obj, bitConf_t data) {
+bool ringBuffer_pushPull (ringBuffer_t *obj, bitConf_t *data) {
 	//
 	// Description:
-	//	It push a new data into the ring buffer
+	//	Dependig by the configured obj->dir value, the function pushes a new data into the ring buffer or pulls the oldest
+	//	data from the buffer.
 	//
 	bool out = false;
 	
-	if (obj->dir == RINGBUFFER_OUTBUFF) {
-		
-		// Checking for ovesize
-		if (obj->usedSize < obj->storage_noi) {
-			obj->storage[obj->index] = data;
-			obj->index++;
-			obj->usedSize++;
-			
-			// Closing the ring
-			if (obj->index == obj->storage_noi)
-				obj->index = 0;
-			
-			// Checking for the used size
-			if (obj->usedSize >= RBUFFTSH(obj->storage_noi))
-				obj->myCB(obj);
-				
-			out = true;
-			
-		} else {
-			// ERROR! The buffer is full
-		}
-	} else {
-		// ERROR! Illegal operation
-	}
-	
-	return(out);
-}
-
-bool ringBuffer_pull (ringBuffer_t *obj, bitConf_t *data) {
-	//
-	// Description:
-	//	It pull a data from the ring buffer
-	//
-	bool out = false;
-
-	if (obj->dir == RINGBUFFER_INBUFF) {
-		
-		// Checking for ovesize
-		if (obj->usedSize > 0) {
+	// Checking for ovesize or empty data
+	if (obj->usedSize < obj->storage_noi) {
+		if (obj->dir == RINGBUFFER_OUTBUFF)
+			obj->storage[obj->index] = *data;
+		else
 			*data = obj->storage[obj->index];
-			obj->usedSize--;
-			if (obj->index == 0)
-				obj->index = obj->storage_noi - 1;
-			else
-				obj->index--;
+		
+		obj->usedSize++;
+		obj->index++;
 			
-			// Checking for the used size
-			if (obj->usedSize <= RBUFFTSH(obj->storage_noi))
-				obj->myCB(obj);
-				
-			out = true;
-		
-		} else {
-			// ERROR! The buffer is empty
+		// Closing the ring
+		if (obj->index == obj->storage_noi) 
+			obj->index = 0;
+			
+		// Checking for the used size
+		if (obj->usedSize >= (obj->storage_noi / 2)) {
+			obj->myCB(obj);
+			obj->usedSize = 0;
 		}
+				
+		out = true;
+			
 	} else {
-		// ERROR! Illegal operation
-	}
-		
-	return(out);
-}
-
-bool ringBuffer_forcedEmptying (ringBuffer_t *obj) {
-	//
-	// Description:
-	//	It forces the argument defined ringBuffer to be empty. This function is used ad the end of the test process,
-	//	usually.
-	//
-	bool out = false;
-	if (obj->dir == RINGBUFFER_OUTBUFF) {
-		obj->myCB(obj);
-		out = true;
-	}
-
-	return(out);
-}
-
-bool ringBuffer_forcedFilling (ringBuffer_t *obj) {
-	//
-	// Description:
-	//	It forces the argument defined ringBuffer to be filled. This function is used ad the beginning of the test
-	//	process, usually.
-	//
-	bool out = false;
-	if (obj->dir == RINGBUFFER_INBUFF) {
-		obj->myCB(obj);
-		out = true;
+		// ERROR! The buffer is full or empty
 	}
 	
 	return(out);
 }
-

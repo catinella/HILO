@@ -22,25 +22,44 @@
 //		|    +---+---+---+---+---+---+---+---+---+---+---+---+   |
 //		+--------------------------------------------------------+
 //
-//	T(1) - forced fillup
+//	T(1) - forced fillup event
 //		     +---+---+---+---+---+---+---+---+---+---+---+---+
 //		+--->| X | X | X | X | X | X | X | X | X | X | X | X +---+   
 //		|    +---+---+---+---+---+---+---+---+---+---+---+---+   |
 //		+--------------------------------------------------------+
 //
-//	T(n) - emptying...
+//	T(n) - 50% of items have been pulled out...
+//		     0                      50%                     MAX
+//		     |                       |                       |
 //		     +---+---+---+---+---+---+---+---+---+---+---+---+
 //		+--->|   |   |   |   |   |   | X | X | X | X | X | X +---+
 //		|    +---+---+---+---+---+---+---+---+---+---+---+---+   |
 //		+--------------------------------------------------------+
 //
-//	T(n+2) - emptying...
+//	T(n+2) - refilling...
+//		     0                      50%                     MAX
+//		     |                       |                       |
 //		     +---+---+---+---+---+---+---+---+---+---+---+---+
-//		+--->| Y | Y | Y | Y | Y | Y |   |   | X | X | X | X +---+
+//		+--->| Y | Y | Y | Y | Y | Y | X | X | X | X | X | X +---+
 //		|    +---+---+---+---+---+---+---+---+---+---+---+---+   |
 //		+--------------------------------------------------------+
 //
-//	The ringBuffer_refillCingB() and ringBuffer_emptyingCB() must use DMA transfer mode
+//	T(n) - 50% of items have been pulled out...
+//		     0                      50%                     MAX
+//		     |                       |                       |
+//		     +---+---+---+---+---+---+---+---+---+---+---+---+
+//		+--->| Y | Y | Y | Y | Y | Y |   |   |   |   |   |   +---+
+//		|    +---+---+---+---+---+---+---+---+---+---+---+---+   |
+//		+--------------------------------------------------------+
+//
+//
+//	[!] Storage's size
+//	==================
+//		Because the ringBuffer_refillCingB() and ringBuffer_emptyingCB() must use DMA transfer mode, the area to be
+//		refill or to emptied must be statically defined. For this reason the area used by DMA is the 50% of the storage's
+//		area, and the whole area size must be expressed by an even number.
+//
+//
 //
 // License:  LGPL ver 3.0
 //
@@ -63,8 +82,6 @@
 #include <stdint.h>
 
 typedef uint16_t bitConf_t;
-
-#define RINGBUFFER_PERCTHRESHOLD 50
 
 typedef struct _ringBuffer ringBuffer_t;
 
@@ -97,9 +114,4 @@ bool ringBuffer_init (
 	rbCB_t          cb_a
 );
 
-bool ringBuffer_push            (ringBuffer_t *obj, bitConf_t data);
-bool ringBuffer_pull            (ringBuffer_t *obj, bitConf_t *data);
-
-bool ringBuffer_forcedEmptying  (ringBuffer_t *obj);
-bool ringBuffer_forcedFilling   (ringBuffer_t *obj);
-
+bool ringBuffer_pushPull (ringBuffer_t *obj, bitConf_t *data);
