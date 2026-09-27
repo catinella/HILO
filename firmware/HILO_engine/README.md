@@ -62,7 +62,7 @@ Output-pins' configurations layout
 Test results (8 Bytes) record: digital and analog input-pins values
 
 | Test step  | Inputs pins | Fuses status | Data from A/D |  Not used  |
-+------------+-------------+--------------+---------------+------------+
+|------------|-------------|--------------|---------------|------------|
 | **step 0** |   2 bytes   |    2 bytes   |    2 Bytes    |  2 bytes   |
 | **step 1** |   2 bytes   |    2 bytes   |    2 Bytes    |  2 bytes   |
 | **step 2** |   2 bytes   |    2 bytes   |    2 Bytes    |  2 bytes   |
