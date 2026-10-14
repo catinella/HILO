@@ -24,6 +24,7 @@ the master one using pin-headers connectors and flat-cables.
 - [ESP32-DevKitC-V4](https://docs.espressif.com/projects/esp-idf/en/release-v4.2/esp32/hw-reference/esp32/get-started-devkitc.html)
 - [STM32F407VG](https://www.st.com/resource/en/datasheet/dm00037051.pdf)
 - [STM32F407G-DISC1](https://www.st.com/resource/en/data_brief/stm32f4discovery.pdf)
+- [MCP23017](https://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf)
 
 ## 2.2 Logic scheme:
 ![Overview Scheme](./images/overview_scheme.svg)
