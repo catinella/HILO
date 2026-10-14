@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="928" width="928" viewBox="0 0 928 928" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="944" width="928" viewBox="0 0 928 944" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
 <path d="M 8,352 L 8,512" fill="none" stroke="black"/>
 <path d="M 72,352 L 72,512" fill="none" stroke="black"/>
 <path d="M 112,32 L 112,112" fill="none" stroke="black"/>
@@ -6,41 +6,44 @@
 <path d="M 176,336 L 176,560" fill="none" stroke="black"/>
 <path d="M 200,112 L 200,144" fill="none" stroke="black"/>
 <path d="M 200,256 L 200,288" fill="none" stroke="black"/>
-<path d="M 200,720 L 200,816" fill="none" stroke="black"/>
+<path d="M 200,736 L 200,832" fill="none" stroke="black"/>
 <path d="M 264,32 L 264,112" fill="none" stroke="black"/>
 <path d="M 264,176 L 264,256" fill="none" stroke="black"/>
 <path d="M 296,336 L 296,560" fill="none" stroke="black"/>
 <path d="M 312,112 L 312,144" fill="none" stroke="black"/>
 <path d="M 312,256 L 312,288" fill="none" stroke="black"/>
-<path d="M 328,576 L 328,656" fill="none" stroke="black"/>
-<path d="M 328,720 L 328,816" fill="none" stroke="black"/>
+<path d="M 328,592 L 328,672" fill="none" stroke="black"/>
+<path d="M 328,736 L 328,832" fill="none" stroke="black"/>
 <path d="M 352,32 L 352,112" fill="none" stroke="black"/>
 <path d="M 352,176 L 352,256" fill="none" stroke="black"/>
-<path d="M 352,528 L 352,576" fill="none" stroke="black"/>
-<path d="M 392,496 L 392,576" fill="none" stroke="black"/>
+<path d="M 352,528 L 352,592" fill="none" stroke="black"/>
+<path d="M 392,496 L 392,592" fill="none" stroke="black"/>
 <path d="M 400,112 L 400,144" fill="none" stroke="black"/>
 <path d="M 416,336 L 416,528" fill="none" stroke="black"/>
 <path d="M 440,32 L 440,112" fill="none" stroke="black"/>
 <path d="M 488,112 L 488,144" fill="none" stroke="black"/>
 <path d="M 520,336 L 520,528" fill="none" stroke="black"/>
-<path d="M 520,576 L 520,656" fill="none" stroke="black"/>
+<path d="M 520,592 L 520,672" fill="none" stroke="black"/>
 <path d="M 528,32 L 528,112" fill="none" stroke="black"/>
 <path d="M 568,112 L 568,144" fill="none" stroke="black"/>
+<path d="M 568,496 L 568,560" fill="none" stroke="black"/>
 <path d="M 592,144 L 592,272" fill="none" stroke="black"/>
 <path d="M 592,304 L 592,400" fill="none" stroke="black"/>
-<path d="M 592,496 L 592,624" fill="none" stroke="black"/>
+<path d="M 592,560 L 592,640" fill="none" stroke="black"/>
 <path d="M 608,288 L 608,432" fill="none" stroke="black"/>
 <path d="M 616,32 L 616,112" fill="none" stroke="black"/>
 <path d="M 648,288 L 648,400" fill="none" stroke="black"/>
 <path d="M 656,32 L 656,112" fill="none" stroke="black"/>
-<path d="M 696,736 L 696,800" fill="none" stroke="black"/>
+<path d="M 656,496 L 656,560" fill="none" stroke="black"/>
+<path d="M 696,752 L 696,816" fill="none" stroke="black"/>
 <path d="M 720,368 L 720,528" fill="none" stroke="black"/>
 <path d="M 808,32 L 808,112" fill="none" stroke="black"/>
 <path d="M 824,64 L 824,144" fill="none" stroke="black"/>
 <path d="M 832,368 L 832,528" fill="none" stroke="black"/>
-<path d="M 848,736 L 848,800" fill="none" stroke="black"/>
+<path d="M 848,752 L 848,816" fill="none" stroke="black"/>
 <path d="M 872,144 L 872,176" fill="none" stroke="black"/>
-<path d="M 888,448 L 888,768" fill="none" stroke="black"/>
+<path d="M 888,448 L 888,544" fill="none" stroke="black"/>
+<path d="M 888,576 L 888,784" fill="none" stroke="black"/>
 <path d="M 904,176 L 904,272" fill="none" stroke="black"/>
 <path d="M 904,304 L 904,400" fill="none" stroke="black"/>
 <path d="M 112,32 L 624,32" fill="none" stroke="black"/>
@@ -80,34 +83,37 @@
 <path d="M 520,430 L 608,430" fill="none" stroke="black"/><path d="M 520,434 L 608,434" fill="none" stroke="black"/>
 <path d="M 832,448 L 888,448" fill="none" stroke="black"/>
 <path d="M 304,464 L 416,464" fill="none" stroke="black"/>
-<path d="M 520,462 L 568,462" fill="none" stroke="black"/><path d="M 520,466 L 568,466" fill="none" stroke="black"/>
-<path d="M 664,462 L 720,462" fill="none" stroke="black"/><path d="M 664,466 L 720,466" fill="none" stroke="black"/>
+<path d="M 520,462 L 720,462" fill="none" stroke="black"/><path d="M 520,466 L 720,466" fill="none" stroke="black"/>
 <path d="M 304,496 L 392,496" fill="none" stroke="black"/>
-<path d="M 520,494 L 584,494" fill="none" stroke="black"/><path d="M 520,498 L 584,498" fill="none" stroke="black"/>
-<path d="M 600,494 L 720,494" fill="none" stroke="black"/><path d="M 600,498 L 720,498" fill="none" stroke="black"/>
+<path d="M 520,494 L 568,494" fill="none" stroke="black"/><path d="M 520,498 L 568,498" fill="none" stroke="black"/>
+<path d="M 656,494 L 720,494" fill="none" stroke="black"/><path d="M 656,498 L 720,498" fill="none" stroke="black"/>
 <path d="M 8,512 L 72,512" fill="none" stroke="black"/>
 <path d="M 304,528 L 352,528" fill="none" stroke="black"/>
 <path d="M 416,528 L 520,528" fill="none" stroke="black"/>
 <path d="M 720,528 L 832,528" fill="none" stroke="black"/>
 <path d="M 176,560 L 296,560" fill="none" stroke="black"/>
-<path d="M 328,576 L 520,576" fill="none" stroke="black"/>
-<path d="M 520,622 L 592,622" fill="none" stroke="black"/><path d="M 520,626 L 592,626" fill="none" stroke="black"/>
-<path d="M 328,656 L 520,656" fill="none" stroke="black"/>
-<path d="M 200,720 L 328,720" fill="none" stroke="black"/>
-<path d="M 328,752 L 688,752" fill="none" stroke="black"/>
-<path d="M 848,768 L 888,768" fill="none" stroke="black"/>
-<path d="M 336,784 L 696,784" fill="none" stroke="black"/>
-<path d="M 200,816 L 328,816" fill="none" stroke="black"/>
+<path d="M 512,558 L 560,558" fill="none" stroke="black"/><path d="M 512,562 L 560,562" fill="none" stroke="black"/>
+<path d="M 576,558 L 584,558" fill="none" stroke="black"/><path d="M 576,562 L 584,562" fill="none" stroke="black"/>
+<path d="M 600,558 L 648,558" fill="none" stroke="black"/><path d="M 600,562 L 648,562" fill="none" stroke="black"/>
+<path d="M 664,558 L 920,558" fill="none" stroke="black"/><path d="M 664,562 L 920,562" fill="none" stroke="black"/>
+<path d="M 328,592 L 520,592" fill="none" stroke="black"/>
+<path d="M 520,638 L 592,638" fill="none" stroke="black"/><path d="M 520,642 L 592,642" fill="none" stroke="black"/>
+<path d="M 328,672 L 520,672" fill="none" stroke="black"/>
+<path d="M 200,736 L 328,736" fill="none" stroke="black"/>
+<path d="M 328,768 L 688,768" fill="none" stroke="black"/>
+<path d="M 848,784 L 888,784" fill="none" stroke="black"/>
+<path d="M 336,800 L 696,800" fill="none" stroke="black"/>
+<path d="M 200,832 L 328,832" fill="none" stroke="black"/>
 <path d="M 616,64 L 632,32" fill="none" stroke="black"/>
 <path d="M 616,80 L 640,32" fill="none" stroke="black"/>
 <path d="M 612,104 L 648,32" fill="none" stroke="black"/>
 <path d="M 616,112 L 656,32" fill="none" stroke="black"/>
 <path d="M 632,96 L 660,40" fill="none" stroke="black"/>
 <path d="M 640,96 L 656,64" fill="none" stroke="black"/>
-<polygon class="arrowhead" points="696,752 684,746.4 684,757.6" fill="black" transform="rotate(0,688,752)"/>
+<polygon class="arrowhead" points="696,768 684,762.4 684,773.6" fill="black" transform="rotate(0,688,768)"/>
 <polygon class="arrowhead" points="416,400 404,394.4 404,405.6" fill="black" transform="rotate(0,408,400)"/>
 <polygon class="arrowhead" points="416,368 404,362.4 404,373.6" fill="black" transform="rotate(0,408,368)"/>
-<polygon class="arrowhead" points="344,784 332,778.4 332,789.6" fill="black" transform="rotate(180,336,784)"/>
+<polygon class="arrowhead" points="344,800 332,794.4 332,805.6" fill="black" transform="rotate(180,336,800)"/>
 <polygon class="arrowhead" points="312,528 300,522.4 300,533.6" fill="black" transform="rotate(180,304,528)"/>
 <polygon class="arrowhead" points="312,496 300,490.4 300,501.6" fill="black" transform="rotate(180,304,496)"/>
 <polygon class="arrowhead" points="312,464 300,458.4 300,469.6" fill="black" transform="rotate(180,304,464)"/>
@@ -125,10 +131,12 @@
 <circle cx="400" cy="144" r="6" class="closeddot" fill="black"/>
 <circle cx="488" cy="144" r="6" class="closeddot" fill="black"/>
 <circle cx="568" cy="144" r="6" class="closeddot" fill="black"/>
+<circle cx="568" cy="560" r="6" class="closeddot" fill="black"/>
 <circle cx="592" cy="144" r="6" class="closeddot" fill="black"/>
-<circle cx="592" cy="496" r="6" class="closeddot" fill="black"/>
+<circle cx="592" cy="560" r="6" class="closeddot" fill="black"/>
 <circle cx="608" cy="288" r="6" class="closeddot" fill="black"/>
 <circle cx="648" cy="288" r="6" class="closeddot" fill="black"/>
+<circle cx="656" cy="560" r="6" class="closeddot" fill="black"/>
 <circle cx="824" cy="144" r="6" class="closeddot" fill="black"/>
 <circle cx="872" cy="144" r="6" class="closeddot" fill="black"/>
 <g class="text">
@@ -176,20 +184,20 @@
 <text x="684" y="452">SPI(2)</text>
 <text x="772" y="452">DevKitC-V4</text>
 <text x="240" y="468">protections</text>
-<text x="616" y="468">&lt;interact.&gt;</text>
 <text x="776" y="468">(interface)</text>
 <text x="544" y="484">I2C</text>
 <text x="696" y="484">I2C</text>
 <text x="348" y="516">&lt;..DIRS..&gt;</text>
 <text x="692" y="516">&lt;cmds&gt;</text>
-<text x="428" y="612">MCP23017</text>
-<text x="424" y="628">16 bit BUS extender</text>
-<text x="572" y="644">&lt;I/O dirs&gt;</text>
-<text x="772" y="724">/\/\/\/\/\/\/\/\/\/\</text>
-<text x="408" y="740">REST API (tcp/ip)</text>
-<text x="264" y="772">Test client</text>
-<text x="604" y="772">Data stream (udp/ip)</text>
-<text x="768" y="772">WiFi link</text>
-<text x="772" y="820">\/\/\/\/\/\/\/\/\/\/</text>
+<text x="472" y="564">I2C Bus</text>
+<text x="428" y="628">MCP23017</text>
+<text x="424" y="644">16 bit BUS extender</text>
+<text x="572" y="660">&lt;I/O dirs&gt;</text>
+<text x="772" y="740">/\/\/\/\/\/\/\/\/\/\</text>
+<text x="408" y="756">REST API (tcp/ip)</text>
+<text x="264" y="788">Test client</text>
+<text x="604" y="788">Data stream (udp/ip)</text>
+<text x="768" y="788">WiFi link</text>
+<text x="772" y="836">\/\/\/\/\/\/\/\/\/\/</text>
 </g>
 </svg>
