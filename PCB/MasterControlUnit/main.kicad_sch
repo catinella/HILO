@@ -3275,6 +3275,16 @@
 	)
 	(wire
 		(pts
+			(xy 234.95 119.634) (xy 259.842 119.634)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2a3f6104-b84f-42c0-ae97-455cdc7ee6f2")
+	)
+	(wire
+		(pts
 			(xy 80.01 127.762) (xy 61.468 127.762)
 		)
 		(stroke
@@ -3292,6 +3302,16 @@
 			(type default)
 		)
 		(uuid "2ea83289-56b1-4ede-8329-42371aa46309")
+	)
+	(wire
+		(pts
+			(xy 261.62 119.126) (xy 259.842 119.126)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "30c4cb81-d073-4c48-a2f8-fab790460b1b")
 	)
 	(wire
 		(pts
@@ -3505,6 +3525,16 @@
 	)
 	(wire
 		(pts
+			(xy 259.842 119.126) (xy 259.842 119.634)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4830262e-b956-4b05-8ecb-a7cc76af1c49")
+	)
+	(wire
+		(pts
 			(xy 257.81 114.554) (xy 257.81 113.538)
 		)
 		(stroke
@@ -3545,7 +3575,7 @@
 	)
 	(wire
 		(pts
-			(xy 95.25 148.59) (xy 95.25 136.144)
+			(xy 95.25 147.574) (xy 95.25 136.144)
 		)
 		(stroke
 			(width 0)
@@ -4255,7 +4285,7 @@
 	)
 	(wire
 		(pts
-			(xy 172.974 148.59) (xy 95.25 148.59)
+			(xy 172.974 147.574) (xy 95.25 147.574)
 		)
 		(stroke
 			(width 0)
@@ -4435,7 +4465,7 @@
 	)
 	(wire
 		(pts
-			(xy 172.974 101.854) (xy 172.974 148.59)
+			(xy 172.974 101.854) (xy 172.974 147.574)
 		)
 		(stroke
 			(width 0)
@@ -5093,7 +5123,7 @@
 			)
 		)
 	)
-	(global_label "CS to ISRAM"
+	(global_label "CS-B1 to ISRAM"
 		(shape input)
 		(at 261.62 116.332 0)
 		(fields_autoplaced yes)
@@ -5105,7 +5135,7 @@
 		)
 		(uuid "1002a16e-ac2b-4ef7-862b-284f12c02de0")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 276.5189 116.332 0)
+			(at 280.5708 116.332 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5788,6 +5818,28 @@
 		(uuid "8ed75c6c-6894-44a9-9e5f-f61ebdf8eed7")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 106.1939 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "CS-B2 to ISRAM"
+		(shape input)
+		(at 261.62 119.126 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8f85eed1-3856-484e-bb64-6aa3d7c2bd1a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 280.5708 119.126 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7769,48 +7821,6 @@
 				(path "/f4f7b7d6-300b-4628-9b40-5d3a43871a01"
 					(reference "DirControl_1")
 					(unit 1)
-				)
-			)
-		)
-	)
-	(sheet
-		(at 16.764 16.002)
-		(size 29.718 18.288)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0.0000)
-		)
-		(uuid "43414b0e-a3c4-490f-9a40-cb87fb3d03f9")
-		(property "Sheetname" "outputDataStorage"
-			(at 16.764 15.2904 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "outputDataStorage.kicad_sch"
-			(at 16.764 34.8746 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(instances
-			(project "main"
-				(path "/f4f7b7d6-300b-4628-9b40-5d3a43871a01"
-					(page "2")
 				)
 			)
 		)
