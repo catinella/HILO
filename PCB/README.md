@@ -26,6 +26,7 @@ the master one using pin-headers connectors and flat-cables.
 - [STM32F407G-DISC1](https://www.st.com/resource/en/data_brief/stm32f4discovery.pdf)
 - [MCP23017](https://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf)
 - [LD1117S33TR](https://www.st.com/resource/en/datasheet/ld1117.pdf)
+- [74HC138](https://www.mouser.com/datasheet/2/308/74hc138.rev1-289073.pdf?srsltid=AU7gw4Xh3rp2TDjylkHruy-TmyljhEpg-pm_lEueWOH79XHFP8UTOZmN)
 
 ## 2.2 Logic scheme:
 ![Overview Scheme](./images/overview_scheme.svg)
