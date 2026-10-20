@@ -22,6 +22,7 @@ the master one using pin-headers connectors and flat-cables.
 - [APS6404L-3SQR-SN](https://eu.mouser.com/datasheet/3/4815/1/APM_PSRAM_E3_QSPI%20(APS6404L-SQH%20KGD_PKG)%20v4.1.pdf)
 - [ESP32 WROOM-32-UE](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf)
 - [ESP32-DevKitC-V4](https://docs.espressif.com/projects/esp-idf/en/release-v4.2/esp32/hw-reference/esp32/get-started-devkitc.html)
+  [(pinout)](https://docs.espressif.com/projects/esp-idf/en/v5.1/esp32/_images/esp32-devkitC-v4-pinout.png)
 - [STM32F407VG](https://www.st.com/resource/en/datasheet/dm00037051.pdf)
 - [STM32F407G-DISC1](https://www.st.com/resource/en/data_brief/stm32f4discovery.pdf)
 - [MCP23017](https://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf)
