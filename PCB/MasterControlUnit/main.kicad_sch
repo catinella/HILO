@@ -12641,14 +12641,14 @@
 	)
 	(sheet
 		(at 19.05 21.082)
-		(size 29.718 13.97)
+		(size 29.718 7.874)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
-			(width 0.1524)
+			(width 0.2)
 			(type solid)
 		)
 		(fill
@@ -12660,12 +12660,58 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.254)
+					(bold yes)
 				)
 				(justify left bottom)
 			)
 		)
 		(property "Sheetfile" "testDataStorage.kicad_sch"
-			(at 19.05 35.6366 0)
+			(at 19.05 29.5406 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "main"
+				(path "/f4f7b7d6-300b-4628-9b40-5d3a43871a01"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 19.05 34.798)
+		(size 29.718 7.366)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "f54dfa20-8e9f-483f-8c60-a892c56788c2")
+		(property "Sheetname" "HILO_interface"
+			(at 19.05 34.0126 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.254)
+					(bold yes)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "HILO_interface.kicad_sch"
+			(at 19.05 42.8224 0)
 			(effects
 				(font
 					(size 1.27 1.27)
