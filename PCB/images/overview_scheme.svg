@@ -83,7 +83,6 @@
 <path d="M 520,430 L 608,430" fill="none" stroke="black"/><path d="M 520,434 L 608,434" fill="none" stroke="black"/>
 <path d="M 832,448 L 888,448" fill="none" stroke="black"/>
 <path d="M 304,464 L 416,464" fill="none" stroke="black"/>
-<path d="M 520,462 L 720,462" fill="none" stroke="black"/><path d="M 520,466 L 720,466" fill="none" stroke="black"/>
 <path d="M 304,496 L 392,496" fill="none" stroke="black"/>
 <path d="M 520,494 L 568,494" fill="none" stroke="black"/><path d="M 520,498 L 568,498" fill="none" stroke="black"/>
 <path d="M 656,494 L 720,494" fill="none" stroke="black"/><path d="M 656,498 L 720,498" fill="none" stroke="black"/>
@@ -180,8 +179,6 @@
 <text x="232" y="452">and</text>
 <text x="356" y="452">&lt;...FUSES....&gt;</text>
 <text x="468" y="452">micro)</text>
-<text x="556" y="452">SPI(2)</text>
-<text x="684" y="452">SPI(2)</text>
 <text x="772" y="452">DevKitC-V4</text>
 <text x="240" y="468">protections</text>
 <text x="776" y="468">(interface)</text>

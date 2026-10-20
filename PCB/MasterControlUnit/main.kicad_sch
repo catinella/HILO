@@ -3834,7 +3834,7 @@
 	)
 	(wire
 		(pts
-			(xy 188.468 149.098) (xy 188.468 137.414)
+			(xy 188.468 146.812) (xy 188.468 137.414)
 		)
 		(stroke
 			(width 0)
@@ -3904,7 +3904,7 @@
 	)
 	(wire
 		(pts
-			(xy 74.422 156.718) (xy 74.422 170.434)
+			(xy 74.422 137.414) (xy 74.422 170.434)
 		)
 		(stroke
 			(width 0)
@@ -4574,7 +4574,7 @@
 	)
 	(wire
 		(pts
-			(xy 240.792 144.018) (xy 240.792 149.098)
+			(xy 240.792 144.018) (xy 240.792 146.812)
 		)
 		(stroke
 			(width 0)
@@ -4844,7 +4844,7 @@
 	)
 	(wire
 		(pts
-			(xy 240.792 149.098) (xy 188.468 149.098)
+			(xy 240.792 146.812) (xy 188.468 146.812)
 		)
 		(stroke
 			(width 0)
@@ -7584,7 +7584,7 @@
 	)
 	(wire
 		(pts
-			(xy 74.422 156.718) (xy 78.994 156.718)
+			(xy 74.422 137.414) (xy 78.994 137.414)
 		)
 		(stroke
 			(width 0)
@@ -8034,7 +8034,7 @@
 	)
 	(wire
 		(pts
-			(xy 78.994 156.718) (xy 78.994 134.112)
+			(xy 78.994 137.414) (xy 78.994 134.112)
 		)
 		(stroke
 			(width 0)
@@ -8328,7 +8328,7 @@
 			)
 		)
 	)
-	(global_label "MOSI to ESP32"
+	(global_label "MOSI"
 		(shape input)
 		(at 68.834 170.434 270)
 		(fields_autoplaced yes)
@@ -8340,7 +8340,7 @@
 		)
 		(uuid "11e3949e-7dc0-4eef-90e8-7f9f69130fdc")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 68.834 187.8728 90)
+			(at 68.834 178.0154 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8570,7 +8570,7 @@
 			)
 		)
 	)
-	(global_label "SCL{slash}SCK to ESP32"
+	(global_label "SCL{slash}SCK"
 		(shape input)
 		(at 66.04 170.18 270)
 		(fields_autoplaced yes)
@@ -8582,7 +8582,7 @@
 		)
 		(uuid "34632695-c5d0-4960-8191-7714173c01bd")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.04 191.6102 90)
+			(at 66.04 181.7528 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8922,7 +8922,7 @@
 			)
 		)
 	)
-	(global_label "STM32_reset"
+	(global_label "MCU_reset"
 		(shape input)
 		(at 153.67 178.816 270)
 		(fields_autoplaced yes)
@@ -8934,7 +8934,7 @@
 		)
 		(uuid "4b3975b2-77a2-4725-83c6-df79f133030b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 153.67 193.5335 90)
+			(at 153.67 191.5379 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9120,7 +9120,7 @@
 			)
 		)
 	)
-	(global_label "MISO from ESP32"
+	(global_label "MISO"
 		(shape input)
 		(at 74.422 170.434 270)
 		(fields_autoplaced yes)
@@ -9132,7 +9132,7 @@
 		)
 		(uuid "6bd85d5a-d100-46af-b871-9abae50adabf")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 74.422 190.3523 90)
+			(at 74.422 178.0154 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10550,7 +10550,7 @@
 			)
 		)
 	)
-	(global_label "CS to ESP32"
+	(global_label "CS"
 		(shape input)
 		(at 71.628 170.434 270)
 		(fields_autoplaced yes)
@@ -10562,7 +10562,7 @@
 		)
 		(uuid "f91667d5-09b3-4487-9413-30911ae7347b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 71.628 185.7561 90)
+			(at 71.628 175.8987 90)
 			(effects
 				(font
 					(size 1.27 1.27)
