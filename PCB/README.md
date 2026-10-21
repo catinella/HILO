@@ -9,6 +9,7 @@
 | ElectricProtections   | I/O Interface electric protection devices                   |
 | MasterControlUnit     | The HILO's brain                                            |
 
+
 ## 2.0 Decription
 By the hardware points of view, this HILO is composed by the following separated modules. Everyone of them is connected to
 the master one using pin-headers connectors and flat-cables.
@@ -18,7 +19,7 @@ the master one using pin-headers connectors and flat-cables.
 - Output lines electrical protection
 - (optional) Dedicated to the Analog lines PCB
 
-## 2.1 Components documentation:
+### 2.1 Components documentation:
 - [APS6404L-3SQR-SN](https://eu.mouser.com/datasheet/3/4815/1/APM_PSRAM_E3_QSPI%20(APS6404L-SQH%20KGD_PKG)%20v4.1.pdf)
 - [ESP32 WROOM-32-UE](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf)
 - [ESP32-DevKitC-V4](https://docs.espressif.com/projects/esp-idf/en/release-v4.2/esp32/hw-reference/esp32/get-started-devkitc.html)
@@ -28,6 +29,16 @@ the master one using pin-headers connectors and flat-cables.
 - [MCP23017](https://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf)
 - [LD1117S33TR](https://www.st.com/resource/en/datasheet/ld1117.pdf)
 - [74HC138](https://www.mouser.com/datasheet/2/308/74hc138.rev1-289073.pdf?srsltid=AU7gw4Xh3rp2TDjylkHruy-TmyljhEpg-pm_lEueWOH79XHFP8UTOZmN)
+- [ADA4096-2ARMZ](https://www.analog.com/en/products/ada4096-2.html)
 
-## 2.2 Logic scheme:
+### 2.2 Logic scheme:
 ![Overview Scheme](./images/overview_scheme.svg)
+
+
+## 3.0 GIT sub-modules initialization:
+Some great company (e.g., Espressif) provides official KiCad symbols and footprints for their products through public GIT repositories.
+To simplify project setup and avoid having to locate and download these repositories manually, I have included them as GIT submodules.
+To initialize and download the required submodules, run the following command from the repository root:
+
+	git submodule update --init --recursive
+
