@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "APS6404L-3SQR-SN")(type "KiCad")(uri "${KIPRJMOD}/../kicadCustomComponents/APS6404L-3SQR-SN/2026-10-15_15-16-17.kicad_sym")(options "")(descr ""))
+  (lib (name "Espresssif")(type "KiCad")(uri "${KIPRJMOD}/../kicadCustomComponents/espressif/symbols/Espressif.kicad_sym")(options "")(descr ""))
+)
