@@ -1581,6 +1581,16 @@
 	)
 	(wire
 		(pts
+			(xy 185.674 66.548) (xy 185.674 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "93066684-62ac-4d3f-9015-90738025d8db")
+	)
+	(wire
+		(pts
 			(xy 183.642 55.372) (xy 183.642 76.2)
 		)
 		(stroke
@@ -1681,6 +1691,16 @@
 	)
 	(wire
 		(pts
+			(xy 174.498 63.5) (xy 211.074 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d13ab919-164b-49e1-bb49-f3211aa96289")
+	)
+	(wire
+		(pts
 			(xy 197.866 103.124) (xy 197.866 88.9)
 		)
 		(stroke
@@ -1718,6 +1738,16 @@
 			(type default)
 		)
 		(uuid "d9970dee-25a6-4b8e-a4c3-b047d4ed451f")
+	)
+	(wire
+		(pts
+			(xy 211.074 66.548) (xy 185.674 66.548)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dc2f682f-7b23-4c59-a8a4-fa69c3750596")
 	)
 	(wire
 		(pts
@@ -1808,6 +1838,16 @@
 			(type default)
 		)
 		(uuid "ee677d59-9cce-4e21-b116-e64154bb838d")
+	)
+	(wire
+		(pts
+			(xy 185.674 66.04) (xy 174.498 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f36b2869-3f37-4050-9812-f3dd84d7af66")
 	)
 	(wire
 		(pts
@@ -1949,6 +1989,28 @@
 			)
 		)
 	)
+	(global_label "RS232-TX"
+		(shape input)
+		(at 211.074 63.5 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "4c91a3a3-68e1-4505-a71b-bc38ee87dd48")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 223.9167 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "ISRAM B-EN"
 		(shape input)
 		(at 211.074 84.582 0)
@@ -1989,6 +2051,28 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "RS232-RX"
+		(shape input)
+		(at 211.074 66.548 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8f99b788-f6aa-455b-8443-880fa795e157")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 224.2191 66.548 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -2199,7 +2283,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "PCM_Espressif:ESP32-DevKitC"
+		(property "Footprint" "Espressif:ESP32-DevKitC"
 			(at 141.478 137.16 0)
 			(effects
 				(font
@@ -2440,7 +2524,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
 			(at 115.824 53.848 90)
 			(effects
 				(font
@@ -2640,7 +2724,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 104.648 39.116 0)
 			(effects
 				(font
@@ -2776,7 +2860,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 214.122 111.76 0)
 			(effects
 				(font

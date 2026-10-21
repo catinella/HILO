@@ -3248,7 +3248,7 @@
 				)
 			)
 		)
-		(property "Footprint" "APS6404L-3SQR-SN_APY"
+		(property "Footprint" "APS6404L-3SQR-SN:APS6404L-3SQR-SN_APY"
 			(at 121.666 35.56 0)
 			(effects
 				(font
@@ -3341,7 +3341,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "74HC138:SOIC127P600X175-16N"
 			(at 226.822 131.318 0)
 			(effects
 				(font
@@ -3518,7 +3518,7 @@
 				)
 			)
 		)
-		(property "Footprint" "APS6404L-3SQR-SN_APY"
+		(property "Footprint" "APS6404L-3SQR-SN:APS6404L-3SQR-SN_APY"
 			(at 121.666 78.486 0)
 			(effects
 				(font
@@ -3608,7 +3608,7 @@
 				)
 			)
 		)
-		(property "Footprint" "APS6404L-3SQR-SN_APY"
+		(property "Footprint" "APS6404L-3SQR-SN:APS6404L-3SQR-SN_APY"
 			(at 240.792 89.662 0)
 			(effects
 				(font
@@ -3698,7 +3698,7 @@
 				)
 			)
 		)
-		(property "Footprint" "APS6404L-3SQR-SN_APY"
+		(property "Footprint" "APS6404L-3SQR-SN:APS6404L-3SQR-SN_APY"
 			(at 121.92 122.174 0)
 			(effects
 				(font
@@ -3788,7 +3788,7 @@
 				)
 			)
 		)
-		(property "Footprint" "APS6404L-3SQR-SN_APY"
+		(property "Footprint" "APS6404L-3SQR-SN:APS6404L-3SQR-SN_APY"
 			(at 121.92 186.69 0)
 			(effects
 				(font
@@ -4141,7 +4141,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "74HC138:SOIC127P600X175-16N"
 			(at 190.246 45.72 0)
 			(effects
 				(font
@@ -4253,7 +4253,7 @@
 				)
 			)
 		)
-		(property "Footprint" "APS6404L-3SQR-SN_APY"
+		(property "Footprint" "APS6404L-3SQR-SN:APS6404L-3SQR-SN_APY"
 			(at 121.666 100.076 0)
 			(effects
 				(font
@@ -4473,7 +4473,7 @@
 				)
 			)
 		)
-		(property "Footprint" "APS6404L-3SQR-SN_APY"
+		(property "Footprint" "APS6404L-3SQR-SN:APS6404L-3SQR-SN_APY"
 			(at 121.92 143.764 0)
 			(effects
 				(font
@@ -4563,7 +4563,7 @@
 				)
 			)
 		)
-		(property "Footprint" "APS6404L-3SQR-SN_APY"
+		(property "Footprint" "APS6404L-3SQR-SN:APS6404L-3SQR-SN_APY"
 			(at 121.666 57.15 0)
 			(effects
 				(font
@@ -4653,7 +4653,7 @@
 				)
 			)
 		)
-		(property "Footprint" "APS6404L-3SQR-SN_APY"
+		(property "Footprint" "APS6404L-3SQR-SN:APS6404L-3SQR-SN_APY"
 			(at 240.792 109.474 0)
 			(effects
 				(font
@@ -4743,7 +4743,7 @@
 				)
 			)
 		)
-		(property "Footprint" "APS6404L-3SQR-SN_APY"
+		(property "Footprint" "APS6404L-3SQR-SN:APS6404L-3SQR-SN_APY"
 			(at 121.92 165.1 0)
 			(effects
 				(font
