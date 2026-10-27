@@ -4896,16 +4896,6 @@
 	)
 	(wire
 		(pts
-			(xy 163.576 134.366) (xy 163.576 111.252)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0cea956e-0c71-4edc-a6e7-4e4b07ed4e66")
-	)
-	(wire
-		(pts
 			(xy 160.528 121.412) (xy 160.528 144.78)
 		)
 		(stroke
@@ -5683,16 +5673,6 @@
 			(type default)
 		)
 		(uuid "33d7c395-d5a2-44ea-96af-76d01309d547")
-	)
-	(wire
-		(pts
-			(xy 163.576 111.252) (xy 152.908 111.252)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "346103ce-2934-4a06-ae13-17a3cc49aaf3")
 	)
 	(wire
 		(pts
@@ -7826,7 +7806,7 @@
 	)
 	(wire
 		(pts
-			(xy 108.966 120.142) (xy 108.966 113.792)
+			(xy 108.966 122.936) (xy 108.966 113.792)
 		)
 		(stroke
 			(width 0)
@@ -8096,7 +8076,7 @@
 	)
 	(wire
 		(pts
-			(xy 41.148 122.936) (xy 68.834 122.936)
+			(xy 41.402 125.73) (xy 68.834 125.73)
 		)
 		(stroke
 			(width 0)
@@ -8416,7 +8396,7 @@
 	)
 	(wire
 		(pts
-			(xy 68.834 117.094) (xy 68.834 122.936)
+			(xy 68.834 117.094) (xy 68.834 125.73)
 		)
 		(stroke
 			(width 0)
@@ -8436,7 +8416,7 @@
 	)
 	(wire
 		(pts
-			(xy 41.148 120.142) (xy 108.966 120.142)
+			(xy 41.402 122.936) (xy 108.966 122.936)
 		)
 		(stroke
 			(width 0)
@@ -8826,16 +8806,6 @@
 	)
 	(wire
 		(pts
-			(xy 104.648 134.366) (xy 163.576 134.366)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cf52a1f8-2cb4-45b9-89eb-21c2b5e0254a")
-	)
-	(wire
-		(pts
 			(xy 267.716 94.488) (xy 246.38 94.488)
 		)
 		(stroke
@@ -8963,16 +8933,6 @@
 			(type default)
 		)
 		(uuid "d495f53a-5e98-402d-9f0a-08297cf113da")
-	)
-	(wire
-		(pts
-			(xy 104.648 128.524) (xy 104.648 134.366)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d4d5d33e-7a10-4b8d-acdc-a6dfb2fa808f")
 	)
 	(wire
 		(pts
@@ -9146,16 +9106,6 @@
 	)
 	(wire
 		(pts
-			(xy 41.148 128.524) (xy 104.648 128.524)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e646f49e-b5ff-4387-9e4f-ed4f6d318b7b")
-	)
-	(wire
-		(pts
 			(xy 144.018 141.986) (xy 144.018 146.558)
 		)
 		(stroke
@@ -9236,7 +9186,7 @@
 	)
 	(wire
 		(pts
-			(xy 41.148 125.73) (xy 71.628 125.73)
+			(xy 41.402 128.524) (xy 71.628 128.524)
 		)
 		(stroke
 			(width 0)
@@ -9606,7 +9556,7 @@
 	)
 	(wire
 		(pts
-			(xy 71.628 118.872) (xy 71.628 125.73)
+			(xy 71.628 118.872) (xy 71.628 128.524)
 		)
 		(stroke
 			(width 0)
@@ -9744,19 +9694,20 @@
 			)
 		)
 	)
-	(global_label "SCL{slash}SCK to ISRAM"
+	(global_label "SCL{slash}SCK"
 		(shape input)
-		(at 41.148 120.142 180)
+		(at 41.402 122.936 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 0 72 0 1)
 			)
 			(justify right)
 		)
 		(uuid "050bcde9-e0e9-4d22-891b-28d0284e7e12")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 20.141 120.142 0)
+			(at 29.8292 122.936 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9964,19 +9915,20 @@
 			)
 		)
 	)
-	(global_label "MISO from ISRAM"
+	(global_label "MISO"
 		(shape input)
 		(at 41.402 131.318 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 0 72 0 1)
 			)
 			(justify right)
 		)
 		(uuid "1daaee06-7c78-4b31-be47-5eb885dc40d7")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 21.9069 131.318 0)
+			(at 33.8206 131.318 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10224,28 +10176,6 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "ISRAM ADDR 0"
-		(shape input)
-		(at 41.148 128.524 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "353a5394-844d-400f-9644-67300506265b")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 24.4952 128.524 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
 				(hide yes)
 			)
 		)
@@ -10580,19 +10510,20 @@
 			)
 		)
 	)
-	(global_label "ISRAM B-EN"
+	(global_label "CS"
 		(shape input)
-		(at 41.148 125.73 180)
+		(at 41.402 128.524 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 0 72 0 1)
 			)
 			(justify right)
 		)
 		(uuid "512fe40c-3914-470d-b710-f8e654a9384b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 26.249 125.73 0)
+			(at 35.9373 128.524 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11196,19 +11127,20 @@
 			)
 		)
 	)
-	(global_label "MOSI to ISRAM"
+	(global_label "MOSI"
 		(shape input)
-		(at 41.148 122.936 180)
+		(at 41.402 125.73 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 0 72 0 1)
 			)
 			(justify right)
 		)
 		(uuid "9104dbeb-19a3-4f3d-8616-4284216a0c30")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 24.1324 122.936 0)
+			(at 33.8206 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
