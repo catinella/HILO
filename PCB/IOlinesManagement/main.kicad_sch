@@ -3625,7 +3625,7 @@
 			(uuid "ffed0260-bb3b-4ae0-aaef-066f8255fecf")
 		)
 		(instances
-			(project ""
+			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28"
 					(reference "#PWR02")
 					(unit 1)
@@ -3924,7 +3924,7 @@
 			(uuid "39a7ce38-c738-47af-b5b8-c1d6f95dff7a")
 		)
 		(instances
-			(project ""
+			(project "main"
 				(path "/e1cfbeff-02ed-44cc-ae25-dce7e255cb28"
 					(reference "DirControl_1")
 					(unit 1)
